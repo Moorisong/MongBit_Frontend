@@ -1,0 +1,14 @@
+.containerWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titleTextWrap {
+  position: relative;
+  left: -1.5rem;
+}
+
+.testCardComplete{
+  margin-top: 0.5rem;
+}

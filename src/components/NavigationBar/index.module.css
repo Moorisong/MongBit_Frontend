@@ -1,0 +1,124 @@
+.navWrap {
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logoDog {
+  width: 5rem;
+  height: 5.5rem;
+  display: inline-block;
+  background-image: url("../../../public/images/navigationBar/logo_dog.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.logoTitle {
+  width: 7rem;
+  height: 5.7rem;
+  margin-left: 0.3rem;
+  display: inline-block;
+  background-image: url("../../../public/images/navigationBar/logo_title.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+button {
+  width: 1rem;
+  height: 1rem;
+  border-style: none;
+  background-color: white;
+  background-image: url("../../../public/images/navigationBar/user.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.menuIcon {
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+  background-image: url("../../../public/images/navigationBar/menuIcon.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.menuWrap {
+  width: 200px;
+  position: absolute;
+  top: 5rem;
+  left: calc(50% - 300px);
+  transition: left 0.3s ease-in-out;
+  opacity: 0;
+  z-index: 2;
+  border: 1px solid rgb(242, 242, 242);
+  background-color: white;
+}
+
+ul:first-child {
+  margin-top: 2rem;
+  position: relative;
+  left: -0.5rem;
+}
+
+ul {
+  font-weight: bold;
+}
+
+li {
+  list-style: none;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+.ulWrap > li {
+  padding: 0.5rem 0 0.5rem 0;
+}
+
+.menuMoveToRight {
+  left: calc(50% - 200px);
+  top: 5rem;
+  opacity: 1;
+}
+
+.modal {
+  width: 400px;
+  position: absolute;
+  top: 5rem;
+  left: calc(50% - 200px);
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  z-index: 1;
+}
+
+.modalMoveToRight {
+  background-color: RGB(0, 0, 0, 0.5);
+  opacity: 1;
+}
+
+
+/* .modal {
+  width: 400px;
+  height: 100vh;
+  position: absolute;
+  top: 5rem;
+  left: calc(50%-400px);
+  opacity: 0;
+  z-index: 1;
+}
+
+.modalMoveToRight {
+  opacity: 1;
+  background-color: RGB(0, 0, 0, 0.5);
+} */
+
+.strokeWrap {
+  width: 100%;
+  position: relative;
+  top: -1rem;
+}

@@ -1,0 +1,14 @@
+.containerWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titleWithText {
+  position: relative;
+  left: -4rem;
+}
+
+.testWrap {
+  margin-top: 1.5rem;
+}

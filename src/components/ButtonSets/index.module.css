@@ -1,0 +1,67 @@
+.wrap {
+  display: inline-block;
+}
+
+.right {
+  position: relative;
+  right: 0;
+  top: 1rem;
+}
+
+.button {
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  border-style: none;
+  background-color: white;
+}
+
+span {
+  margin-right: 1rem;
+}
+
+.count {
+  color: #8f8f8f;
+  font-weight: normal;
+  position: relative;
+  top: -2px;
+  left: 0.3rem;
+  font-size: 14px;
+}
+
+.playCnt {
+  background-image: url('../../../public/images/buttonSet/playCnt.svg');
+}
+
+.likeCnt {
+  position: relative;
+  top: -0.1rem;
+  background-image: url('../../../public/images/buttonSet/likeCnt.svg');
+}
+
+.commentCnt {
+  background-image: url('../../../public/images/buttonSet/commentCnt.svg');
+}
+
+.stroke {
+  width: 100%;
+  height: 1px;
+  border-bottom: 1px solid #F1F1F1;
+  position: relative;
+  top: 1rem;
+}
+
+.goRandomStartBtn {
+  width: 400px;
+  height: 2.5rem;
+  font-size: 1rem;
+  border-radius: 1rem;
+  background-color: #FFC52F;
+  color: white;
+  text-decoration: none;
+  padding: 0.6rem 0 0 0;
+  margin: 2rem 0 1rem 0;
+  text-align: center;
+}
