@@ -13,7 +13,7 @@ export default function Main() {
             <div className={styles.titleWithText}>
                 <TitleWithText title='👀 랜덤 심리테스트' content='고민할 틈은 안줄테니 일단 플레이하고 생각하기' />
             </div>
-            <GoRandomStartBtn url='ksh' />
+            <GoRandomStartBtn url='ksh' str='아무거나 시작' />
             <div className={styles.testWrap}>
                 <TitleWithText title='🌟 심테의 근본, MBTI 검사' />
                 <TestCard thumbnailStr='전생에서 내가 공룡이었다면?' thumbnailClass='normal_thumbnail' titleBoxClass='normal_titleBox' />

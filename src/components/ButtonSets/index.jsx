@@ -10,6 +10,15 @@ function CardButton(props) {
   )
 }
 
+function TestButton(props) {
+  return (
+    <div>
+      <button className={`${styles[props.btnType]}`}></button>
+      <p>{props.str}</p>
+    </div>
+  )
+}
+
 function Stroke(props) {
   return (
     <div className={`${styles[props.moveClass]} ${styles.stroke}`} />
@@ -18,8 +27,8 @@ function Stroke(props) {
 
 function GoRandomStartBtn(props) {
   return (
-    <Link to={props.url} className={styles.goRandomStartBtn}> 아무거나 시작 &gt; </Link>
+    <Link to={props.url} className={styles.goRandomStartBtn}> {props.str} &gt; </Link>
   )
 }
 
-export { CardButton, Stroke, GoRandomStartBtn }
+export { CardButton, Stroke, GoRandomStartBtn, TestButton }

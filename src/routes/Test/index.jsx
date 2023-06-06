@@ -1,5 +1,5 @@
 import { TestCard } from '../../components/TestCard'
-import { CardButton, Stroke } from '../../components/ButtonSets'
+import { CardButton, Stroke, GoRandomStartBtn, TestButton } from '../../components/ButtonSets'
 import NavigationBar from '../../components/NavigationBar'
 import styles from './index.module.css'
 
@@ -20,6 +20,10 @@ export default function Test() {
           대충 심리테스트에 대한 설간대충 심리테스트에 대한 설명을 적는 공간<br />
           대충 심리테스트에심리테스트에 대한 설명을 적는 공간
         </p>
+        <GoRandomStartBtn url='ksh' str='테스트 시작' />
+
+        <TestButton btnType='bookMark' str='북마크' />
+
       </div>
     </div>
   )

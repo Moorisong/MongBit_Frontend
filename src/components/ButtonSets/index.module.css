@@ -51,6 +51,24 @@ span {
   background-image: url('../../../public/images/buttonSet/commentCnt.svg');
 }
 
+.bookMark {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/bookMark.svg');
+}
+
+.like {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/like.svg');
+}
+
+.share {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/share.svg');
+}
+
 .stroke {
   width: 100%;
   height: 1px;
