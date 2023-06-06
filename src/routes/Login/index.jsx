@@ -1,27 +1,34 @@
-// import axios from "axios"
+import axios from "axios"
+import { useEffect, useState } from "react";
 
 export default function Login() {
+  const [data, setData] = useState(null);
 
-  // const Rest_api_key = '3245a5f9cb8303814aadbe1eb65b2e73'
-  // const redirect_uri = 'http://http://localhost:8080/login/oauth2/kakao/code:3000/main'
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const url = 'https://kauth.kakao.com/oauth/authorize'
+        const param = {
+          client_id: '3245a5f9cb8303814aadbe1eb65b2e73',
+          redirect_uri: 'https://mongbit-willneiman.koyeb.app',
+          response_type: 'code'
+        }
+        const response = await axios.get(url);
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
 
-
-  const kakaoURL = 'https://kauth.kakao.com/oauth/authorize?client_id=3245a5f9cb8303814aadbe1eb65b2e73&redirect_uri=http://localhost:8080/login/oauth2/kakao/code&response_type=code'
-
-  const handleLogin = () => {
-    window.location.href = kakaoURL
-  }
-
-
-
-
+    fetchData();
+    console.log('data---> ', data)
+  }, []);
   return (
     <>
       <div>
         MongBit 로그인 페이지
       </div>
 
-      <button onClick={handleLogin}> 로그인 </button>
     </>
   )
 }
