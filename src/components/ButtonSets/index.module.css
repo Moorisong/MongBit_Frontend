@@ -4,8 +4,14 @@
 
 .right {
   position: relative;
-  right: 0;
-  top: 1rem;
+  left: 21.5rem;
+  top: -2rem;
+}
+
+.top {
+  position: relative !important;
+  top: -1rem !important;
+  margin-bottom: 0.3rem;
 }
 
 .button {

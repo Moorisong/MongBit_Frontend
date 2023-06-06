@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom'
 
 function CardButton(props) {
   return (
-    <div className={`${styles.wrap} ${styles[props.moveRightClass]}`}>
+    <div className={`${styles.wrap} ${styles[props.moveClass]}`}>
       <button className={`${styles.button} ${styles[props.btnType]}`}></button>
       <span className={styles.count}>1,143</span>
     </div>
   )
 }
 
-function Stroke() {
+function Stroke(props) {
   return (
-    <div className={styles.stroke} />
+    <div className={`${styles[props.moveClass]} ${styles.stroke}`} />
   )
 }
 
