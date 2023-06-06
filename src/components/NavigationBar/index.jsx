@@ -1,17 +1,43 @@
 import { useState, useEffect } from 'react'
 import { Stroke } from '../ButtonSets'
-import { Link } from 'react-router-dom'
+import { doGet } from "../../util/api";
+import { Link, useNavigate, useLocation, Navigate } from 'react-router-dom';
 import cx from 'classnames';
 import styles from './index.module.css'
 
 export default function NavigationBar() {
+    const location = useLocation()
+    const navigate = useNavigate()
+
     const [menuClicked, setMenuClicked] = useState(false)
     const [clientHeight, setClientHeight] = useState(0)
+    const [kakaoCode, setKakaoCode] = useState(null)
+
+    const url = 'https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/url'
+    // const url = 'https://kauth.kakao.com/oauth/authorize?client_id=3245a5f9cb8303814aadbe1eb65b2e73&redirect_uri=https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code&response_type=code'
+
 
     // height는 css에서 해결하기 ksh
     useEffect(() => {
         setClientHeight(document.documentElement.scrollHeight)
     }, [])
+
+    // useEffect(() => {
+    //     const param = new URLSearchParams(location.search)
+    //     const code = param.get('code')
+    //     setKakaoCode(code)
+    // }, [location.search])
+
+    useEffect(()=>{
+        console.log('kakaoCode===> ', kakaoCode)
+        if(kakaoCode){
+            window.location.href = kakaoCode
+
+
+
+        }
+
+    }, [kakaoCode])
 
     return (
         <>
@@ -22,7 +48,14 @@ export default function NavigationBar() {
                     <Link to='/main' className={styles.logoDog}></Link>
                     <Link to='/main' className={styles.logoTitle}></Link>
                 </div>
-                <button></button>
+                <button onClick={() => {
+
+                    doGet(url).then((res) => {
+                        setKakaoCode(res)
+                    })
+
+
+                }}></button>
             </div>
 
             <div className={cx(styles.menuWrap, { [styles.menuMoveToRight]: menuClicked })}
