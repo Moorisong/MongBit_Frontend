@@ -20,7 +20,6 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://mongbit-willneiman.koyeb.app",
   "eslintConfig": {
     "extends": [
       "react-app",
