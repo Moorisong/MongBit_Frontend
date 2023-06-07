@@ -7,6 +7,7 @@ import { TestSetLatest } from '../../components/TestSets'
 import { GoRandomStartBtn } from '../../components/ButtonSets'
 
 export default function Main() {
+    console.log("제발")
     return (
         <div className={styles.containerWrap}>
             <NavigationBar />
