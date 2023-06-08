@@ -9,8 +9,8 @@ export default function Test() {
     <div className={styles.wrap}>
       <NavigationBar />
       <div>
-        <TestCard thumbnailStr='나와 잘 맞는 MBTI' thumbnailClass='normal_thumbnail' titleBoxClass='normal_titleBox' />
-        <CardButton btnType='playCnt' moveRightClass='right' />
+        <TestCard thumbnailStr='나와 잘 맞는 MBTI' thumbnailClass='normal_thumbnail' titleBoxClass='test_on_titleBox' textClass='test_on_text' />
+        <CardButton btnType='playCnt' moveRightClass='right'/>
       </div>
     </div>
   )

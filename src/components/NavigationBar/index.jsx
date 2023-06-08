@@ -14,7 +14,7 @@ export default function NavigationBar() {
         // localStorage.setItem('token', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLquYDshqHtmIQiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg2MTk1ODc3fQ.V4czgPDat_2xO-HeuDtjCVL2Kz0fvkdDi344g0Wc2Xo')
         if (!localStorage.getItem('token')) {
             alert('로그인 해주세요')
-            return navigate('/')
+            return navigate('/login')
         }
         const token = localStorage.getItem('token')
         const decodedToken = jwtDecode(token)
@@ -27,7 +27,7 @@ export default function NavigationBar() {
 
         if (expirationTime < currentTime) {
             alert('로그인 해주세요')
-            return navigate('/')
+            return navigate('/login')
 
         } else {
             console.log('토큰 살아있음 !! --- 만료시간 : ', expirationTime)

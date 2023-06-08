@@ -12,10 +12,6 @@ export default function KakaoAuthHandle() {
       try {
         axios.get(`https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`)
           .then((response) => {
-            console.table(response.data)
-            console.log('response.data ---> ', response.data)
-            console.log('response.headers ---> ', response.headers)
-            console.log('response.headers[authorization] ---> ', response.headers['authorization'])
             localStorage.setItem('token', response.headers['authorization']);
             navigate('/')
           })

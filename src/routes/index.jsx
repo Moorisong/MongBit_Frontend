@@ -9,7 +9,7 @@ import MyPage from "./MyPage";
 function Router() {
   return (
     <Routes>
-      <Route path="/" element={<Login />} />
+      <Route path="/" element={<Main />} />
       <Route path="/login" element={<Login />} />
       <Route path="/main" element={<Main />} />
       <Route path="/test-list" element={<TestList />} />
