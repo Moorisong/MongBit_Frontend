@@ -4,8 +4,14 @@
 
 .right {
   position: relative;
-  right: 0;
-  top: 1rem;
+  left: 21.5rem;
+  top: -2rem;
+}
+
+.top {
+  position: relative !important;
+  top: -1rem !important;
+  margin-bottom: 0.3rem;
 }
 
 .button {
@@ -43,6 +49,24 @@ span {
 
 .commentCnt {
   background-image: url('../../../public/images/buttonSet/commentCnt.svg');
+}
+
+.bookMark {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/bookMark.svg');
+}
+
+.like {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/like.svg');
+}
+
+.share {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/share.svg');
 }
 
 .stroke {
