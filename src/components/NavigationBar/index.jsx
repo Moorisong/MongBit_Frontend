@@ -1,16 +1,33 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 import styles from './index.module.css';
+import jwtDecode from "jwt-decode";
+
 
 export default function NavigationBar() {
+    const navigate = useNavigate()
     const [menuClicked, setMenuClicked] = useState(false);
 
-    const url = 'https://kauth.kakao.com/oauth/authorize?client_id=3245a5f9cb8303814aadbe1eb65b2e73&redirect_uri=https://mongbit-frontend-moorisong.koyeb.app/login/oauth2/kakao/code&response_type=code'
+    function checkJwtToken(){
+        const token = localStorage.getItem('token')
+        const decodedToken = jwtDecode(token)
 
-    const kakaoLogin = () => {
-        window.location.href = url;
-    };
+        const expiration = decodedToken.exp;
+        const expirationTime = new Date(expiration * 1000);
+        const currentTime = new Date()
+
+        console.log('decoded-----> ', decodedToken)
+
+        if (expirationTime < currentTime) {
+          alert('로그인 해주세요')
+          navigate('/')
+
+        } else {
+          console.log('토큰 살아있음 !! --- 만료시간 : ', expirationTime)
+          navigate('/mypage')
+        }
+      }
 
     return (
         <>
@@ -20,7 +37,7 @@ export default function NavigationBar() {
                     <Link to="/main" className={styles.logoDog}></Link>
                     <Link to="/main" className={styles.logoTitle}></Link>
                 </div>
-                <button onClick={kakaoLogin}></button>
+                <button onClick={checkJwtToken}></button>
             </div>
 
             <div className={cx(styles.menuWrap, { [styles.menuMoveToRight]: menuClicked })}>

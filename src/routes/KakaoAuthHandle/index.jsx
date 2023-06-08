@@ -9,12 +9,12 @@ export default function KakaoAuthHandle() {
 
   useEffect(() => {
 
-    const handleKakaoAuth = async () => {
+    const handleKakaoAuth = () => {
       if (code) {
         try {
-          const response = await axios.get(`https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`);
-          console.log('response.data ---> ', response.data)
-          localStorage.setItem('token', response.data);
+          const response = axios.get(`https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`);
+          console.log('response.data ---> ', response.headers['token'])
+          localStorage.setItem('token', response.headers['token']);
           navigate('/')
         } catch (error) {
           console.error(error);
