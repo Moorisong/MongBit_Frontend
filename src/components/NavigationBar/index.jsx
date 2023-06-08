@@ -3,13 +3,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 import styles from './index.module.css';
 import jwtDecode from "jwt-decode";
+import axios from 'axios';
 
 
 export default function NavigationBar() {
     const navigate = useNavigate()
     const [menuClicked, setMenuClicked] = useState(false);
 
-    function checkJwtToken(){
+    function checkJwtToken() {
+        // localStorage.setItem('token', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLquYDshqHtmIQiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg2MTk1ODc3fQ.V4czgPDat_2xO-HeuDtjCVL2Kz0fvkdDi344g0Wc2Xo')
+        if (!localStorage.getItem('token')) {
+            alert('로그인 해주세요')
+            return navigate('/')
+        }
         const token = localStorage.getItem('token')
         const decodedToken = jwtDecode(token)
 
@@ -20,15 +26,14 @@ export default function NavigationBar() {
         console.log('decoded-----> ', decodedToken)
 
         if (expirationTime < currentTime) {
-          alert('로그인 해주세요')
-          navigate('/')
+            alert('로그인 해주세요')
+            return navigate('/')
 
         } else {
-          console.log('토큰 살아있음 !! --- 만료시간 : ', expirationTime)
-          navigate('/mypage')
+            console.log('토큰 살아있음 !! --- 만료시간 : ', expirationTime)
+            navigate('/mypage')
         }
-      }
-
+    }
     return (
         <>
             <div className={styles.navWrap}>

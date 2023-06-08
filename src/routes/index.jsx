@@ -16,7 +16,6 @@ function Router() {
       <Route path="/test" element={<Test />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/login/oauth2/kakao/code" element={<KakaoAuthHandle />} />
-
     </Routes>
   );
 }

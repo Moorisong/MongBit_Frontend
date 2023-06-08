@@ -8,21 +8,21 @@ export default function KakaoAuthHandle() {
   const code = searchParams.get('code');
 
   useEffect(() => {
-
-    const handleKakaoAuth = () => {
-      if (code) {
-        try {
-          const response = axios.get(`https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`);
-          console.log('response.data ---> ', response.headers['token'])
-          localStorage.setItem('token', response.headers['token']);
-          navigate('/')
-        } catch (error) {
-          console.error(error);
-        }
+    if (code) {
+      try {
+        axios.get(`https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`)
+          .then((response) => {
+            console.table(response.data)
+            console.log('response.data ---> ', response.data)
+            console.log('response.headers ---> ', response.headers)
+            console.log('response.headers[authorization] ---> ', response.headers['authorization'])
+            localStorage.setItem('token', response.headers['authorization']);
+            navigate('/')
+          })
+      } catch (error) {
+        console.error(error);
       }
-    };
-
-    handleKakaoAuth();
+    }
   }, []);
 
   return (
