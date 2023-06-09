@@ -2,16 +2,38 @@
   display: inline-block;
 }
 
-.right {
+
+
+.stroke_onTest_top {
+  position: relative !important;
+  top: -1rem !important;
+  margin-bottom: 0.3rem;
+}
+
+
+.button_onTest_right {
   position: relative;
   left: 21.5rem;
   top: -2rem;
 }
 
-.top {
+.stroke_onTest_bottom {
   position: relative !important;
-  top: -1rem !important;
+  top: 3rem !important;
   margin-bottom: 0.3rem;
+}
+
+.comment_onTest {
+  position: relative;
+  left: -10.3rem;
+  top: 4rem;
+}
+.commentText_onTest{
+  color: #8f8f8f;
+  font-weight: normal;
+  position: relative;
+  top: -0.2rem;
+  font-size: 14px;
 }
 
 .button {
@@ -24,8 +46,12 @@
   background-color: white;
 }
 
-span {
+
+.span {
   margin-right: 1rem;
+}
+.span_onTest{
+margin-right: 0.5rem;
 }
 
 .count {
@@ -49,6 +75,10 @@ span {
 
 .commentCnt {
   background-image: url('../../../public/images/buttonSet/commentCnt.svg');
+}
+
+.comment {
+  background-image: url('../../../public/images/test/comment.svg');
 }
 
 .bookMark {

@@ -5,7 +5,17 @@ function CardButton(props) {
   return (
     <div className={`${styles.wrap} ${styles[props.moveClass]}`}>
       <button className={`${styles.button} ${styles[props.btnType]}`}></button>
-      <span className={styles.count}>1,143</span>
+      {
+        props.btnType === 'comment' || <span className={`${styles.span} ${styles.count}`}>1,143</span>
+      }
+      {
+        props.btnType === 'comment' &&
+        <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>댓글</span>
+      }
+        {
+        props.btnType === 'comment' &&
+        <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>33</span>
+      }
     </div>
   )
 }
@@ -13,7 +23,7 @@ function CardButton(props) {
 function TestButton(props) {
   return (
     <div>
-      <button className={`${styles[props.btnType]}`}></button>
+      <button className={`${styles.button} ${styles[props.btnType]}`}></button>
       <p>{props.str}</p>
     </div>
   )
