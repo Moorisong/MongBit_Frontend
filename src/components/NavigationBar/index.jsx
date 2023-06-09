@@ -1,16 +1,51 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 import styles from './index.module.css';
+import jwtDecode from "jwt-decode";
+import axios from 'axios';
+import { TOKEN_NAME } from '../../constants/constant';
+import { useRecoilState } from 'recoil'
+import { logInState } from '../../atom';
+
 
 export default function NavigationBar() {
+    const navigate = useNavigate()
     const [menuClicked, setMenuClicked] = useState(false);
+    const [logIn, setLogIn] = useRecoilState(logInState)
 
-    const url = 'https://kauth.kakao.com/oauth/authorize?client_id=3245a5f9cb8303814aadbe1eb65b2e73&redirect_uri=https://mongbit-frontend-moorisong.koyeb.app/login/oauth2/kakao/code&response_type=code'
+    function checkJwtToken() {
+        // localStorage.setItem(TOKEN_NAME, 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLquYDshqHtmIQiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg2MTk1ODc3fQ.V4czgPDat_2xO-HeuDtjCVL2Kz0fvkdDi344g0Wc2Xo')
+        if (!localStorage.getItem(TOKEN_NAME)) {
+            alert('로그인 해주세요')
+            return navigate('/login')
+        }
+        const token = localStorage.getItem(TOKEN_NAME)
+        const decodedToken = jwtDecode(token)
 
-    const kakaoLogin = () => {
-        window.location.href = url;
-    };
+        const expiration = decodedToken.exp;
+        const expirationTime = new Date(expiration * 1000);
+        const currentTime = new Date()
+
+        console.log('decoded-----> ', decodedToken)
+
+        if (expirationTime < currentTime) {
+            alert('로그인 해주세요')
+            return navigate('/login')
+
+        } else {
+            console.log('토큰 살아있음 !! --- 만료시간 : ', expirationTime)
+            navigate('/mypage')
+        }
+    }
+
+    function clickLogOut() {
+        localStorage.setItem(TOKEN_NAME, '')
+        setLogIn(false)
+        alert('로그아웃 되었습니다')
+        console.log('로그아웃됨 ---- ')
+        navigate('/main')
+    }
 
     return (
         <>
@@ -20,7 +55,7 @@ export default function NavigationBar() {
                     <Link to="/main" className={styles.logoDog}></Link>
                     <Link to="/main" className={styles.logoTitle}></Link>
                 </div>
-                <button onClick={kakaoLogin}></button>
+                <button className={styles.myPageBtn} onClick={checkJwtToken}></button>
             </div>
 
             <div className={cx(styles.menuWrap, { [styles.menuMoveToRight]: menuClicked })}>
@@ -39,6 +74,13 @@ export default function NavigationBar() {
                     <li>
                         <ul className={styles.ulWrap}>개발자 정보
                             <li>몽몽이 크루</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                                <button onClick={clickLogOut}>로그아웃</button>
+                            </li>
                         </ul>
                     </li>
                 </ul>

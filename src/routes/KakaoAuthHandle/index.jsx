@@ -1,31 +1,31 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { TOKEN_NAME } from '../../constants/constant';
+import { useRecoilState } from 'recoil'
+import { logInState } from "../../atom";
 
 export default function KakaoAuthHandle() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
 
-
-  console.log("code--> ", code)
+  const [logIn, setLogIn] = useRecoilState(logInState)
 
   useEffect(() => {
-
-    const handleKakaoAuth = async () => {
-      if (code) {
-        try {
-          const response = await axios.get(`https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`);
-          console.log('res--> ', response)
-          localStorage.setItem('token', response.headers.authorization);
-          // navigate('/');
-        } catch (error) {
-          console.error(error);
-        }
+    if (code) {
+      try {
+        axios.get(`https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`)
+          .then((response) => {
+            localStorage.setItem(TOKEN_NAME, response.headers['authorization']);
+            setLogIn(true)
+            console.log('로그인 됨 ----')
+            navigate('/')
+          })
+      } catch (error) {
+        console.error(error);
       }
-    };
-
-    handleKakaoAuth();
+    }
   }, []);
 
   return (

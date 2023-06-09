@@ -27,7 +27,7 @@
   background-size: contain;
 }
 
-button {
+.myPageBtn {
   width: 1rem;
   height: 1rem;
   border-style: none;
