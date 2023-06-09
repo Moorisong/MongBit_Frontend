@@ -1,5 +1,5 @@
 import { TestCard } from '../../components/TestCard'
-import { CardButton, Stroke, GoRandomStartBtn, TestButton } from '../../components/ButtonSets'
+import { CardButton, Stroke, GoRandomStartBtn, TestButton, AddCommentButton, Comment } from '../../components/ButtonSets'
 import NavigationBar from '../../components/NavigationBar'
 import styles from './index.module.css'
 
@@ -16,7 +16,7 @@ export default function Test() {
         <TestCard thumbnailStr='나와 잘 맞는 MBTI' thumbnailClass='normal_thumbnail' titleBoxClass='normal_titleBox' />
         <CardButton btnType='playCnt' moveClass='button_onTest_right' />
         <Stroke moveClass='stroke_onTest_top' />
-        <p>
+        <p className={styles.contentTextWrap}>
           대충 심리테스트에 대한 설명을 적는 공간 <br />
           대충 심리테스트에 대한 설명을 적는 공간<br />
           <br />
@@ -39,6 +39,13 @@ export default function Test() {
       {/* 댓글 */}
       <CardButton btnType='comment' moveClass='comment_onTest' />
       <input type="text" className={styles.commentInput} placeholder='나쁜말 하면 신고합니다 ㅇㅅㅇ' />
+      <AddCommentButton />
+      <div className={styles.commentWrap}>
+        <Comment />
+        <Comment />
+        <Comment />
+        <Comment />
+      </div>
     </div>
   )
 }
