@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 import styles from './index.module.css';
@@ -9,14 +9,15 @@ import axios from 'axios';
 export default function NavigationBar() {
     const navigate = useNavigate()
     const [menuClicked, setMenuClicked] = useState(false);
+    const [logInState, setLogInState] = useState(false)
 
     function checkJwtToken() {
-        // localStorage.setItem('token', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLquYDshqHtmIQiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg2MTk1ODc3fQ.V4czgPDat_2xO-HeuDtjCVL2Kz0fvkdDi344g0Wc2Xo')
-        if (!localStorage.getItem('token')) {
+        // localStorage.setItem('mongBitToken', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLquYDshqHtmIQiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg2MTk1ODc3fQ.V4czgPDat_2xO-HeuDtjCVL2Kz0fvkdDi344g0Wc2Xo')
+        if (!localStorage.getItem('mongBitToken')) {
             alert('로그인 해주세요')
             return navigate('/login')
         }
-        const token = localStorage.getItem('token')
+        const token = localStorage.getItem('mongBitToken')
         const decodedToken = jwtDecode(token)
 
         const expiration = decodedToken.exp;
@@ -34,6 +35,13 @@ export default function NavigationBar() {
             navigate('/mypage')
         }
     }
+
+    function clickLogOut(){
+        localStorage.setItem('mongBitToken', '')
+        alert('로그아웃 되었습니다')
+        navigate('/main')
+    }
+
     return (
         <>
             <div className={styles.navWrap}>
@@ -42,7 +50,7 @@ export default function NavigationBar() {
                     <Link to="/main" className={styles.logoDog}></Link>
                     <Link to="/main" className={styles.logoTitle}></Link>
                 </div>
-                <button onClick={checkJwtToken}></button>
+                <button className={styles.myPageBtn} onClick={checkJwtToken}></button>
             </div>
 
             <div className={cx(styles.menuWrap, { [styles.menuMoveToRight]: menuClicked })}>
@@ -61,6 +69,13 @@ export default function NavigationBar() {
                     <li>
                         <ul className={styles.ulWrap}>개발자 정보
                             <li>몽몽이 크루</li>
+                        </ul>
+                    </li>
+                    <li>
+                        <ul>
+                            <li>
+                            <button onClick={clickLogOut}>로그아웃</button>
+                            </li>
                         </ul>
                     </li>
                 </ul>

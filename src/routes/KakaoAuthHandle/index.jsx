@@ -12,7 +12,7 @@ export default function KakaoAuthHandle() {
       try {
         axios.get(`https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`)
           .then((response) => {
-            localStorage.setItem('token', response.headers['authorization']);
+            localStorage.setItem('mongBitToken', response.headers['authorization']);
             navigate('/')
           })
       } catch (error) {
