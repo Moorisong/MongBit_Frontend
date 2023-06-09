@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import { TOKEN_NAME } from '../../constants/constant';
 
 export default function KakaoAuthHandle() {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ export default function KakaoAuthHandle() {
       try {
         axios.get(`https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`)
           .then((response) => {
-            localStorage.setItem('mongBitToken', response.headers['authorization']);
+            localStorage.setItem(TOKEN_NAME, response.headers['authorization']);
             navigate('/')
           })
       } catch (error) {

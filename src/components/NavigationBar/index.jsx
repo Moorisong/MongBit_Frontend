@@ -4,6 +4,7 @@ import cx from 'classnames';
 import styles from './index.module.css';
 import jwtDecode from "jwt-decode";
 import axios from 'axios';
+import { TOKEN_NAME } from '../../constants/constant';
 
 
 export default function NavigationBar() {
@@ -12,12 +13,12 @@ export default function NavigationBar() {
     const [logInState, setLogInState] = useState(false)
 
     function checkJwtToken() {
-        // localStorage.setItem('mongBitToken', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLquYDshqHtmIQiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg2MTk1ODc3fQ.V4czgPDat_2xO-HeuDtjCVL2Kz0fvkdDi344g0Wc2Xo')
-        if (!localStorage.getItem('mongBitToken')) {
+        // localStorage.setItem(TOKEN_NAME, 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLquYDshqHtmIQiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg2MTk1ODc3fQ.V4czgPDat_2xO-HeuDtjCVL2Kz0fvkdDi344g0Wc2Xo')
+        if (!localStorage.getItem(TOKEN_NAME)) {
             alert('로그인 해주세요')
             return navigate('/login')
         }
-        const token = localStorage.getItem('mongBitToken')
+        const token = localStorage.getItem(TOKEN_NAME)
         const decodedToken = jwtDecode(token)
 
         const expiration = decodedToken.exp;
@@ -37,7 +38,7 @@ export default function NavigationBar() {
     }
 
     function clickLogOut(){
-        localStorage.setItem('mongBitToken', '')
+        localStorage.setItem(TOKEN_NAME, '')
         alert('로그아웃 되었습니다')
         navigate('/main')
     }
