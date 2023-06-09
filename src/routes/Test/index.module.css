@@ -35,6 +35,10 @@
   font-size: 12px;
   color: #979797;
 }
+.commentInput::placeholder{
+  color: #797979;
+  padding-left: 1rem;
+}
 
 p {
   font-size: 0.8rem;
