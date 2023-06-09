@@ -5,8 +5,11 @@ import Footer from '../../components/Footer'
 import { TestCard } from '../../components/TestCard'
 import { TestSetLatest } from '../../components/TestSets'
 import { GoRandomStartBtn } from '../../components/ButtonSets'
+import { useRecoilValue } from 'recoil'
+import {logInState} from '../../atom'
 
 export default function Main() {
+    console.log('전역에서 관리되는 로그인 상태 ---> ', useRecoilValue(logInState))
     return (
         <div className={styles.containerWrap}>
             <NavigationBar />

@@ -5,12 +5,14 @@ import styles from './index.module.css';
 import jwtDecode from "jwt-decode";
 import axios from 'axios';
 import { TOKEN_NAME } from '../../constants/constant';
+import { useRecoilState } from 'recoil'
+import { logInState } from '../../atom';
 
 
 export default function NavigationBar() {
     const navigate = useNavigate()
     const [menuClicked, setMenuClicked] = useState(false);
-    const [logInState, setLogInState] = useState(false)
+    const [logIn, setLogIn] = useRecoilState(logInState)
 
     function checkJwtToken() {
         // localStorage.setItem(TOKEN_NAME, 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLquYDshqHtmIQiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg2MTk1ODc3fQ.V4czgPDat_2xO-HeuDtjCVL2Kz0fvkdDi344g0Wc2Xo')
@@ -37,9 +39,11 @@ export default function NavigationBar() {
         }
     }
 
-    function clickLogOut(){
+    function clickLogOut() {
         localStorage.setItem(TOKEN_NAME, '')
+        setLogIn(false)
         alert('로그아웃 되었습니다')
+        console.log('로그아웃됨 ---- ')
         navigate('/main')
     }
 
@@ -75,7 +79,7 @@ export default function NavigationBar() {
                     <li>
                         <ul>
                             <li>
-                            <button onClick={clickLogOut}>로그아웃</button>
+                                <button onClick={clickLogOut}>로그아웃</button>
                             </li>
                         </ul>
                     </li>
