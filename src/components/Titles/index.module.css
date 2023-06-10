@@ -1,7 +1,7 @@
 .title {
   font-size: 1.2rem;
   font-weight: bold;
-  margin-bottom: 1rem;
+  margin: 0 0 1rem 0;
 }
 
 .content {
@@ -9,4 +9,12 @@
   color: #8f8f8f;
   position: relative;
   top: 0.4rem;
+}
+
+.withContent {
+  margin-bottom: 0rem;
+}
+
+.marginBottom {
+  margin-bottom: 2rem;
 }
