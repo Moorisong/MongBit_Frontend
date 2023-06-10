@@ -21,7 +21,7 @@
 }
 
 .comment_onTest {
-  width: 400px;
+  width: 370px;
   position: relative;
   top: 4rem;
 }
@@ -104,7 +104,7 @@
 }
 
 .commentBtnWrap {
-  width: 400px;
+  width: 370px;
   display: flex;
   flex-direction: row;
   justify-content: end;
@@ -139,7 +139,7 @@
 }
 
 .goRandomStartBtn {
-  width: 400px;
+  width: 370px;
   height: 2.5rem;
   font-size: 1rem;
   border-radius: 1rem;

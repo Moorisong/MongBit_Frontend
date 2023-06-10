@@ -4,11 +4,14 @@
   align-items: center;
 }
 
-.titleTextWrap {
-  position: relative;
-  left: -1.5rem;
+.testCardComplete {
+  margin-top: 0.5rem;
 }
 
-.testCardComplete{
-  margin-top: 0.5rem;
+.titleTextWrap {
+  width: 370px;
+}
+
+.marginBottom {
+  margin-bottom: 2rem;
 }

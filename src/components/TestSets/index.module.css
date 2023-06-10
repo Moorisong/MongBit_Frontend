@@ -1,6 +1,12 @@
 .buttonWrap {
-  width: 400px;
+  width: 370px;
   position: relative;
   top: -1.3rem;
   margin-bottom: 1rem;
+}
+
+.move_testList {
+  position: relative;
+  top: 1.5rem;
+  margin-top: 0.1rem;
 }

@@ -1,3 +1,4 @@
+import styles from './index.module.css'
 import axios from "axios"
 import { useEffect, useState } from "react";
 import { doGet } from "../../util/api";
@@ -20,7 +21,12 @@ export default function Login() {
 
   return (
     <div>
-      <button onClick={kakaoLogin}>login</button>
+      <p className={styles.textSamll}>3초만에 로그인하고</p>
+      <div className={styles.textBig}>
+        <p>무료로 성격 검사</p>
+        <p>친구에게 공유까지</p>
+      </div>
+      <button className={styles.kakaoLogInBtn} onClick={kakaoLogin}></button>
     </div>
   )
 }
