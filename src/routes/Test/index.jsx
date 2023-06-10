@@ -19,7 +19,7 @@ export default function Test() {
         <p className={styles.contentTextWrap}>
           대충 심리테스트에 대한 설명을 적는 공간 <br />
           대충 심리테스트에 대한 설명을 적는 공간<br />
-          <br />
+          <br />                                                                                                                                                                                                                                      
           대충 심리테스트에 대한 설명을 적는 공간<br />
           대충 심리테스트에 대한 설간대충 심리테스트에 대한 설명을 적는 공간<br />
           대충 심리테스트에심리테스트에 대한 설명을 적는 공간
