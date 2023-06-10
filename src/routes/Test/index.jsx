@@ -1,6 +1,8 @@
 import { TestCard } from '../../components/TestCard'
 import { CardButton, Stroke, GoRandomStartBtn, TestButton, AddCommentButton, Comment } from '../../components/ButtonSets'
+import { TYPE_ON_TEST } from '../../constants/constant'
 import NavigationBar from '../../components/NavigationBar'
+import Footer from '../../components/Footer'
 import styles from './index.module.css'
 
 export default function Test() {
@@ -19,7 +21,7 @@ export default function Test() {
         <p className={styles.contentTextWrap}>
           대충 심리테스트에 대한 설명을 적는 공간 <br />
           대충 심리테스트에 대한 설명을 적는 공간<br />
-          <br />                                                                                                                                                                                                                                      
+          <br />
           대충 심리테스트에 대한 설명을 적는 공간<br />
           대충 심리테스트에 대한 설간대충 심리테스트에 대한 설명을 적는 공간<br />
           대충 심리테스트에심리테스트에 대한 설명을 적는 공간
@@ -46,6 +48,7 @@ export default function Test() {
         <Comment />
         <Comment />
       </div>
+      <Footer type={TYPE_ON_TEST} />
     </div>
   )
 }
