@@ -44,7 +44,7 @@ export function Comment() {
       <button className={`${styles.userImg}`}></button>
       <span>김송현 &nbsp; · &nbsp; </span>
       <span>1일 전</span>
-      <p>이런 걸 만들다니 너무 멋져요. 너무 마음에 드는데요? 넘 ㅜ좋아요!!</p>
+      <p>남친 구해요 남친 구해요</p>
     </div>
   )
 }

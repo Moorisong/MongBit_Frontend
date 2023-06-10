@@ -1,0 +1,8 @@
+.kakaoLogInBtn{
+  width: 370px;
+  height: 2rem;
+  background-image: url('../../../public/images/logIn/kakaoLogInBtn.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
