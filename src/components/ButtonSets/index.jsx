@@ -24,7 +24,7 @@ export function TestButton(props) {
   return (
     <div>
       <button className={`${styles.button} ${styles[props.btnType]}`}></button>
-      <p>{props.str}</p>
+      <p className={styles.btnNameText}>{props.str}</p>
     </div>
   )
 }
@@ -44,7 +44,7 @@ export function Comment() {
       <button className={`${styles.userImg}`}></button>
       <span>김송현 &nbsp; · &nbsp; </span>
       <span>1일 전</span>
-      <p>이런 걸 만들다니 우리의 미래(혹은 조장의 머리)는 이미 박살난 게 아닐까요?</p>
+      <p>이런 걸 만들다니 너무 멋져요. 너무 마음에 드는데요? 넘 ㅜ좋아요!!</p>
     </div>
   )
 }
@@ -60,4 +60,3 @@ export function GoRandomStartBtn(props) {
     <Link to={props.url} className={styles.goRandomStartBtn}> {props.str} &gt; </Link>
   )
 }
-
