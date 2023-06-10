@@ -1,3 +1,8 @@
+.wrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .kakaoLogInBtn{
   width: 370px;
   height: 2rem;
@@ -5,4 +10,41 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+  position: relative;
+  top: 5rem;
+}
+
+.textSamll{
+  color: black;
+  font-size: 0.8rem;
+  margin: 2rem 0 1rem 0;
+}
+
+.textBig{
+  color: black;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 4rem;
+}
+
+.logoText{
+  color: #979797;
+  font-size: 0.7rem;
+  margin-top: 1rem;
+}
+
+.docs {
+  width: 370px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.docs p {
+  width: 5rem;
+  color: #979797;
+  font-size: 0.7rem;
+  font-weight: 400;
+  position: relative;
+  top: 10rem;
+  
 }

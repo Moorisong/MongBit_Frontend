@@ -1,8 +1,8 @@
 import styles from './index.module.css'
-import { TYPE_ON_TEST } from '../../constants/constant'
+import { TYPE_LOGIN, TYPE_ON_TEST } from '../../constants/constant'
 
 export default function Footer(props) {
-  const cn = props.type === TYPE_ON_TEST ? `${styles.wrap} ${styles.moveBottom}` : `${styles.wrap}`
+  const cn = props.type === TYPE_ON_TEST ? `${styles.wrap} ${styles.moveBottom}` : props.type === TYPE_LOGIN ? `${styles.wrap} ${styles.moveBottom_2}` : `${styles.wrap}`
   return (
     <div className={cn}>
       <div className={styles.upper}>

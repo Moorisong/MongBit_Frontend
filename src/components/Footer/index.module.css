@@ -8,16 +8,20 @@
   bottom: 0;
   margin-top: 2rem;
 }
-.moveBottom{
+.moveBottom {
   position: relative;
   top: 5rem;
 }
+.moveBottom_2 {
+  position: relative;
+  top: 10rem;
+}
 
-.upper>p {
+.upper > p {
   margin-bottom: 0.1rem;
 }
 
-.upper>p:last-child {
+.upper > p:last-child {
   margin: 0.7rem 0 1rem 0;
 }
 
@@ -28,11 +32,11 @@
   justify-content: space-between;
 }
 
-.under>img {
+.under > img {
   width: 1rem;
   height: 1rem;
 }
 
-.under>p {
+.under > p {
   display: inline-block;
 }

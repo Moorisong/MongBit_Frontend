@@ -3,11 +3,10 @@ import { TitleWithText } from '../../components/Titles'
 import NavigationBar from '../../components/NavigationBar'
 import Footer from '../../components/Footer'
 import { TestCard } from '../../components/TestCard'
-import { TestSetLatest } from '../../components/TestSets'
 import { GoRandomStartBtn } from '../../components/ButtonSets'
 import { useRecoilValue } from 'recoil'
 import { logInState } from '../../atom'
-import { TITLE_WITH_CONTENT, TYPE_LATEST_MAIN, TYPE_NORMAL_MAIN } from '../../constants/constant'
+import { TITLE_WITH_CONTENT, TYPE_LATEST_MAIN } from '../../constants/constant'
 
 export default function Main() {
     console.log('전역에서 관리되는 로그인 상태 ---> ', useRecoilValue(logInState))
