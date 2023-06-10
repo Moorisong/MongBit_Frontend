@@ -1,8 +1,10 @@
 import styles from './index.module.css'
+import { TYPE_LOGIN, TYPE_ON_TEST } from '../../constants/constant'
 
-export default function Footer() {
+export default function Footer(props) {
+  const cn = props.type === TYPE_ON_TEST ? `${styles.wrap} ${styles.moveBottom}` : props.type === TYPE_LOGIN ? `${styles.wrap} ${styles.moveBottom_2}` : `${styles.wrap}`
   return (
-    <div className={styles.wrap}>
+    <div className={cn}>
       <div className={styles.upper}>
         <p>몽뭉이 크루 &nbsp; | &nbsp; 공동 대표 : 김송현, 임건재, 김정은, 안혜지 &nbsp; | &nbsp; 사업자 없음</p>
         <p>서울 관악구 신림역 인근 카페 3층 스터디존에서 만듦</p>

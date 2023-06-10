@@ -1,13 +1,11 @@
 .inline {
   display: inline-block;
+  margin-right: 0.3rem;
 }
 
-.marginLeft {
-  margin: 0 0.3rem 0 0.3rem;
-}
 
 .normal_thumbnail {
-  width: 400px;
+  width: 370px;
   height: 15rem;
   background-image: url("../../../public/images/test/card.jpeg");
   background-repeat: no-repeat;
@@ -16,7 +14,7 @@
 }
 
 .latest_thumbnail {
-  width: 125px;
+  width: 120px;
   height: 15rem;
   background-image: url("../../../public/images/test/card.jpeg");
   background-repeat: no-repeat;
@@ -25,7 +23,7 @@
 }
 
 .normal_titleBox {
-  width: 400px;
+  width: 370px;
   height: 2.5rem;
   position: relative;
   top: -2.5rem;
@@ -34,7 +32,7 @@
 }
 
 .latest_titleBox {
-  width: 125px;
+  width: 120px;
   height: 2.5rem;
   position: relative;
   top: -2.5rem;
@@ -43,7 +41,7 @@
 }
 
 .test_on_titleBox {
-  width: 125px;
+  width: 120px;
   height: 2.5rem;
 }
 

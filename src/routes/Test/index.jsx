@@ -1,6 +1,8 @@
 import { TestCard } from '../../components/TestCard'
 import { CardButton, Stroke, GoRandomStartBtn, TestButton, AddCommentButton, Comment } from '../../components/ButtonSets'
+import { TYPE_ON_TEST } from '../../constants/constant'
 import NavigationBar from '../../components/NavigationBar'
+import Footer from '../../components/Footer'
 import styles from './index.module.css'
 
 export default function Test() {
@@ -46,6 +48,7 @@ export default function Test() {
         <Comment />
         <Comment />
       </div>
+      <Footer type={TYPE_ON_TEST} />
     </div>
   )
 }
