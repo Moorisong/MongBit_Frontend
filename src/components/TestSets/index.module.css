@@ -9,6 +9,7 @@
   position: relative;
   top: 1.5rem;
   margin-top: 0.1rem;
+  background-color: white;
 }
 
 .testCardWrap {
@@ -25,7 +26,7 @@
   top: -13rem;
 }
 
-.testCardTextWrap>p:first-child {
+.testCardTextWrap > p:first-child {
   color: black;
   font-size: 0.8rem;
   font-weight: 500;

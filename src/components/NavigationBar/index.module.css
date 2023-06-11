@@ -1,11 +1,22 @@
+.fixedWrap {
+  padding: 0 0 6.5rem 0;
+  background-color: white;
+  z-index: 2;
+  height: 5rem;
+}
 .navWrap {
   width: 370px;
-  height: 4rem;
-  margin: 0.7rem 0 1rem 0;
+  height: 5rem;
+  margin: 1.5rem 0 0 0 !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  position: fixed;
+  top: -1.5rem;
+  transform: translateX(-185px);
+  background-color: white;
+  z-index: 2;
 }
 
 .logoDog {
@@ -102,7 +113,6 @@ li {
   background-color: RGB(0, 0, 0, 0.5);
   opacity: 1;
 }
-
 
 /* .modal {
   width: 400px;

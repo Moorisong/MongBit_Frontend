@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 import styles from './index.module.css';
 import jwtDecode from "jwt-decode";
-import axios from 'axios';
 import { TOKEN_NAME } from '../../constants/constant';
 import { useRecoilState } from 'recoil'
 import { logInState } from '../../atom';
@@ -47,7 +46,7 @@ export default function NavigationBar() {
     }
 
     return (
-        <>
+        <div className={styles.fixedWrap}>
             <div className={styles.navWrap}>
                 <div className={styles.menuIcon} onClick={() => setMenuClicked(!menuClicked)}></div>
                 <div>
@@ -85,6 +84,6 @@ export default function NavigationBar() {
                 </ul>
             </div>
             <div className={cx(styles.modal, { [styles.modalMoveToRight]: menuClicked })}></div>
-        </>
+        </div>
     );
 }

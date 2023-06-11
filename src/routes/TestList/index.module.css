@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+  width: 400px;
 }
 
 .testCardComplete {
@@ -10,6 +12,7 @@
 
 .titleTextWrap {
   width: 370px;
+  background-color: white;
 }
 
 .marginBottom {
