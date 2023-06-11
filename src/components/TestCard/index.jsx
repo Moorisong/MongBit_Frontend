@@ -1,11 +1,11 @@
 import styles from './index.module.css'
-import { TYPE_LATEST_MAIN } from '../../constants/constant'
+import { TYPE_LATEST_MAIN, TYPE_MYPAGE } from '../../constants/constant'
 
 function TestCard(props) {
 
-  const cn_1 = props.type === TYPE_LATEST_MAIN ? `${styles.marginLeft} ${styles.inline}` : `${styles.marginLeft}`
-  const cn_2 = props.type === TYPE_LATEST_MAIN ? `${styles.latest_thumbnail}` : `${styles.normal_thumbnail}`
-  const cn_3 = props.type === TYPE_LATEST_MAIN ? `${styles.latest_titleBox}` : `${styles.normal_titleBox}`
+  const cn_1 = props.type === TYPE_LATEST_MAIN || props.type === TYPE_MYPAGE ? `${styles.marginLeft} ${styles.inline}` : `${styles.marginLeft}`
+  const cn_2 = props.type === TYPE_LATEST_MAIN || props.type === TYPE_MYPAGE ? `${styles.latest_thumbnail}` : `${styles.normal_thumbnail}`
+  const cn_3 = props.type === TYPE_LATEST_MAIN || props.type === TYPE_MYPAGE ? `${styles.latest_titleBox}` : `${styles.normal_titleBox}`
 
   return (
     <div className={cn_1}>
