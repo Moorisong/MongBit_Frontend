@@ -16,24 +16,24 @@
 }
 
 .userImg {
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
 .spanWrap {
   display: inline-block;
   position: relative;
-  top: -1.2rem;
+  top: -1.1rem;
 }
 
 .spanWrap>span:first-child>p {
   color: black;
-  font-size: 1rem;
+  font-size: 0.8rem;
   margin-bottom: 0.1rem;
 }
 
 .spanWrap>span:last-child>p {
   color: #979797;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   font-weight: 300;
 }
