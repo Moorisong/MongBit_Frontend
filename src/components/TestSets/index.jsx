@@ -1,7 +1,6 @@
-// import { useState } from 'react';
-// import axios from 'axios'
 import { CardButton, Stroke } from '../ButtonSets'
 import { TestCard } from '../TestCard'
+import { TYPE_MYPAGE } from '../../constants/constant';
 import styles from './index.module.css'
 
 function TestSetComplete(props) {
@@ -10,16 +9,30 @@ function TestSetComplete(props) {
 
   return (
     <div className={cn_1}>
-      <TestCard thumbnailStr={thumbnailStr} thumbnailClass='normal_thumbnail' titleBoxClass='normal_titleBox' />
+      <TestCard thumbnailStr={thumbnailStr} />
       <div className={styles.buttonWrap}>
         <CardButton btnType='playCnt' />
         <CardButton btnType='likeCnt' />
         <CardButton btnType='commentCnt' />
-        <Stroke />
+        <Stroke type={props.type} />
+      </div>
+    </div>
+  )
+}
+
+function TestSetMyPage(props) {
+
+  return (
+    <div className={styles.testCardWrap}>
+      <TestCard type={props.type} />
+      <div className={styles.testCardTextWrap}>
+        <p>{props.title}</p>
+        <p>{props.content.description}</p>
+        <p>{props.content.date}</p>
       </div>
     </div>
   )
 }
 
 
-export { TestSetComplete }
+export { TestSetComplete, TestSetMyPage }

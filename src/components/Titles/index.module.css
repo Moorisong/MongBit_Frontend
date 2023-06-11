@@ -1,3 +1,7 @@
+.wrap {
+  width: 370px;
+}
+
 .title {
   font-size: 1.2rem;
   font-weight: bold;
@@ -17,4 +21,8 @@
 
 .marginBottom {
   margin-bottom: 2rem;
+}
+
+.myPage {
+  margin-bottom: 1rem;
 }

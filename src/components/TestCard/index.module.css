@@ -3,6 +3,10 @@
   margin-right: 0.3rem;
 }
 
+.myPage {
+  position: relative;
+  top: -1rem;
+}
 
 .normal_thumbnail {
   width: 370px;

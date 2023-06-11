@@ -20,6 +20,14 @@
   margin-bottom: 0.3rem;
 }
 
+.stroke_myPage_bottm {
+  margin: 0 0 3rem 0;
+}
+
+.stroke_myPage_top {
+  margin: 1rem 0 2rem 0;
+}
+
 .comment_onTest {
   width: 370px;
   position: relative;
@@ -131,7 +139,7 @@
 }
 
 .stroke {
-  width: 100%;
+  width: 370px;
   height: 1px;
   border-bottom: 1px solid #f1f1f1;
   position: relative;
