@@ -24,7 +24,7 @@ function TestSetMyPage(props) {
 
   return (
     <div className={styles.testCardWrap}>
-      <TestCard thumbnailStr={props.title} type={TYPE_MYPAGE} />
+      <TestCard type={props.type} />
       <div className={styles.testCardTextWrap}>
         <p>{props.title}</p>
         <p>{props.content.description}</p>
