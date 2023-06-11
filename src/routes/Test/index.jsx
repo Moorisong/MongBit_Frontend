@@ -17,7 +17,7 @@ export default function Test() {
       <div>
         <TestCard thumbnailStr='나와 잘 맞는 MBTI' thumbnailClass='normal_thumbnail' titleBoxClass='normal_titleBox' />
         <CardButton btnType='playCnt' moveClass='button_onTest_right' />
-        <Stroke moveClass='stroke_onTest_top' />
+        <Stroke type_1={TYPE_ON_TEST} type_2='2' />
         <p className={styles.contentTextWrap}>
           대충 심리테스트에 대한 설명을 적는 공간 <br />
           대충 심리테스트에 대한 설명을 적는 공간<br />
@@ -35,7 +35,7 @@ export default function Test() {
         <div className={styles.likeCntNumWrap}>
           <p className={styles.likeCntNum}>326</p>
         </div>
-        <Stroke moveClass='stroke_onTest_bottom' />
+        <Stroke type_1={TYPE_ON_TEST} type_2='1' />
       </div>
 
       {/* 댓글 */}

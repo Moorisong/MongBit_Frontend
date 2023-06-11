@@ -10,3 +10,30 @@
   top: 1.5rem;
   margin-top: 0.1rem;
 }
+
+.testCardWrap {
+  width: 370px;
+  margin: 1.5rem 0 -2rem 0;
+  display: inline-block;
+}
+
+.testCardTextWrap {
+  width: 235px;
+  display: inline-block;
+  margin-left: 10px;
+  position: relative;
+  top: -13rem;
+}
+
+.testCardTextWrap>p:first-child {
+  color: black;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.testCardTextWrap p {
+  color: #979797;
+  font-size: 0.7rem;
+  margin-top: 0.3rem;
+  word-break: break-all;
+}
