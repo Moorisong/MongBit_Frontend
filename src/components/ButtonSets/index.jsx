@@ -1,3 +1,4 @@
+import { TYPE_ON_TEST, TYPE_MYPAGE } from '../../constants/constant'
 import styles from './index.module.css'
 import { Link } from 'react-router-dom'
 
@@ -50,8 +51,16 @@ export function Comment() {
 }
 
 export function Stroke(props) {
+  const cn = () => {
+    if (props.type_1 === TYPE_ON_TEST && props.type_2 === '1') return `${styles.stroke} ${styles.stroke_onTest_bottom}`
+    if (props.type_1 === TYPE_ON_TEST && props.type_2 === '2') return `${styles.stroke} ${styles.stroke_onTest_top}`
+    if (props.type_1 === TYPE_MYPAGE && props.type_2 === '1') return `${styles.stroke} ${styles.stroke_myPage_bottm}`
+    if (props.type_1 === TYPE_MYPAGE && props.type_2 === '2') return `${styles.stroke} ${styles.stroke_myPage_top}`
+    return `${styles.stroke}`
+  }
+
   return (
-    <div className={`${styles[props.moveClass]} ${styles.stroke}`} />
+    <div className={cn()} />
   )
 }
 

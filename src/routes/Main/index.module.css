@@ -4,11 +4,6 @@
   align-items: center;
 }
 
-.titleWithText {
-  position: relative;
-  left: -3rem;
-}
-
 .testWrap {
   margin-top: 1.5rem;
 }

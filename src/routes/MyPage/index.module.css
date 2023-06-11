@@ -1,5 +1,39 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .button {
   width: 2rem;
   height: 2rem;
   background-color: red;
+}
+
+.userInfoWrap {
+  width: 370px;
+  margin-top: 1.5rem;
+}
+
+.userImg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.spanWrap {
+  display: inline-block;
+  position: relative;
+  top: -1rem;
+}
+
+.spanWrap>span:first-child>p {
+  color: black;
+  font-size: 1rem;
+  margin-bottom: 0.1rem;
+}
+
+.spanWrap>span:last-child>p {
+  color: #979797;
+  font-size: 0.8rem;
+  font-weight: 300;
 }

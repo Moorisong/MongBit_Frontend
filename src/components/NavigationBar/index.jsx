@@ -15,7 +15,6 @@ export default function NavigationBar() {
     const [logIn, setLogIn] = useRecoilState(logInState)
 
     function checkJwtToken() {
-        // localStorage.setItem(TOKEN_NAME, 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiLquYDshqHtmIQiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjg2MTk1ODc3fQ.V4czgPDat_2xO-HeuDtjCVL2Kz0fvkdDi344g0Wc2Xo')
         if (!localStorage.getItem(TOKEN_NAME)) {
             alert('로그인 해주세요')
             return navigate('/login')
