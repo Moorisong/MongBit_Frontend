@@ -1,9 +1,12 @@
 .containerWrap {
+  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
 }
 
 .testWrap {
   margin-top: 1.5rem;
+  background-color: white;
 }

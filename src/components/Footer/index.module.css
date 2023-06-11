@@ -7,6 +7,7 @@
   position: relative;
   bottom: 0;
   margin-top: 2rem;
+  background-color: white;
 }
 
 .moveBottom {
@@ -19,8 +20,20 @@
   top: 10rem;
 }
 
+.moveBottom_3 {
+  position: relative;
+  top: -2rem;
+}
+
+.moveBottom_4{
+  width: 370px;
+  position: relative;
+  top: 0;
+}
+
 .upper>p {
-  margin-bottom: 0.1rem;
+  margin: 0 0.1rem 0 0;
+  
 }
 
 .upper>p:last-child {

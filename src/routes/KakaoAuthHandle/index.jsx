@@ -21,7 +21,7 @@ export default function KakaoAuthHandle() {
             setLogIn(true)
             console.log('로그인 됨 ----')
             navigate('/')
-          })
+          }, [])
       } catch (error) {
         console.error(error);
       }
