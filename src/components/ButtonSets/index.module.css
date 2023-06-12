@@ -1,44 +1,21 @@
 .wrap {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin-top: 15px;
 }
 
 .stroke_onTest_top {
-  position: relative !important;
-  top: -1rem !important;
   margin-bottom: 0.3rem;
-}
-
-.button_onTest_right {
-  position: relative;
-  left: 19.5rem;
-  top: -2rem;
-}
-
-.stroke_onTest_bottom {
-  position: relative !important;
-  top: 3rem !important;
-  margin-bottom: 0.3rem;
-}
-
-.stroke_myPage_bottm {
-  margin: 0 0 3rem 0;
-}
-
-.stroke_myPage_top {
-  margin: 1rem 0 2rem 0;
 }
 
 .comment_onTest {
   width: 370px;
-  position: relative;
-  top: 4rem;
 }
 
 .commentText_onTest {
   color: #8f8f8f;
   font-weight: normal;
-  position: relative;
-  top: -0.2rem;
   font-size: 14px;
 }
 
@@ -52,19 +29,10 @@
   background-color: white;
 }
 
-.span {
-  margin-right: 1rem;
-}
-
-.span_onTest {
-  margin-right: 0.5rem;
-}
-
 .count {
   color: #8f8f8f;
   font-weight: normal;
-  position: relative;
-  top: -2px;
+
   left: 0.3rem;
   font-size: 14px;
 }
@@ -74,8 +42,6 @@
 }
 
 .likeCnt {
-  position: relative;
-  top: -0.1rem;
   background-image: url("../../../public/images/buttonSet/likeCnt.svg");
 }
 
@@ -105,10 +71,10 @@
   background-image: url("../../../public/images/test/share.svg");
 }
 
-.btnNameText {
-  position: relative;
-  left: -0.4rem;
-  top: 0.2rem;
+.testBtnWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .commentBtnWrap {
@@ -122,8 +88,6 @@
   width: 1.2rem;
   height: 1.2rem;
   background-image: url("../../../public/images/test/addComment.svg");
-  position: relative;
-  top: 3.1rem;
   background-color: #f1f1f1;
   margin-right: 0.7rem;
 }
@@ -142,19 +106,21 @@
   width: 370px;
   height: 1px;
   border-bottom: 1px solid #f1f1f1;
-  position: relative;
-  top: 1rem;
+  margin: 10px 0 10px 0;
 }
 
 .goRandomStartBtn {
-  width: 370px;
+  width: 100%;
+  max-width: 370px;
   height: 2.5rem;
   font-size: 1rem;
   border-radius: 1rem;
   background-color: #ffc52f;
   color: white;
   text-decoration: none;
-  padding: 0.6rem 0 0 0;
-  margin: 2rem 0 1rem 0;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0 10px 0;
 }

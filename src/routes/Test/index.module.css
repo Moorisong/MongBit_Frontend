@@ -2,39 +2,47 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: white;
+  width: 100%;
+  max-width: 400px;
+}
+.contentWrap {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .likeCntNumWrap {
   text-align: center;
-  position: relative;
-  left: -0.1rem;
 }
 
 .buttonSet {
+  width: 300px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-  position: relative;
-  top: 1rem;
+  margin: 30px 0 10px 0;
 }
 
+.likeWrap{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .likeCntNum {
-  position: relative;
-  top: 1.5rem;
-  left: -0.6rem;
   color: #979797;
 }
 
 .commentInput {
-  width: 370px;
+  width: 100%;
+  max-width: 370px;
   height: 2.5rem;
-  position: relative;
-  top: 5rem;
+
   background-color: #f1f1f1;
   border-radius: 0.3rem;
   font-size: 12px;
   color: #979797;
-  padding-left: 1rem;
 }
 
 .commentInput::placeholder {
@@ -46,28 +54,23 @@
   font-size: 1rem;
   color: black;
   font-weight: 300;
+  margin: 10px 0 20px 0;
 }
 
 .commentWrap {
   width: 370px;
-  position: relative;
-  top: 5rem;
 }
 
 .commentWrap span {
   color: #979797;
   font-size: 0.8rem;
   font-weight: 300;
-  position: relative;
-  top: -1.6rem;
 }
 
 .commentWrap p {
-  width: 360px;
+  width: 100%;
+  max-width: 360px;
   color: black;
   font-size: 0.9rem;
   font-weight: 400;
-  position: relative;
-  left: 2.9rem;
-  top: -1.2rem;
 }
