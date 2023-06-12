@@ -20,6 +20,7 @@ export default function Main() {
                 <TitleWithText title='🌟 심테의 근본, MBTI 검사' />
                 <TestCard thumbnailStr='전생에서 내가 공룡이었다면?' />
 
+                
                 <TitleWithText title='💙 최신 심테' />
                 <div className={styles.miniTestWrap}>
                 <TestCard thumbnailStr='전생 테스트' type={TYPE_LATEST_MAIN} />
