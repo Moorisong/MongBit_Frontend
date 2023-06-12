@@ -7,7 +7,6 @@
 }
 .navWrap {
   width: 100%;
-  max-width: 370px;
   height: 5rem;
   display: flex;
   flex-direction: row;

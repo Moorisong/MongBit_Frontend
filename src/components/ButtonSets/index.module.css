@@ -3,17 +3,14 @@
 }
 
 .stroke_onTest_top {
-
   margin-bottom: 0.3rem;
 }
 
 .button_onTest_right {
-
   top: -2rem;
 }
 
 .stroke_onTest_bottom {
-
 }
 
 .stroke_myPage_bottm {
@@ -23,7 +20,7 @@
 }
 
 .comment_onTest {
-  width: 370px;
+  width: 400px;
 }
 
 .commentText_onTest {
@@ -43,7 +40,6 @@
 }
 
 .span {
-
 }
 
 .span_onTest {
@@ -95,7 +91,7 @@
 }
 
 .commentBtnWrap {
-  width: 370px;
+  width: 400px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -120,13 +116,14 @@
 }
 
 .stroke {
-  width: 370px;
+  width: 400px;
   height: 1px;
   border-bottom: 1px solid #f1f1f1;
 }
 
 .goRandomStartBtn {
-  width: 370px;
+  width: 100%;
+  max-width: 370px;
   height: 2.5rem;
   font-size: 1rem;
   border-radius: 1rem;

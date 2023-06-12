@@ -1,6 +1,6 @@
 .inline {
   display: inline-block;
-
+  padding-right: 10px;
 }
 
 .myPage {
@@ -27,6 +27,7 @@
 
 .normal_titleBox {
   width: 370px;
+
   height: 2.5rem;
   background-color: #838383;
   opacity: 0.7;

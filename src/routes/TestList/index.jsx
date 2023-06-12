@@ -11,7 +11,14 @@ export default function TestList(props) {
     return (
         <div className={styels.containerWrap}>
             <NavigationBar />
-            <input type="file" />
+            <div>
+
+                <form name="form" action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
+                    <input type='file' name='file' />
+                    <input type="submit" value="Submit" />
+                </form>
+
+            </div>
             <div className={styels.titleTextWrap}>
                 <TitleWithText className={styels.titleWithText} title={titleStr} content={contentStr} type_1={TITLE_WITH_CONTENT} type_2={TYPE_TEST_LIST} />
             </div>
