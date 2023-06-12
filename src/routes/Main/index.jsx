@@ -13,9 +13,8 @@ export default function Main() {
     return (
         <div className={styles.containerWrap}>
             <NavigationBar />
-            <div className={`${styles.titleWithText}`}>
                 <TitleWithText title='👀 랜덤 심리테스트' content='고민할 틈은 안줄테니 일단 플레이하고 생각하기' type_1={TITLE_WITH_CONTENT} />
-            </div>
+
             <GoRandomStartBtn url='/test' str='아무거나 시작' />
             <div className={styles.testWrap}>
                 <TitleWithText title='🌟 심테의 근본, MBTI 검사' />

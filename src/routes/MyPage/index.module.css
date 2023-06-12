@@ -12,8 +12,7 @@
 }
 
 .userInfoWrap {
-  width: 370px;
-  margin-top: 1.5rem;
+  width: 400px;
 }
 
 .userImg {
@@ -22,15 +21,14 @@
 }
 
 .spanWrap {
-  display: inline-block;
-  position: relative;
-  top: -1.1rem;
+
+
 }
 
 .spanWrap>span:first-child>p {
   color: black;
   font-size: 0.8rem;
-  margin-bottom: 0.1rem;
+
 }
 
 .spanWrap>span:last-child>p {
