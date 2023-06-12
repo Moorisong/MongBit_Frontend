@@ -42,8 +42,12 @@ export default function Test() {
 
         {/* 댓글 */}
         <CardButton btnType='comment' moveClass='comment_onTest' />
-        <input type="text" className={styles.commentInput} placeholder='나쁜말 하면 신고합니다 ㅇㅅㅇ' />
-        <AddCommentButton />
+
+        <div className={styles.commentInputWrap}>
+          <input type="text" className={styles.commentInput} placeholder='나쁜말 하면 신고합니다 ㅇㅅㅇ' />
+          <AddCommentButton />
+        </div>
+
         <div className={styles.commentWrap}>
           <Comment />
           <Comment />
@@ -51,7 +55,10 @@ export default function Test() {
           <Comment />
         </div>
       </div>
-
+      <div className={styles.seeMoreWrap}>
+        <button>더보기</button>
+        <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
+      </div>
       <Footer type={TYPE_ON_TEST} />
     </div>
   )
