@@ -21,14 +21,19 @@ export default function Main() {
                 <TestCard thumbnailStr='전생에서 내가 공룡이었다면?' />
 
                 <TitleWithText title='💙 최신 심테' />
+                <div className={styles.miniTestWrap}>
                 <TestCard thumbnailStr='전생 테스트' type={TYPE_LATEST_MAIN} />
                 <TestCard thumbnailStr='이세계에서..' type={TYPE_LATEST_MAIN} />
                 <TestCard thumbnailStr='장난 유형으..' type={TYPE_LATEST_MAIN} />
+                </div>
+
 
                 <TitleWithText title='💚 기타 등등' />
+                <div className={styles.miniTestWrap}>
                 <TestCard thumbnailStr='살다보면..' type={TYPE_LATEST_MAIN} />
                 <TestCard thumbnailStr='낙서 유형..' type={TYPE_LATEST_MAIN} />
                 <TestCard thumbnailStr='기억 속에서..' type={TYPE_LATEST_MAIN} />
+                </div>
 
             </div>
             <Footer />
