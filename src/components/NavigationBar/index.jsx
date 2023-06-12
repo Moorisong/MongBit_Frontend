@@ -49,7 +49,7 @@ export default function NavigationBar() {
         <div className={styles.fixedWrap}>
             <div className={styles.navWrap}>
                 <div className={styles.menuIcon} onClick={() => setMenuClicked(!menuClicked)}></div>
-                <div>
+                <div className={styles.logoWrap}>
                     <Link to="/main" className={styles.logoDog}></Link>
                     <Link to="/main" className={styles.logoTitle}></Link>
                 </div>
