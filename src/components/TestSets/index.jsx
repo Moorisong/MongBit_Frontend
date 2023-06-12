@@ -15,8 +15,8 @@ function TestSetComplete(props) {
         <CardButton btnType='playCnt' />
         <CardButton btnType='likeCnt' />
         <CardButton btnType='commentCnt' />
-        <Stroke type={props.type} />
       </div>
+      <Stroke type={props.type} />
     </div>
   )
 }

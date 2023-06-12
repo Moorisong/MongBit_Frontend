@@ -37,7 +37,7 @@ export default function MyPage(props) {
         <button>더보기</button>
         <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
       </div>
-      <Footer type={TYPE_MYPAGE}/>
+      <Footer type={TYPE_MYPAGE} />
     </div>
   )
 }

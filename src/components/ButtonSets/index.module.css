@@ -3,7 +3,7 @@
   flex-direction: row;
   justify-content: end;
   align-items: center;
-  margin-top: 15px;
+  margin: 15px 10px 0 0;
 }
 
 .stroke_onTest_top {
@@ -111,13 +111,14 @@
 
 .userAndDate {
   width: 320px;
+  margin-top: -5px;
 }
 
 .stroke {
   width: 370px;
   height: 1px;
   border-bottom: 1px solid #f1f1f1;
-  margin: 10px 0 10px 0;
+  margin: 10px 0 20px 0;
 }
 
 .goRandomStartBtn {
