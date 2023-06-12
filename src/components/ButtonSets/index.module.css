@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: row;
   justify-content: end;
-  margin-top: 15px;
+  align-items: center;
+  margin: 15px 10px 0 0;
 }
 
 .stroke_onTest_top {
@@ -11,6 +12,9 @@
 
 .comment_onTest {
   width: 370px;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
 .commentText_onTest {
@@ -78,10 +82,10 @@
 }
 
 .commentBtnWrap {
-  width: 370px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+
 }
 
 .addCommentButton {
@@ -89,7 +93,9 @@
   height: 1.2rem;
   background-image: url("../../../public/images/test/addComment.svg");
   background-color: #f1f1f1;
-  margin-right: 0.7rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .userImg {
@@ -100,13 +106,19 @@
   background-position: center;
   background-size: cover;
   border-style: none;
+  margin-right: 10px;
+}
+
+.userAndDate {
+  width: 320px;
+  margin-top: -5px;
 }
 
 .stroke {
   width: 370px;
   height: 1px;
   border-bottom: 1px solid #f1f1f1;
-  margin: 10px 0 10px 0;
+  margin: 10px 0 20px 0;
 }
 
 .goRandomStartBtn {

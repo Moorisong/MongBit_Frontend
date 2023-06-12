@@ -3,18 +3,43 @@
   flex-direction: column;
   align-items: center;
   background-color: white;
-  width: 100%;
-  max-width: 400px;
-}
-
-.testCardComplete {
+  width: 400px;
 }
 
 .titleTextWrap {
   width: 100%;
-  max-width: 400px;
+  max-width: 370px;
   background-color: white;
+  margin-bottom: 20px;
 }
 
-.marginBottom {
+.goRandomBtnWrap {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.goRandomBtnWrap>img {
+  position: absolute;
+  padding: 10px 0 0 100px;
+  height: 30px;
+}
+
+.goRandomStartBtn {
+  width: 100%;
+  max-width: 400px;
+  height: 50px;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 10px 10px 0 0;
+  background-color: #ffc52f;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+  padding-right: 25px;
 }

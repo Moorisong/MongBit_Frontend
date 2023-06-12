@@ -1,4 +1,5 @@
 .wrap {
+  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -12,27 +13,42 @@
 }
 
 .userInfoWrap {
-  width: 400px;
+  width: 370px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
 .userImg {
   width: 2.5rem;
   height: 2.5rem;
+  margin-right: 5px;
 }
 
-.spanWrap {
-
-
-}
-
-.spanWrap>span:first-child>p {
+.spanWrap>p:first-child {
   color: black;
   font-size: 0.8rem;
-
 }
 
-.spanWrap>span:last-child>p {
+.spanWrap>p:last-child {
   color: #979797;
   font-size: 0.7rem;
   font-weight: 300;
+}
+
+.seeMoreWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #F2F2F2;
+  width: 100px;
+  height: 30px;
+  border-radius: 15px;
+  margin-top: 30px;
+}
+
+.seeMoreWrap>button {
+  color: #979797;
+  font-size: 0.8rem;
 }
