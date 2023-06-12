@@ -12,8 +12,7 @@ export default function TestList(props) {
         <div className={styels.containerWrap}>
             <NavigationBar />
             <div>
-
-                <form name="form" action="http://localhost:8080/upload" method="post" enctype="multipart/form-data">
+                <form name="form" action="https://mongbit-willneiman.koyeb.app/upload" method="post" enctype="multipart/form-data">
                     <input type='file' name='file' />
                     <input type="submit" value="Submit" />
                 </form>
