@@ -13,5 +13,19 @@
   background-color: white;
   display: flex;
   flex-direction: column;
-  align-content: center;
+  align-items: center;
+}
+
+.miniTestWrap {
+  width: 400px;
+  max-width: 400px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.latesCardWrap{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }
