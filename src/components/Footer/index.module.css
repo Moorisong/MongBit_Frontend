@@ -1,47 +1,40 @@
 .wrap {
-  width: 400px;
+  width: 100%;
+  max-width: 370px;
   height: 200px;
   color: #979797;
   font-size: 0.7rem;
-  padding: 0 0.8rem 0 0.8rem;
-  position: relative;
-  bottom: 0;
-  margin-top: 2rem;
   background-color: white;
 }
 
 .moveBottom {
-  position: relative;
-  top: 5rem;
+
 }
 
 .moveBottom_2 {
-  position: relative;
-  top: 10rem;
+
 }
 
 .moveBottom_3 {
-  position: relative;
-  top: -2rem;
+
 }
 
 .moveBottom_4{
-  width: 370px;
-  position: relative;
-  top: 0;
+  width: 400px;
+
 }
 
 .upper>p {
-  margin: 0 0.1rem 0 0;
+
   
 }
 
 .upper>p:last-child {
-  margin: 0.7rem 0 1rem 0;
+
 }
 
 .under {
-  margin-top: 0.5rem;
+
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -53,5 +46,5 @@
 }
 
 .under>p {
-  display: inline-block;
+
 }

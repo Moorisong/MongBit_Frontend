@@ -1,29 +1,20 @@
 .buttonWrap {
-  width: 370px;
-  position: relative;
-  top: -1.3rem;
-  margin-bottom: 1rem;
+  width: 400px;
+
 }
 
 .move_testList {
-  position: relative;
-  top: 1.5rem;
-  margin-top: 0.1rem;
+
   background-color: white;
 }
 
 .testCardWrap {
-  width: 370px;
-  margin: 1.5rem 0 -2rem 0;
-  display: inline-block;
+  width: 100%;
+  max-width: 400px;
 }
 
 .testCardTextWrap {
   width: 235px;
-  display: inline-block;
-  margin-left: 10px;
-  position: relative;
-  top: -13rem;
 }
 
 .testCardTextWrap > p:first-child {
@@ -35,6 +26,4 @@
 .testCardTextWrap p {
   color: #979797;
   font-size: 0.7rem;
-  margin-top: 0.3rem;
-  word-break: break-all;
 }

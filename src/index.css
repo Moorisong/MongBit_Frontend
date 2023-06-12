@@ -19,8 +19,8 @@ code {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
-  word-break: keep-all;
-  line-height: 1.2;
+  /* word-break: keep-all;
+  line-height: 1.2; */
 }
 
 html,

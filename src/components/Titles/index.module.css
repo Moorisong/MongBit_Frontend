@@ -1,29 +1,28 @@
 .wrap {
-  width: 370px;
+  max-width: 370px;
+  width: 100%;
   background-color: white;
+  margin: 10px 0 20px 0;
 }
 
 .title {
   font-size: 1.2rem;
   font-weight: bold;
-  margin: 0 0 1rem 0;
 }
 
 .content {
   font-size: 0.9rem;
   color: #8f8f8f;
-  position: relative;
-  top: 0.4rem;
 }
 
 .withContent {
-  margin-bottom: 0rem;
+
 }
 
 .marginBottom {
-  margin-bottom: 2rem;
+
 }
 
 .myPage {
-  margin-bottom: 1rem;
+
 }
