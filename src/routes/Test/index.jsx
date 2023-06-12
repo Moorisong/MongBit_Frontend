@@ -14,9 +14,11 @@ export default function Test() {
       <NavigationBar />
 
       {/* 테스트  */}
-      <div>
-        <TestCard thumbnailStr='나와 잘 맞는 MBTI' thumbnailClass='normal_thumbnail' titleBoxClass='normal_titleBox' />
-        <CardButton btnType='playCnt' moveClass='button_onTest_right' />
+      <div className={styles.contentWrap}>
+        <div>
+          <TestCard thumbnailStr='나와 잘 맞는 MBTI' thumbnailClass='normal_thumbnail' titleBoxClass='normal_titleBox' />
+          <CardButton btnType='playCnt' moveClass='button_onTest_right' />
+        </div>
         <Stroke type_1={TYPE_ON_TEST} type_2='2' />
         <p className={styles.contentTextWrap}>
           대충 심리테스트에 대한 설명을 적는 공간 <br />
@@ -27,27 +29,29 @@ export default function Test() {
           대충 심리테스트에심리테스트에 대한 설명을 적는 공간
         </p>
         <GoRandomStartBtn url='ksh' str='테스트 시작' />
-        <div className={styles.buttonSet}>
-          <TestButton btnType='bookMark' str='북마크' />
-          <TestButton btnType='like' str='재밌당' />
-          <TestButton btnType='share' str='공유하기' />
-        </div>
-        <div className={styles.likeCntNumWrap}>
-          <p className={styles.likeCntNum}>326</p>
-        </div>
+        <ul className={styles.buttonSet}>
+          <li><TestButton btnType='bookMark' str='북마크' /></li>
+          <li className={styles.likeWrap}>
+            <TestButton btnType='like' str='재밌당' />
+            <p className={styles.likeCntNum}>326</p>
+          </li>
+          <li><TestButton btnType='share' str='공유하기' /></li>
+        </ul>
         <Stroke type_1={TYPE_ON_TEST} type_2='1' />
+
+
+        {/* 댓글 */}
+        <CardButton btnType='comment' moveClass='comment_onTest' />
+        <input type="text" className={styles.commentInput} placeholder='나쁜말 하면 신고합니다 ㅇㅅㅇ' />
+        <AddCommentButton />
+        <div className={styles.commentWrap}>
+          <Comment />
+          <Comment />
+          <Comment />
+          <Comment />
+        </div>
       </div>
 
-      {/* 댓글 */}
-      <CardButton btnType='comment' moveClass='comment_onTest' />
-      <input type="text" className={styles.commentInput} placeholder='나쁜말 하면 신고합니다 ㅇㅅㅇ' />
-      <AddCommentButton />
-      <div className={styles.commentWrap}>
-        <Comment />
-        <Comment />
-        <Comment />
-        <Comment />
-      </div>
       <Footer type={TYPE_ON_TEST} />
     </div>
   )

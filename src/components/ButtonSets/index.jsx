@@ -23,7 +23,7 @@ export function CardButton(props) {
 
 export function TestButton(props) {
   return (
-    <div>
+    <div className={styles.testBtnWrap}>
       <button className={`${styles.button} ${styles[props.btnType]}`}></button>
       <p className={styles.btnNameText}>{props.str}</p>
     </div>

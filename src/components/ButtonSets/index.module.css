@@ -1,26 +1,16 @@
 .wrap {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  margin-top: 15px;
 }
 
 .stroke_onTest_top {
   margin-bottom: 0.3rem;
 }
 
-.button_onTest_right {
-  top: -2rem;
-}
-
-.stroke_onTest_bottom {
-}
-
-.stroke_myPage_bottm {
-}
-
-.stroke_myPage_top {
-}
-
 .comment_onTest {
-  width: 400px;
+  width: 370px;
 }
 
 .commentText_onTest {
@@ -37,12 +27,6 @@
   background-size: cover;
   border-style: none;
   background-color: white;
-}
-
-.span {
-}
-
-.span_onTest {
 }
 
 .count {
@@ -87,11 +71,14 @@
   background-image: url("../../../public/images/test/share.svg");
 }
 
-.btnNameText {
+.testBtnWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .commentBtnWrap {
-  width: 400px;
+  width: 370px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -116,9 +103,10 @@
 }
 
 .stroke {
-  width: 400px;
+  width: 370px;
   height: 1px;
   border-bottom: 1px solid #f1f1f1;
+  margin: 10px 0 10px 0;
 }
 
 .goRandomStartBtn {
