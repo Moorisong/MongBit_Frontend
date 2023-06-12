@@ -11,6 +11,7 @@ export default function TestList(props) {
     return (
         <div className={styels.containerWrap}>
             <NavigationBar />
+            <input type="file" />
             <div className={styels.titleTextWrap}>
                 <TitleWithText className={styels.titleWithText} title={titleStr} content={contentStr} type_1={TITLE_WITH_CONTENT} type_2={TYPE_TEST_LIST} />
             </div>

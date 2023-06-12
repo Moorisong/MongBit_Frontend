@@ -5,39 +5,34 @@
   background-color: white;
 }
 .kakaoLogInBtn{
-  width: 370px;
+  width: 100%;
+  max-width: 370px;
   height: 3rem;
   background-image: url('../../../public/images/logIn/kakaoLogInBtn.png');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  position: relative;
-  top: 5rem;
 }
 
 .textSamll{
   color: black;
   font-size: 0.8rem;
-  margin: 2rem 0 1rem 0;
 }
 
 .textBig{
   color: black;
   font-size: 1.3rem;
   font-weight: bold;
-  margin-bottom: 6rem;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 .textBig > p:first-child{
-  margin-bottom: 0.2rem;
 }
 
 .logoText{
   color: #979797;
   font-size: 0.7rem;
-  margin-top: 1rem;
 }
 .logoImg{
   width: 12rem;
@@ -45,7 +40,8 @@
 }
 
 .docs {
-  width: 370px;
+  width: 100%;
+  max-width: 370px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -55,7 +51,5 @@
   color: #979797;
   font-size: 0.7rem;
   font-weight: 400;
-  position: relative;
-  top: 10rem;
   
 }
