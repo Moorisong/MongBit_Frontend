@@ -23,7 +23,7 @@ export function CardButton(props) {
 
 export function TestButton(props) {
   return (
-    <div>
+    <div className={styles.testBtnWrap}>
       <button className={`${styles.button} ${styles[props.btnType]}`}></button>
       <p className={styles.btnNameText}>{props.str}</p>
     </div>
@@ -39,13 +39,17 @@ export function AddCommentButton() {
 }
 
 export function Comment() {
-  //Prop으로 데이터 가져와서 넣어주기 ksh
   return (
-    <div>
+    <div className={styles.wrap}>
       <button className={`${styles.userImg}`}></button>
-      <span>김송현 &nbsp; · &nbsp; </span>
-      <span>1일 전</span>
-      <p>남친 구해요 남친 구해요</p>
+      <div className={styles.userAndDate}>
+        <div>
+          <span>김송현 · </span>
+          <span>1일 전</span>
+        </div>
+        {/* <p>남친 구해요 남친 구해요 구해요 남친 구해요 구해요 남친 구해요 구해요 남친 구해요 구해요 남친 구해요 구니가먼데니게 이이이 해해ㅐ 한강 여여요 요요하자해요</p> */}
+        <p>남친 구해요 남친 구해요요</p>
+      </div>
     </div>
   )
 }

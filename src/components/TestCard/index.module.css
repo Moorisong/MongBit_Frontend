@@ -1,10 +1,6 @@
 .inline {
   display: inline-block;
-  padding-right: 10px;
-}
-
-.myPage {
-
+  padding-right: 5px;
 }
 
 .normal_thumbnail {
@@ -52,8 +48,7 @@
 span {
   color: white;
   font-size: 0.9rem;
-  font-weight: bold;
-
+  padding-left: 3px;
 }
 
 .test_on_text {

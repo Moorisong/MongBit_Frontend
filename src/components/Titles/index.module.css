@@ -2,27 +2,17 @@
   max-width: 370px;
   width: 100%;
   background-color: white;
-  margin: 10px 0 20px 0;
+  margin: 10px 0 10px 0;
 }
 
 .title {
   font-size: 1.2rem;
   font-weight: bold;
+  margin-top: 10px;
 }
 
 .content {
   font-size: 0.9rem;
   color: #8f8f8f;
-}
-
-.withContent {
-
-}
-
-.marginBottom {
-
-}
-
-.myPage {
-
+  margin-top: 5px;
 }

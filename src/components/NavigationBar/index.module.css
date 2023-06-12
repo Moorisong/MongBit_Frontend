@@ -5,6 +5,7 @@
   z-index: 2;
   height: 5rem;
 }
+
 .navWrap {
   width: 100%;
   height: 5rem;
@@ -16,7 +17,7 @@
   z-index: 2;
 }
 
-.logoWrap{
+.logoWrap {
   display: flex;
   flex-direction: row;
 }
@@ -70,9 +71,6 @@
   background-color: white;
 }
 
-ul:first-child {
-}
-
 ul {
   font-weight: bold;
 }
@@ -81,9 +79,6 @@ li {
   list-style: none;
   font-size: 0.9rem;
   font-weight: normal;
-}
-
-.ulWrap > li {
 }
 
 .menuMoveToRight {
@@ -107,7 +102,6 @@ li {
   background-color: RGB(0, 0, 0, 0.5);
   opacity: 1;
 }
-
 
 .strokeWrap {
   width: 100%;

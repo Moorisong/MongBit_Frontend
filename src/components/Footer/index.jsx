@@ -3,10 +3,10 @@ import { TYPE_LOGIN, TYPE_ON_TEST, TYPE_MYPAGE, TYPE_TEST_LIST } from '../../con
 
 export default function Footer(props) {
   const cn = () => {
-    if(props.type === TYPE_ON_TEST) return `${styles.wrap} ${styles.moveBottom}`
-    if(props.type === TYPE_LOGIN) return `${styles.wrap} ${styles.moveBottom_2}`
-    if(props.type === TYPE_MYPAGE) return `${styles.wrap} ${styles.moveBottom_3}`
-    if(props.type === TYPE_TEST_LIST) return `${styles.wrap} ${styles.moveBottom_4}`
+    if (props.type === TYPE_ON_TEST) return `${styles.wrap} ${styles.moveBottom}`
+    if (props.type === TYPE_LOGIN) return `${styles.wrap} ${styles.moveBottom_2}`
+    if (props.type === TYPE_MYPAGE) return `${styles.wrap} ${styles.moveBottom_3}`
+    if (props.type === TYPE_TEST_LIST) return `${styles.wrap} ${styles.moveBottom_4}`
     return `${styles.wrap}`
   }
   return (

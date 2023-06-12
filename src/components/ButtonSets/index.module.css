@@ -1,26 +1,20 @@
 .wrap {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  margin: 15px 10px 0 0;
 }
 
 .stroke_onTest_top {
   margin-bottom: 0.3rem;
 }
 
-.button_onTest_right {
-  top: -2rem;
-}
-
-.stroke_onTest_bottom {
-}
-
-.stroke_myPage_bottm {
-}
-
-.stroke_myPage_top {
-}
-
 .comment_onTest {
-  width: 400px;
+  width: 370px;
+  justify-content: start;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
 .commentText_onTest {
@@ -37,12 +31,6 @@
   background-size: cover;
   border-style: none;
   background-color: white;
-}
-
-.span {
-}
-
-.span_onTest {
 }
 
 .count {
@@ -87,14 +75,17 @@
   background-image: url("../../../public/images/test/share.svg");
 }
 
-.btnNameText {
+.testBtnWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .commentBtnWrap {
-  width: 400px;
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+
 }
 
 .addCommentButton {
@@ -102,7 +93,9 @@
   height: 1.2rem;
   background-image: url("../../../public/images/test/addComment.svg");
   background-color: #f1f1f1;
-  margin-right: 0.7rem;
+  position: absolute;
+  top: 10px;
+  right: 10px;
 }
 
 .userImg {
@@ -113,12 +106,19 @@
   background-position: center;
   background-size: cover;
   border-style: none;
+  margin-right: 10px;
+}
+
+.userAndDate {
+  width: 320px;
+  margin-top: -5px;
 }
 
 .stroke {
-  width: 400px;
+  width: 370px;
   height: 1px;
   border-bottom: 1px solid #f1f1f1;
+  margin: 10px 0 20px 0;
 }
 
 .goRandomStartBtn {
@@ -134,4 +134,5 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 10px 0 10px 0;
 }
