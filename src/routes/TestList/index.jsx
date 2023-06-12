@@ -15,7 +15,7 @@ export default function TestList(props) {
         const formData = new FormData();
         formData.append('file', file);
 
-        axios.post('https://mongbit-willneiman.koyeb.app/upload', formData)
+        axios.post('http://localhost:8080/upload', formData)
             .then((response) => {
                 console.log('re--->', response.data); 
             })

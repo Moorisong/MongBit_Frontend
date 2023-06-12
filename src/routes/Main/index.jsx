@@ -28,7 +28,6 @@ export default function Main() {
                 <TestCard thumbnailStr='장난 유형으..' type={TYPE_LATEST_MAIN} />
                 </div>
 
-
                 <TitleWithText title='💚 기타 등등' />
                 <div className={styles.miniTestWrap}>
                 <TestCard thumbnailStr='살다보면..' type={TYPE_LATEST_MAIN} />
