@@ -1,6 +1,5 @@
 .buttonWrap {
   width: 400px;
-
 }
 
 .move_testList {
@@ -10,14 +9,16 @@
 
 .testCardWrap {
   width: 100%;
-  max-width: 400px;
+  max-width: 370px;
+  display: flex;
+  margin: 10px 0 10px 0;
 }
 
 .testCardTextWrap {
   width: 235px;
 }
 
-.testCardTextWrap > p:first-child {
+.testCardTextWrap>p:first-child {
   color: black;
   font-size: 0.8rem;
   font-weight: 500;
