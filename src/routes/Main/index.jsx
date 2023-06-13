@@ -5,11 +5,11 @@ import Footer from '../../components/Footer'
 import { TestCard } from '../../components/TestCard'
 import { GoRandomStartBtn } from '../../components/ButtonSets'
 import { useRecoilValue } from 'recoil'
-import { logInState } from '../../atom'
+import { logInInfo, logInState } from '../../atom'
 import { TITLE_WITH_CONTENT, TYPE_LATEST_MAIN } from '../../constants/constant'
 
 export default function Main() {
-    console.log('전역에서 관리되는 로그인 상태 ---> ', useRecoilValue(logInState))
+    console.log('전역에서 관리되는 로그인 상태 ---> ', useRecoilValue(logInInfo))
     return (
         <div className={styles.containerWrap}>
             <NavigationBar />

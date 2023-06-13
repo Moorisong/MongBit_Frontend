@@ -5,13 +5,13 @@ import styles from './index.module.css';
 import jwtDecode from "jwt-decode";
 import { TOKEN_NAME } from '../../constants/constant';
 import { useRecoilState } from 'recoil'
-import { logInState } from '../../atom';
+import { logInInfo, logInState } from '../../atom';
 
 
 export default function NavigationBar() {
     const navigate = useNavigate()
     const [menuClicked, setMenuClicked] = useState(false);
-    const [logIn, setLogIn] = useRecoilState(logInState)
+    const [logIn, setLogIn] = useRecoilState(logInInfo)
 
     function checkJwtToken() {
         if (!localStorage.getItem(TOKEN_NAME)) {
