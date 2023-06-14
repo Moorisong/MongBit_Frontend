@@ -6,7 +6,7 @@ import jwtDecode from "jwt-decode";
 import { TOKEN_NAME } from '../../constants/constant';
 import { useRecoilState } from 'recoil'
 import { logInInfo, logInState } from '../../atom';
-
+import { decodeToken } from '../../util/util';
 
 export default function NavigationBar() {
     const navigate = useNavigate()
@@ -18,24 +18,9 @@ export default function NavigationBar() {
         if (!localStorage.getItem(TOKEN_NAME)) {
             return navigate('/login')
         }
-        const token = localStorage.getItem(TOKEN_NAME)
-        const decodedToken = jwtDecode(token)
-
-        const expiration = decodedToken.exp;
-        const expirationTime = new Date(expiration * 1000);
-        const currentTime = new Date()
-
-        console.log('decoded-----> ', decodedToken)
-
-        if (expirationTime < currentTime) {
-            return navigate('/login')
-
-        } else {
-            console.log('토큰 살아있음 !! --- 만료시간 : ', expirationTime)
-            navigate('/mypage')
-        }
+        if (decodeToken()) return navigate('/mypage')
+        navigate('/login')
     }
-
     function clickLogOut() {
         localStorage.setItem(TOKEN_NAME, '')
         setLogIn({
@@ -45,7 +30,7 @@ export default function NavigationBar() {
             registDate: '',
             userName: '',
         })
-        console.log('로그아웃 함 ---', logIn)
+        console.log('로그아웃 완료 ---', logIn)
         setMenuClicked(false)
         navigate('/main')
     }
