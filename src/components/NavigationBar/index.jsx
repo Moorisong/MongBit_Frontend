@@ -38,8 +38,15 @@ export default function NavigationBar() {
 
     function clickLogOut() {
         localStorage.setItem(TOKEN_NAME, '')
-        setLogIn(false)
-        console.log('로그아웃됨 ---- ')
+        setLogIn({
+            state: false,
+            memberId: '',
+            thumbnail: '',
+            registDate: '',
+            userName: '',
+        })
+        console.log('로그아웃 함 ---', logIn)
+        setMenuClicked(false)
         navigate('/main')
     }
 
