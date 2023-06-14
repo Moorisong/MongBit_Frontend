@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import cx from 'classnames';
 import styles from './index.module.css';
@@ -13,13 +13,28 @@ export default function NavigationBar() {
     const location = useLocation()
     const [menuClicked, setMenuClicked] = useState(false);
     const [logIn, setLogIn] = useRecoilState(logInInfo)
+    const [tokenInfo, setTokenInfo] = useState({state: false, role: ''})
+
+    // return the user role by decoding JWT token
+    useEffect(() => {
+        if (localStorage.getItem(TOKEN_NAME)) {
+            const tokenInfo = decodeToken()
+            setTokenInfo({ state: true, role: tokenInfo.role })
+            console.log('role---> ', tokenInfo.role)
+        } else {
+            setTokenInfo({ state: false, role: '' })
+        }
+    }, [])
 
     function checkJwtToken() {
         if (!localStorage.getItem(TOKEN_NAME)) {
             return navigate('/login')
         }
-        if (decodeToken()) return navigate('/mypage')
+        if (tokenInfo.state) {
+            return navigate('/mypage')
+        }
         navigate('/login')
+
     }
     function clickLogOut() {
         localStorage.setItem(TOKEN_NAME, '')
