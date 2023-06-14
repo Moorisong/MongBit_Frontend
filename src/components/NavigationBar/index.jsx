@@ -27,7 +27,7 @@ export default function NavigationBar() {
     }, [])
 
     useEffect(() => {
-       
+
     }, [menuClicked]);
 
     function checkJwtToken() {
@@ -55,6 +55,7 @@ export default function NavigationBar() {
     }
 
     return (
+
         <div className={styles.wrap}>
 
             <div className={styles.navWrap}>
