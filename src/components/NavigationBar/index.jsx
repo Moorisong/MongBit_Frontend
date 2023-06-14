@@ -26,6 +26,10 @@ export default function NavigationBar() {
         }
     }, [])
 
+    useEffect(() => {
+
+    }, [menuClicked]);
+
     function checkJwtToken() {
         if (!localStorage.getItem(TOKEN_NAME)) {
             return navigate('/login')
@@ -51,6 +55,7 @@ export default function NavigationBar() {
     }
 
     return (
+
         <div className={styles.wrap}>
 
             <div className={styles.navWrap}>
