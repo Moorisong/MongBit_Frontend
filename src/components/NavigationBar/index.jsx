@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import cx from 'classnames';
 import styles from './index.module.css';
@@ -6,36 +6,35 @@ import jwtDecode from "jwt-decode";
 import { TOKEN_NAME } from '../../constants/constant';
 import { useRecoilState } from 'recoil'
 import { logInInfo, logInState } from '../../atom';
-
+import { decodeToken } from '../../util/util';
 
 export default function NavigationBar() {
     const navigate = useNavigate()
     const location = useLocation()
     const [menuClicked, setMenuClicked] = useState(false);
     const [logIn, setLogIn] = useRecoilState(logInInfo)
+    const [tokenInfo, setTokenInfo] = useState({state: false, role: ''})
+
+    // return the user role by decoding JWT token
+    useEffect(() => {
+        if (localStorage.getItem(TOKEN_NAME)) {
+            const tokenInfo = decodeToken()
+            setTokenInfo({ state: true, role: tokenInfo.role })
+        } else {
+            setTokenInfo({ state: false, role: '' })
+        }
+    }, [])
 
     function checkJwtToken() {
         if (!localStorage.getItem(TOKEN_NAME)) {
             return navigate('/login')
         }
-        const token = localStorage.getItem(TOKEN_NAME)
-        const decodedToken = jwtDecode(token)
-
-        const expiration = decodedToken.exp;
-        const expirationTime = new Date(expiration * 1000);
-        const currentTime = new Date()
-
-        console.log('decoded-----> ', decodedToken)
-
-        if (expirationTime < currentTime) {
-            return navigate('/login')
-
-        } else {
-            console.log('토큰 살아있음 !! --- 만료시간 : ', expirationTime)
-            navigate('/mypage')
+        if (tokenInfo.state) {
+            return navigate('/mypage')
         }
-    }
+        navigate('/login')
 
+    }
     function clickLogOut() {
         localStorage.setItem(TOKEN_NAME, '')
         setLogIn({
@@ -45,7 +44,7 @@ export default function NavigationBar() {
             registDate: '',
             userName: '',
         })
-        console.log('로그아웃 함 ---', logIn)
+        console.log('로그아웃 완료 ---', logIn)
         setMenuClicked(false)
         navigate('/main')
     }

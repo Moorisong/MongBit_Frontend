@@ -32,7 +32,6 @@ export default function KakaoAuthHandle() {
       }
     }
   }, []);
-
   return (
     <div>
       <button></button>
