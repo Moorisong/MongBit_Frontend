@@ -20,6 +20,7 @@ export default function NavigationBar() {
         if (localStorage.getItem(TOKEN_NAME)) {
             const tokenInfo = decodeToken()
             setTokenInfo({ state: true, role: tokenInfo.role })
+            console.log('role---> ', tokenInfo.role)
         } else {
             setTokenInfo({ state: false, role: '' })
         }
