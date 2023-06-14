@@ -79,7 +79,8 @@
   transition: all 0.3s ease-in-out;
   border: 1px solid rgb(242, 242, 242);
   background-color: white;
-  position: absolute;
+  position: fixed;
+  z-index: 2;
 }
 
 .menuWrap>ul {
@@ -98,7 +99,7 @@
 .fixModal {
   width: 300px;
   height: 100%;
-  position: absolute;
+  position: fixed;
   left: calc(50% - 500px);
   top: -1px;
   z-index: 2;
@@ -110,6 +111,7 @@
   width: 385px;
   height: 100%;
   position: absolute;
+  top:0;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
@@ -118,13 +120,14 @@
   display: block;
   height: 100%;
   opacity: 0.5;
-  z-index: -1;
+  z-index: 0;
   background-color: black;
-
+  position: fixed;
 }
 
 .menuWrap>ul {
   margin: 10px 0 0 10px;
+  height: 100%;
 }
 
 .menuWrap>ul>li {
@@ -156,7 +159,8 @@ li {
   align-items: center;
   position: absolute;
   left: -10px;
-  bottom: -30rem;
+  position: absolute;
+  bottom: 10px;
 }
 
 .logOutWrap>p {
