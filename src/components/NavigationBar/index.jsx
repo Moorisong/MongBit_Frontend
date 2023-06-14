@@ -51,6 +51,7 @@ export default function NavigationBar() {
     }
 
     return (
+
         <div className={styles.wrap}>
 
             <div className={styles.navWrap}>
