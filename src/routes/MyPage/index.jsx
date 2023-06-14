@@ -5,9 +5,14 @@ import { TitleWithText } from "../../components/Titles";
 import { TITLE_WITH_CONTENT, TYPE_MYPAGE } from "../../constants/constant";
 import { Stroke } from "../../components/ButtonSets";
 import { TestSetMyPage } from "../../components/TestSets";
+import { logInInfo } from "../../atom";
+import { useRecoilValue } from "recoil";
 
 
 export default function MyPage(props) {
+  const userInfo = useRecoilValue(logInInfo)
+  const dateParts = userInfo.registDate.split("T")[0].split("-");
+  const registerDate = `${dateParts[0]}.${dateParts[1]}.${dateParts[2]}`;
 
   return (
     <div className={styles.wrap}>
@@ -15,10 +20,10 @@ export default function MyPage(props) {
       <TitleWithText type_1={TITLE_WITH_CONTENT} title='🦁 마이페이지' />
 
       <div className={styles.userInfoWrap}>
-        <img src="/images/test/userSampleImg.svg" alt="user_img" className={styles.userImg} />
+        <img src={userInfo.thumbnail} alt="user_img" className={styles.userImg} />
         <div className={styles.spanWrap}>
-          <p>관악구여신</p>
-          <p>2023.03.04 가입</p>
+          <p>{userInfo.userName}</p>
+          <p>{registerDate} 가입</p>
         </div>
       </div>
       <Stroke type_1={TYPE_MYPAGE} type_2='1' />
