@@ -31,10 +31,7 @@ export default function Footer(props) {
         <p>채용문의 &nbsp; | &nbsp; 채용되고 싶다.</p>
       </div>
       <div className={styles.under}>
-        <Link
-          to="https://github.com/WillNeiman/MongBit_Backend"
-          alt="gitHub_image"
-        />
+        <Link to="https://github.com/WillNeiman/MongBit_Backend" />
         <p>© 2023 MongMoongCrew. All rights reserved </p>
       </div>
     </div>
