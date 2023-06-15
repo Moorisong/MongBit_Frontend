@@ -3,6 +3,11 @@ import jwtDecode from 'jwt-decode';
 import { TOKEN_NAME } from '../constants/constant';
 
 export function decodeToken() {
+  if (!localStorage.getItem(TOKEN_NAME)) {
+    return {
+      state: false,
+    };
+  }
   const token = localStorage.getItem(TOKEN_NAME);
   const decodedToken = jwtDecode(token);
 
