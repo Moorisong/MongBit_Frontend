@@ -16,7 +16,6 @@ function TestCard(props) {
     props.type === TYPE_LATEST_MAIN
       ? `${styles.latest_titleBox}`
       : `${styles.normal_titleBox}`;
-
   return (
     <div className={cn_1}>
       <div className={cn_2}></div>

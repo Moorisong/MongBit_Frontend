@@ -4,9 +4,9 @@
     "es2021": true
   },
   "extends": [
-    "prettier",
     "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "prettier"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
@@ -22,11 +22,12 @@
     }
   },
   "rules": {
+    "semi": "off",
     "react/react-in-jsx-scope": "off",
     "arrow-body-style": ["error", "as-needed"],
-    "indent": ["error", 2],
-    "semi": ["error", "always"],
-    "quotes": ["error", "single"],
+    // "indent": ["error", 2],
+    "indent": "off",
+    "quotes": "off",
     "comma-dangle": ["error", "always-multiline"],
     "no-unused-vars": "error",
     "no-console": "warn",
