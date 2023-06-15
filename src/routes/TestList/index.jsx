@@ -1,50 +1,59 @@
-import { TitleWithText } from "../../components/Titles"
-import { TestSetComplete } from "../../components/TestSets"
-import NavigationBar from "../../components/NavigationBar"
-import styels from './index.module.css'
-import { TYPE_TEST_LIST, TITLE_WITH_CONTENT } from "../../constants/constant"
-import axios from "axios"
-import { Link } from "react-router-dom"
+// import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-export default function TestList(props) {
-    const titleStr = '💛  몽빗 심테'
-    const contentStr = '대충 후킹 멘트 자리 대충 후킹 멘트 자리 대충 후킹 멘트 자리'
+import { TitleWithText } from '../../components/Titles';
+import { TestSetComplete } from '../../components/TestSets';
+import NavigationBar from '../../components/NavigationBar';
+import styels from './index.module.css';
+import { TYPE_TEST_LIST, TITLE_WITH_CONTENT } from '../../constants/constant';
 
-    function handleFileChange(event) {
-        const file = event.target.files[0];
-        const formData = new FormData();
-        formData.append('file', file);
+export default function TestList() {
+  const titleStr = '💛  몽빗 심테';
+  const contentStr =
+    '대충 후킹 멘트 자리 대충 후킹 멘트 자리 대충 후킹 멘트 자리';
 
-        axios.post('http://localhost:8080/upload', formData)
-            .then((response) => {
-                console.log('re--->', response.data);
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-    }
-    return (
-        <div className={styels.containerWrap}>
-            <NavigationBar />
+  // function handleFileChange(event) {
+  //   const file = event.target.files[0];
+  //   const formData = new FormData();
+  //   formData.append('file', file);
 
-            {/* <input type="file" name="file" onChange={handleFileChange}/> */}
+  //   axios
+  //     .post('http://localhost:8080/upload', formData)
+  //     .then((response) => {
+  //       console.log('re--->', response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }
+  return (
+    <div className={styels.containerWrap}>
+      <NavigationBar />
 
-            <div className={styels.titleTextWrap}>
-                <TitleWithText className={styels.titleWithText} title={titleStr} content={contentStr} type_1={TITLE_WITH_CONTENT} type_2={TYPE_TEST_LIST} />
-            </div>
+      {/* <input type="file" name="file" onChange={handleFileChange}/> */}
 
-            <TestSetComplete type={TYPE_TEST_LIST} />
-            <TestSetComplete type={TYPE_TEST_LIST} />
-            <TestSetComplete type={TYPE_TEST_LIST} />
-            <TestSetComplete type={TYPE_TEST_LIST} />
-            <TestSetComplete type={TYPE_TEST_LIST} />
-            <TestSetComplete type={TYPE_TEST_LIST} />
-            <TestSetComplete type={TYPE_TEST_LIST} />
+      <div className={styels.titleTextWrap}>
+        <TitleWithText
+          className={styels.titleWithText}
+          title={titleStr}
+          content={contentStr}
+          type_1={TITLE_WITH_CONTENT}
+          type_2={TYPE_TEST_LIST}
+        />
+      </div>
 
-            <div className={styels.goRandomBtnWrap}>
-                <Link className={styels.goRandomStartBtn}>아무거나 시작</Link>
-                <img src="/images/test/nextIcon.svg" alt="next_icon" />
-            </div>
-        </div>
-    )
+      <TestSetComplete type={TYPE_TEST_LIST} />
+      <TestSetComplete type={TYPE_TEST_LIST} />
+      <TestSetComplete type={TYPE_TEST_LIST} />
+      <TestSetComplete type={TYPE_TEST_LIST} />
+      <TestSetComplete type={TYPE_TEST_LIST} />
+      <TestSetComplete type={TYPE_TEST_LIST} />
+      <TestSetComplete type={TYPE_TEST_LIST} />
+
+      <div className={styels.goRandomBtnWrap}>
+        <Link className={styels.goRandomStartBtn}>아무거나 시작</Link>
+        <img src="/images/test/nextIcon.svg" alt="next_icon" />
+      </div>
+    </div>
+  );
 }

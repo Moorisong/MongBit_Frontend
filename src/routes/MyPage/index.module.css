@@ -30,12 +30,12 @@
   margin-left: 5px;
 }
 
-.spanWrap>p:first-child {
+.spanWrap > p:first-child {
   color: black;
   font-size: 0.8rem;
 }
 
-.spanWrap>p:last-child {
+.spanWrap > p:last-child {
   color: #979797;
   font-size: 0.7rem;
   font-weight: 300;
@@ -46,14 +46,14 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #F2F2F2;
+  background-color: #f2f2f2;
   width: 100px;
   height: 30px;
   border-radius: 15px;
   margin-top: 30px;
 }
 
-.seeMoreWrap>button {
+.seeMoreWrap > button {
   color: #979797;
   font-size: 0.8rem;
 }

@@ -13,13 +13,16 @@
 }
 
 .under {
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 10px;
+}
+.upper > p:first-child {
+  margin-bottom: 5px;
 }
 
-.under>img {
-  width: 1rem;
-  height: 1rem;
+.under > img {
+  width: 20px;
+  height: 20px;
 }

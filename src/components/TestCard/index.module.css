@@ -6,7 +6,7 @@
 .normal_thumbnail {
   width: 370px;
   height: 15rem;
-  background-image: url("../../../public/images/test/card.jpeg");
+  background-image: url('../../../public/images/test/card.jpeg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -15,7 +15,7 @@
 .latest_thumbnail {
   width: 120px;
   height: 15rem;
-  background-image: url("../../../public/images/test/card.jpeg");
+  background-image: url('../../../public/images/test/card.jpeg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
