@@ -11,7 +11,7 @@ export default function KakaoAuthHandle() {
   const [searchParams] = useSearchParams();
   const code = searchParams.get('code');
 
-  const [setLogIn] = useRecoilState(logInInfo);
+  const [logIn, setLogIn] = useRecoilState(logInInfo);
 
   useEffect(() => {
     if (code) {
@@ -30,6 +30,7 @@ export default function KakaoAuthHandle() {
               userName: response.data.username,
             });
             navigate('/');
+            console.log(logIn)
           }, []);
       } catch (error) {
         console.error(error);
