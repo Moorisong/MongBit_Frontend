@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { useEffect } from 'react';
+
 import { TestCard } from '../../components/TestCard';
 import {
   CardButton,
@@ -12,8 +15,11 @@ import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import styles from './index.module.css';
 
-export default function Test() {
-  //right 플레이버튼 오른쪽, buttonsets css ksh
+
+export default function TestRandom() {
+  useEffect(()=>{
+    axios.get
+  }, [])
   return (
     <div className={styles.wrap}>
       {/* 네비게이션 바 */}
