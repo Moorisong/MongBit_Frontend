@@ -28,7 +28,7 @@
     // "indent": ["error", 2],
     "indent": "off",
     "quotes": "off",
-    "comma-dangle": ["error", "always-multiline"],
+    // "comma-dangle": ["error", "always-multiline"],
     "no-unused-vars": "error",
     "no-console": "warn",
     "no-debugger": "error",
