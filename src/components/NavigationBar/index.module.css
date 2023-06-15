@@ -136,6 +136,9 @@
 .ulWrap > a {
   font-weight: 400;
 }
+.ulWrap > li {
+  cursor: pointer;
+}
 
 ul {
   font-weight: bold;
