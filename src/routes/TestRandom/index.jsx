@@ -10,16 +10,19 @@ import {
   AddCommentButton,
   Comment,
 } from '../../components/ButtonSets';
-import { TYPE_ON_TEST } from '../../constants/constant';
+import {
+  TYPE_ON_TEST,
+  TYPE_COMMENT,
+  TYPE_PLAY_CNT,
+} from '../../constants/constant';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import styles from './index.module.css';
 
-
 export default function TestRandom() {
-  useEffect(()=>{
-    axios.get
-  }, [])
+  useEffect(() => {
+    axios.get;
+  }, []);
   return (
     <div className={styles.wrap}>
       {/* 네비게이션 바 */}
@@ -32,7 +35,7 @@ export default function TestRandom() {
             thumbnailClass="normal_thumbnail"
             titleBoxClass="normal_titleBox"
           />
-          <CardButton btnType="playCnt" moveClass="button_onTest_right" />
+          <CardButton type={TYPE_PLAY_CNT} moveClass="button_onTest_right" />
         </div>
         <Stroke type_1={TYPE_ON_TEST} type_2="2" />
         <p className={styles.contentTextWrap}>
@@ -62,7 +65,7 @@ export default function TestRandom() {
         <Stroke type_1={TYPE_ON_TEST} type_2="1" />
 
         {/* 댓글 */}
-        <CardButton btnType="comment" moveClass="comment_onTest" />
+        <CardButton type={TYPE_COMMENT} moveClass={'comment_onTest'} />
 
         <div className={styles.commentInputWrap}>
           <input

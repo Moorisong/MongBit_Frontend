@@ -67,14 +67,18 @@ export default function NavigationBar() {
           <li>
             <ul className={styles.ulWrap}>
               심리테스트
-              <li>최신 심테</li>
+              <li>
+                <Link to="/test/latest">최신 보기</Link>
+                <Link to="/test/list">전체 보기</Link>
+              </li>
             </ul>
-            <Link to="/test-list">전체 보기</Link>
           </li>
           <li>
             <ul className={styles.ulWrap}>
               마이페이지
-              <li>심테 기록 보기</li>
+              <li>
+                <Link to="/mypage">심테 기록 보기</Link>
+              </li>
             </ul>
           </li>
           <li>
