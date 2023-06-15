@@ -1,4 +1,4 @@
-import { atom } from 'recoil'
+import { atom } from 'recoil';
 
 export const logInInfo = atom({
   key: 'logInState',
@@ -8,5 +8,5 @@ export const logInInfo = atom({
     thumbnail: '',
     registDate: '',
     userName: '',
-  }
-})
+  },
+});

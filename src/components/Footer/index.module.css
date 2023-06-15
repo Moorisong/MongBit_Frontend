@@ -13,13 +13,12 @@
 }
 
 .under {
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
 
-.under>img {
+.under > img {
   width: 1rem;
   height: 1rem;
 }

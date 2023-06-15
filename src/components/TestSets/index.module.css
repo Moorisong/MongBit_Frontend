@@ -21,7 +21,7 @@
   width: 235px;
 }
 
-.testCardTextWrap>p:first-child {
+.testCardTextWrap > p:first-child {
   color: black;
   font-size: 0.8rem;
   font-weight: 500;

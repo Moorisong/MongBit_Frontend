@@ -17,7 +17,6 @@
   justify-content: space-between;
   align-items: center;
   background-color: white;
-
 }
 
 .logoWrap {
@@ -28,7 +27,7 @@
 .logoDog {
   width: 5rem;
   height: 5.5rem;
-  background-image: url("../../../public/images/navigationBar/logo_dog.svg");
+  background-image: url('../../../public/images/navigationBar/logo_dog.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -37,7 +36,7 @@
 .logoTitle {
   width: 7rem;
   height: 5.7rem;
-  background-image: url("../../../public/images/navigationBar/logo_title.svg");
+  background-image: url('../../../public/images/navigationBar/logo_title.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -48,7 +47,7 @@
   height: 1rem;
   border-style: none;
   background-color: white;
-  background-image: url("../../../public/images/navigationBar/user.svg");
+  background-image: url('../../../public/images/navigationBar/user.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -65,7 +64,7 @@
   width: 1rem;
   height: 1rem;
   background-color: white;
-  background-image: url("../../../public/images/navigationBar/menuIcon.svg");
+  background-image: url('../../../public/images/navigationBar/menuIcon.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -83,12 +82,12 @@
   z-index: 2;
 }
 
-.menuWrap>ul {
+.menuWrap > ul {
   padding-top: 30px;
 }
 
-.menuWrap>ul>li li,
-.menuWrap>ul>li a {
+.menuWrap > ul > li li,
+.menuWrap > ul > li a {
   padding: 3px 0 0 10px;
 }
 
@@ -111,7 +110,7 @@
   width: 385px;
   height: 100%;
   position: absolute;
-  top:0;
+  top: 0;
   opacity: 0;
   transition: opacity 0.3s ease-in-out;
 }
@@ -125,12 +124,12 @@
   position: fixed;
 }
 
-.menuWrap>ul {
+.menuWrap > ul {
   margin: 10px 0 0 10px;
   height: 100%;
 }
 
-.menuWrap>ul>li {
+.menuWrap > ul > li {
   margin-bottom: 20px;
 }
 
@@ -163,17 +162,17 @@ li {
   bottom: 10px;
 }
 
-.logOutWrap>p {
+.logOutWrap > p {
   padding-right: 5px;
   color: #979797;
 }
 
-.logOutWrap>p,
-.logOutWrap>button {
+.logOutWrap > p,
+.logOutWrap > button {
   cursor: pointer;
 }
 
-.menuWrap>ul:last-child {
+.menuWrap > ul:last-child {
   position: relative;
 }
 
@@ -181,13 +180,13 @@ li {
   width: 20px;
   height: 22px;
   background-color: white;
-  background-image: url("../../../public/images/navigationBar/logOutIcon.svg");
+  background-image: url('../../../public/images/navigationBar/logOutIcon.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
 }
 
-.logOutWrap>img {
+.logOutWrap > img {
   width: 60px;
   height: 40px;
   margin-left: 30px;
