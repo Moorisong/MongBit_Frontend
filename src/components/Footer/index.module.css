@@ -22,7 +22,11 @@
   margin-bottom: 5px;
 }
 
-.under > img {
+.under > a {
+  background-image: url('../../../public/images/footer/gitHub.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
   width: 20px;
   height: 20px;
 }
