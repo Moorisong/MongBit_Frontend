@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import NavigationBar from '../../components/NavigationBar';
@@ -13,6 +14,12 @@ export default function MyPage() {
   const userInfo = useRecoilValue(logInInfo);
   const dateParts = userInfo.registDate.split('T')[0].split('-');
   const registerDate = `${dateParts[0]}.${dateParts[1]}.${dateParts[2]}`;
+
+  useEffect(()=>{
+    // const token = localStorage.getItem('mongBitToken');
+    console.log()
+    // if(token && !decodeToken().state) return navigate('/main')
+  }, [])
 
   return (
     <div className={styles.wrap}>

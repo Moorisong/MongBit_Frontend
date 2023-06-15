@@ -17,10 +17,25 @@ export default function NavigationBar() {
 
   // return the user role by decoding JWT token
   useEffect(() => {
+
     if (localStorage.getItem(TOKEN_NAME)) {
       const tokenInfo = decodeToken();
-      setTokenInfo({ state: true, role: tokenInfo.role });
-      console.log('role---> ', tokenInfo.role);
+      if(tokenInfo){
+        setTokenInfo({ state: true, role: tokenInfo.role });
+        console.log('role---> ', tokenInfo.role);
+      }
+      else {
+        setTokenInfo({ state: false, role: '' });
+        setLogIn({
+          state: false,
+          memberId: '',
+          thumbnail: '',
+          registDate: '',
+          userName: '',
+        });
+        console.log('만료된 토큰입니다---');
+        navigate('/main')
+      }
     } else {
       setTokenInfo({ state: false, role: '' });
     }
@@ -30,7 +45,7 @@ export default function NavigationBar() {
     if (!localStorage.getItem(TOKEN_NAME)) {
       return navigate('/login');
     }
-    if (tokenInfo.state) {
+    if (logIn.state) {
       return navigate('/mypage');
     }
     navigate('/login');
@@ -44,7 +59,7 @@ export default function NavigationBar() {
       registDate: '',
       userName: '',
     });
-    console.log('로그아웃 완료 ---', logIn);
+    console.log('로그아웃 완료 ---', logIn, '토큰인포--> ', tokenInfo);
     setMenuClicked(false);
     navigate('/main');
   }
