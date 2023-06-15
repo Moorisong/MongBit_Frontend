@@ -1,4 +1,5 @@
 export const TOKEN_NAME = 'mongBitToken';
+export const USER_INFO = 'mongBit';
 
 // Type of the page
 export const TYPE_TEST_LIST = 'test_list';
