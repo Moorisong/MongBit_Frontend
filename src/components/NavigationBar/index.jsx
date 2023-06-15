@@ -85,14 +85,18 @@ export default function NavigationBar() {
           </li>
           <li>
             <ul>
-              { decodeToken().state ? <li className={styles.logOutWrap}>
-                <p onClick={clickLogOut}>로그아웃</p>
-                <button
-                  className={styles.logOutBtn}
-                  onClick={clickLogOut}
-                ></button>
-                <img src="/images/navigationBar/logo_dog.svg" alt="logo" />
-              </li> : ''}
+              {decodeToken().state ? (
+                <li className={styles.logOutWrap}>
+                  <p onClick={clickLogOut}>로그아웃</p>
+                  <button
+                    className={styles.logOutBtn}
+                    onClick={clickLogOut}
+                  ></button>
+                  <img src="/images/navigationBar/logo_dog.svg" alt="logo" />
+                </li>
+              ) : (
+                ''
+              )}
             </ul>
           </li>
         </ul>
