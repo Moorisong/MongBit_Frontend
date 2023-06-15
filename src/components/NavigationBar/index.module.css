@@ -88,7 +88,7 @@
 
 .menuWrap > ul > li li,
 .menuWrap > ul > li a {
-  padding: 3px 0 0 10px;
+  padding: 3px 0 0 5px;
 }
 
 .menuMoveToRight {
@@ -133,9 +133,9 @@
   margin-bottom: 20px;
 }
 
-/* .menuWrap>ul a {
-  text-decoration: none;
-} */
+.ulWrap > a {
+  font-weight: 400;
+}
 
 ul {
   font-weight: bold;

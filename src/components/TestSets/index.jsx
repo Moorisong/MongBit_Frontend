@@ -1,6 +1,11 @@
 import { CardButton, Stroke } from '../ButtonSets';
 import { TestCard } from '../TestCard';
-import { TYPE_TEST_LIST } from '../../constants/constant';
+import {
+  TYPE_TEST_LIST,
+  TYPE_COMMENT_CNT,
+  TYPE_PLAY_CNT,
+  TYPE_LIKE_CNT,
+} from '../../constants/constant';
 import styles from './index.module.css';
 
 function TestSetComplete(props) {
@@ -11,9 +16,9 @@ function TestSetComplete(props) {
     <div className={cn_1}>
       <TestCard thumbnailStr={thumbnailStr} />
       <div className={styles.buttonWrap}>
-        <CardButton btnType="playCnt" />
-        <CardButton btnType="likeCnt" />
-        <CardButton btnType="commentCnt" />
+        <CardButton type={TYPE_PLAY_CNT} />
+        <CardButton type={TYPE_LIKE_CNT} />
+        <CardButton type={TYPE_COMMENT_CNT} />
       </div>
       <Stroke type={props.type} />
     </div>

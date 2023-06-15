@@ -19,7 +19,7 @@ export default function Main() {
         type_1={TITLE_WITH_CONTENT}
       />
 
-      <GoRandomStartBtn url="/test" str="아무거나 시작" />
+      <GoRandomStartBtn url="/test-random" str="아무거나 시작" />
       <div className={styles.testWrap}>
         <TitleWithText title="🌟 심테의 근본, MBTI 검사" />
         <TestCard thumbnailStr="전생에서 내가 공룡이었다면?" />
