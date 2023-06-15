@@ -1,12 +1,12 @@
 import { atom } from 'recoil';
 
-export const logInInfo = atom({
-  key: 'logInState',
+import { decodeToken } from './util/util';
+import { TOKEN_NAME, USER_INFO } from './constants/constant';
+
+export const tokenInfo = atom({
+  key: 'tokenState',
   default: {
-    state: false,
-    memberId: '',
-    thumbnail: '',
-    registDate: '',
-    userName: '',
+    state: decodeToken().state,
+    role: '',
   },
 });

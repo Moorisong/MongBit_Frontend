@@ -5,6 +5,14 @@
   align-items: center;
   margin: 15px 10px 0 0;
 }
+.wrap_comment {
+  width: 370px;
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin: 15px 0 10px 0;
+}
 
 .stroke_onTest_top {
   margin-bottom: 0.3rem;

@@ -1,50 +1,38 @@
 import { useRecoilState } from 'recoil';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import cx from 'classnames';
 
 import styles from './index.module.css';
-import { TOKEN_NAME } from '../../constants/constant';
-import { logInInfo } from '../../atom';
+import { TOKEN_NAME, USER_INFO } from '../../constants/constant';
+import { logInInfo, tokenInfo } from '../../atom';
 import { decodeToken } from '../../util/util';
 
 export default function NavigationBar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuClicked, setMenuClicked] = useState(false);
-  const [logIn, setLogIn] = useRecoilState(logInInfo);
-  const [tokenInfo, setTokenInfo] = useState({ state: false, role: '' });
+  const [token, setToken] = useRecoilState(tokenInfo);
 
-  // return the user role by decoding JWT token
-  useEffect(() => {
-    if (localStorage.getItem(TOKEN_NAME)) {
-      const tokenInfo = decodeToken();
-      setTokenInfo({ state: true, role: tokenInfo.role });
-      console.log('role---> ', tokenInfo.role);
-    } else {
-      setTokenInfo({ state: false, role: '' });
-    }
-  }, []);
-
-  function checkJwtToken() {
+  function clickMypageBtn() {
     if (!localStorage.getItem(TOKEN_NAME)) {
       return navigate('/login');
     }
-    if (tokenInfo.state) {
+    if (decodeToken().state) {
       return navigate('/mypage');
     }
     navigate('/login');
   }
   function clickLogOut() {
     localStorage.setItem(TOKEN_NAME, '');
-    setLogIn({
+    localStorage.setItem(USER_INFO + 'memeberId', '');
+    localStorage.setItem(USER_INFO + 'thumbnail', '');
+    localStorage.setItem(USER_INFO + 'registDate', '');
+    localStorage.setItem(USER_INFO + 'username', '');
+    setToken({
       state: false,
-      memberId: '',
-      thumbnail: '',
-      registDate: '',
-      userName: '',
+      role: '',
     });
-    console.log('로그아웃 완료 ---', logIn);
     setMenuClicked(false);
     navigate('/main');
   }
@@ -63,7 +51,10 @@ export default function NavigationBar() {
         {location.pathname === '/mypage' ? (
           <button className={styles.myPageBtnNone}></button>
         ) : (
-          <button className={styles.myPageBtn} onClick={checkJwtToken}></button>
+          <button
+            className={styles.myPageBtn}
+            onClick={clickMypageBtn}
+          ></button>
         )}
       </div>
 
@@ -76,14 +67,18 @@ export default function NavigationBar() {
           <li>
             <ul className={styles.ulWrap}>
               심리테스트
-              <li>최신 심테</li>
+              <li>
+                <Link to="/test/latest">최신 보기</Link>
+                <Link to="/test/list">전체 보기</Link>
+              </li>
             </ul>
-            <Link to="/test-list">전체 보기</Link>
           </li>
           <li>
             <ul className={styles.ulWrap}>
               마이페이지
-              <li>심테 기록 보기</li>
+              <li>
+                <Link to="/mypage">심테 기록 보기</Link>
+              </li>
             </ul>
           </li>
           <li>
@@ -94,14 +89,18 @@ export default function NavigationBar() {
           </li>
           <li>
             <ul>
-              <li className={styles.logOutWrap}>
-                <p onClick={clickLogOut}>로그아웃</p>
-                <button
-                  className={styles.logOutBtn}
-                  onClick={clickLogOut}
-                ></button>
-                <img src="/images/navigationBar/logo_dog.svg" alt="logo" />
-              </li>
+              {decodeToken().state ? (
+                <li className={styles.logOutWrap}>
+                  <p onClick={clickLogOut}>로그아웃</p>
+                  <button
+                    className={styles.logOutBtn}
+                    onClick={clickLogOut}
+                  ></button>
+                  <img src="/images/navigationBar/logo_dog.svg" alt="logo" />
+                </li>
+              ) : (
+                ''
+              )}
             </ul>
           </li>
         </ul>

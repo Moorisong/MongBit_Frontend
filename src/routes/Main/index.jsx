@@ -10,7 +10,6 @@ import { logInInfo } from '../../atom';
 import { TITLE_WITH_CONTENT, TYPE_LATEST_MAIN } from '../../constants/constant';
 
 export default function Main() {
-  console.log('전역에서 관리되는 로그인 상태 ---> ', useRecoilValue(logInInfo));
   return (
     <div className={styles.containerWrap}>
       <NavigationBar />
@@ -20,7 +19,7 @@ export default function Main() {
         type_1={TITLE_WITH_CONTENT}
       />
 
-      <GoRandomStartBtn url="/test" str="아무거나 시작" />
+      <GoRandomStartBtn url="/test-random" str="아무거나 시작" />
       <div className={styles.testWrap}>
         <TitleWithText title="🌟 심테의 근본, MBTI 검사" />
         <TestCard thumbnailStr="전생에서 내가 공룡이었다면?" />

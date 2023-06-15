@@ -1,21 +1,29 @@
 import { Link } from 'react-router-dom';
 
-import { TYPE_ON_TEST, TYPE_MYPAGE } from '../../constants/constant';
+import {
+  TYPE_ON_TEST,
+  TYPE_MYPAGE,
+  TYPE_COMMENT,
+} from '../../constants/constant';
 import styles from './index.module.css';
 
 export function CardButton(props) {
   return (
-    <div className={styles.wrap}>
-      <button className={`${styles.button} ${styles[props.btnType]}`}></button>
-      {props.btnType === 'comment' || (
+    <div
+      className={
+        props.type === TYPE_COMMENT ? styles.wrap_comment : styles.wrap
+      }
+    >
+      <button className={`${styles.button} ${styles[props.type]}`}></button>
+      {props.type === TYPE_COMMENT || (
         <span className={`${styles.span} ${styles.count}`}>1,143</span>
       )}
-      {props.btnType === 'comment' && (
+      {props.type === TYPE_COMMENT && (
         <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>
           댓글
         </span>
       )}
-      {props.btnType === 'comment' && (
+      {props.type === TYPE_COMMENT && (
         <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>
           33
         </span>

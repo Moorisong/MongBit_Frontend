@@ -88,7 +88,7 @@
 
 .menuWrap > ul > li li,
 .menuWrap > ul > li a {
-  padding: 3px 0 0 10px;
+  padding: 3px 0 0 5px;
 }
 
 .menuMoveToRight {
@@ -107,7 +107,6 @@
 
 .blackModal {
   width: 385px;
-  height: 100%;
   position: absolute;
   top: 0;
   opacity: 0;
@@ -119,6 +118,7 @@
   display: block;
   height: 100%;
   opacity: 0.5;
+  transition: opacity 0.3s ease-in-out;
   z-index: 0;
   background-color: black;
   position: fixed;
@@ -133,9 +133,9 @@
   margin-bottom: 20px;
 }
 
-/* .menuWrap>ul a {
-  text-decoration: none;
-} */
+.ulWrap > a {
+  font-weight: 400;
+}
 
 ul {
   font-weight: bold;
