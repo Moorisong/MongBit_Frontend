@@ -1,11 +1,12 @@
-import { Routes, Route } from "react-router-dom";
-import Login from "./Login";
-import Main from "./Main";
-import TestList from "./TestList";
-import Test from "./Test"
-import Admin from "./Admin";
-import KakaoAuthHandle from "./KakaoAuthHandle"
-import MyPage from "./MyPage";
+import { Routes, Route } from 'react-router-dom';
+
+import Login from './Login';
+import Main from './Main';
+import TestList from './TestList';
+import Test from './Test';
+import Admin from './Admin';
+import KakaoAuthHandle from './KakaoAuthHandle';
+import MyPage from './MyPage';
 
 function Router() {
   return (

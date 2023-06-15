@@ -20,7 +20,10 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "check": "prettier --check ./src",
+    "format": "prettier --write ./src",
+    "lint": "eslint --fix ./src"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +44,11 @@
     ]
   },
   "devDependencies": {
-    "jwt-decode": "^3.1.2"
+    "eslint": "^8.42.0",
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-react": "^7.32.2",
+    "jwt-decode": "^3.1.2",
+    "prettier": "^2.8.8"
   }
 }

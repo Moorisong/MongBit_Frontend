@@ -42,37 +42,37 @@
 }
 
 .playCnt {
-  background-image: url("../../../public/images/buttonSet/playCnt.svg");
+  background-image: url('../../../public/images/buttonSet/playCnt.svg');
 }
 
 .likeCnt {
-  background-image: url("../../../public/images/buttonSet/likeCnt.svg");
+  background-image: url('../../../public/images/buttonSet/likeCnt.svg');
 }
 
 .commentCnt {
-  background-image: url("../../../public/images/buttonSet/commentCnt.svg");
+  background-image: url('../../../public/images/buttonSet/commentCnt.svg');
 }
 
 .comment {
-  background-image: url("../../../public/images/test/comment.svg");
+  background-image: url('../../../public/images/test/comment.svg');
 }
 
 .bookMark {
   width: 2rem;
   height: 2rem;
-  background-image: url("../../../public/images/test/bookMark.svg");
+  background-image: url('../../../public/images/test/bookMark.svg');
 }
 
 .like {
   width: 2rem;
   height: 2rem;
-  background-image: url("../../../public/images/test/like.svg");
+  background-image: url('../../../public/images/test/like.svg');
 }
 
 .share {
   width: 2rem;
   height: 2rem;
-  background-image: url("../../../public/images/test/share.svg");
+  background-image: url('../../../public/images/test/share.svg');
 }
 
 .testBtnWrap {
@@ -85,13 +85,12 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-
 }
 
 .addCommentButton {
   width: 1.2rem;
   height: 1.2rem;
-  background-image: url("../../../public/images/test/addComment.svg");
+  background-image: url('../../../public/images/test/addComment.svg');
   background-color: #f1f1f1;
   position: absolute;
   top: 10px;
@@ -101,7 +100,7 @@
 .userImg {
   width: 2.5rem;
   height: 2.5rem;
-  background-image: url("../../../public/images/test/userSampleImg.svg");
+  background-image: url('../../../public/images/test/userSampleImg.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
