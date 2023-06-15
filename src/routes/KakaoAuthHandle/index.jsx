@@ -3,15 +3,15 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
-import { TOKEN_NAME } from '../../constants/constant';
-import { logInInfo } from '../../atom';
+import { TOKEN_NAME, USER_INFO } from '../../constants/constant';
+import { logInInfo, tokenInfo } from '../../atom';
+import { decodeToken } from '../../util/util';
 
 export default function KakaoAuthHandle() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const [token, setToken] = useRecoilState(tokenInfo);
   const code = searchParams.get('code');
-
-  const [logIn, setLogIn] = useRecoilState(logInInfo);
 
   useEffect(() => {
     if (code) {
@@ -22,15 +22,29 @@ export default function KakaoAuthHandle() {
           )
           .then((response) => {
             localStorage.setItem(TOKEN_NAME, response.headers['authorization']);
-            setLogIn({
-              state: true,
-              memberId: response.data.memberId,
-              thumbnail: response.data.thumbnail,
-              registDate: response.data.registDate,
-              userName: response.data.username,
-            });
+            localStorage.setItem(
+              USER_INFO + 'memeberId',
+              response.data.memberId
+            );
+            localStorage.setItem(
+              USER_INFO + 'thumbnail',
+              response.data.thumbnail
+            );
+            localStorage.setItem(
+              USER_INFO + 'registDate',
+              response.data.registDate
+            );
+            localStorage.setItem(
+              USER_INFO + 'username',
+              response.data.username
+            );
             navigate('/');
-            console.log(logIn)
+            const decodedToken = decodeToken();
+
+            setToken({
+              state: decodedToken.state,
+              role: decodedToken.role,
+            });
           }, []);
       } catch (error) {
         console.error(error);
