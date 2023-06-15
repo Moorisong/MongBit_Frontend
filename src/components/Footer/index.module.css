@@ -8,44 +8,21 @@
   margin-top: 50px;
 }
 
-.moveBottom {
-
-}
-
-.moveBottom_2 {
-
-}
-
-.moveBottom_3 {
-
-}
-
-.moveBottom_4{
+.moveBottom_4 {
   width: 400px;
-
-}
-
-.upper>p {
-
-  
-}
-
-.upper>p:last-child {
-
 }
 
 .under {
-
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  margin-top: 10px;
+}
+.upper > p:first-child {
+  margin-bottom: 5px;
 }
 
-.under>img {
-  width: 1rem;
-  height: 1rem;
-}
-
-.under>p {
-
+.under > img {
+  width: 20px;
+  height: 20px;
 }

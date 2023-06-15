@@ -1,6 +1,12 @@
-import { atom } from 'recoil'
+import { atom } from 'recoil';
 
-export const logInState = atom({
+export const logInInfo = atom({
   key: 'logInState',
-  default : false
-})
+  default: {
+    state: false,
+    memberId: '',
+    thumbnail: '',
+    registDate: '',
+    userName: '',
+  },
+});

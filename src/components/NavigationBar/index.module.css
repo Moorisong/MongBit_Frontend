@@ -1,22 +1,25 @@
+.wrap {
+  z-index: 1;
+}
+
 .fixedWrap {
   width: 100%;
   max-width: 370px;
   background-color: white;
-  z-index: 2;
   height: 5rem;
 }
+
 .navWrap {
-  width: 100%;
-  height: 5rem;
+  width: 370px;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   background-color: white;
-  z-index: 2;
 }
 
-.logoWrap{
+.logoWrap {
   display: flex;
   flex-direction: row;
 }
@@ -24,7 +27,7 @@
 .logoDog {
   width: 5rem;
   height: 5.5rem;
-  background-image: url("../../../public/images/navigationBar/logo_dog.svg");
+  background-image: url('../../../public/images/navigationBar/logo_dog.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -33,7 +36,7 @@
 .logoTitle {
   width: 7rem;
   height: 5.7rem;
-  background-image: url("../../../public/images/navigationBar/logo_title.svg");
+  background-image: url('../../../public/images/navigationBar/logo_title.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -44,17 +47,24 @@
   height: 1rem;
   border-style: none;
   background-color: white;
-  background-image: url("../../../public/images/navigationBar/user.svg");
+  background-image: url('../../../public/images/navigationBar/user.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+}
+
+.myPageBtnNone {
+  width: 1rem;
+  height: 1rem;
+  background-color: white;
+  pointer-events: none;
 }
 
 .menuIcon {
   width: 1rem;
   height: 1rem;
   background-color: white;
-  background-image: url("../../../public/images/navigationBar/menuIcon.svg");
+  background-image: url('../../../public/images/navigationBar/menuIcon.svg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
@@ -62,16 +72,70 @@
 
 .menuWrap {
   width: 200px;
-  left: calc(50% - 300px);
-  transition: left 0.3s ease-in-out;
-  opacity: 0;
-  z-index: 2;
+  height: 100%;
+  left: calc(50% - 400px);
+  top: -1px;
+  transition: all 0.3s ease-in-out;
   border: 1px solid rgb(242, 242, 242);
   background-color: white;
+  position: fixed;
+  z-index: 2;
 }
 
-ul:first-child {
+.menuWrap > ul {
+  padding-top: 30px;
 }
+
+.menuWrap > ul > li li,
+.menuWrap > ul > li a {
+  padding: 3px 0 0 10px;
+}
+
+.menuMoveToRight {
+  left: calc(50% - 200px);
+}
+
+.fixModal {
+  width: 300px;
+  height: 100%;
+  position: fixed;
+  left: calc(50% - 500px);
+  top: -1px;
+  z-index: 2;
+  background-color: #f4f4f4;
+}
+
+.blackModal {
+  width: 385px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  z-index: -3;
+}
+
+.modalMoveToRight {
+  display: block;
+  height: 100%;
+  opacity: 0.5;
+  z-index: 0;
+  background-color: black;
+  position: fixed;
+}
+
+.menuWrap > ul {
+  margin: 10px 0 0 10px;
+  height: 100%;
+}
+
+.menuWrap > ul > li {
+  margin-bottom: 20px;
+}
+
+/* .menuWrap>ul a {
+  text-decoration: none;
+} */
 
 ul {
   font-weight: bold;
@@ -83,32 +147,47 @@ li {
   font-weight: normal;
 }
 
-.ulWrap > li {
-}
-
-.menuMoveToRight {
-  left: calc(50% - 200px);
-  top: 5rem;
-  opacity: 1;
-}
-
-.modal {
-  max-width: 400px;
-  width: 100%;
-  position: absolute;
-  top: 5rem;
-  left: calc(50% - 200px);
-  opacity: 0;
-  transition: all 0.3s ease-in-out;
-  z-index: 1;
-}
-
-.modalMoveToRight {
-  background-color: RGB(0, 0, 0, 0.5);
-  opacity: 1;
-}
-
-
 .strokeWrap {
   width: 100%;
+}
+
+.logOutWrap {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: -10px;
+  position: absolute;
+  bottom: 10px;
+}
+
+.logOutWrap > p {
+  padding-right: 5px;
+  color: #979797;
+}
+
+.logOutWrap > p,
+.logOutWrap > button {
+  cursor: pointer;
+}
+
+.menuWrap > ul:last-child {
+  position: relative;
+}
+
+.logOutBtn {
+  width: 20px;
+  height: 22px;
+  background-color: white;
+  background-image: url('../../../public/images/navigationBar/logOutIcon.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.logOutWrap > img {
+  width: 60px;
+  height: 40px;
+  margin-left: 30px;
 }
