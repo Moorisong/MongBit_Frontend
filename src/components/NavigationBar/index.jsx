@@ -76,9 +76,7 @@ export default function NavigationBar() {
           <li>
             <ul className={styles.ulWrap}>
               마이페이지
-              <li>
-                <Link to="/mypage">심테 기록 보기</Link>
-              </li>
+              <li onClick={clickMypageBtn}>심테 기록 보기</li>
             </ul>
           </li>
           <li>
