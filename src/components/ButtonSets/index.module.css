@@ -108,12 +108,8 @@
 .userImg {
   width: 2.5rem;
   height: 2.5rem;
-  background-image: url('../../../public/images/test/userSampleImg.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  border-style: none;
   margin-right: 10px;
+  border-radius: 15.5px;
 }
 
 .userAndDate {

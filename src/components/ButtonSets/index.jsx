@@ -51,17 +51,16 @@ export function AddCommentButton() {
   );
 }
 
-export function Comment() {
+export function Comment(props) {
   return (
     <div className={styles.wrap}>
-      <button className={`${styles.userImg}`}></button>
+      <img src={localStorage.getItem('mongBitthumbnail')} className={`${styles.userImg}`}></img>
       <div className={styles.userAndDate}>
         <div>
-          <span>김송현 · </span>
-          <span>1일 전</span>
+          <span>{props.data.username}</span>
+          <span>{props.data.time}</span>
         </div>
-        {/* <p>남친 구해요 남친 구해요 구해요 남친 구해요 구해요 남친 구해요 구해요 남친 구해요 구해요 남친 구해요 구니가먼데니게 이이이 해해ㅐ 한강 여여요 요요하자해요</p> */}
-        <p>남친 구해요 남친 구해요요</p>
+        <p>{props.data.content}</p>
       </div>
     </div>
   );
