@@ -16,7 +16,7 @@ export function CardButton(props) {
     >
       <button className={`${styles.button} ${styles[props.type]}`}></button>
       {props.type === TYPE_COMMENT || (
-        <span className={`${styles.span} ${styles.count}`}>1,143</span>
+        <span className={`${styles.span} ${styles.count}`}>{props.data}</span>
       )}
       {props.type === TYPE_COMMENT && (
         <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>
@@ -25,7 +25,7 @@ export function CardButton(props) {
       )}
       {props.type === TYPE_COMMENT && (
         <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>
-          33
+          {props.data}
         </span>
       )}
     </div>

@@ -35,7 +35,7 @@ export default function TestRandom() {
             thumbnailClass="normal_thumbnail"
             titleBoxClass="normal_titleBox"
           />
-          <CardButton type={TYPE_PLAY_CNT} moveClass="button_onTest_right" />
+          <CardButton type={TYPE_PLAY_CNT} moveClass="button_onTest_right" data='김코순_2_테스트온 위' />
         </div>
         <Stroke type_1={TYPE_ON_TEST} type_2="2" />
         <p className={styles.contentTextWrap}>
@@ -65,7 +65,7 @@ export default function TestRandom() {
         <Stroke type_1={TYPE_ON_TEST} type_2="1" />
 
         {/* 댓글 */}
-        <CardButton type={TYPE_COMMENT} moveClass={'comment_onTest'} />
+        <CardButton type={TYPE_COMMENT} moveClass={'comment_onTest'} data='김코순_2_테스트온 아래'/>
 
         <div className={styles.commentInputWrap}>
           <input

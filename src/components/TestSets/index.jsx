@@ -16,9 +16,9 @@ function TestSetComplete(props) {
     <div className={cn_1}>
       <TestCard thumbnailStr={thumbnailStr} />
       <div className={styles.buttonWrap}>
-        <CardButton type={TYPE_PLAY_CNT} />
-        <CardButton type={TYPE_LIKE_CNT} />
-        <CardButton type={TYPE_COMMENT_CNT} />
+        <CardButton type={TYPE_PLAY_CNT} data='김코순_1'/>
+        <CardButton type={TYPE_LIKE_CNT} data='김코순_1'/>
+        <CardButton type={TYPE_COMMENT_CNT} data='김코순_1'/>
       </div>
       <Stroke type={props.type} />
     </div>
