@@ -71,10 +71,16 @@
   background-image: url('../../../public/images/test/bookMark.svg');
 }
 
-.like {
+.liked {
   width: 2rem;
   height: 2rem;
-  background-image: url('../../../public/images/test/like.svg');
+  background-image: url('../../../public/images/test/liked.svg');
+}
+
+.noneLiked {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/noneLiked.svg');
 }
 
 .share {

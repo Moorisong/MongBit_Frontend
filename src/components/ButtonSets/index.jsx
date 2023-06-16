@@ -33,9 +33,13 @@ export function CardButton(props) {
 }
 
 export function TestButton(props) {
+  const cn_1 = props.likeState
+    ? `${styles.button} ${styles.liked}`
+    : `${styles.button} ${styles.noneLiked}`;
+  const cn_2 = `${styles.button} ${styles[props.btnType]}`;
   return (
     <div className={styles.testBtnWrap}>
-      <button className={`${styles.button} ${styles[props.btnType]}`}></button>
+      <button className={props.btnType === 'like' ? cn_1 : cn_2}></button>
       <p className={styles.btnNameText}>{props.str}</p>
     </div>
   );
@@ -54,7 +58,10 @@ export function AddCommentButton() {
 export function Comment(props) {
   return (
     <div className={styles.wrap}>
-      <img src={localStorage.getItem('mongBitthumbnail')} className={`${styles.userImg}`}></img>
+      <img
+        src={localStorage.getItem('mongBitthumbnail')}
+        className={`${styles.userImg}`}
+      ></img>
       <div className={styles.userAndDate}>
         <div>
           <span>{props.data.username}</span>

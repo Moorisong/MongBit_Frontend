@@ -20,30 +20,48 @@ import Footer from '../../components/Footer';
 import styles from './index.module.css';
 
 export default function TestRandom() {
-  const [data, setData] = useState({});
-  useEffect(() => {
-    // Axios --
-    // 테스트용
-    // const memberId = '64816274508d983852ec7de8';
-    // const testId = '648ad8ac4b746a3e1e258c58';
-    // axios.get(`https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`)
-    //   .then((response) => {
-    //     console.log('꿀---> ', response)
-    //   })
+  const [data, setData] = useState({
+    thumbnailStr: '',
+    playCnt: '',
+    description: '',
+    likeState: false,
+    likeCnt: '',
+    comment: [
+      {
+        username: '',
+        content: '',
+        time: '',
+      },
+    ],
+  });
 
-    setData({
-      thumbnailStr: '나와 잘 맞는 MBTI',
-      playCnt: '김코순_2_테스트온 위',
-      description: '설명설ㅇgggg명설명_김코순_완료',
-      likeState: false,
-      likeCnt: '154_김코순_완료',
-      comment: [{
-        username: '김코순_완료 ·',
-        content: '남친 구해요 남친 구해요요_김코순_완료',
-        time: '김코순_완료'
-      }]
-    });
+  const memberId = '64816274508d983852ec7de8';
+  const testId = '648ad8ac4b746a3e1e258c58';
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
+      )
+      .then((res) => {
+        setData((prev) => ({ ...prev, likeCnt: res.data }));
+      });
+
+    axios
+      .get(
+        `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
+      )
+      .then((res) => {
+        setData((prev) => ({ ...prev, likeState: res.data }));
+      });
+
+    // axios.get('https://mongbit-willneiman.koyeb.app/api/v1/test/comments',  { params: { "testId": "648ad8ac4b746a3e1e258c58" } })
+    // .then((r)=>{
+    //   console.log('테스트 중--전체 코멘트 조회---> ', r.data)
+    // })
   }, []);
+
+  console.log('data---> ', data);
 
   return (
     <div className={styles.wrap}>
@@ -70,8 +88,30 @@ export default function TestRandom() {
           <li>
             <TestButton btnType="bookMark" str="북마크" />
           </li>
-          <li className={styles.likeWrap}>
-            <TestButton btnType="like" str="재밌당" />
+          <li
+            className={styles.likeWrap}
+            onClick={() => {
+              if (data.likeState) {
+                axios.delete(
+                  `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
+                  { params: { testId: testId, memberId: memberId } }
+                );
+                setData((prev) => ({ ...prev, likeCnt: prev.likeCnt - 1 }));
+              } else {
+                axios.post(
+                  `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
+                  { testId: testId, memberId: memberId }
+                );
+                setData((prev) => ({ ...prev, likeCnt: prev.likeCnt + 1 }));
+              }
+              setData((prev) => ({ ...prev, likeState: !prev.likeState }));
+            }}
+          >
+            <TestButton
+              btnType="like"
+              str="재밌당"
+              likeState={data.likeState}
+            />
             <p className={styles.likeCntNum}>{data.likeCnt}</p>
           </li>
           <li>
@@ -97,8 +137,7 @@ export default function TestRandom() {
         </div>
 
         <div className={styles.commentWrap}>
-          {data.comment && <Comment data = {data.comment[0]}
-          />}
+          {data.comment && <Comment data={data.comment[0]} />}
         </div>
       </div>
       <div className={styles.seeMoreWrap}>
