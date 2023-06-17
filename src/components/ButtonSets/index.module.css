@@ -5,6 +5,16 @@
   align-items: center;
   margin: 15px 10px 0 0;
 }
+
+.commentWrapper {
+  width: 370px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  margin: 15px 10px 0 0;
+}
+
 .wrap_comment {
   width: 370px;
   display: flex;
@@ -121,6 +131,7 @@
 .userAndDate {
   width: 320px;
   margin-top: -5px;
+  word-wrap: break-word;
 }
 
 .stroke {

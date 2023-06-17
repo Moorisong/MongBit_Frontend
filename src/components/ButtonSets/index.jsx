@@ -45,20 +45,20 @@ export function TestButton(props) {
   );
 }
 
-export function AddCommentButton() {
+export function AddCommentButton(props) {
   return (
     <div className={styles.commentBtnWrap}>
       <button
         className={`${styles.button} ${styles.addCommentButton}`}
+        onClick={props.onClick}
       ></button>
     </div>
   );
 }
 
 export function Comment(props) {
-  console.log('p-> ', props);
   return (
-    <div className={styles.wrap}>
+    <div className={styles.commentWrapper}>
       <img
         src={props.data.thumbnailImage}
         className={`${styles.userImg}`}

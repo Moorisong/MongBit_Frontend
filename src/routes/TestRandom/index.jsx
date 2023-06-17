@@ -30,10 +30,14 @@ export default function TestRandom() {
   });
 
   const [likeLoading, setLikeLoading] = useState(true);
-  const [commentLoading, setCommentLoading] = useState(true);
+  const [likeChanged, setLikeChanged] = useState(true)
   const [commentIndex, setCommentIndex] = useState(0);
+  const [commentLoading, setCommentLoading] = useState(true);
+  const [commentAdded, setCommentAdded] = useState(true);
+  let [commentValue, setCommentValue] = useState('');
+  let [isSubmitting, setIsSubmitting] = useState(false);
 
-  const memberId = '64816274508d983852ec7de8';
+  const memberId = localStorage.getItem('mongBitmemeberId')
   const testId = '648ad8ac4b746a3e1e258c58';
 
   useEffect(() => {
@@ -48,16 +52,19 @@ export default function TestRandom() {
           ),
         ]);
 
-        setData((prev) => ({ ...prev, likeState: stateResponse.data }));
-        setData((prev) => ({ ...prev, likeCnt: cntResponse.data }));
-        setLikeLoading(false);
+        setData((prev) => ({
+          ...prev,
+          likeState: stateResponse.data,
+          likeCnt: cntResponse.data,
+        }));
+
+        setLikeLoading(false)
       } catch (err) {
         console.log('err--> ', err);
       }
     };
-
     fetchLikeData();
-  }, []);
+  }, [likeChanged]);
 
   useEffect(() => {
     axios
@@ -65,13 +72,29 @@ export default function TestRandom() {
         `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex}`
       )
       .then((res) => {
-        res.data.forEach((rsData) => {
-          setData((prev) => ({ ...prev, comment: [...prev.comment, rsData] }));
-        });
+        setData((prev) => ({ ...prev, comment: res.data }));
         setCommentLoading(false);
+        setCommentIndex(commentIndex + 1);
       });
-  }, [commentIndex]);
+  }, [commentAdded]);
 
+  data.comment.sort(
+    (a, b) => new Date(b.commentDate) - new Date(a.commentDate)
+  );
+
+  async function addComment() {
+    await axios
+      .post(`https://mongbit-willneiman.koyeb.app/api/v1/test/comment`, {
+        memberId: localStorage.getItem('mongBitmemeberId'),
+        testId: testId,
+        content: commentValue,
+      })
+      .then((res) => {
+        setCommentIndex(0);
+        setCommentAdded(!commentAdded);
+      });
+    setIsSubmitting(false);
+  }
   return (
     <div className={styles.wrap}>
       {/* 네비게이션 바 */}
@@ -104,20 +127,21 @@ export default function TestRandom() {
           ) : (
             <li
               className={styles.likeWrap}
-              onClick={() => {
+              onClick={ async () => {
                 if (data.likeState) {
-                  axios.delete(
+                  setData((prev) => ({ ...prev, likeCnt: prev.likeCnt - 1, likeState: false }));
+                  await axios.delete(
                     `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
-                  );
-                  setData((prev) => ({ ...prev, likeCnt: prev.likeCnt - 1 }));
+                    );
+                  setLikeChanged(!likeChanged)
                 } else {
-                  axios.post(
+                  setData((prev) => ({ ...prev, likeCnt: prev.likeCnt + 1, likeState: true }));
+                  await axios.post(
                     `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
                     { testId: testId, memberId: memberId }
                   );
-                  setData((prev) => ({ ...prev, likeCnt: prev.likeCnt + 1 }));
+                  setLikeChanged(!likeChanged)
                 }
-                setData((prev) => ({ ...prev, likeState: !prev.likeState }));
               }}
             >
               <TestButton
@@ -144,10 +168,30 @@ export default function TestRandom() {
         <div className={styles.commentInputWrap}>
           <input
             type="text"
+            value={commentValue}
             className={styles.commentInput}
             placeholder="나쁜말 하면 신고합니다 ㅇㅅㅇ"
+            onChange={(evt) => {
+              setCommentValue(evt.currentTarget.value);
+            }}
+            onKeyDown={(evt) => {
+              if (evt.key === 'Enter') {
+                setCommentValue('');
+                setIsSubmitting(true);
+
+                //댓글 추가 요청이 진행 중일때 추가로 등록하지 못하도록 조치함
+                if (isSubmitting) return;
+                addComment();
+              }
+            }}
           />
-          <AddCommentButton />
+          <AddCommentButton
+            onClick={() => {
+              if (!commentValue) return;
+              setCommentValue('');
+              addComment();
+            }}
+          />
         </div>
 
         <div className={styles.commentWrap}>
@@ -164,8 +208,20 @@ export default function TestRandom() {
       </div>
       <div className={styles.seeMoreWrap}>
         <button
-          onClick={() => {
-            setCommentIndex(commentIndex + 1);
+          onClick={async () => {
+            await axios
+              .get(
+                `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex}`
+              )
+              .then((res) => {
+                let newArr = [...data.comment];
+                res.data.forEach((d) => {
+                  newArr.push(d);
+                });
+                setData((prev) => ({ ...prev, comment: newArr }));
+                setCommentLoading(false);
+                setCommentIndex(commentIndex + 1);
+              });
           }}
         >
           더보기
