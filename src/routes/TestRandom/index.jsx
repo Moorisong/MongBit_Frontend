@@ -26,42 +26,51 @@ export default function TestRandom() {
     description: '',
     likeState: false,
     likeCnt: '',
-    comment: [
-      {
-        username: '',
-        content: '',
-        time: '',
-      },
-    ],
+    comment: [],
   });
+
+  const [likeLoading, setLikeLoading] = useState(true);
+  const [commentLoading, setCommentLoading] = useState(true);
+  const [commentIndex, setCommentIndex] = useState(0);
 
   const memberId = '64816274508d983852ec7de8';
   const testId = '648ad8ac4b746a3e1e258c58';
 
   useEffect(() => {
-    axios
-      .get(
-        `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
-      )
-      .then((res) => {
-        setData((prev) => ({ ...prev, likeCnt: res.data }));
-      });
+    const fetchLikeData = async () => {
+      try {
+        const [stateResponse, cntResponse] = await Promise.all([
+          axios.get(
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
+          ),
+          axios.get(
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
+          ),
+        ]);
 
-    axios
-      .get(
-        `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
-      )
-      .then((res) => {
-        setData((prev) => ({ ...prev, likeState: res.data }));
-      });
+        setData((prev) => ({ ...prev, likeState: stateResponse.data }));
+        setData((prev) => ({ ...prev, likeCnt: cntResponse.data }));
+        setLikeLoading(false);
+      } catch (err) {
+        console.log('err--> ', err);
+      }
+    };
 
-    // axios.get('https://mongbit-willneiman.koyeb.app/api/v1/test/comments',  { params: { "testId": "648ad8ac4b746a3e1e258c58" } })
-    // .then((r)=>{
-    //   console.log('테스트 중--전체 코멘트 조회---> ', r.data)
-    // })
+    fetchLikeData();
   }, []);
 
-  console.log('data---> ', data);
+  useEffect(() => {
+    axios
+      .get(
+        `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex}`
+      )
+      .then((res) => {
+        res.data.forEach((rsData) => {
+          setData((prev) => ({ ...prev, comment: [...prev.comment, rsData] }));
+        });
+        setCommentLoading(false);
+      });
+  }, [commentIndex]);
 
   return (
     <div className={styles.wrap}>
@@ -88,32 +97,37 @@ export default function TestRandom() {
           <li>
             <TestButton btnType="bookMark" str="북마크" />
           </li>
-          <li
-            className={styles.likeWrap}
-            onClick={() => {
-              if (data.likeState) {
-                axios.delete(
-                  `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
-                  { params: { testId: testId, memberId: memberId } }
-                );
-                setData((prev) => ({ ...prev, likeCnt: prev.likeCnt - 1 }));
-              } else {
-                axios.post(
-                  `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
-                  { testId: testId, memberId: memberId }
-                );
-                setData((prev) => ({ ...prev, likeCnt: prev.likeCnt + 1 }));
-              }
-              setData((prev) => ({ ...prev, likeState: !prev.likeState }));
-            }}
-          >
-            <TestButton
-              btnType="like"
-              str="재밌당"
-              likeState={data.likeState}
-            />
-            <p className={styles.likeCntNum}>{data.likeCnt}</p>
-          </li>
+          {likeLoading ? (
+            <li className={styles.likeWrap}>
+              <p>로딩중</p>
+            </li>
+          ) : (
+            <li
+              className={styles.likeWrap}
+              onClick={() => {
+                if (data.likeState) {
+                  axios.delete(
+                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
+                  );
+                  setData((prev) => ({ ...prev, likeCnt: prev.likeCnt - 1 }));
+                } else {
+                  axios.post(
+                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
+                    { testId: testId, memberId: memberId }
+                  );
+                  setData((prev) => ({ ...prev, likeCnt: prev.likeCnt + 1 }));
+                }
+                setData((prev) => ({ ...prev, likeState: !prev.likeState }));
+              }}
+            >
+              <TestButton
+                btnType="like"
+                str="재밌당"
+                likeState={data.likeState}
+              />
+              <p className={styles.likeCntNum}>{data.likeCnt}</p>
+            </li>
+          )}
           <li>
             <TestButton btnType="share" str="공유하기" />
           </li>
@@ -137,11 +151,25 @@ export default function TestRandom() {
         </div>
 
         <div className={styles.commentWrap}>
-          {data.comment && <Comment data={data.comment[0]} />}
+          {commentLoading ? (
+            <p>로딩중</p>
+          ) : (
+            <>
+              {data.comment.map((com, i) => (
+                <Comment data={com} key={i} />
+              ))}
+            </>
+          )}
         </div>
       </div>
       <div className={styles.seeMoreWrap}>
-        <button>더보기</button>
+        <button
+          onClick={() => {
+            setCommentIndex(commentIndex + 1);
+          }}
+        >
+          더보기
+        </button>
         <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
       </div>
       <Footer type={TYPE_ON_TEST} />

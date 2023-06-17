@@ -56,16 +56,17 @@ export function AddCommentButton() {
 }
 
 export function Comment(props) {
+  console.log('p-> ', props);
   return (
     <div className={styles.wrap}>
       <img
-        src={localStorage.getItem('mongBitthumbnail')}
+        src={props.data.thumbnailImage}
         className={`${styles.userImg}`}
       ></img>
       <div className={styles.userAndDate}>
         <div>
           <span>{props.data.username}</span>
-          <span>{props.data.time}</span>
+          <span>{props.data.commentDate}</span>
         </div>
         <p>{props.data.content}</p>
       </div>
