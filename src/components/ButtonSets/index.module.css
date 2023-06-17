@@ -5,6 +5,16 @@
   align-items: center;
   margin: 15px 10px 0 0;
 }
+
+.commentWrapper {
+  width: 370px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  margin: 15px 10px 0 0;
+}
+
 .wrap_comment {
   width: 370px;
   display: flex;
@@ -71,10 +81,16 @@
   background-image: url('../../../public/images/test/bookMark.svg');
 }
 
-.like {
+.liked {
   width: 2rem;
   height: 2rem;
-  background-image: url('../../../public/images/test/like.svg');
+  background-image: url('../../../public/images/test/liked.svg');
+}
+
+.noneLiked {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/noneLiked.svg');
 }
 
 .share {
@@ -108,17 +124,14 @@
 .userImg {
   width: 2.5rem;
   height: 2.5rem;
-  background-image: url('../../../public/images/test/userSampleImg.svg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  border-style: none;
   margin-right: 10px;
+  border-radius: 15.5px;
 }
 
 .userAndDate {
   width: 320px;
   margin-top: -5px;
+  word-wrap: break-word;
 }
 
 .stroke {

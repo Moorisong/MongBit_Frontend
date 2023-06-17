@@ -36,6 +36,11 @@
   align-items: center;
 }
 
+.likeWrap > img {
+  width: 20px;
+  height: 20px;
+}
+
 .likeCntNum {
   color: #979797;
 }
@@ -44,7 +49,7 @@
   width: 100%;
   max-width: 370px;
   height: 2.5rem;
-  padding-left: 10px;
+  padding: 0 40px 0 10px;
   background-color: #f1f1f1;
   font-size: 12px;
   color: #979797;

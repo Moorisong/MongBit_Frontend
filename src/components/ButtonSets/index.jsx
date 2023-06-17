@@ -16,7 +16,7 @@ export function CardButton(props) {
     >
       <button className={`${styles.button} ${styles[props.type]}`}></button>
       {props.type === TYPE_COMMENT || (
-        <span className={`${styles.span} ${styles.count}`}>1,143</span>
+        <span className={`${styles.span} ${styles.count}`}>{props.data}</span>
       )}
       {props.type === TYPE_COMMENT && (
         <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>
@@ -25,7 +25,7 @@ export function CardButton(props) {
       )}
       {props.type === TYPE_COMMENT && (
         <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>
-          33
+          {props.data}
         </span>
       )}
     </div>
@@ -33,35 +33,42 @@ export function CardButton(props) {
 }
 
 export function TestButton(props) {
+  const cn_1 = props.likeState
+    ? `${styles.button} ${styles.liked}`
+    : `${styles.button} ${styles.noneLiked}`;
+  const cn_2 = `${styles.button} ${styles[props.btnType]}`;
   return (
     <div className={styles.testBtnWrap}>
-      <button className={`${styles.button} ${styles[props.btnType]}`}></button>
+      <button className={props.btnType === 'like' ? cn_1 : cn_2}></button>
       <p className={styles.btnNameText}>{props.str}</p>
     </div>
   );
 }
 
-export function AddCommentButton() {
+export function AddCommentButton(props) {
   return (
     <div className={styles.commentBtnWrap}>
       <button
         className={`${styles.button} ${styles.addCommentButton}`}
+        onClick={props.onClick}
       ></button>
     </div>
   );
 }
 
-export function Comment() {
+export function Comment(props) {
   return (
-    <div className={styles.wrap}>
-      <button className={`${styles.userImg}`}></button>
+    <div className={styles.commentWrapper}>
+      <img
+        src={props.data.thumbnailImage}
+        className={`${styles.userImg}`}
+      ></img>
       <div className={styles.userAndDate}>
         <div>
-          <span>김송현 · </span>
-          <span>1일 전</span>
+          <span>{props.data.username}</span>
+          <span>{props.data.commentDate}</span>
         </div>
-        {/* <p>남친 구해요 남친 구해요 구해요 남친 구해요 구해요 남친 구해요 구해요 남친 구해요 구해요 남친 구해요 구니가먼데니게 이이이 해해ㅐ 한강 여여요 요요하자해요</p> */}
-        <p>남친 구해요 남친 구해요요</p>
+        <p>{props.data.content}</p>
       </div>
     </div>
   );
