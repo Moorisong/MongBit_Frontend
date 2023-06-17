@@ -36,6 +36,11 @@
   align-items: center;
 }
 
+.likeWrap > img {
+  width: 20px;
+  height: 20px;
+}
+
 .likeCntNum {
   color: #979797;
 }
