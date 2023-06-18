@@ -123,13 +123,13 @@
 }
 
 .userImg {
-  width: 2.6rem;
-  height: 2.6rem;
+  width: 2.5rem;
+  height: 2.5rem;
   margin-right: 10px;
   border-radius: 15.5px;
   position: absolute;
   left: 0;
-  top: 0;
+  top: 2px;
 }
 
 .userAndDate {
@@ -137,6 +137,57 @@
   max-width: 330px;
   margin: -5px 0 0 47px;
   word-wrap: break-word;
+}
+.modifyWrap {
+  position: absolute;
+  top: -4px;
+  right: 5px;
+}
+
+.modifyWrap > button:first-child {
+  margin-right: 5px;
+}
+
+.modifyWrap > button {
+  color: #979797;
+  background-color: white;
+  font-size: 12.5px;
+  font-weight: 300;
+}
+
+.modifyInputWrap {
+  position: relative;
+}
+
+.newCommRightBtn_apply {
+  position: absolute;
+  right: 5px;
+  top: 25%;
+  background-color: white;
+  color: #ffc01f;
+  font-size: 12.5px;
+  font-weight: 300;
+}
+
+.newCommRightBtn_cancel {
+  position: absolute;
+  right: 5px;
+  top: 51%;
+  background-color: white;
+  color: #ffc01f;
+  font-size: 12.5px;
+  font-weight: 300;
+}
+
+.modifyTextarea {
+  width: 280px;
+  color: black;
+  font-size: 0.9rem;
+  border: 0.5px solid #eaeaea;
+  padding: 5px;
+  outline: none;
+  resize: none;
+  border-radius: 5px;
 }
 
 .stroke {

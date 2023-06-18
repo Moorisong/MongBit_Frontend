@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -58,7 +60,8 @@ export function AddCommentButton(props) {
 }
 
 export function Comment(props) {
-  // console.log('p--> ', props.commId)
+  let [isCommentEditMode, setIsCommentEditMode] = useState(false);
+  let [newValue, setNewValue] = useState(props.oldCommVal);
 
   return (
     <div className={styles.commentWrapper}>
@@ -71,8 +74,60 @@ export function Comment(props) {
           <span>{`${props.data.username} · `}</span>
           <span>{formatTimeDifference(props.data.commentDate)}</span>
         </div>
-        <p>{props.data.content}</p>
+        {(isCommentEditMode && (
+          <div className={styles.modifyInputWrap}>
+            <textarea
+              type="text"
+              rows="3"
+              className={styles.modifyTextarea}
+              onChange={(evt) => {
+                setNewValue(evt.currentTarget.value);
+              }}
+            >
+              {newValue}
+            </textarea>
+            <button
+              onClick={() => {
+                if (props.data.content === newValue)
+                  return setIsCommentEditMode(false);
+                props.data.content = newValue;
+                setIsCommentEditMode(false);
+                axios
+                  .put(
+                    `https://mongbit-willneiman.koyeb.app/api/v1/test/comment`,
+                    {
+                      memberId: props.memberId,
+                      testId: props.testId,
+                      content: newValue,
+                      id: props.id,
+                    }
+                  )
+                  .then(() => {
+                    props.modifyComment();
+                  });
+              }}
+              className={styles.newCommRightBtn_apply}
+            >
+              확인
+            </button>
+            <button className={styles.newCommRightBtn_cancel}>취소</button>
+          </div>
+        )) || <p>{(isCommentEditMode && '') || props.data.content}</p>}
       </div>
+      {isCommentEditMode || (
+        <div className={styles.modifyArea}>
+          <div className={styles.modifyWrap}>
+            <button
+              onClick={() => {
+                setIsCommentEditMode(true);
+              }}
+            >
+              수정
+            </button>
+            <button onClick={props.deleteComment}>삭제</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

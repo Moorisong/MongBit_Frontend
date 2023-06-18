@@ -246,27 +246,27 @@ export default function TestPreview() {
             <>
               {data.comment.map((com, i) => (
                 <div key={i} className={styles.commentContentWrap}>
-                  <Comment data={com} />
-                  <div>
-                    <div className={styles.modifyWrap}>
-                      <button>수정</button>
-                      <button
-                        onClick={() => {
-                          // console.log('p--> ', com.id)
-                          axios
-                            .delete(
-                              `https://mongbit-willneiman.koyeb.app/api/v1/test/comment/${com.id}`
-                            )
-                            .then(() => {
-                              setCommentChanged(!commentChanged);
-                              setCommentIndex((prev) => [0, prev[1]]);
-                            });
-                        }}
-                      >
-                        삭제
-                      </button>
-                    </div>
-                  </div>
+                  <Comment
+                    data={com}
+                    deleteComment={() => {
+                      axios
+                        .delete(
+                          `https://mongbit-willneiman.koyeb.app/api/v1/test/comment/${com.id}`
+                        )
+                        .then(() => {
+                          setCommentChanged(!commentChanged);
+                          setCommentIndex((prev) => [0, prev[1]]);
+                        });
+                    }}
+                    modifyComment={() => {
+                      setCommentChanged(!commentChanged);
+                      setCommentIndex((prev) => [0, prev[1]]);
+                    }}
+                    oldCommVal={com.content}
+                    memberId={memberId}
+                    testId={testId}
+                    id={com.id}
+                  />
                 </div>
               ))}
             </>
