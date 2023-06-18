@@ -33,7 +33,7 @@ export default function TestPreview() {
 
   const [likeLoading, setLikeLoading] = useState(true);
   const [likeChanged, setLikeChanged] = useState(true);
-  const [commentIndex, setCommentIndex] = useState(0);
+  const [commentIndex, setCommentIndex] = useState([0, false]);
   const [commentLoading, setCommentLoading] = useState(true);
   const [commentAdded, setCommentAdded] = useState(true);
   let [commentValue, setCommentValue] = useState('');
@@ -50,10 +50,10 @@ export default function TestPreview() {
       try {
         const [stateResponse, cntResponse] = await Promise.all([
           axios.get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
           ),
           axios.get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`,
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
           ),
         ]);
 
@@ -72,7 +72,7 @@ export default function TestPreview() {
       try {
         axios
           .get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`,
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
           )
           .then((res) => {
             setData((prev) => ({
@@ -96,17 +96,17 @@ export default function TestPreview() {
   useEffect(() => {
     axios
       .get(
-        `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex}`,
+        `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex[0]}`
       )
       .then((res) => {
-        setData((prev) => ({ ...prev, comment: res.data }));
+        setData((prev) => ({ ...prev, comment: res.data.commentDTOList }));
         setCommentLoading(false);
-        setCommentIndex(commentIndex + 1);
+        setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
       });
   }, [commentAdded]);
 
   data.comment.sort(
-    (a, b) => new Date(b.commentDate) - new Date(a.commentDate),
+    (a, b) => new Date(b.commentDate) - new Date(a.commentDate)
   );
 
   async function addComment() {
@@ -116,8 +116,8 @@ export default function TestPreview() {
         testId: testId,
         content: commentValue,
       })
-      .then(() => {
-        setCommentIndex(0);
+      .then((res) => {
+        setCommentIndex([0, res.data.hasNextPage]);
         setCommentAdded(!commentAdded);
       });
     setIsSubmittingComment(false);
@@ -166,7 +166,7 @@ export default function TestPreview() {
                     likeState: false,
                   }));
                   await axios.delete(
-                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
+                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
                   );
                   setLikeChanged(!likeChanged);
                 } else {
@@ -177,7 +177,7 @@ export default function TestPreview() {
                   }));
                   await axios.post(
                     `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
-                    { testId: testId, memberId: memberId },
+                    { testId: testId, memberId: memberId }
                   );
                   setLikeChanged(!likeChanged);
                 }
@@ -251,28 +251,30 @@ export default function TestPreview() {
           )}
         </div>
       </div>
-      <div className={styles.seeMoreWrap}>
-        <button
-          onClick={async () => {
-            await axios
-              .get(
-                `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex}`,
-              )
-              .then((res) => {
-                let newArr = [...data.comment];
-                res.data.forEach((d) => {
-                  newArr.push(d);
+      {commentIndex[1] && (
+        <div className={styles.seeMoreWrap}>
+          <button
+            onClick={async () => {
+              await axios
+                .get(
+                  `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex[0]}`
+                )
+                .then((res) => {
+                  let newArr = [...data.comment];
+                  res.data.commentDTOList.forEach((d) => {
+                    newArr.push(d);
+                  });
+                  setData((prev) => ({ ...prev, comment: newArr }));
+                  setCommentLoading(false);
+                  setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
                 });
-                setData((prev) => ({ ...prev, comment: newArr }));
-                setCommentLoading(false);
-                setCommentIndex(commentIndex + 1);
-              });
-          }}
-        >
-          더보기
-        </button>
-        <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
-      </div>
+            }}
+          >
+            더보기
+          </button>
+          <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
+        </div>
+      )}
       <Footer type={TYPE_ON_TEST} />
     </div>
   );

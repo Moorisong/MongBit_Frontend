@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import { TOKEN_NAME, USER_INFO } from '../../constants/constant';
-import { logInInfo, tokenInfo } from '../../atom';
+import { tokenInfo } from '../../atom';
 import { decodeToken } from '../../util/util';
 
 export default function KakaoAuthHandle() {

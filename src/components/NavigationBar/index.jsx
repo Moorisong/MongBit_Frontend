@@ -5,7 +5,7 @@ import cx from 'classnames';
 
 import styles from './index.module.css';
 import { TOKEN_NAME, USER_INFO } from '../../constants/constant';
-import { logInInfo, tokenInfo } from '../../atom';
+import { tokenInfo } from '../../atom';
 import { decodeToken } from '../../util/util';
 
 export default function NavigationBar() {

@@ -1,12 +1,9 @@
-import { useRecoilValue } from 'recoil';
-
 import styles from './index.module.css';
 import { TitleWithText } from '../../components/Titles';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import { TestCard } from '../../components/TestCard';
 import { GoRandomStartBtn } from '../../components/ButtonSets';
-import { logInInfo } from '../../atom';
 import { TITLE_WITH_CONTENT, TYPE_LATEST_MAIN } from '../../constants/constant';
 
 export default function Main() {
