@@ -58,6 +58,7 @@ export function AddCommentButton(props) {
 }
 
 export function Comment(props) {
+
   return (
     <div className={styles.commentWrapper}>
       <img
