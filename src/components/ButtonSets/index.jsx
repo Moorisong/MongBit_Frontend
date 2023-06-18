@@ -72,6 +72,12 @@ export function Comment(props) {
         </div>
         <p>{props.data.content}</p>
       </div>
+      <div className={styles.modifyArea}>
+        <div className={styles.modifyWrap}>
+          <button>수정</button>
+          <button>삭제</button>
+        </div>
+      </div>
     </div>
   );
 }
