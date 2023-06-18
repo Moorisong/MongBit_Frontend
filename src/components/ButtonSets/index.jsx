@@ -5,7 +5,6 @@ import {
   TYPE_MYPAGE,
   TYPE_COMMENT,
 } from '../../constants/constant';
-import { decodeToken } from '../../util/util';
 import styles from './index.module.css';
 
 export function CardButton(props) {
@@ -92,9 +91,9 @@ export function Stroke(props) {
 }
 
 export function GoRandomStartBtn(props) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   return (
-    <Link to={decodeToken().state ? props.url : '/mypage'} className={styles.goRandomStartBtn} >
+    <Link to={props.url} className={styles.goRandomStartBtn}>
       {' '}
       {props.str} &gt;{' '}
     </Link>

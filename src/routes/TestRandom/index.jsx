@@ -32,7 +32,7 @@ export default function TestRandom() {
   });
 
   const [likeLoading, setLikeLoading] = useState(true);
-  const [likeChanged, setLikeChanged] = useState(true)
+  const [likeChanged, setLikeChanged] = useState(true);
   const [commentIndex, setCommentIndex] = useState(0);
   const [commentLoading, setCommentLoading] = useState(true);
   const [commentAdded, setCommentAdded] = useState(true);
@@ -40,13 +40,13 @@ export default function TestRandom() {
   let [isSubmittingComment, setIsSubmittingComment] = useState(false);
   let [isSubmittingLike, setIsSubmittingLike] = useState(false);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
-  const memberId = localStorage.getItem('mongBitmemeberId')
+  const memberId = localStorage.getItem('mongBitmemeberId');
   const testId = '648ad8ac4b746a3e1e258c58';
 
   useEffect(() => {
-    const fetchLikeData = async () => {
+    const fetchLikeDataLogIned = async () => {
       try {
         const [stateResponse, cntResponse] = await Promise.all([
           axios.get(
@@ -62,14 +62,35 @@ export default function TestRandom() {
           likeState: stateResponse.data,
           likeCnt: cntResponse.data,
         }));
-        console.log('222')
-        setLikeLoading(false)
+        setLikeLoading(false);
       } catch (err) {
         console.log('err--> ', err);
       }
     };
-    fetchLikeData();
 
+    const fetchLikeDataNoLogined = async () => {
+      try {
+        axios
+          .get(
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
+          )
+          .then((res) => {
+            setData((prev) => ({
+              ...prev,
+              likeCnt: res.data,
+            }));
+          });
+        setLikeLoading(false);
+      } catch (err) {
+        console.log('err--> ', err);
+      }
+    };
+
+    if (decodeToken().state) {
+      fetchLikeDataLogIned();
+    } else {
+      fetchLikeDataNoLogined();
+    }
   }, [likeChanged]);
 
   useEffect(() => {
@@ -133,27 +154,34 @@ export default function TestRandom() {
           ) : (
             <li
               className={styles.likeWrap}
-              onClick={ async () => {
+              onClick={async () => {
+                if (!decodeToken().state) return navigate('/mypage');
 
-                if(!decodeToken().state) return navigate('/mypage')
-
-                setIsSubmittingLike(true)
-                if(isSubmittingLike) return
+                setIsSubmittingLike(true);
+                if (isSubmittingLike) return;
                 if (data.likeState) {
-                  setData((prev) => ({ ...prev, likeCnt: prev.likeCnt - 1, likeState: false }));
+                  setData((prev) => ({
+                    ...prev,
+                    likeCnt: prev.likeCnt - 1,
+                    likeState: false,
+                  }));
                   await axios.delete(
                     `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
-                    );
-                  setLikeChanged(!likeChanged)
+                  );
+                  setLikeChanged(!likeChanged);
                 } else {
-                  setData((prev) => ({ ...prev, likeCnt: prev.likeCnt + 1, likeState: true }));
+                  setData((prev) => ({
+                    ...prev,
+                    likeCnt: prev.likeCnt + 1,
+                    likeState: true,
+                  }));
                   await axios.post(
                     `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
                     { testId: testId, memberId: memberId }
                   );
-                  setLikeChanged(!likeChanged)
+                  setLikeChanged(!likeChanged);
                 }
-                setIsSubmittingLike(false)
+                setIsSubmittingLike(false);
               }}
             >
               <TestButton
@@ -188,7 +216,7 @@ export default function TestRandom() {
             }}
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
-                if(!decodeToken().state) return navigate('/mypage')
+                if (!decodeToken().state) return navigate('/mypage');
                 setCommentValue('');
                 setIsSubmittingComment(true);
 
@@ -200,7 +228,7 @@ export default function TestRandom() {
           />
           <AddCommentButton
             onClick={() => {
-              if(!decodeToken().state) return navigate('/mypage')
+              if (!decodeToken().state) return navigate('/mypage');
               if (!commentValue) return;
               setCommentValue('');
               addComment();
