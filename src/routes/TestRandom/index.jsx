@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { TestCard } from '../../components/TestCard';
 import {
@@ -15,6 +16,7 @@ import {
   TYPE_COMMENT,
   TYPE_PLAY_CNT,
 } from '../../constants/constant';
+import { decodeToken } from '../../util/util';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import styles from './index.module.css';
@@ -37,6 +39,8 @@ export default function TestRandom() {
   let [commentValue, setCommentValue] = useState('');
   let [isSubmittingComment, setIsSubmittingComment] = useState(false);
   let [isSubmittingLike, setIsSubmittingLike] = useState(false);
+
+  const navigate = useNavigate()
 
   const memberId = localStorage.getItem('mongBitmemeberId')
   const testId = '648ad8ac4b746a3e1e258c58';
@@ -130,6 +134,9 @@ export default function TestRandom() {
             <li
               className={styles.likeWrap}
               onClick={ async () => {
+
+                if(!decodeToken().state) return navigate('/mypage')
+
                 setIsSubmittingLike(true)
                 if(isSubmittingLike) return
                 if (data.likeState) {
@@ -181,6 +188,7 @@ export default function TestRandom() {
             }}
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
+                if(!decodeToken().state) return navigate('/mypage')
                 setCommentValue('');
                 setIsSubmittingComment(true);
 
@@ -192,6 +200,7 @@ export default function TestRandom() {
           />
           <AddCommentButton
             onClick={() => {
+              if(!decodeToken().state) return navigate('/mypage')
               if (!commentValue) return;
               setCommentValue('');
               addComment();
