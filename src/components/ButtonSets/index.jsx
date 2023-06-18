@@ -58,6 +58,7 @@ export function AddCommentButton(props) {
 }
 
 export function Comment(props) {
+  // console.log('p--> ', props.commId)
 
   return (
     <div className={styles.commentWrapper}>
@@ -71,12 +72,6 @@ export function Comment(props) {
           <span>{formatTimeDifference(props.data.commentDate)}</span>
         </div>
         <p>{props.data.content}</p>
-      </div>
-      <div className={styles.modifyArea}>
-        <div className={styles.modifyWrap}>
-          <button>수정</button>
-          <button>삭제</button>
-        </div>
       </div>
     </div>
   );

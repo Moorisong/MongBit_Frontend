@@ -33,12 +33,11 @@ export function formatTimeDifference(dateString) {
   let targetDate = new Date(dateString);
   targetDate.setHours(targetDate.getHours() + 9);
 
-
   const timeDiff = Math.abs(currentDate - targetDate);
   const diffMinutes = Math.floor(timeDiff / (1000 * 60)); // ms를 분 단위로 변환
 
   if (diffMinutes < 60) {
-    if(diffMinutes === 0) return `방금 전`;
+    if (diffMinutes === 0) return `방금 전`;
     return `${diffMinutes}분 전`;
   } else if (diffMinutes < 24 * 60) {
     const diffHours = Math.floor(diffMinutes / 60);

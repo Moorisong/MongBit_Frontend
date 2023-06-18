@@ -35,7 +35,7 @@ export default function TestPreview() {
   const [likeChanged, setLikeChanged] = useState(true);
   const [commentIndex, setCommentIndex] = useState([0, false]);
   const [commentLoading, setCommentLoading] = useState(true);
-  const [commentAdded, setCommentAdded] = useState(true);
+  const [commentChanged, setCommentChanged] = useState(true);
   let [commentValue, setCommentValue] = useState('');
   let [isSubmittingComment, setIsSubmittingComment] = useState(false);
   let [isSubmittingLike, setIsSubmittingLike] = useState(false);
@@ -103,7 +103,7 @@ export default function TestPreview() {
         setCommentLoading(false);
         setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
       });
-  }, [commentAdded]);
+  }, [commentChanged]);
 
   data.comment.sort(
     (a, b) => new Date(b.commentDate) - new Date(a.commentDate)
@@ -118,7 +118,7 @@ export default function TestPreview() {
       })
       .then((res) => {
         setCommentIndex([0, res.data.hasNextPage]);
-        setCommentAdded(!commentAdded);
+        setCommentChanged(!commentChanged);
       });
     setIsSubmittingComment(false);
   }
@@ -245,7 +245,29 @@ export default function TestPreview() {
           ) : (
             <>
               {data.comment.map((com, i) => (
-                <Comment data={com} key={i} />
+                <div key={i} className={styles.commentContentWrap}>
+                  <Comment data={com} />
+                  <div>
+                    <div className={styles.modifyWrap}>
+                      <button>수정</button>
+                      <button
+                        onClick={() => {
+                          // console.log('p--> ', com.id)
+                          axios
+                            .delete(
+                              `https://mongbit-willneiman.koyeb.app/api/v1/test/comment/${com.id}`
+                            )
+                            .then(() => {
+                              setCommentChanged(!commentChanged);
+                              setCommentIndex((prev) => [0, prev[1]]);
+                            });
+                        }}
+                      >
+                        삭제
+                      </button>
+                    </div>
+                  </div>
+                </div>
               ))}
             </>
           )}
