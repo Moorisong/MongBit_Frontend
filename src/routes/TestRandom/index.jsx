@@ -217,6 +217,8 @@ export default function TestRandom() {
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
                 if (!decodeToken().state) return navigate('/mypage');
+                if(commentValue.length > 150) return alert('글자수 150 넘음')
+
                 setCommentValue('');
                 setIsSubmittingComment(true);
 
@@ -230,6 +232,7 @@ export default function TestRandom() {
             onClick={() => {
               if (!decodeToken().state) return navigate('/mypage');
               if (!commentValue) return;
+              if(commentValue.length > 150) return alert('글자수 150 넘음')
               setCommentValue('');
               addComment();
             }}
