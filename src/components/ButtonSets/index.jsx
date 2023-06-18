@@ -5,6 +5,7 @@ import {
   TYPE_MYPAGE,
   TYPE_COMMENT,
 } from '../../constants/constant';
+import { formatTimeDifference } from '../../util/util';
 import styles from './index.module.css';
 
 export function CardButton(props) {
@@ -65,8 +66,8 @@ export function Comment(props) {
       ></img>
       <div className={styles.userAndDate}>
         <div>
-          <span>{props.data.username}</span>
-          <span>{props.data.commentDate}</span>
+          <span>{`${props.data.username} · `}</span>
+          <span>{formatTimeDifference(props.data.commentDate)}</span>
         </div>
         <p>{props.data.content}</p>
       </div>
