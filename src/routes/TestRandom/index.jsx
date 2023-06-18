@@ -35,7 +35,8 @@ export default function TestRandom() {
   const [commentLoading, setCommentLoading] = useState(true);
   const [commentAdded, setCommentAdded] = useState(true);
   let [commentValue, setCommentValue] = useState('');
-  let [isSubmitting, setIsSubmitting] = useState(false);
+  let [isSubmittingComment, setIsSubmittingComment] = useState(false);
+  let [isSubmittingLike, setIsSubmittingLike] = useState(false);
 
   const memberId = localStorage.getItem('mongBitmemeberId')
   const testId = '648ad8ac4b746a3e1e258c58';
@@ -57,13 +58,14 @@ export default function TestRandom() {
           likeState: stateResponse.data,
           likeCnt: cntResponse.data,
         }));
-
+        console.log('222')
         setLikeLoading(false)
       } catch (err) {
         console.log('err--> ', err);
       }
     };
     fetchLikeData();
+
   }, [likeChanged]);
 
   useEffect(() => {
@@ -93,7 +95,7 @@ export default function TestRandom() {
         setCommentIndex(0);
         setCommentAdded(!commentAdded);
       });
-    setIsSubmitting(false);
+    setIsSubmittingComment(false);
   }
   return (
     <div className={styles.wrap}>
@@ -128,6 +130,8 @@ export default function TestRandom() {
             <li
               className={styles.likeWrap}
               onClick={ async () => {
+                setIsSubmittingLike(true)
+                if(isSubmittingLike) return
                 if (data.likeState) {
                   setData((prev) => ({ ...prev, likeCnt: prev.likeCnt - 1, likeState: false }));
                   await axios.delete(
@@ -142,6 +146,7 @@ export default function TestRandom() {
                   );
                   setLikeChanged(!likeChanged)
                 }
+                setIsSubmittingLike(false)
               }}
             >
               <TestButton
@@ -177,10 +182,10 @@ export default function TestRandom() {
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
                 setCommentValue('');
-                setIsSubmitting(true);
+                setIsSubmittingComment(true);
 
                 //댓글 추가 요청이 진행 중일때 추가로 등록하지 못하도록 조치함
-                if (isSubmitting) return;
+                if (isSubmittingComment) return;
                 addComment();
               }
             }}
