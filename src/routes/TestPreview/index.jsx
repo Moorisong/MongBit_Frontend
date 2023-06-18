@@ -21,7 +21,7 @@ import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import styles from './index.module.css';
 
-export default function TestRandom() {
+export default function TestPreview() {
   const [data, setData] = useState({
     thumbnailStr: '',
     playCnt: '',
@@ -50,10 +50,10 @@ export default function TestRandom() {
       try {
         const [stateResponse, cntResponse] = await Promise.all([
           axios.get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
           ),
           axios.get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`,
           ),
         ]);
 
@@ -72,7 +72,7 @@ export default function TestRandom() {
       try {
         axios
           .get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`,
           )
           .then((res) => {
             setData((prev) => ({
@@ -96,7 +96,7 @@ export default function TestRandom() {
   useEffect(() => {
     axios
       .get(
-        `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex}`
+        `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex}`,
       )
       .then((res) => {
         setData((prev) => ({ ...prev, comment: res.data }));
@@ -106,7 +106,7 @@ export default function TestRandom() {
   }, [commentAdded]);
 
   data.comment.sort(
-    (a, b) => new Date(b.commentDate) - new Date(a.commentDate)
+    (a, b) => new Date(b.commentDate) - new Date(a.commentDate),
   );
 
   async function addComment() {
@@ -116,7 +116,7 @@ export default function TestRandom() {
         testId: testId,
         content: commentValue,
       })
-      .then((res) => {
+      .then(() => {
         setCommentIndex(0);
         setCommentAdded(!commentAdded);
       });
@@ -166,7 +166,7 @@ export default function TestRandom() {
                     likeState: false,
                   }));
                   await axios.delete(
-                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
+                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
                   );
                   setLikeChanged(!likeChanged);
                 } else {
@@ -177,7 +177,7 @@ export default function TestRandom() {
                   }));
                   await axios.post(
                     `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
-                    { testId: testId, memberId: memberId }
+                    { testId: testId, memberId: memberId },
                   );
                   setLikeChanged(!likeChanged);
                 }
@@ -256,7 +256,7 @@ export default function TestRandom() {
           onClick={async () => {
             await axios
               .get(
-                `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex}`
+                `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex}`,
               )
               .then((res) => {
                 let newArr = [...data.comment];
