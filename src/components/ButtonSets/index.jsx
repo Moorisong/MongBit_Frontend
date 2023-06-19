@@ -60,7 +60,6 @@ export function AddCommentButton(props) {
 }
 
 export function Comment(props) {
-  console.log('받는 놈---> ', props.data);
   let [isCommentEditMode, setIsCommentEditMode] = useState(false);
   let [newValue, setNewValue] = useState(null);
 

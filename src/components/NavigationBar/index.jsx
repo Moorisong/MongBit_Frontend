@@ -14,6 +14,15 @@ export default function NavigationBar() {
   const [menuClicked, setMenuClicked] = useState(false);
   const [token, setToken] = useRecoilState(tokenInfo);
 
+  useEffect(() => {
+    if (!decodeToken().state) {
+      localStorage.setItem(USER_INFO + 'memeberId', '');
+      localStorage.setItem(USER_INFO + 'thumbnail', '');
+      localStorage.setItem(USER_INFO + 'registDate', '');
+      localStorage.setItem(USER_INFO + 'username', '');
+    }
+  }, []);
+
   function clickMypageBtn() {
     if (!localStorage.getItem(TOKEN_NAME)) {
       return navigate('/login');
