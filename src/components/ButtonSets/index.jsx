@@ -132,7 +132,11 @@ export function Comment(props) {
             >
               수정
             </button>
-            <button onClick={props.deleteComment}>삭제</button>
+            <button onClick={()=>{
+              const result = confirm('삭제 하시겠습니까?')
+              if(result) return props.deleteComment()
+              if(!result) return
+            }}>삭제</button>
           </div>
         </div>
       )}
