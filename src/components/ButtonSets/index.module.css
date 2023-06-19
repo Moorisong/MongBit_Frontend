@@ -138,7 +138,7 @@
 
 .userAndDate {
   width: 100%;
-  max-width: 325px;
+  max-width: 315px;
   margin: -5px 0 0 47px;
   word-wrap: break-word;
 }
@@ -161,6 +161,12 @@
 
 .modifyInputWrap {
   position: relative;
+}
+.charsLimit {
+  position: absolute;
+  right: 5px;
+  top: 8px;
+  font-size: 11px !important;
 }
 
 .newCommRightBtn_apply {
@@ -188,8 +194,12 @@
   color: black;
   font-size: 0.8rem;
   border-bottom: 1px solid #cdcdcd;
-  padding-left: 3px;
+  padding: 0 57px 0 3px;
   height: 25px;
+}
+
+.modifyInputBoderBottomRed {
+  border-bottom: 1.5px solid red;
 }
 
 .modifyInput:focus {

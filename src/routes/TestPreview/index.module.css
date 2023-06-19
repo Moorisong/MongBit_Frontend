@@ -60,6 +60,21 @@
   color: #979797;
 }
 
+.commentInput:focus {
+  outline: none;
+}
+
+.modifyInputBoderBottomRed {
+  border-bottom: 2px solid red;
+}
+
+.charsLimit {
+  color: #979797;
+  position: absolute;
+  top: -19px;
+  right: 5px;
+  font-size: 11px;
+}
 .contentTextWrap {
   width: 370px;
   font-size: 1rem;

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import cx from 'classnames';
 
 import { TestCard } from '../../components/TestCard';
 import {
@@ -217,10 +218,16 @@ export default function TestPreview() {
         />
 
         <div className={styles.commentInputWrap}>
+          <span
+            className={styles.charsLimit}
+          >{`${commentValue.length} / 150`}</span>
           <input
+            maxLength="150"
             type="text"
             value={commentValue}
-            className={styles.commentInput}
+            className={cx(styles.commentInput, {
+              [styles.modifyInputBoderBottomRed]: commentValue.length >= 150,
+            })}
             placeholder="나쁜말 하면 신고합니다 ㅇㅅㅇ"
             onChange={(evt) => {
               setCommentValue(evt.currentTarget.value);
@@ -228,8 +235,6 @@ export default function TestPreview() {
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
                 if (!decodeToken().state) return navigate('/login');
-                if (commentValue.length > 150)
-                  return alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
 
                 setCommentValue('');
                 setIsSubmittingComment(true);
@@ -244,7 +249,6 @@ export default function TestPreview() {
             onClick={() => {
               if (!decodeToken().state) return navigate('/login');
               if (!commentValue) return;
-              if (commentValue.length > 150) return alert('글자수 150 넘음');
               setCommentValue('');
               addComment();
             }}

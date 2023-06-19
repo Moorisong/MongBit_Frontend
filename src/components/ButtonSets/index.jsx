@@ -1,4 +1,5 @@
 import axios from 'axios';
+import cx from 'classnames';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
@@ -75,9 +76,14 @@ export function Comment(props) {
           <div className={styles.modifyInputWrap}>
             {
               <input
+                maxLength="150"
                 type="text"
                 rows="3"
-                className={styles.modifyInput}
+                className={cx(styles.modifyInput, {
+                  [styles.modifyInputBoderBottomRed]: newValue
+                    ? newValue.length >= 150
+                    : props.data.content.length >= 150,
+                })}
                 defaultValue={props.data.content}
                 onChange={(evt) => {
                   setNewValue(evt.currentTarget.value);
@@ -86,10 +92,6 @@ export function Comment(props) {
                   if (evt.key === 'Enter') {
                     if (props.data.content === newValue)
                       return setIsCommentEditMode(false);
-                    if (newValue.length > 150) {
-                      alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
-                      return setIsCommentEditMode(false);
-                    }
                     if (
                       !localStorage.getItem('mongBitmemeberId') ||
                       !decodeToken().state
@@ -115,14 +117,13 @@ export function Comment(props) {
                 }}
               ></input>
             }
+            <span className={styles.charsLimit}>{`${
+              newValue ? newValue.length : props.data.content.length
+            } / 150`}</span>
             <button
               onClick={() => {
                 if (props.data.content === newValue)
                   return setIsCommentEditMode(false);
-                if (newValue.length > 150) {
-                  alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
-                  return setIsCommentEditMode(false);
-                }
                 if (
                   !localStorage.getItem('mongBitmemeberId') ||
                   !decodeToken().state
