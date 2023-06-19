@@ -7,7 +7,7 @@ import {
   TYPE_MYPAGE,
   TYPE_COMMENT,
 } from '../../constants/constant';
-import { formatTimeDifference } from '../../util/util';
+import { decodeToken, formatTimeDifference, loginCheck } from '../../util/util';
 import styles from './index.module.css';
 
 export function CardButton(props) {
@@ -93,19 +93,21 @@ export function Comment(props) {
                 if (newValue.length > 150)
                   return alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
 
+                loginCheck();
                 props.data.content = newValue;
                 setIsCommentEditMode(false);
                 axios
                   .put(
                     `https://mongbit-willneiman.koyeb.app/api/v1/test/comment`,
                     {
-                      memberId: props.memberId,
+                      memberId: localStorage.getItem('mongBitmemeberId'),
                       testId: props.testId,
                       content: newValue,
                       id: props.id,
                     }
                   )
-                  .then(() => {
+                  .then((res) => {
+                    if (res.status === 400) return alert(res.data);
                     props.modifyComment();
                   });
               }}
