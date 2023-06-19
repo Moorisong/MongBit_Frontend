@@ -22,14 +22,10 @@ export function CardButton(props) {
         <span className={`${styles.span} ${styles.count}`}>{props.data}</span>
       )}
       {props.type === TYPE_COMMENT && (
-        <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>
-          댓글
-        </span>
+        <span className={`${styles.commentText_onTest}`}>댓글</span>
       )}
       {props.type === TYPE_COMMENT && (
-        <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>
-          {props.data}
-        </span>
+        <span className={`${styles.commentText_onTest}`}>{props.data}</span>
       )}
     </div>
   );
@@ -78,15 +74,46 @@ export function Comment(props) {
         {(isCommentEditMode && (
           <div className={styles.modifyInputWrap}>
             {
-              <textarea
+              <input
                 type="text"
                 rows="3"
-                className={styles.modifyTextarea}
+                className={styles.modifyInput}
                 defaultValue={props.data.content}
                 onChange={(evt) => {
                   setNewValue(evt.currentTarget.value);
                 }}
-              ></textarea>
+                onKeyDown={(evt) => {
+                  if (evt.key === 'Enter') {
+                    if (props.data.content === newValue)
+                      return setIsCommentEditMode(false);
+                    if (newValue.length > 150) {
+                      alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
+                      return setIsCommentEditMode(false);
+                    }
+                    if (
+                      !localStorage.getItem('mongBitmemeberId') ||
+                      !decodeToken().state
+                    )
+                      return navigate('/login');
+                    props.data.content = newValue;
+                    setIsCommentEditMode(false);
+                    axios
+                      .put(
+                        `https://mongbit-willneiman.koyeb.app/api/v1/test/comment`,
+                        {
+                          memberId: localStorage.getItem('mongBitmemeberId'),
+                          testId: props.testId,
+                          content: newValue,
+                          id: props.id,
+                        }
+                      )
+                      .then((res) => {
+                        if (res.status === 400) return alert(res.data);
+                        props.modifyComment();
+                      });
+                  }
+                }}
+              ></input>
             }
             <button
               onClick={() => {

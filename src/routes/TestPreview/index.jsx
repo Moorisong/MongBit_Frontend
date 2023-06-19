@@ -39,11 +39,22 @@ export default function TestPreview() {
   let [commentValue, setCommentValue] = useState('');
   let [isSubmittingComment, setIsSubmittingComment] = useState(false);
   let [isSubmittingLike, setIsSubmittingLike] = useState(false);
+  const [commentCnt, setCommentCnt] = useState(0);
 
   const navigate = useNavigate();
 
   const memberId = localStorage.getItem('mongBitmemeberId');
   const testId = '648ad8ac4b746a3e1e258c58';
+
+  useEffect(() => {
+    axios
+      .get(
+        `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/comments/count`
+      )
+      .then((res) => {
+        setCommentCnt(res.data);
+      });
+  }, []);
 
   useEffect(() => {
     const fetchLikeDataLogIned = async () => {
@@ -202,7 +213,7 @@ export default function TestPreview() {
         <CardButton
           type={TYPE_COMMENT}
           moveClass={'comment_onTest'}
-          data="김코순_2_테스트온 아래"
+          data={commentCnt}
         />
 
         <div className={styles.commentInputWrap}>
