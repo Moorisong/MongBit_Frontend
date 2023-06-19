@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {
   TYPE_ON_TEST,
   TYPE_MYPAGE,
   TYPE_COMMENT,
 } from '../../constants/constant';
-import { decodeToken, formatTimeDifference, loginCheck } from '../../util/util';
+import { decodeToken, formatTimeDifference, LoginCheck } from '../../util/util';
 import styles from './index.module.css';
 
 export function CardButton(props) {
@@ -60,12 +60,9 @@ export function AddCommentButton(props) {
 }
 
 export function Comment(props) {
+  const navigate = useNavigate();
   let [isCommentEditMode, setIsCommentEditMode] = useState(false);
   let [newValue, setNewValue] = useState(null);
-
-  useEffect(() => {
-    setNewValue(props.data.content);
-  }, []);
 
   return (
     <div className={styles.commentWrapper}>
@@ -99,7 +96,12 @@ export function Comment(props) {
                   alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
                   return setIsCommentEditMode(false);
                 }
-                loginCheck();
+                if (
+                  !localStorage.getItem('mongBitmemeberId') ||
+                  !decodeToken().state
+                )
+                  return navigate('/login');
+
                 props.data.content = newValue;
                 setIsCommentEditMode(false);
                 axios

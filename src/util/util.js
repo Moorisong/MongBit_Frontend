@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 
 import { TOKEN_NAME } from '../constants/constant';
@@ -56,10 +55,4 @@ export function formatTimeDifference(dateString) {
     const diffYears = Math.floor(diffMinutes / (60 * 24 * 30 * 12));
     return `${diffYears}년 전`;
   }
-}
-
-export function loginCheck() {
-  const navigate = useNavigate();
-  if (!localStorage.getItem('mongBitmemeberId') || !decodeToken().state)
-    return navigate('/login');
 }

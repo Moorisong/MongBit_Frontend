@@ -260,8 +260,8 @@ export default function TestPreview() {
                         });
                     }}
                     modifyComment={() => {
-                      setCommentChanged(!commentChanged);
                       setCommentIndex((prev) => [0, prev[1]]);
+                      setCommentChanged(!commentChanged);
                     }}
                     memberId={memberId}
                     testId={testId}
