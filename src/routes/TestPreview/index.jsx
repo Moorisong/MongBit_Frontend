@@ -22,7 +22,7 @@ import Footer from '../../components/Footer';
 import styles from './index.module.css';
 
 export default function TestPreview() {
-  const [data, setData] = useState({
+  let [data, setData] = useState({
     thumbnailStr: '',
     playCnt: '',
     description: '',
@@ -255,15 +255,14 @@ export default function TestPreview() {
                           `https://mongbit-willneiman.koyeb.app/api/v1/test/comment/${com.id}`
                         )
                         .then(() => {
-                          setCommentChanged(!commentChanged);
                           setCommentIndex((prev) => [0, prev[1]]);
+                          setCommentChanged(!commentChanged);
                         });
                     }}
                     modifyComment={() => {
                       setCommentChanged(!commentChanged);
                       setCommentIndex((prev) => [0, prev[1]]);
                     }}
-                    oldCommVal={com.content}
                     memberId={memberId}
                     testId={testId}
                     id={com.id}

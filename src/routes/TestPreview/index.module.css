@@ -102,22 +102,6 @@
   margin: 3px 0 0 3px;
 }
 
-/* .modifyWrap {
-  position: absolute;
-  top: 12px;
-  right: 13px;
-}
-
-.modifyWrap > button:first-child {
-  margin-right: 5px;
-}
-
-.modifyWrap > button {
-  color: #979797;
-  background-color: white;
-  font-size: 13px;
-  font-weight: 300;
-} */
 .seeMoreWrap {
   display: flex;
   flex-direction: column;

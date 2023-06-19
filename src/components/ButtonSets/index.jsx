@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import {
@@ -7,7 +7,7 @@ import {
   TYPE_MYPAGE,
   TYPE_COMMENT,
 } from '../../constants/constant';
-import { formatTimeDifference, loginCheck } from '../../util/util';
+import { decodeToken, formatTimeDifference, loginCheck } from '../../util/util';
 import styles from './index.module.css';
 
 export function CardButton(props) {
@@ -60,8 +60,13 @@ export function AddCommentButton(props) {
 }
 
 export function Comment(props) {
+  console.log('받는 놈---> ', props.data);
   let [isCommentEditMode, setIsCommentEditMode] = useState(false);
-  let [newValue, setNewValue] = useState(props.oldCommVal);
+  let [newValue, setNewValue] = useState(null);
+
+  useEffect(() => {
+    setNewValue(props.data.content);
+  }, []);
 
   return (
     <div className={styles.commentWrapper}>
@@ -76,23 +81,25 @@ export function Comment(props) {
         </div>
         {(isCommentEditMode && (
           <div className={styles.modifyInputWrap}>
-            <textarea
-              type="text"
-              rows="3"
-              className={styles.modifyTextarea}
-              onChange={(evt) => {
-                setNewValue(evt.currentTarget.value);
-              }}
-            >
-              {newValue}
-            </textarea>
+            {
+              <textarea
+                type="text"
+                rows="3"
+                className={styles.modifyTextarea}
+                defaultValue={props.data.content}
+                onChange={(evt) => {
+                  setNewValue(evt.currentTarget.value);
+                }}
+              ></textarea>
+            }
             <button
               onClick={() => {
                 if (props.data.content === newValue)
                   return setIsCommentEditMode(false);
-                if (newValue.length > 150)
-                  return alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
-
+                if (newValue.length > 150) {
+                  alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
+                  return setIsCommentEditMode(false);
+                }
                 loginCheck();
                 props.data.content = newValue;
                 setIsCommentEditMode(false);
@@ -124,29 +131,59 @@ export function Comment(props) {
           </div>
         )) || <p>{(isCommentEditMode && '') || props.data.content}</p>}
       </div>
-      {isCommentEditMode ||
-        (localStorage.getItem('mongBitmemeberId') === props.data.memberId && (
-          <div className={styles.modifyArea}>
-            <div className={styles.modifyWrap}>
-              <button
-                onClick={() => {
-                  setIsCommentEditMode(true);
-                }}
-              >
-                수정
-              </button>
-              <button
-                onClick={() => {
-                  const result = confirm('삭제 하시겠습니까?');
-                  if (result) return props.deleteComment();
-                  if (!result) return;
-                }}
-              >
-                삭제
-              </button>
-            </div>
-          </div>
-        ))}
+      {
+        // Admin일 때는 모든 댓글 삭제만 가능하도록 함
+        decodeToken().role === 'ROLE_ADMIN'
+          ? isCommentEditMode || (
+              <div className={styles.modifyArea}>
+                <div className={styles.modifyWrap}>
+                  {localStorage.getItem('mongBitmemeberId') ===
+                    props.data.memberId && (
+                    <button
+                      onClick={() => {
+                        setIsCommentEditMode(true);
+                      }}
+                    >
+                      수정
+                    </button>
+                  )}
+                  <button
+                    onClick={() => {
+                      const result = confirm('삭제 하시겠습니까?');
+                      if (result) return props.deleteComment();
+                      if (!result) return;
+                    }}
+                  >
+                    삭제
+                  </button>
+                </div>
+              </div>
+            )
+          : //일반 User는 본인이 작성한 댓글에만 수정, 삭제 가능하도록 함
+            localStorage.getItem('mongBitmemeberId') === props.data.memberId &&
+            (isCommentEditMode || (
+              <div className={styles.modifyArea}>
+                <div className={styles.modifyWrap}>
+                  <button
+                    onClick={() => {
+                      setIsCommentEditMode(true);
+                    }}
+                  >
+                    수정
+                  </button>
+                  <button
+                    onClick={() => {
+                      const result = confirm('삭제 하시겠습니까?');
+                      if (result) return props.deleteComment();
+                      if (!result) return;
+                    }}
+                  >
+                    삭제
+                  </button>
+                </div>
+              </div>
+            ))
+      }
     </div>
   );
 }
