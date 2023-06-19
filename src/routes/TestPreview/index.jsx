@@ -217,7 +217,7 @@ export default function TestPreview() {
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
                 if (!decodeToken().state) return navigate('/mypage');
-                if (commentValue.length > 150) return alert('글자수 150 넘음');
+                if (commentValue.length > 150) return alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
 
                 setCommentValue('');
                 setIsSubmittingComment(true);

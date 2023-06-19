@@ -90,6 +90,9 @@ export function Comment(props) {
               onClick={() => {
                 if (props.data.content === newValue)
                   return setIsCommentEditMode(false);
+                if (newValue.length > 150)
+                  return alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
+
                 props.data.content = newValue;
                 setIsCommentEditMode(false);
                 axios
@@ -110,7 +113,12 @@ export function Comment(props) {
             >
               확인
             </button>
-            <button className={styles.newCommRightBtn_cancel} onClick={() => setIsCommentEditMode(false)}>취소</button>
+            <button
+              className={styles.newCommRightBtn_cancel}
+              onClick={() => setIsCommentEditMode(false)}
+            >
+              취소
+            </button>
           </div>
         )) || <p>{(isCommentEditMode && '') || props.data.content}</p>}
       </div>
