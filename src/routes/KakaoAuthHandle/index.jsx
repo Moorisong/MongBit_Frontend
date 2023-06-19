@@ -38,7 +38,8 @@ export default function KakaoAuthHandle() {
               USER_INFO + 'username',
               response.data.username
             );
-            navigate('/');
+            navigate(-2);
+
             const decodedToken = decodeToken();
 
             setToken({

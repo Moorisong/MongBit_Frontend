@@ -155,7 +155,7 @@ export default function TestPreview() {
             <li
               className={styles.likeWrap}
               onClick={async () => {
-                if (!decodeToken().state) return navigate('/mypage');
+                if (!decodeToken().state) return navigate('/login');
 
                 setIsSubmittingLike(true);
                 if (isSubmittingLike) return;
@@ -216,7 +216,7 @@ export default function TestPreview() {
             }}
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
-                if (!decodeToken().state) return navigate('/mypage');
+                if (!decodeToken().state) return navigate('/login');
                 if (commentValue.length > 150)
                   return alert('코멘트는 최대 150자까지만 작성할 수 있습니다.');
 
@@ -231,7 +231,7 @@ export default function TestPreview() {
           />
           <AddCommentButton
             onClick={() => {
-              if (!decodeToken().state) return navigate('/mypage');
+              if (!decodeToken().state) return navigate('/login');
               if (!commentValue) return;
               if (commentValue.length > 150) return alert('글자수 150 넘음');
               setCommentValue('');

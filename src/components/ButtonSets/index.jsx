@@ -7,7 +7,7 @@ import {
   TYPE_MYPAGE,
   TYPE_COMMENT,
 } from '../../constants/constant';
-import { decodeToken, formatTimeDifference, loginCheck } from '../../util/util';
+import { formatTimeDifference, loginCheck } from '../../util/util';
 import styles from './index.module.css';
 
 export function CardButton(props) {
