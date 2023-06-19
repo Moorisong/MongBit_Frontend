@@ -110,7 +110,7 @@ export function Comment(props) {
             >
               확인
             </button>
-            <button className={styles.newCommRightBtn_cancel}>취소</button>
+            <button className={styles.newCommRightBtn_cancel} onClick={() => setIsCommentEditMode(false)}>취소</button>
           </div>
         )) || <p>{(isCommentEditMode && '') || props.data.content}</p>}
       </div>
