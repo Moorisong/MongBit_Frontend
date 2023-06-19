@@ -162,7 +162,7 @@
 .newCommRightBtn_apply {
   position: absolute;
   right: 5px;
-  top: 25%;
+  top: 22%;
   background-color: white;
   color: #ffc01f;
   font-size: 12.5px;
@@ -172,7 +172,7 @@
 .newCommRightBtn_cancel {
   position: absolute;
   right: 5px;
-  top: 51%;
+  top: 53%;
   background-color: white;
   color: #ffc01f;
   font-size: 12.5px;
