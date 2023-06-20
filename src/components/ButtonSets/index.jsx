@@ -1,6 +1,6 @@
 import axios from 'axios';
 import cx from 'classnames';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import {
@@ -8,7 +8,7 @@ import {
   TYPE_MYPAGE,
   TYPE_COMMENT,
 } from '../../constants/constant';
-import { decodeToken, formatTimeDifference, LoginCheck } from '../../util/util';
+import { decodeToken, formatTimeDifference } from '../../util/util';
 import styles from './index.module.css';
 
 export function CardButton(props) {
