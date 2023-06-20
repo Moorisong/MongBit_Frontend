@@ -1,8 +1,10 @@
 import cx from 'classnames';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './index.module.css';
 
 export default function QuestionAndAnswer(props) {
+  const navigate = useNavigate();
   return (
     <div
       className={cx(styles.wrap, {
@@ -25,7 +27,13 @@ export default function QuestionAndAnswer(props) {
       <div className={styles.answerWrap}>
         <div className={styles.answer}>
           <div>
-            <span>{props.a_str_1}</span>
+            <span
+              onClick={() => {
+                navigate('/result');
+              }}
+            >
+              {props.a_str_1}
+            </span>
           </div>
         </div>
 

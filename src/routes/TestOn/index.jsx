@@ -16,12 +16,13 @@ export default function TestOn() {
     a_str_1: '"이건 뭐지? 저건 뭐지? 넘모 신기행!" 눈에 보이는 대로 일단 탐험',
     a_str_2: '"여긴 어디? 나는 누구? 안전한가?”상황파악부터',
   });
-  useEffect(() => {
-    if (!decodeToken().state) {
-      sessionStorage.setItem('ngb', true);
-      navigate('/login');
-    }
-  }, []);
+
+  // useEffect(() => {
+  //   if (!decodeToken().state) {
+  //     sessionStorage.setItem('ngb', true);
+  //     navigate('/login');
+  //   }
+  // }, []);
 
   return (
     <div className={styles.wrap}>

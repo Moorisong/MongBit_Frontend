@@ -72,7 +72,7 @@ export default function NavigationBar() {
           [styles.menuMoveToRight]: menuClicked,
         })}
       >
-        <ul>
+        <ul className={styles.menuUlWrapper}>
           <li>
             <ul className={styles.ulWrap}>
               심리테스트
