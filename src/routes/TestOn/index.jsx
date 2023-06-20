@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
 
 import Footer from '../../components/Footer';
 import NavigationBar from '../../components/NavigationBar';
 import { TYPE_MYPAGE } from '../../constants/constant';
-import { decodeToken } from '../../util/util';
+// import { decodeToken } from '../../util/util';
 import styles from './index.module.css';
 import QuestionAndAnswer from '../../components/QestionAndAnswer';
 
 export default function TestOn() {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   let [testData, setTestData] = useState({
     q_idx: 0,
     q_str: '당신은 알에서 막 깨어난 응애 물고기! 뭐부터 할까?',

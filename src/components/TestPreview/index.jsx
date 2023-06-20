@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import cx from 'classnames';
 
 import { TestCard } from '../TestCard';
@@ -43,6 +43,7 @@ export default function TestPreview(props) {
   const [commentCnt, setCommentCnt] = useState(0);
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const memberId = localStorage.getItem('mongBitmemeberId');
 
@@ -163,7 +164,10 @@ export default function TestPreview(props) {
             <li
               className={styles.likeWrap}
               onClick={async () => {
-                if (!decodeToken().state) return navigate('/login');
+                if (!decodeToken().state) {
+                  sessionStorage.setItem('ngb', location.pathname);
+                  return navigate('/login');
+                }
 
                 setIsSubmittingLike(true);
                 if (isSubmittingLike) return;
@@ -226,7 +230,10 @@ export default function TestPreview(props) {
             }}
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
-                if (!decodeToken().state) return navigate('/login');
+                if (!decodeToken().state) {
+                  sessionStorage.setItem('ngb', location.pathname);
+                  return navigate('/login');
+                }
                 if (!evt.currentTarget.value) return;
 
                 setCommentValue('');

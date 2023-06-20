@@ -35,7 +35,6 @@ export default function TestResult(props) {
           <p className={styles.likeCnt}>{props.likeCnt}</p>
         </div>
       </div>
-
       <button className={styles.shareBtn}>친구에게 테스트 공유하기</button>
     </div>
   );

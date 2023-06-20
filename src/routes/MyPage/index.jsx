@@ -24,6 +24,7 @@ export default function MyPage() {
 
   useEffect(() => {
     if (!decodeToken().state) {
+      sessionStorage.setItem('ngb', true);
       return navigate('/login');
     }
   }, []);

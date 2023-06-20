@@ -39,9 +39,11 @@ export default function KakaoAuthHandle() {
               response.data.username
             );
 
-            if (sessionStorage.getItem('ngb')) {
+            const prev = sessionStorage.getItem('ngb');
+            if (prev) {
+              // 직전 페이지로 이동이 필요한 경우
               sessionStorage.setItem('ngb', false);
-              navigate(-2);
+              navigate(prev);
             } else {
               navigate('/main');
             }

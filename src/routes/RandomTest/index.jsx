@@ -15,10 +15,6 @@ export default function RandomTest() {
   const [testId, setTestId] = useState('');
 
   useEffect(() => {
-    if (!decodeToken().state) {
-      sessionStorage.setItem('ngb', true);
-    }
-
     axios
       .get(`https://mongbit-willneiman.koyeb.app/api/v1/tests/random`)
       .then((res) => {
