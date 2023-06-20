@@ -24,6 +24,7 @@ import styles from './index.module.css';
 
 export default function TestPreview(props) {
   let [data, setData] = useState({
+    testId: props.testId,
     thumbnailStr: props.thumbnailStr,
     thumbnailUri: props.thumbnailUri,
     playCnt: props.playCnt,
@@ -46,12 +47,11 @@ export default function TestPreview(props) {
   const navigate = useNavigate();
 
   const memberId = localStorage.getItem('mongBitmemeberId');
-  const testId = '648ad8ac4b746a3e1e258c58';
 
   useEffect(() => {
     axios
       .get(
-        `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/comments/count`
+        `https://mongbit-willneiman.koyeb.app/api/v1/test/${data.testId}/comments/count`
       )
       .then((res) => {
         setCommentCnt(res.data);
@@ -63,10 +63,10 @@ export default function TestPreview(props) {
       try {
         const [stateResponse, cntResponse] = await Promise.all([
           axios.get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${data.testId}/${memberId}/like`
           ),
           axios.get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${data.testId}/like/count`
           ),
         ]);
 
@@ -85,7 +85,7 @@ export default function TestPreview(props) {
       try {
         axios
           .get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${data.testId}/like/count`
           )
           .then((res) => {
             setData((prev) => ({
@@ -109,7 +109,7 @@ export default function TestPreview(props) {
   useEffect(() => {
     axios
       .get(
-        `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex[0]}`
+        `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
       )
       .then((res) => {
         setData((prev) => ({ ...prev, comment: res.data.commentDTOList }));
@@ -126,7 +126,7 @@ export default function TestPreview(props) {
     await axios
       .post(`https://mongbit-willneiman.koyeb.app/api/v1/test/comment`, {
         memberId: localStorage.getItem('mongBitmemeberId'),
-        testId: testId,
+        testId: data.testId,
         content: commentValue,
       })
       .then((res) => {
@@ -176,7 +176,7 @@ export default function TestPreview(props) {
                     likeState: false,
                   }));
                   await axios.delete(
-                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`
+                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${data.testId}/${memberId}/like`
                   );
                   setLikeChanged(!likeChanged);
                 } else {
@@ -186,8 +186,8 @@ export default function TestPreview(props) {
                     likeState: true,
                   }));
                   await axios.post(
-                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/${memberId}/like`,
-                    { testId: testId, memberId: memberId }
+                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${data.testId}/${memberId}/like`,
+                    { testId: data.testId, memberId: memberId }
                   );
                   setLikeChanged(!likeChanged);
                 }
@@ -274,7 +274,7 @@ export default function TestPreview(props) {
                       setCommentChanged(!commentChanged);
                     }}
                     memberId={memberId}
-                    testId={testId}
+                    testId={data.testId}
                     id={com.id}
                   />
                 </div>
@@ -289,7 +289,7 @@ export default function TestPreview(props) {
             onClick={async () => {
               await axios
                 .get(
-                  `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${testId}/page/${commentIndex[0]}`
+                  `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
                 )
                 .then((res) => {
                   let newArr = [...data.comment];
