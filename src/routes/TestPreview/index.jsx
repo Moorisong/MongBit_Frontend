@@ -220,13 +220,13 @@ export default function TestPreview() {
         <div className={styles.commentInputWrap}>
           <span
             className={styles.charsLimit}
-          >{`${commentValue.length} / 150`}</span>
+          >{`${commentValue.length} / 100`}</span>
           <input
-            maxLength="150"
+            maxLength="100"
             type="text"
             value={commentValue}
             className={cx(styles.commentInput, {
-              [styles.modifyInputBoderBottomRed]: commentValue.length >= 150,
+              [styles.modifyInputBoderBottomRed]: commentValue.length >= 100,
             })}
             placeholder="나쁜말 하면 신고합니다 ㅇㅅㅇ"
             onChange={(evt) => {

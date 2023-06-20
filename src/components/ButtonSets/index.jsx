@@ -76,13 +76,13 @@ export function Comment(props) {
           <div className={styles.modifyInputWrap}>
             {
               <input
-                maxLength="150"
+                maxLength="100"
                 type="text"
                 rows="3"
                 className={cx(styles.modifyInput, {
                   [styles.modifyInputBoderBottomRed]: newValue
-                    ? newValue.length >= 150
-                    : props.data.content.length >= 150,
+                    ? newValue.length >= 100
+                    : props.data.content.length >= 100,
                 })}
                 defaultValue={props.data.content}
                 onChange={(evt) => {
@@ -119,7 +119,7 @@ export function Comment(props) {
             }
             <span className={styles.charsLimit}>{`${
               newValue ? newValue.length : props.data.content.length
-            } / 150`}</span>
+            } / 100`}</span>
             <button
               onClick={() => {
                 if (!newValue) return setIsCommentEditMode(false);
