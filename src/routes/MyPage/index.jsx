@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from 'recoil';
 
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
@@ -10,9 +11,11 @@ import {
   TYPE_MYPAGE,
   USER_INFO,
 } from '../../constants/constant';
+import { needGoBack } from '../../atom';
 import { Stroke } from '../../components/ButtonSets';
 import { TestSetMyPage } from '../../components/TestSets';
 import { decodeToken } from '../../util/util';
+
 
 export default function MyPage() {
   const navigate = useNavigate();
@@ -21,9 +24,13 @@ export default function MyPage() {
     .split('T')[0]
     .split('-');
   const registerDate = `${dateParts[0]}.${dateParts[1]}.${dateParts[2]}`;
+  const [needComeBack, setNeedComeBack] = useRecoilState(needGoBack)
 
   useEffect(() => {
-    if (!decodeToken().state) return navigate('/login');
+    if (!decodeToken().state) {
+      setNeedComeBack(true)
+      return navigate('/login');
+    }
   }, []);
   return (
     <div className={styles.wrap}>

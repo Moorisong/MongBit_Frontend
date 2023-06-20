@@ -4,11 +4,12 @@ import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import { TOKEN_NAME, USER_INFO } from '../../constants/constant';
-import { tokenInfo } from '../../atom';
+import { tokenInfo, needGoBack } from '../../atom';
 import { decodeToken } from '../../util/util';
 
 export default function KakaoAuthHandle() {
   const navigate = useNavigate();
+  let [needGoBackState, setNeedGoBack] = useRecoilState(needGoBack);
   const [searchParams] = useSearchParams();
   const [token, setToken] = useRecoilState(tokenInfo);
   const code = searchParams.get('code');
@@ -38,20 +39,26 @@ export default function KakaoAuthHandle() {
               USER_INFO + 'username',
               response.data.username
             );
-            navigate(-2);
 
+            if (needGoBackState) {
+              navigate(-2);
+              setNeedGoBack(false);
+            }else{
+              navigate('/main');
+            }
             const decodedToken = decodeToken();
 
             setToken({
               state: decodedToken.state,
               role: decodedToken.role,
             });
-          }, []);
+          });
       } catch (error) {
         console.error(error);
       }
     }
   }, []);
+
   return (
     <div>
       <button></button>

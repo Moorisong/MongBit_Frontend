@@ -39,6 +39,8 @@ export default function TestPreview() {
   let [commentValue, setCommentValue] = useState('');
   let [isSubmittingComment, setIsSubmittingComment] = useState(false);
   let [isSubmittingLike, setIsSubmittingLike] = useState(false);
+  let [needGoBackState, setNeedGoBack] = useRecoilState(needGoBack);
+
 
   const navigate = useNavigate();
 
@@ -155,7 +157,10 @@ export default function TestPreview() {
             <li
               className={styles.likeWrap}
               onClick={async () => {
-                if (!decodeToken().state) return navigate('/mypage');
+                if (!decodeToken().state) {
+                  setNeedGoBack(true)
+                  return navigate('/login');
+                }
 
                 setIsSubmittingLike(true);
                 if (isSubmittingLike) return;
@@ -216,7 +221,10 @@ export default function TestPreview() {
             }}
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
-                if (!decodeToken().state) return navigate('/mypage');
+                if (!decodeToken().state) {
+                  setNeedGoBack(true)
+                  return navigate('/login');
+                }
                 if (commentValue.length > 150) return alert('글자수 150 넘음');
 
                 setCommentValue('');
