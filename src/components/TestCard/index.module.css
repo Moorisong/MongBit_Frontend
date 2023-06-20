@@ -1,15 +1,12 @@
 .inline {
   display: inline-block;
   padding-right: 5px;
+  position: relative;
 }
 
 .normal_thumbnail {
   width: 370px;
   height: 15rem;
-  background-image: url('../../../public/images/test/card.jpeg');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
 }
 
 .latest_thumbnail {
@@ -23,12 +20,13 @@
 
 .normal_titleBox {
   width: 370px;
-
   height: 2.5rem;
-  background-color: #838383;
+  background-color: black;
   opacity: 0.7;
   display: flex;
   align-items: center;
+  position: absolute;
+  bottom: 5px;
 }
 
 .latest_titleBox {

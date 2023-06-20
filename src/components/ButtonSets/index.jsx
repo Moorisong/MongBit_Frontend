@@ -1,10 +1,14 @@
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import cx from 'classnames';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import {
   TYPE_ON_TEST,
   TYPE_MYPAGE,
   TYPE_COMMENT,
 } from '../../constants/constant';
+import { decodeToken, formatTimeDifference } from '../../util/util';
 import styles from './index.module.css';
 
 export function CardButton(props) {
@@ -19,14 +23,10 @@ export function CardButton(props) {
         <span className={`${styles.span} ${styles.count}`}>{props.data}</span>
       )}
       {props.type === TYPE_COMMENT && (
-        <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>
-          댓글
-        </span>
+        <span className={`${styles.commentText_onTest}`}>댓글</span>
       )}
       {props.type === TYPE_COMMENT && (
-        <span className={`${styles.span_onTest} ${styles.commentText_onTest}`}>
-          {props.data}
-        </span>
+        <span className={`${styles.commentText_onTest}`}>{props.data}</span>
       )}
     </div>
   );
@@ -57,6 +57,10 @@ export function AddCommentButton(props) {
 }
 
 export function Comment(props) {
+  const navigate = useNavigate();
+  let [isCommentEditMode, setIsCommentEditMode] = useState(false);
+  let [newValue, setNewValue] = useState(null);
+
   return (
     <div className={styles.commentWrapper}>
       <img
@@ -65,11 +69,151 @@ export function Comment(props) {
       ></img>
       <div className={styles.userAndDate}>
         <div>
-          <span>{props.data.username}</span>
-          <span>{props.data.commentDate}</span>
+          <span>{`${props.data.username} · `}</span>
+          <span>{formatTimeDifference(props.data.commentDate)}</span>
         </div>
-        <p>{props.data.content}</p>
+        {(isCommentEditMode && (
+          <div className={styles.modifyInputWrap}>
+            {
+              <input
+                maxLength="100"
+                type="text"
+                rows="3"
+                className={cx(styles.modifyInput, {
+                  [styles.modifyInputBoderBottomRed]: newValue
+                    ? newValue.length >= 100
+                    : props.data.content.length >= 100,
+                })}
+                defaultValue={props.data.content}
+                onChange={(evt) => {
+                  setNewValue(evt.currentTarget.value);
+                }}
+                onKeyDown={(evt) => {
+                  if (evt.key === 'Enter') {
+                    if (props.data.content === newValue)
+                      return setIsCommentEditMode(false);
+                    if (
+                      !localStorage.getItem('mongBitmemeberId') ||
+                      !decodeToken().state
+                    )
+                      return navigate('/login');
+                    props.data.content = newValue;
+                    setIsCommentEditMode(false);
+                    axios
+                      .put(
+                        `https://mongbit-willneiman.koyeb.app/api/v1/test/comment`,
+                        {
+                          memberId: localStorage.getItem('mongBitmemeberId'),
+                          testId: props.testId,
+                          content: newValue,
+                          id: props.id,
+                        }
+                      )
+                      .then((res) => {
+                        if (res.status === 400) return alert(res.data);
+                        props.modifyComment();
+                      });
+                  }
+                }}
+              ></input>
+            }
+            <span className={styles.charsLimit}>{`${
+              newValue ? newValue.length : props.data.content.length
+            } / 100`}</span>
+            <button
+              onClick={() => {
+                if (!newValue) return setIsCommentEditMode(false);
+                if (props.data.content === newValue)
+                  return setIsCommentEditMode(false);
+                if (
+                  !localStorage.getItem('mongBitmemeberId') ||
+                  !decodeToken().state
+                )
+                  return navigate('/login');
+
+                props.data.content = newValue;
+                setIsCommentEditMode(false);
+                axios
+                  .put(
+                    `https://mongbit-willneiman.koyeb.app/api/v1/test/comment`,
+                    {
+                      memberId: localStorage.getItem('mongBitmemeberId'),
+                      testId: props.testId,
+                      content: newValue,
+                      id: props.id,
+                    }
+                  )
+                  .then((res) => {
+                    if (res.status === 400) return alert(res.data);
+                    props.modifyComment();
+                  });
+              }}
+              className={styles.newCommRightBtn_apply}
+            >
+              확인
+            </button>
+            <button
+              className={styles.newCommRightBtn_cancel}
+              onClick={() => setIsCommentEditMode(false)}
+            >
+              취소
+            </button>
+          </div>
+        )) || <p>{(isCommentEditMode && '') || props.data.content}</p>}
       </div>
+      {
+        // Admin일 때는 모든 댓글 삭제만 가능하도록 함
+        decodeToken().role === 'ROLE_ADMIN'
+          ? isCommentEditMode || (
+              <div className={styles.modifyArea}>
+                <div className={styles.modifyWrap}>
+                  {localStorage.getItem('mongBitmemeberId') ===
+                    props.data.memberId && (
+                    <button
+                      onClick={() => {
+                        setIsCommentEditMode(true);
+                      }}
+                    >
+                      수정
+                    </button>
+                  )}
+                  <button
+                    onClick={() => {
+                      const result = confirm('삭제 하시겠습니까?');
+                      if (result) return props.deleteComment();
+                      if (!result) return;
+                    }}
+                  >
+                    삭제
+                  </button>
+                </div>
+              </div>
+            )
+          : //일반 User는 본인이 작성한 댓글에만 수정, 삭제 가능하도록 함
+            localStorage.getItem('mongBitmemeberId') === props.data.memberId &&
+            (isCommentEditMode || (
+              <div className={styles.modifyArea}>
+                <div className={styles.modifyWrap}>
+                  <button
+                    onClick={() => {
+                      setIsCommentEditMode(true);
+                    }}
+                  >
+                    수정
+                  </button>
+                  <button
+                    onClick={() => {
+                      const result = confirm('삭제 하시겠습니까?');
+                      if (result) return props.deleteComment();
+                      if (!result) return;
+                    }}
+                  >
+                    삭제
+                  </button>
+                </div>
+              </div>
+            ))
+      }
     </div>
   );
 }

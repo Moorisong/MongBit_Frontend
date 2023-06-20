@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import { useRecoilValue } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 
 import NavigationBar from '../../components/NavigationBar';

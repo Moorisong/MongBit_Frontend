@@ -6,7 +6,6 @@ import { TYPE_LOGIN } from '../../constants/constant';
 export default function Login() {
   // console.log(process.env.REACT_APP_FE_URL);
   // console.log(process.env.NODE_ENV);
-
   const url = process.env.REACT_APP_FE_URL
     ? `https://kauth.kakao.com/oauth/authorize?client_id=3245a5f9cb8303814aadbe1eb65b2e73&redirect_uri=${process.env.REACT_APP_FE_URL}/login/oauth2/kakao/code&response_type=code`
     : `https://kauth.kakao.com/oauth/authorize?client_id=3245a5f9cb8303814aadbe1eb65b2e73&redirect_uri=https://mong-bit-frontend.vercel.app/login/oauth2/kakao/code&response_type=code`;
@@ -31,7 +30,12 @@ export default function Login() {
       <p className={styles.logoText}>
         © 2023 MongMoongCrew. All rights reserved
       </p>
-      <button className={styles.kakaoLogInBtn} onClick={kakaoLogin}></button>
+      <button
+        className={styles.kakaoLogInBtn}
+        onClick={() => {
+          kakaoLogin();
+        }}
+      ></button>
       <div className={styles.docs}>
         <span>
           <p>이용약관</p>

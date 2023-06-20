@@ -1,11 +1,11 @@
 import { useRecoilState } from 'recoil';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import cx from 'classnames';
 
 import styles from './index.module.css';
 import { TOKEN_NAME, USER_INFO } from '../../constants/constant';
-import { logInInfo, tokenInfo } from '../../atom';
+import { tokenInfo } from '../../atom';
 import { decodeToken } from '../../util/util';
 
 export default function NavigationBar() {
@@ -13,6 +13,15 @@ export default function NavigationBar() {
   const location = useLocation();
   const [menuClicked, setMenuClicked] = useState(false);
   const [token, setToken] = useRecoilState(tokenInfo);
+
+  useEffect(() => {
+    if (!decodeToken().state) {
+      localStorage.setItem(USER_INFO + 'memeberId', '');
+      localStorage.setItem(USER_INFO + 'thumbnail', '');
+      localStorage.setItem(USER_INFO + 'registDate', '');
+      localStorage.setItem(USER_INFO + 'username', '');
+    }
+  }, []);
 
   function clickMypageBtn() {
     if (!localStorage.getItem(TOKEN_NAME)) {

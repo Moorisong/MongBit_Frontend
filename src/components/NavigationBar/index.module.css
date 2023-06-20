@@ -43,8 +43,8 @@
 }
 
 .myPageBtn {
-  width: 1rem;
-  height: 1rem;
+  width: 15px;
+  height: 15px;
   border-style: none;
   background-color: white;
   background-image: url('../../../public/images/navigationBar/user.svg');
