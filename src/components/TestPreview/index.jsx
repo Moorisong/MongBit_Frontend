@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cx from 'classnames';
 
-import { TestCard } from '../../components/TestCard';
+import { TestCard } from '../TestCard';
 import {
   CardButton,
   Stroke,
@@ -11,22 +11,22 @@ import {
   TestButton,
   AddCommentButton,
   Comment,
-} from '../../components/ButtonSets';
+} from '../ButtonSets';
 import {
   TYPE_ON_TEST,
   TYPE_COMMENT,
   TYPE_PLAY_CNT,
 } from '../../constants/constant';
 import { decodeToken } from '../../util/util';
-import NavigationBar from '../../components/NavigationBar';
-import Footer from '../../components/Footer';
+import NavigationBar from '../NavigationBar';
+import Footer from '../Footer';
 import styles from './index.module.css';
 
-export default function TestPreview() {
+export default function TestPreview(props) {
   let [data, setData] = useState({
-    thumbnailStr: '',
-    playCnt: '',
-    description: '',
+    thumbnailStr: props.thumbnailStr,
+    playCnt: props.playCnt,
+    description: props.description,
     likeState: false,
     likeCnt: '',
     comment: [],
@@ -55,7 +55,7 @@ export default function TestPreview() {
       .then((res) => {
         setCommentCnt(res.data);
       });
-  }, []);
+  }, [commentChanged]);
 
   useEffect(() => {
     const fetchLikeDataLogIned = async () => {
@@ -211,11 +211,7 @@ export default function TestPreview() {
         <Stroke type_1={TYPE_ON_TEST} type_2="1" />
 
         {/* 댓글 */}
-        <CardButton
-          type={TYPE_COMMENT}
-          moveClass={'comment_onTest'}
-          data={commentCnt}
-        />
+        <CardButton type={TYPE_COMMENT} data={commentCnt} />
 
         <div className={styles.commentInputWrap}>
           <span
