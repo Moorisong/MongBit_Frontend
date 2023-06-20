@@ -25,10 +25,11 @@ import styles from './index.module.css';
 export default function TestPreview(props) {
   let [data, setData] = useState({
     thumbnailStr: props.thumbnailStr,
+    thumbnailUri: props.thumbnailUri,
     playCnt: props.playCnt,
     description: props.description,
     likeState: false,
-    likeCnt: '',
+    likeCnt: 0,
     comment: [],
   });
 
@@ -143,14 +144,11 @@ export default function TestPreview(props) {
         <div>
           <TestCard
             thumbnailStr={data.thumbnailStr}
+            thumbnailUri={data.thumbnailUri}
             thumbnailClass="normal_thumbnail"
             titleBoxClass="normal_titleBox"
           />
-          <CardButton
-            type={TYPE_PLAY_CNT}
-            moveClass="button_onTest_right"
-            data={data.playCnt}
-          />
+          <CardButton type={TYPE_PLAY_CNT} data={data.playCnt} />
         </div>
         <Stroke type_1={TYPE_ON_TEST} type_2="2" />
         <p className={styles.contentTextWrap}>{data.description}</p>
