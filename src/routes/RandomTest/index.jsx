@@ -8,6 +8,7 @@ export default function RandomTest() {
   const [playCnt, setPlayCnt] = useState(0);
   const [description, setDescription] = useState('');
   const [thumbnailUri, setThumbnailUri] = useState('');
+  const [testId, setTestId] = useState('');
 
   useEffect(() => {
     axios
@@ -18,6 +19,7 @@ export default function RandomTest() {
         setPlayCnt(res.data.playCount);
         setDescription(res.data.content);
         setThumbnailUri(res.data.imageUrl);
+        setTestId(res.data.id);
       });
   }, []);
 
@@ -27,6 +29,7 @@ export default function RandomTest() {
     <>
       {description && (
         <TestPreview
+          testId={testId}
           thumbnailStr={thumbnailStr}
           playCnt={playCnt}
           description={description}

@@ -154,7 +154,11 @@ export function Comment(props) {
             </button>
             <button
               className={styles.newCommRightBtn_cancel}
-              onClick={() => setIsCommentEditMode(false)}
+              onClick={(evt) => {
+                const oldVal = evt.currentTarget.value;
+                setNewValue(oldVal);
+                setIsCommentEditMode(false);
+              }}
             >
               취소
             </button>
