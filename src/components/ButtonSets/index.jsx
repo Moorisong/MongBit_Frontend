@@ -122,6 +122,7 @@ export function Comment(props) {
             } / 150`}</span>
             <button
               onClick={() => {
+                if (!newValue) return setIsCommentEditMode(false);
                 if (props.data.content === newValue)
                   return setIsCommentEditMode(false);
                 if (

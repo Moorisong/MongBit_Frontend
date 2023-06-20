@@ -235,6 +235,7 @@ export default function TestPreview() {
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
                 if (!decodeToken().state) return navigate('/login');
+                if (!evt.currentTarget.value) return;
 
                 setCommentValue('');
                 setIsSubmittingComment(true);
