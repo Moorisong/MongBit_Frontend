@@ -18,7 +18,6 @@ import {
   TYPE_PLAY_CNT,
 } from '../../constants/constant';
 import { decodeToken } from '../../util/util';
-import Footer from '../Footer';
 import styles from './index.module.css';
 
 export default function TestPreview(props) {
@@ -306,7 +305,6 @@ export default function TestPreview(props) {
           <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
         </div>
       )}
-      <Footer type={TYPE_ON_TEST} />
     </div>
   );
 }

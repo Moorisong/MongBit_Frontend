@@ -1,11 +1,10 @@
 .wrap {
   width: 100%;
   max-width: 370px;
-  height: 200px;
   color: #979797;
   font-size: 0.7rem;
   background-color: white;
-  margin-top: 50px;
+  margin: 30px 0 20px 0;
 }
 
 .moveBottom_4 {
