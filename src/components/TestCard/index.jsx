@@ -19,7 +19,7 @@ function TestCard(props) {
       <img src={props.thumbnailUri} className={cn_2} />
       {props.type === TYPE_MYPAGE || (
         <div className={cn_3}>
-          <span className={`${styles[props.textClass]}`}>
+          <span className={`${styles[props.textClass]} ${styles.span}`}>
             {props.thumbnailStr}
           </span>
         </div>
