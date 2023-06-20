@@ -100,8 +100,8 @@ export function Comment(props) {
                     props.data.content = newValue;
                     setIsCommentEditMode(false);
                     axios
-                      .put(
-                        `https://mongbit-willneiman.koyeb.app/api/v1/test/comment`,
+                      .patch(
+                        `https://mongbit-willneiman.koyeb.app/api/v1/test/comments`,
                         {
                           memberId: localStorage.getItem('mongBitmemeberId'),
                           testId: props.testId,
@@ -134,8 +134,8 @@ export function Comment(props) {
                 props.data.content = newValue;
                 setIsCommentEditMode(false);
                 axios
-                  .put(
-                    `https://mongbit-willneiman.koyeb.app/api/v1/test/comment`,
+                  .patch(
+                    `https://mongbit-willneiman.koyeb.app/api/v1/test/comments`,
                     {
                       memberId: localStorage.getItem('mongBitmemeberId'),
                       testId: props.testId,

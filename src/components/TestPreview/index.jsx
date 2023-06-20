@@ -123,7 +123,7 @@ export default function TestPreview(props) {
 
   async function addComment() {
     await axios
-      .post(`https://mongbit-willneiman.koyeb.app/api/v1/test/comment`, {
+      .post(`https://mongbit-willneiman.koyeb.app/api/v1/test/comments`, {
         memberId: localStorage.getItem('mongBitmemeberId'),
         testId: data.testId,
         content: commentValue,
@@ -261,7 +261,7 @@ export default function TestPreview(props) {
                     deleteComment={() => {
                       axios
                         .delete(
-                          `https://mongbit-willneiman.koyeb.app/api/v1/test/comment/${com.id}`
+                          `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${com.id}`
                         )
                         .then(() => {
                           setCommentIndex((prev) => [0, prev[1]]);
