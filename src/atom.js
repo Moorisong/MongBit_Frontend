@@ -9,8 +9,3 @@ export const tokenInfo = atom({
     role: '',
   },
 });
-
-export const needGoBack = atom({
-  key: 'needGoBack',
-  default: false,
-})

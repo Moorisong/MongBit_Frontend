@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import { decodeToken } from '../../util/util';
 import TestPreview from '../../components/TestPreview';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
@@ -14,6 +15,10 @@ export default function RandomTest() {
   const [testId, setTestId] = useState('');
 
   useEffect(() => {
+    if (!decodeToken().state) {
+      sessionStorage.setItem('ngb', true);
+    }
+
     axios
       .get(`https://mongbit-willneiman.koyeb.app/api/v1/tests/random`)
       .then((res) => {
