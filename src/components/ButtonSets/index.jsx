@@ -1,6 +1,6 @@
 import axios from 'axios';
 import cx from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import {
@@ -60,7 +60,11 @@ export function Comment(props) {
   const navigate = useNavigate();
   let [isCommentEditMode, setIsCommentEditMode] = useState(false);
   let [newValue, setNewValue] = useState(null);
+  // const [warn, setWarn] = useState(false);
 
+  useEffect(() => {
+    sessionStorage.removeItem('mbComm');
+  }, []);
   return (
     <div className={styles.commentWrapper}>
       <img
@@ -90,14 +94,19 @@ export function Comment(props) {
                 }}
                 onKeyDown={(evt) => {
                   if (evt.key === 'Enter') {
-                    if (props.data.content === newValue)
+                    if (props.data.content === newValue) {
+                      sessionStorage.removeItem('mbComm');
+                      // setWarn(false);
                       return setIsCommentEditMode(false);
+                    }
                     if (
                       !localStorage.getItem('mongBitmemeberId') ||
                       !decodeToken().state
                     )
                       return navigate('/login');
                     props.data.content = newValue;
+                    sessionStorage.removeItem('mbComm');
+                    // setWarn(false);
                     setIsCommentEditMode(false);
                     axios
                       .patch(
@@ -122,9 +131,16 @@ export function Comment(props) {
             } / 100`}</span>
             <button
               onClick={() => {
-                if (!newValue) return setIsCommentEditMode(false);
-                if (props.data.content === newValue)
+                if (!newValue) {
+                  sessionStorage.removeItem('mbComm');
+                  // setWarn(false);
                   return setIsCommentEditMode(false);
+                }
+                if (props.data.content === newValue) {
+                  sessionStorage.removeItem('mbComm');
+                  // setWarn(false);
+                  return setIsCommentEditMode(false);
+                }
                 if (
                   !localStorage.getItem('mongBitmemeberId') ||
                   !decodeToken().state
@@ -132,6 +148,8 @@ export function Comment(props) {
                   return navigate('/login');
 
                 props.data.content = newValue;
+                sessionStorage.removeItem('mbComm');
+                // setWarn(false);
                 setIsCommentEditMode(false);
                 axios
                   .patch(
@@ -157,6 +175,8 @@ export function Comment(props) {
               onClick={(evt) => {
                 const oldVal = evt.currentTarget.value;
                 setNewValue(oldVal);
+                sessionStorage.removeItem('mbComm');
+                // setWarn(false);
                 setIsCommentEditMode(false);
               }}
             >
@@ -175,6 +195,11 @@ export function Comment(props) {
                     props.data.memberId && (
                     <button
                       onClick={() => {
+                        if (sessionStorage.getItem('mbComm')) {
+                          // setWarn(true);
+                          return setIsCommentEditMode(false);
+                        }
+                        sessionStorage.setItem('mbComm', true);
                         setIsCommentEditMode(true);
                       }}
                     >
@@ -183,6 +208,8 @@ export function Comment(props) {
                   )}
                   <button
                     onClick={() => {
+                      if (sessionStorage.getItem('mbComm')) return;
+                      // return setWarn(true);
                       const result = confirm('삭제 하시겠습니까?');
                       if (result) return props.deleteComment();
                       if (!result) return;
@@ -200,6 +227,11 @@ export function Comment(props) {
                 <div className={styles.modifyWrap}>
                   <button
                     onClick={() => {
+                      if (sessionStorage.getItem('mbComm')) {
+                        // setWarn(true);
+                        return setIsCommentEditMode(false);
+                      }
+                      sessionStorage.setItem('mbComm', true);
                       setIsCommentEditMode(true);
                     }}
                   >
@@ -207,6 +239,8 @@ export function Comment(props) {
                   </button>
                   <button
                     onClick={() => {
+                      if (sessionStorage.getItem('mbComm')) return;
+                      // return setWarn(true);
                       const result = confirm('삭제 하시겠습니까?');
                       if (result) return props.deleteComment();
                       if (!result) return;

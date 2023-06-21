@@ -171,7 +171,7 @@
 
 .newCommRightBtn_apply {
   position: absolute;
-  right: 33px;
+  right: 25px;
   top: -19px;
   background-color: white;
   color: #ffc01f;
@@ -181,7 +181,7 @@
 
 .newCommRightBtn_cancel {
   position: absolute;
-  right: 2px;
+  right: -5px;
   top: -19px;
   background-color: white;
   color: #ffc01f;
