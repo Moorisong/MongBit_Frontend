@@ -20,7 +20,7 @@ function Router() {
       <Route path="/test/list" element={<TestList />} />
       <Route path="/test/latest" element={<TestLatest />} />
       <Route path="/test-random" element={<RandomTest />} />
-      <Route path="/test-on" element={<TestOn />} />
+      <Route path="/test-on/:testId" element={<TestOn />} />
       <Route path="/result" element={<Result />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/admin" element={<Admin />} />

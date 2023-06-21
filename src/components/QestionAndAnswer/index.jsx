@@ -1,10 +1,9 @@
 import cx from 'classnames';
-import { useNavigate } from 'react-router-dom';
 
 import styles from './index.module.css';
 
 export default function QuestionAndAnswer(props) {
-  const navigate = useNavigate();
+  const barClassName = styles[`gaugeBar_${props.q_idx}`];
   return (
     <div
       className={cx(styles.wrap, {
@@ -14,7 +13,7 @@ export default function QuestionAndAnswer(props) {
       <div className={styles.progressWrap}>
         <div className={styles.barWrap}>
           <div></div>
-          <div></div>
+          <div className={barClassName}></div>
         </div>
         <span>{`질문 ${props.q_idx} /`}</span>
         <span>12</span>
@@ -25,19 +24,13 @@ export default function QuestionAndAnswer(props) {
       </div>
 
       <div className={styles.answerWrap}>
-        <div className={styles.answer}>
+        <div className={styles.answer} onClick={props.clickAnswer}>
           <div>
-            <span
-              onClick={() => {
-                navigate('/result');
-              }}
-            >
-              {props.a_str_1}
-            </span>
+            <span>{props.a_str_1}</span>
           </div>
         </div>
 
-        <div className={styles.answer}>
+        <div className={styles.answer} onClick={props.clickAnswer}>
           <div>
             <span>{props.a_str_2}</span>
           </div>

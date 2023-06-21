@@ -1,40 +1,51 @@
-import { useState } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 import Footer from '../../components/Footer';
 import NavigationBar from '../../components/NavigationBar';
 import { TYPE_MYPAGE } from '../../constants/constant';
-// import { decodeToken } from '../../util/util';
 import styles from './index.module.css';
 import QuestionAndAnswer from '../../components/QestionAndAnswer';
 
 export default function TestOn() {
-  // const navigate = useNavigate();
-  let [testData, setTestData] = useState({
-    q_idx: 0,
-    q_str: '당신은 알에서 막 깨어난 응애 물고기! 뭐부터 할까?',
-    a_str_1: '"이건 뭐지? 저건 뭐지? 넘모 신기행!" 눈에 보이는 대로 일단 탐험',
-    a_str_2: '"여긴 어디? 나는 누구? 안전한가?”상황파악부터',
-  });
+  const { testId } = useParams();
 
-  // useEffect(() => {
-  //   if (!decodeToken().state) {
-  //     sessionStorage.setItem('ngb', true);
-  //     navigate('/login');
-  //   }
-  // }, []);
+  let [testData, setTestData] = useState({});
+  let [qstStageIdx, setQstStageIdx] = useState(1);
+
+  useEffect(() => {
+    axios
+      .get(`https://mongbit-willneiman.koyeb.app/api/v1/tests/test/${testId}`)
+      .then((res) => {
+        setTestData(res.data);
+      });
+  }, []);
+
+  function clickAnswer() {
+    if (qstStageIdx === 12) return;
+    setQstStageIdx(qstStageIdx + 1);
+  }
 
   return (
     <div className={styles.wrap}>
       <div className={styles.bgWhite}>
         <NavigationBar />
       </div>
-      <QuestionAndAnswer
-        q_idx={testData.q_idx}
-        q_str={testData.q_str}
-        a_str_1={testData.a_str_1}
-        a_str_2={testData.a_str_2}
-      />
+      {testData.questions &&
+        testData.questions.map(
+          (q, i) =>
+            qstStageIdx === q.index && (
+              <QuestionAndAnswer
+                key={i}
+                q_idx={q.index}
+                q_str={q.question}
+                a_str_1={q.answerPlus}
+                a_str_2={q.answerMinus}
+                clickAnswer={clickAnswer}
+              />
+            )
+        )}
       <div className={`${styles.bgWhite} ${styles.footerWrap}`}>
         <Footer type={TYPE_MYPAGE} />
       </div>

@@ -151,7 +151,7 @@ export default function TestPreview(props) {
         </div>
         <Stroke type_1={TYPE_ON_TEST} type_2="2" />
         <p className={styles.contentTextWrap}>{data.description}</p>
-        <GoRandomStartBtn url="/test-on" str="테스트 시작" />
+        <GoRandomStartBtn url={`/test-on/${data.testId}`} str="테스트 시작" />
         <ul className={styles.buttonSet}>
           <li>
             <TestButton btnType="bookMark" str="북마크" />

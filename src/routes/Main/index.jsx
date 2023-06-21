@@ -9,7 +9,12 @@ import { GoRandomStartBtn } from '../../components/ButtonSets';
 import { TITLE_WITH_CONTENT, TYPE_LATEST_MAIN } from '../../constants/constant';
 
 export default function Main() {
-  useEffect(() => {}, []);
+  useEffect(() => {
+    sessionStorage.getItem('mbResult') === '' &&
+      sessionStorage.removeItem('mbResult');
+    sessionStorage.getItem('mbTest') === '' &&
+      sessionStorage.removeItem('mbTest');
+  }, []);
   return (
     <div className={styles.containerWrap}>
       <NavigationBar />

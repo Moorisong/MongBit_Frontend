@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
-import { decodeToken } from '../../util/util';
 import TestPreview from '../../components/TestPreview';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
