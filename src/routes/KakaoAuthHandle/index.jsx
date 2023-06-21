@@ -1,16 +1,12 @@
-import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import { TOKEN_NAME, USER_INFO } from '../../constants/constant';
-import { tokenInfo } from '../../atom';
-import { decodeToken } from '../../util/util';
 
 export default function KakaoAuthHandle() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [token, setToken] = useRecoilState(tokenInfo);
   const code = searchParams.get('code');
 
   useEffect(() => {
@@ -47,12 +43,6 @@ export default function KakaoAuthHandle() {
             } else {
               navigate('/main');
             }
-            const decodedToken = decodeToken();
-
-            setToken({
-              state: decodedToken.state,
-              role: decodedToken.role,
-            });
           });
       } catch (error) {
         console.error(error);

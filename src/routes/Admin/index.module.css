@@ -1,0 +1,14 @@
+.bgWhite {
+  width: 400px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.footerWrap {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  bottom: -130px;
+}
