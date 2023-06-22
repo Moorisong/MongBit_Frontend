@@ -136,8 +136,6 @@ export default function TestPreview(props) {
   }
   return (
     <div className={styles.wrap}>
-      {/* 네비게이션 바 */}
-      {/* <NavigationBar /> */}
       {/* 테스트  */}
       <div className={styles.contentWrap}>
         <div>
@@ -146,6 +144,7 @@ export default function TestPreview(props) {
             thumbnailUri={data.thumbnailUri}
             thumbnailClass="normal_thumbnail"
             titleBoxClass="normal_titleBox"
+            testId={data.testId}
           />
           <CardButton type={TYPE_PLAY_CNT} data={data.playCnt} />
         </div>

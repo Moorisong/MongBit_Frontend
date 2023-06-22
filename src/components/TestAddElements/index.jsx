@@ -49,7 +49,7 @@ export function InfoPart(props) {
 }
 
 export function QuestionPart(props) {
-  const datas = props.data;
+  // const datas = props.data;
   let resultObj = { index: props.idx };
   // const initialState = props.data ? {index: props.idx, question: datas.question, answerPlus: datas.answerPlus, answerMinus: datas.answerMinus} : {index: props.idx}
   // const [resultObj, setResultObjt] = useState(initialState)
@@ -64,7 +64,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-          // defaultValue={resultObj.question}
+        // defaultValue={resultObj.question}
         ></textarea>
       </div>
 
@@ -77,7 +77,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-          // defaultValue={props.data ? props.data.answerPlus : ''}
+        // defaultValue={props.data ? props.data.answerPlus : ''}
         ></textarea>
       </div>
 
@@ -90,7 +90,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-          // defaultValue={datas ? props.data.answerMinus : ''}
+        // defaultValue={datas ? props.data.answerMinus : ''}
         ></textarea>
       </div>
 
@@ -177,11 +177,7 @@ export function ResultPart(props) {
         <button onClick={props.onClickPrev}>뒤로</button>
         <button
           onClick={() => {
-            if (
-              !resultObj.result ||
-              !resultObj.content ||
-              !resultObj.imageUrl
-            )
+            if (!resultObj.result || !resultObj.content || !resultObj.imageUrl)
               return alert(ALL_FULLFILL);
             const jsonString = JSON.stringify(resultObj);
             sessionStorage.setItem('mbResult', jsonString);
