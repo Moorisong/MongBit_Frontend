@@ -4,6 +4,11 @@
   position: relative;
 }
 
+.inline > img {
+  width: 370px;
+  object-fit: cover;
+}
+
 .normal_thumbnail {
   width: 370px;
   height: 15rem;

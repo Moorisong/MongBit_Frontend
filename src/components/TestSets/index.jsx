@@ -9,16 +9,20 @@ import {
 import styles from './index.module.css';
 
 function TestSetComplete(props) {
-  const thumbnailStr = '우리집 묘르신 모색으로 알아보는 성격 파탄 테스트';
+  const thumbnailStr = props.thumbnailStr;
   const cn_1 = props.type === TYPE_TEST_LIST ? `${styles.move_testList}` : null;
 
   return (
     <div className={cn_1}>
-      <TestCard thumbnailStr={thumbnailStr} />
+      <TestCard
+        thumbnailStr={thumbnailStr}
+        thumbnailUri={props.imageUrl}
+        testId={props.testId}
+      />
       <div className={styles.buttonWrap}>
-        <CardButton type={TYPE_PLAY_CNT} data="김코순_1" />
-        <CardButton type={TYPE_LIKE_CNT} data="김코순_1" />
-        <CardButton type={TYPE_COMMENT_CNT} data="김코순_1" />
+        <CardButton type={TYPE_PLAY_CNT} data={props.playCount} />
+        <CardButton type={TYPE_LIKE_CNT} data={props.likeCount} />
+        <CardButton type={TYPE_COMMENT_CNT} data={props.commentCount} />
       </div>
       <Stroke type={props.type} />
     </div>

@@ -1,9 +1,12 @@
 .wrap {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
   align-items: center;
-  margin: 15px 10px 0 0;
+  margin: 5px 10px 15px 0;
+}
+
+.wrap > span {
+  margin-left: 2px;
 }
 
 .commentWrapper {
@@ -66,14 +69,22 @@
 
 .playCnt {
   background-image: url('../../../public/images/buttonSet/playCnt.svg');
+  width: 17px;
+  height: 17px;
+  margin-top: 2px;
 }
 
 .likeCnt {
   background-image: url('../../../public/images/buttonSet/likeCnt.svg');
+  width: 17px;
+  height: 17px;
 }
 
 .commentCnt {
   background-image: url('../../../public/images/buttonSet/commentCnt.svg');
+  width: 17px;
+  height: 17px;
+  margin-top: 3px;
 }
 
 .comment {
