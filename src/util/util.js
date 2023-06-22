@@ -15,7 +15,7 @@ export function decodeToken() {
   const expirationTime = new Date(expiration * 1000);
   const currentTime = new Date();
 
-  // console.log('decoded-----> ', decodedToken)
+  console.log('decoded-----> ', decodedToken)
   if (expirationTime < currentTime) {
     return {
       state: false,

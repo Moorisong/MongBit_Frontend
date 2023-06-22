@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './index.module.css';
 import { InfoPart, QuestionPart, ResultPart } from '../TestAddElements';
+import { ALL_FULLFILL } from '../../constants/constant';
 
 export default function TestAdd() {
   const [data, setData] = useState({
@@ -27,6 +28,7 @@ export default function TestAdd() {
   function onClickNext() {
     switch (stage) {
       case 1:
+        if(!data.title || !data.content || !data.imageUrl) return alert(ALL_FULLFILL)
         setStage(stage + 1);
         setIsNext(!isNext);
         break;
@@ -96,6 +98,7 @@ export default function TestAdd() {
   }
 
   function onClickPrev() {
+    if(stage===2 && qstStageIdx>1){return setQstStageIdx(qstStageIdx-1)}
     setStage(stage - 1);
   }
 
@@ -107,6 +110,7 @@ export default function TestAdd() {
     <div className={styles.resultWrap}>
       {stage === 1 && (
         <InfoPart
+          data={data}
           onClickMain={onClickMain}
           onClickNext={onClickNext}
           onChange_s1_title={onChange_s1_title}
@@ -116,13 +120,14 @@ export default function TestAdd() {
       )}
       {stage === 2 &&
         mapTarget.question.map(
-          (t) =>
+          (t,i) =>
             qstStageIdx === t && (
               <QuestionPart
                 key={t}
                 onClickNext={onClickNext}
                 onClickPrev={onClickPrev}
                 idx={t}
+                data={data.questions.length>0 && data.questions[i]}
               />
             )
         )}
