@@ -100,7 +100,7 @@ export function Comment(props) {
                       return setIsCommentEditMode(false);
                     }
                     if (
-                      !localStorage.getItem('mongBitmemeberId') ||
+                      !sessionStorage.getItem('mongBitmemeberId') ||
                       !decodeToken().state
                     )
                       return navigate('/login');
@@ -112,7 +112,7 @@ export function Comment(props) {
                       .patch(
                         `https://mongbit-willneiman.koyeb.app/api/v1/test/comments`,
                         {
-                          memberId: localStorage.getItem('mongBitmemeberId'),
+                          memberId: sessionStorage.getItem('mongBitmemeberId'),
                           testId: props.testId,
                           content: newValue,
                           id: props.id,
@@ -142,7 +142,7 @@ export function Comment(props) {
                   return setIsCommentEditMode(false);
                 }
                 if (
-                  !localStorage.getItem('mongBitmemeberId') ||
+                  !sessionStorage.getItem('mongBitmemeberId') ||
                   !decodeToken().state
                 )
                   return navigate('/login');
@@ -155,7 +155,7 @@ export function Comment(props) {
                   .patch(
                     `https://mongbit-willneiman.koyeb.app/api/v1/test/comments`,
                     {
-                      memberId: localStorage.getItem('mongBitmemeberId'),
+                      memberId: sessionStorage.getItem('mongBitmemeberId'),
                       testId: props.testId,
                       content: newValue,
                       id: props.id,
@@ -191,7 +191,7 @@ export function Comment(props) {
           ? isCommentEditMode || (
               <div className={styles.modifyArea}>
                 <div className={styles.modifyWrap}>
-                  {localStorage.getItem('mongBitmemeberId') ===
+                  {sessionStorage.getItem('mongBitmemeberId') ===
                     props.data.memberId && (
                     <button
                       onClick={() => {
@@ -221,7 +221,7 @@ export function Comment(props) {
               </div>
             )
           : //일반 User는 본인이 작성한 댓글에만 수정, 삭제 가능하도록 함
-            localStorage.getItem('mongBitmemeberId') === props.data.memberId &&
+          sessionStorage.getItem('mongBitmemeberId') === props.data.memberId &&
             (isCommentEditMode || (
               <div className={styles.modifyArea}>
                 <div className={styles.modifyWrap}>

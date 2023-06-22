@@ -45,7 +45,7 @@ export default function TestPreview(props) {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const memberId = localStorage.getItem('mongBitmemeberId');
+  const memberId = sessionStorage.getItem('mongBitmemeberId');
 
   useEffect(() => {
     axios
@@ -124,7 +124,7 @@ export default function TestPreview(props) {
   async function addComment() {
     await axios
       .post(`https://mongbit-willneiman.koyeb.app/api/v1/test/comments`, {
-        memberId: localStorage.getItem('mongBitmemeberId'),
+        memberId: sessionStorage.getItem('mongBitmemeberId'),
         testId: data.testId,
         content: commentValue,
       })

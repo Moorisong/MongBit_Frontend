@@ -13,10 +13,10 @@ export default function NavigationBar() {
 
   useEffect(() => {
     if (!decodeToken().state) {
-      localStorage.setItem(USER_INFO + 'memeberId', '');
-      localStorage.setItem(USER_INFO + 'thumbnail', '');
-      localStorage.setItem(USER_INFO + 'registDate', '');
-      localStorage.setItem(USER_INFO + 'username', '');
+      sessionStorage.setItem(USER_INFO + 'memeberId', '');
+      sessionStorage.setItem(USER_INFO + 'thumbnail', '');
+      sessionStorage.setItem(USER_INFO + 'registDate', '');
+      sessionStorage.setItem(USER_INFO + 'username', '');
     }
   }, []);
 
@@ -31,10 +31,10 @@ export default function NavigationBar() {
   }
   function clickLogOut() {
     localStorage.setItem(TOKEN_NAME, '');
-    localStorage.setItem(USER_INFO + 'memeberId', '');
-    localStorage.setItem(USER_INFO + 'thumbnail', '');
-    localStorage.setItem(USER_INFO + 'registDate', '');
-    localStorage.setItem(USER_INFO + 'username', '');
+    sessionStorage.setItem(USER_INFO + 'memeberId', '');
+    sessionStorage.setItem(USER_INFO + 'thumbnail', '');
+    sessionStorage.setItem(USER_INFO + 'registDate', '');
+    sessionStorage.setItem(USER_INFO + 'username', '');
     setMenuClicked(false);
     navigate('/main');
   }

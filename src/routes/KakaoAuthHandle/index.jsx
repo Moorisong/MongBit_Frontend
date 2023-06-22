@@ -18,19 +18,19 @@ export default function KakaoAuthHandle() {
           )
           .then((response) => {
             localStorage.setItem(TOKEN_NAME, response.headers['authorization']);
-            localStorage.setItem(
+            sessionStorage.setItem(
               USER_INFO + 'memeberId',
               response.data.memberId
             );
-            localStorage.setItem(
+            sessionStorage.setItem(
               USER_INFO + 'thumbnail',
               response.data.thumbnail
             );
-            localStorage.setItem(
+            sessionStorage.setItem(
               USER_INFO + 'registDate',
               response.data.registDate
             );
-            localStorage.setItem(
+            sessionStorage.setItem(
               USER_INFO + 'username',
               response.data.username
             );
