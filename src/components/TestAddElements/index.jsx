@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useState } from 'react';
 
 import styles from './index.module.css';
 import { ALL_FULLFILL } from '../../constants/constant';
@@ -50,23 +49,22 @@ export function InfoPart(props) {
 }
 
 export function QuestionPart(props) {
-  console.log('11--> ', props.data)
   const datas = props.data
-  // let resultObj = { index: props.idx };
-  const initialState = props.data ? {index: props.idx, question: datas.question, answerPlus: datas.answerPlus, answerMinus: datas.answerMinus} : {index: props.idx}
-  const [resultObj, setResultObjt] = useState(initialState)
+  let resultObj = { index: props.idx };
+  // const initialState = props.data ? {index: props.idx, question: datas.question, answerPlus: datas.answerPlus, answerMinus: datas.answerMinus} : {index: props.idx}
+  // const [resultObj, setResultObjt] = useState(initialState)
   return (
     <div className={styles.wrap}>
       <div className={styles.contentWrap}>
         <p>{`[${props.idx} 번째 질문지]`}</p>
         <textarea
           onChange={(evt) => {
-            setResultObjt((prev) => ({...prev, question: datas ? datas.question : evt.target.value}))
-            // resultObj.question = evt.target.value;
+            // setResultObjt((prev) => ({...prev, question: datas ? datas.question : evt.target.value}))
+            resultObj.question = evt.target.value;
           }}
           cols="40"
           rows="5"
-          defaultValue={resultObj.question}
+          // defaultValue={resultObj.question}
         ></textarea>
       </div>
 
@@ -74,12 +72,12 @@ export function QuestionPart(props) {
         <p>[대답지 : +1 / E 속성]</p>
         <textarea
           onChange={(evt) => {
-            setResultObjt((prev) => ({...prev, answerPlus: datas ? datas.answerPlus : evt.target.value}))
-            // resultObj.answerPlus = evt.target.value;
+            // setResultObjt((prev) => ({...prev, answerPlus: datas ? datas.answerPlus : evt.target.value}))
+            resultObj.answerPlus = evt.target.value;
           }}
           cols="40"
           rows="5"
-          defaultValue={props.data ? props.data.answerPlus : ''}
+          // defaultValue={props.data ? props.data.answerPlus : ''}
         ></textarea>
       </div>
 
@@ -87,12 +85,12 @@ export function QuestionPart(props) {
         <p>[대답지 : -1 / I 속성]</p>
         <textarea
           onChange={(evt) => {
-            setResultObjt((prev) => ({...prev, answerMinus: datas ? datas.answerMinus : evt.target.value}))
-            // resultObj.answerMinus = evt.target.value;
+            // setResultObjt((prev) => ({...prev, answerMinus: datas ? datas.answerMinus : evt.target.value}))
+            resultObj.answerMinus = evt.target.value;
           }}
           cols="40"
           rows="5"
-          defaultValue={datas ? props.data.answerMinus : ''}
+          // defaultValue={datas ? props.data.answerMinus : ''}
         ></textarea>
       </div>
 
