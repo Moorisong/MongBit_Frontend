@@ -21,7 +21,7 @@ export default function NavigationBar() {
   }, []);
 
   function clickMypageBtn() {
-    if (!localStorage.getItem(TOKEN_NAME)) {
+    if (!sessionStorage.getItem(TOKEN_NAME)) {
       return navigate('/login');
     }
     if (decodeToken().state) {
@@ -30,7 +30,7 @@ export default function NavigationBar() {
     navigate('/login');
   }
   function clickLogOut() {
-    localStorage.setItem(TOKEN_NAME, '');
+    sessionStorage.setItem(TOKEN_NAME, '');
     sessionStorage.setItem(USER_INFO + 'memeberId', '');
     sessionStorage.setItem(USER_INFO + 'thumbnail', '');
     sessionStorage.setItem(USER_INFO + 'registDate', '');

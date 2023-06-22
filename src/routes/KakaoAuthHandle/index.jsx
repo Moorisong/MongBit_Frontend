@@ -17,7 +17,10 @@ export default function KakaoAuthHandle() {
             `https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`
           )
           .then((response) => {
-            localStorage.setItem(TOKEN_NAME, response.headers['authorization']);
+            sessionStorage.setItem(
+              TOKEN_NAME,
+              response.headers['authorization']
+            );
             sessionStorage.setItem(
               USER_INFO + 'memeberId',
               response.data.memberId

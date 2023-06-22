@@ -49,7 +49,7 @@ export function InfoPart(props) {
 }
 
 export function QuestionPart(props) {
-  const datas = props.data
+  const datas = props.data;
   let resultObj = { index: props.idx };
   // const initialState = props.data ? {index: props.idx, question: datas.question, answerPlus: datas.answerPlus, answerMinus: datas.answerMinus} : {index: props.idx}
   // const [resultObj, setResultObjt] = useState(initialState)
@@ -98,7 +98,12 @@ export function QuestionPart(props) {
         <button onClick={props.onClickPrev}>뒤로</button>
         <button
           onClick={() => {
-            if(!resultObj.question || !resultObj.answerPlus || !resultObj.answerMinus) return alert(ALL_FULLFILL)
+            if (
+              !resultObj.question ||
+              !resultObj.answerPlus ||
+              !resultObj.answerMinus
+            )
+              return alert(ALL_FULLFILL);
             const jsonString = JSON.stringify(resultObj);
             sessionStorage.setItem('mbTest', jsonString);
             props.onClickNext();

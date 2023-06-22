@@ -28,7 +28,8 @@ export default function TestAdd() {
   function onClickNext() {
     switch (stage) {
       case 1:
-        if(!data.title || !data.content || !data.imageUrl) return alert(ALL_FULLFILL)
+        if (!data.title || !data.content || !data.imageUrl)
+          return alert(ALL_FULLFILL);
         setStage(stage + 1);
         setIsNext(!isNext);
         break;
@@ -98,7 +99,9 @@ export default function TestAdd() {
   }
 
   function onClickPrev() {
-    if(stage===2 && qstStageIdx>1){return setQstStageIdx(qstStageIdx-1)}
+    if (stage === 2 && qstStageIdx > 1) {
+      return setQstStageIdx(qstStageIdx - 1);
+    }
     setStage(stage - 1);
   }
 
@@ -120,14 +123,14 @@ export default function TestAdd() {
       )}
       {stage === 2 &&
         mapTarget.question.map(
-          (t,i) =>
+          (t, i) =>
             qstStageIdx === t && (
               <QuestionPart
                 key={t}
                 onClickNext={onClickNext}
                 onClickPrev={onClickPrev}
                 idx={t}
-                data={data.questions.length>0 && data.questions[i]}
+                data={data.questions.length > 0 && data.questions[i]}
               />
             )
         )}

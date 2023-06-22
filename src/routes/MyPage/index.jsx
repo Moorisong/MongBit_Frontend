@@ -16,7 +16,7 @@ import { decodeToken } from '../../util/util';
 
 export default function MyPage() {
   const navigate = useNavigate();
-  if(!sessionStorage.getItem(USER_INFO + 'registDate')) navigate('/login')
+  if (!sessionStorage.getItem(USER_INFO + 'registDate')) navigate('/login');
   const dateParts = sessionStorage
     .getItem(USER_INFO + 'registDate')
     .split('T')[0]

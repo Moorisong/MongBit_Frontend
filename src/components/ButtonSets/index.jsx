@@ -221,7 +221,8 @@ export function Comment(props) {
               </div>
             )
           : //일반 User는 본인이 작성한 댓글에만 수정, 삭제 가능하도록 함
-          sessionStorage.getItem('mongBitmemeberId') === props.data.memberId &&
+            sessionStorage.getItem('mongBitmemeberId') ===
+              props.data.memberId &&
             (isCommentEditMode || (
               <div className={styles.modifyArea}>
                 <div className={styles.modifyWrap}>

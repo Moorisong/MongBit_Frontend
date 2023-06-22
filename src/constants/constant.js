@@ -16,4 +16,4 @@ export const TYPE_PLAY_CNT = 'playCnt';
 export const TYPE_LIKE_CNT = 'likeCnt';
 
 //Alert msg
-export const ALL_FULLFILL = '모든 항목을 입력해주세요.'
+export const ALL_FULLFILL = '모든 항목을 입력해주세요.';
