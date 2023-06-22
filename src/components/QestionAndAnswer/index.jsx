@@ -24,13 +24,13 @@ export default function QuestionAndAnswer(props) {
       </div>
 
       <div className={styles.answerWrap}>
-        <div className={styles.answer} onClick={props.clickAnswer}>
+        <div className={styles.answer} onClick={props.clickAnswer_plus}>
           <div>
             <span>{props.a_str_1}</span>
           </div>
         </div>
 
-        <div className={styles.answer} onClick={props.clickAnswer}>
+        <div className={styles.answer} onClick={props.clickAnswer_minus}>
           <div>
             <span>{props.a_str_2}</span>
           </div>
