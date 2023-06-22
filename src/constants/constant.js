@@ -14,3 +14,6 @@ export const TYPE_COMMENT = 'comment';
 export const TYPE_COMMENT_CNT = 'commentCnt';
 export const TYPE_PLAY_CNT = 'playCnt';
 export const TYPE_LIKE_CNT = 'likeCnt';
+
+//Alert msg
+export const ALL_FULLFILL = '모든 항목을 입력해주세요.'
