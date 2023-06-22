@@ -7,11 +7,9 @@ export default function TestResult(props) {
       <img className={styles.resultImg} />
       <p>{[props.titleStr]}</p>
       <ul className={styles.resultStrList}>
-        {props.contentStr.map((s, i) => (
-          <li key={i}>
-            <span>{s}</span>
-          </li>
-        ))}
+        <li>
+          <span>{props.contentStr}</span>
+        </li>
       </ul>
 
       <Stroke />

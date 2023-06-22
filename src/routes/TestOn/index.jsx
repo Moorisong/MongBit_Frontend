@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import Footer from '../../components/Footer';
@@ -11,7 +11,6 @@ import QuestionAndAnswer from '../../components/QestionAndAnswer';
 export default function TestOn() {
   const navigate = useNavigate();
   const { testId } = useParams();
-  const memberId = sessionStorage.getItem('mongBitmemeberId');
 
   let [testData, setTestData] = useState({});
   let [qstStageIdx, setQstStageIdx] = useState(1);
@@ -28,14 +27,8 @@ export default function TestOn() {
 
   useEffect(() => {
     if (testDone) {
-      axios
-        .post(
-          `https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${testId}/${memberId}`,
-          score
-        )
-        .then((res) => {
-          console.log('res--> ', res);
-        });
+      sessionStorage.setItem('mbScore', JSON.stringify(score));
+      return navigate(`/result/${testId}`);
     }
   }, [testDone]);
 
@@ -64,7 +57,6 @@ export default function TestOn() {
     }
 
     if (qstStageIdx === 12) {
-      // return navigate('/result');
       let copy = [...score];
       copy[3] += 1;
       setScore(copy);
@@ -98,13 +90,11 @@ export default function TestOn() {
     }
 
     if (qstStageIdx === 12) {
-      // return navigate('/result');
       let copy = [...score];
       copy[3] -= 1;
       setScore(copy);
       setTestDone(true);
     }
-
     setQstStageIdx(qstStageIdx + 1);
   }
 
@@ -116,7 +106,7 @@ export default function TestOn() {
       {testData.questions &&
         testData.questions.map(
           (q, i) =>
-            qstStageIdx === q.index && (
+            qstStageIdx === q.index + 1 && (
               <QuestionAndAnswer
                 key={i}
                 q_idx={q.index}

@@ -18,7 +18,6 @@ export default function TestList() {
     axios
       .get(`https://mongbit-willneiman.koyeb.app/api/v1/tests`)
       .then((res) => {
-        console.log('r--> ', res.data);
         setData(res.data);
       });
   }, []);

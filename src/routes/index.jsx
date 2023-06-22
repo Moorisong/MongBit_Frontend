@@ -23,7 +23,7 @@ function Router() {
       <Route path="/test-random" element={<RandomTest />} />
       <Route path="/test-preview/:testId" element={<PreviewTest />} />
       <Route path="/test-on/:testId" element={<TestOn />} />
-      <Route path="/result" element={<Result />} />
+      <Route path="/result/:testId" element={<Result />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login/oauth2/kakao/code" element={<KakaoAuthHandle />} />
