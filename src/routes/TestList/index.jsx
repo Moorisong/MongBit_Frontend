@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { TitleWithText } from '../../components/Titles';
 import { TestSetComplete } from '../../components/TestSets';
@@ -12,6 +12,7 @@ export default function TestList() {
   const [data, setData] = useState([]);
   const titleStr = '💛  몽빗 심테';
   const contentStr = '몽빗에 있는 모든 테스트는 이곳에!';
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -51,8 +52,15 @@ export default function TestList() {
         />
       ))}
 
-      <div className={styels.goRandomBtnWrap}>
-        <Link className={styels.goRandomStartBtn}>아무거나 시작</Link>
+      <div
+        className={styels.goRandomBtnWrap}
+        onClick={() => {
+          navigate('/test-random');
+        }}
+      >
+        <Link className={styels.goRandomStartBtn} to="/test-random">
+          아무거나 시작
+        </Link>
         <img src="/images/test/nextIcon.svg" alt="next_icon" />
       </div>
     </div>

@@ -4,7 +4,6 @@
   align-items: center;
   background-color: white;
   width: 400px;
-  height: 100vh;
 }
 
 .titleTextWrap {
@@ -19,6 +18,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 .goRandomBtnWrap > img {

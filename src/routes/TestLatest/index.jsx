@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
@@ -12,6 +12,7 @@ export default function TestLatest() {
   const [data, setData] = useState([]);
   const titleStr = '😜 최신 심테';
   const contentStr = '몽빗 최신 심테들 여기 다 모여있어요!';
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -50,8 +51,15 @@ export default function TestLatest() {
         />
       ))}
 
-      <div className={styels.goRandomBtnWrap}>
-        <Link className={styels.goRandomStartBtn}>아무거나 시작</Link>
+      <div
+        className={styels.goRandomBtnWrap}
+        onClick={() => {
+          navigate('/test-random');
+        }}
+      >
+        <Link className={styels.goRandomStartBtn} to="/test-random">
+          아무거나 시작
+        </Link>
         <img src="/images/test/nextIcon.svg" alt="next_icon" />
       </div>
     </div>
