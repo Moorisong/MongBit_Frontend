@@ -177,6 +177,12 @@ export function ResultPart(props) {
         <button onClick={props.onClickPrev}>뒤로</button>
         <button
           onClick={() => {
+            if (
+              !resultObj.result ||
+              !resultObj.content ||
+              !resultObj.imageUrl
+            )
+              return alert(ALL_FULLFILL);
             const jsonString = JSON.stringify(resultObj);
             sessionStorage.setItem('mbResult', jsonString);
             props.onClickNext();

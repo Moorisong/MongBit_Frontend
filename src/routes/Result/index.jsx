@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import styles from './index.module.css';
 import NavigationBar from '../../components/NavigationBar';
@@ -23,6 +23,10 @@ export default function Result() {
   setTimeout(() => {
     setIsLoading(false);
   }, 2000);
+
+  // useEffect(()=>{
+  //   SetResultData((prev)=> ({...prev, titleStr: sessionStorage.getItem('mbT_title'), contentStr: sessionStorage.getItem('mbT_content'), imgUri=sessionStorage.getItem('mbT_imgUri')}))
+  // }, [])
   return (
     <div className={styles.wrap}>
       <div className={styles.bgWhite}>
