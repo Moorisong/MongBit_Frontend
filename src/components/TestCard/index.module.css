@@ -2,6 +2,7 @@
   display: inline-block;
   padding-right: 5px;
   position: relative;
+  cursor: pointer;
 }
 
 .inline > img {

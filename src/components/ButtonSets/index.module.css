@@ -5,6 +5,9 @@
   margin: 5px 10px 15px 0;
 }
 
+.wrap > button {
+  cursor: default;
+}
 .wrap > span {
   margin-left: 2px;
 }
