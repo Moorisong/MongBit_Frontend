@@ -21,7 +21,7 @@ function TestCard(props) {
     <div
       className={cn_1}
       onClick={() => {
-        navigate(`/test-on/${props.testId}`);
+        navigate(`/test-preview/${props.testId}`);
       }}
     >
       <img src={props.thumbnailUri} className={cn_2} />

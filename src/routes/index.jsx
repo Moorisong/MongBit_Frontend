@@ -10,6 +10,7 @@ import MyPage from './MyPage';
 import RandomTest from './RandomTest';
 import TestOn from './TestOn';
 import Result from './Result';
+import PreviewTest from './PreviewTest/indxe';
 
 function Router() {
   return (
@@ -20,6 +21,7 @@ function Router() {
       <Route path="/test/list" element={<TestList />} />
       <Route path="/test/latest" element={<TestLatest />} />
       <Route path="/test-random" element={<RandomTest />} />
+      <Route path="/test-preview/:testId" element={<PreviewTest />} />
       <Route path="/test-on/:testId" element={<TestOn />} />
       <Route path="/result" element={<Result />} />
       <Route path="/mypage" element={<MyPage />} />

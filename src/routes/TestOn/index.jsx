@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
 import Footer from '../../components/Footer';
@@ -9,6 +9,7 @@ import styles from './index.module.css';
 import QuestionAndAnswer from '../../components/QestionAndAnswer';
 
 export default function TestOn() {
+  const navigate = useNavigate();
   const { testId } = useParams();
 
   let [testData, setTestData] = useState({});
@@ -23,7 +24,7 @@ export default function TestOn() {
   }, []);
 
   function clickAnswer() {
-    if (qstStageIdx === 12) return;
+    if (qstStageIdx === 12) return navigate('/result');
     setQstStageIdx(qstStageIdx + 1);
   }
 
