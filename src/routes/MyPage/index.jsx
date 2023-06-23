@@ -17,7 +17,7 @@ import { decodeToken } from '../../util/util';
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const [testData, setTestData] = useState(null)
+  const [testData, setTestData] = useState(null);
   if (!sessionStorage.getItem(USER_INFO + 'registDate')) navigate('/login');
   const dateParts = sessionStorage
     .getItem(USER_INFO + 'registDate')
@@ -30,18 +30,20 @@ export default function MyPage() {
       sessionStorage.setItem('ngb', true);
       return navigate('/login');
     }
-    const memberId = sessionStorage.getItem('mongBitmemeberId')
+    const memberId = sessionStorage.getItem('mongBitmemeberId');
     const params = {
       page: 0,
       size: 10,
-    }
-    axios.get(`https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${memberId}`, { params })
+    };
+    axios
+      .get(
+        `https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${memberId}`,
+        { params }
+      )
       .then((res) => {
-        console.log('re---> ', res.data)
+        console.log('re---> ', res.data);
         // setTestData(res.data)
-      })
-
-
+      });
   }, []);
   return (
     <div className={styles.wrap}>

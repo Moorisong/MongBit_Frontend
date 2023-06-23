@@ -1,5 +1,5 @@
-import { useEffect, useRef } from "react";
-import iframeResizer from "iframe-resizer/js/iframeResizer";
+import { useEffect, useRef } from 'react';
+import iframeResizer from 'iframe-resizer/js/iframeResizer';
 
 export default function CoupangAdv() {
   const iframeRef = useRef(null);

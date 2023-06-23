@@ -27,7 +27,7 @@ export default function TestResult(props) {
   }, [likeChanged]);
   return (
     <div className={styles.resultWrap}>
-      <img className={styles.resultImg} />
+      <img className={styles.resultImg} src={props.imgUri} />
       <p>{[props.titleStr]}</p>
       <ul className={styles.resultStrList}>
         {props.contentStrArr.map((str, i) => (

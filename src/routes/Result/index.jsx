@@ -49,7 +49,7 @@ export default function Result() {
           ...prev,
           titleStr: res.data.title,
           contentStrArr: contentArray,
-          imgUri: res.data.imggeUrl,
+          imgUri: res.data.imageUrl,
         }));
         setIsLoading(false);
       });
@@ -67,6 +67,7 @@ export default function Result() {
             contentStrArr={resultData.contentStrArr}
             likeCnt={likeCnt && likeCnt}
             testId={testId}
+            imgUri={resultData.imgUri}
           />
         ))}
 
