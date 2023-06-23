@@ -38,6 +38,17 @@ export default function TestAdd() {
     result: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
   };
 
+  const getAnswerTypeArr = () => {
+    if (qstStageIdx === 1 || qstStageIdx === 2 || qstStageIdx === 3)
+      return ['[대답지 : +1 / E 속성]', '[대답지 : -1 / I 속성]'];
+    if (qstStageIdx === 4 || qstStageIdx === 5 || qstStageIdx === 6)
+      return ['[대답지 : +1 / N 속성]', '[대답지 : -1 / S 속성]'];
+    if (qstStageIdx === 7 || qstStageIdx === 8 || qstStageIdx === 9)
+      return ['[대답지 : +1 / F 속성]', '[대답지 : -1 / T 속성]'];
+    if (qstStageIdx === 10 || qstStageIdx === 11 || qstStageIdx === 12)
+      return ['[대답지 : +1 / J 속성]', '[대답지 : -1 / P 속성]'];
+  };
+
   function onClickNext() {
     switch (stage) {
       case 1:
@@ -137,6 +148,7 @@ export default function TestAdd() {
                 onClickPrev={onClickPrev}
                 idx={t - 1}
                 data={data.questions.length > 0 && data.questions[i]}
+                getAnswerTypeArr={getAnswerTypeArr()}
               />
             )
         )}

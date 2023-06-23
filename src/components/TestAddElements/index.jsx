@@ -77,7 +77,7 @@ export function QuestionPart(props) {
       </div>
 
       <div className={styles.contentWrap}>
-        <p>[대답지 : +1 / E 속성]</p>
+        <p>{props.getAnswerTypeArr[0]}</p>
         <textarea
           onChange={(evt) => {
             // setResultObjt((prev) => ({...prev, answerPlus: datas ? datas.answerPlus : evt.target.value}))
@@ -90,7 +90,7 @@ export function QuestionPart(props) {
       </div>
 
       <div className={styles.contentWrap}>
-        <p>[대답지 : -1 / I 속성]</p>
+        <p>{props.getAnswerTypeArr[1]}</p>
         <textarea
           onChange={(evt) => {
             // setResultObjt((prev) => ({...prev, answerMinus: datas ? datas.answerMinus : evt.target.value}))
