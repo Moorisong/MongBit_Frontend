@@ -135,7 +135,7 @@ export default function TestAdd() {
                 key={t}
                 onClickNext={onClickNext}
                 onClickPrev={onClickPrev}
-                idx={t}
+                idx={t - 1}
                 data={data.questions.length > 0 && data.questions[i]}
               />
             )

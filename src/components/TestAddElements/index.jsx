@@ -64,7 +64,7 @@ export function QuestionPart(props) {
   return (
     <div className={styles.wrap}>
       <div className={styles.contentWrap}>
-        <p>{`[${props.idx} 번째 질문지]`}</p>
+        <p>{`[${props.idx + 1} 번째 질문지]`}</p>
         <textarea
           onChange={(evt) => {
             // setResultObjt((prev) => ({...prev, question: datas ? datas.question : evt.target.value}))
