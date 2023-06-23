@@ -4,7 +4,11 @@ import { useNavigate } from 'react-router-dom';
 
 import styles from './index.module.css';
 import { InfoPart, QuestionPart, ResultPart } from '../TestAddElements';
-import { ALL_FULLFILL } from '../../constants/constant';
+import {
+  ALL_FULLFILL,
+  NUMBER_500,
+  LENGTH_OVER_500,
+} from '../../constants/constant';
 
 export default function TestAdd() {
   const [data, setData] = useState({
@@ -54,6 +58,8 @@ export default function TestAdd() {
       case 1:
         if (!data.title || !data.content || !data.imageUrl)
           return alert(ALL_FULLFILL);
+        if (data.title.length > NUMBER_500 || data.content > NUMBER_500)
+          return alert(LENGTH_OVER_500);
         setStage(stage + 1);
         setIsNext(!isNext);
         break;

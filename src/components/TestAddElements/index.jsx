@@ -2,7 +2,11 @@ import axios from 'axios';
 import { useState } from 'react';
 
 import styles from './index.module.css';
-import { ALL_FULLFILL } from '../../constants/constant';
+import {
+  ALL_FULLFILL,
+  NUMBER_500,
+  LENGTH_OVER_500,
+} from '../../constants/constant';
 
 export function InfoPart(props) {
   return (
@@ -45,7 +49,7 @@ export function InfoPart(props) {
         <button onClick={props.onClickMain}>메인</button>
         <button
           onClick={() => {
-            if (props.imgUploading) return alert('업로드중');
+            if (props.imgUploading) return alert('이미지를 업로드 중입니다.');
             props.onClickNext();
           }}
         >
@@ -113,6 +117,13 @@ export function QuestionPart(props) {
               !resultObj.answerMinus
             )
               return alert(ALL_FULLFILL);
+
+            if (
+              resultObj.question.length > NUMBER_500 ||
+              resultObj.answerPlus.length > NUMBER_500 ||
+              resultObj.answerMinus.length > NUMBER_500
+            )
+              return alert(LENGTH_OVER_500);
             const jsonString = JSON.stringify(resultObj);
             sessionStorage.setItem('mbTest', jsonString);
             props.onClickNext();
@@ -194,7 +205,7 @@ export function ResultPart(props) {
         <button>뒤로</button>
         <button
           onClick={() => {
-            if (imgUploading) return alert('이미지 업로드 중입니다.');
+            if (imgUploading) return alert('이미지를 업로드 중입니다.');
             if (
               !resultObj.result ||
               !resultObj.content ||
@@ -202,6 +213,11 @@ export function ResultPart(props) {
             ) {
               return alert(ALL_FULLFILL);
             }
+            if (
+              resultObj.result.length > NUMBER_500 ||
+              resultObj.content.length > NUMBER_500
+            )
+              return alert(LENGTH_OVER_500);
             const jsonString = JSON.stringify(resultObj);
             sessionStorage.setItem('mbResult', jsonString);
             props.onClickNext();
