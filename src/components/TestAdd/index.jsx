@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './index.module.css';
@@ -19,7 +19,22 @@ export default function TestAdd() {
   const [qstStageIdx, setQstStageIdx] = useState(1);
   const [rstStageIdx, setRstStageIdx] = useState(1);
   let [imgUploading, setImgUploading] = useState(false)
+  let [testDone, setTestDone] = useState(false)
   const navigate = useNavigate();
+
+  useEffect(()=>{
+    if (testDone) {
+      axios
+        .post(
+          `https://mongbit-willneiman.koyeb.app/api/v1/tests/test`,
+          data
+        )
+        .then(() => {
+          alert('완료');
+          navigate('/main');
+        });
+    }
+  }, [testDone])
 
   const mapTarget = {
     question: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -61,17 +76,7 @@ export default function TestAdd() {
         setRstStageIdx(rstStageIdx + 1);
         setIsNext(!isNext);
 
-        if (rstStageIdx === 16) {
-          axios
-            .post(
-              `https://mongbit-willneiman.koyeb.app/api/v1/tests/test`,
-              data
-            )
-            .then(() => {
-              alert('완료');
-              navigate('/main');
-            });
-        }
+        if (rstStageIdx === 16) setTestDone(true)
         break;
     }
   }
