@@ -1,5 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
@@ -16,6 +17,7 @@ import { decodeToken } from '../../util/util';
 
 export default function MyPage() {
   const navigate = useNavigate();
+  const [testData, setTestData] = useState(null)
   if (!sessionStorage.getItem(USER_INFO + 'registDate')) navigate('/login');
   const dateParts = sessionStorage
     .getItem(USER_INFO + 'registDate')
@@ -28,6 +30,18 @@ export default function MyPage() {
       sessionStorage.setItem('ngb', true);
       return navigate('/login');
     }
+    const memberId = sessionStorage.getItem('mongBitmemeberId')
+    const params = {
+      page: 0,
+      size: 10,
+    }
+    axios.get(`https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${memberId}`, { params })
+      .then((res) => {
+        console.log('re---> ', res.data)
+        // setTestData(res.data)
+      })
+
+
   }, []);
   return (
     <div className={styles.wrap}>
@@ -51,50 +65,18 @@ export default function MyPage() {
         type_2={TYPE_MYPAGE}
         title=" 🐭 최근 테스트 결과(10개)"
       />
-      <TestSetMyPage
-        title="물고기로 알아보는 레알 지옥 파티 인성..."
-        content={{
-          description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-          date: '2023.06.28',
-        }}
-        type={TYPE_MYPAGE}
-      />
-      <Stroke type_1={TYPE_MYPAGE} type_2="2" />
-      <TestSetMyPage
-        title="아오 컴포넌트 열라 짜기 귀찮아 죽겠.."
-        content={{
-          description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-          date: '2023.06.28',
-        }}
-        type={TYPE_MYPAGE}
-      />
-      <Stroke type_1={TYPE_MYPAGE} type_2="2" />
-      <TestSetMyPage
-        title="물고기로 알아보는 레알 지옥 파티 인성..."
-        content={{
-          description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-          date: '2023.06.28',
-        }}
-        type={TYPE_MYPAGE}
-      />
-      <Stroke type_1={TYPE_MYPAGE} type_2="2" />
-      <TestSetMyPage
-        title="물고기로 알아보는 레알 지옥 파티 인성..."
-        content={{
-          description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-          date: '2023.06.28',
-        }}
-        type={TYPE_MYPAGE}
-      />
-      <Stroke type_1={TYPE_MYPAGE} type_2="2" />
-      <TestSetMyPage
-        title="물고기로 알아보는 레알 지옥 파티 인성..."
-        content={{
-          description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-          date: '2023.06.28',
-        }}
-        type={TYPE_MYPAGE}
-      />
+      {/* {testData && testData.map((t, i) =>
+        <TestSetMyPage
+          key={i}
+          title={t.title}
+          content={{
+            description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
+            date: '2023.06.28',
+          }}
+          type={TYPE_MYPAGE}
+        />
+      )
+      } */}
 
       <div className={styles.seeMoreWrap}>
         <button>더보기</button>
