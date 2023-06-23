@@ -1,13 +1,14 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import cx from 'classnames';
 
 import styles from './index.module.css';
 import { Stroke } from '../ButtonSets';
 import { decodeToken } from '../../util/util';
 
 export default function TestResult(props) {
-  // const [likeLoading, setLikeLoading] = useState(true);
+  const [likeLoading, setLikeLoading] = useState(true);
   const [likeChanged, setLikeChanged] = useState(true);
   let [isSubmittingLike, setIsSubmittingLike] = useState(false);
   const [likeData, setLikeData] = useState({
@@ -16,14 +17,50 @@ export default function TestResult(props) {
   });
   const memberId = sessionStorage.getItem('mongBitmemeberId');
   const navigate = useNavigate();
+
   useEffect(() => {
-    axios
-      .get(
-        `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/like/count`
-      )
-      .then((res) => {
-        setLikeData((prev) => ({ ...prev, likeCnt: res.data }));
-      });
+    const fetchLikeDataLogIned = async () => {
+      try {
+        const [stateResponse, cntResponse] = await Promise.all([
+          axios.get(
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/${memberId}/like`
+          ),
+          axios.get(
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/like/count`
+          ),
+        ]);
+
+        setLikeData((prev) => ({
+          ...prev,
+          likeState: stateResponse.data,
+          likeCnt: cntResponse.data,
+        }));
+        setLikeLoading(false);
+      } catch (err) {
+        console.log('err--> ', err);
+      }
+    };
+
+    const fetchLikeDataNoLogined = async () => {
+      try {
+        axios
+          .get(
+            `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/like/count`
+          )
+          .then((res) => {
+            setLikeData((prev) => ({ ...prev, likeCnt: res.data }));
+          });
+        setLikeLoading(false);
+      } catch (err) {
+        console.log('err--> ', err);
+      }
+    };
+
+    if (decodeToken().state) {
+      fetchLikeDataLogIned();
+    } else {
+      fetchLikeDataNoLogined();
+    }
   }, [likeChanged]);
 
   function clickRetry() {
@@ -58,7 +95,12 @@ export default function TestResult(props) {
 
         <div className={styles.partWrap}>
           <button
-            className={styles.likedBtn}
+            className={cx(
+              likeData.likeState ? styles.likedBtn : styles.noneLikedBtn,
+              {
+                [styles.likedBtn]: likeData.likeState,
+              }
+            )}
             onClick={async () => {
               if (!decodeToken().state) {
                 sessionStorage.setItem('ngb', location.pathname);

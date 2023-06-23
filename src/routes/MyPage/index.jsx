@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import lottie from 'lottie-web';
 
+import animationData from './loading_2.json';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import styles from './index.module.css';
+import { TestSetMyPage } from '../../components/TestSets';
 import { TitleWithText } from '../../components/Titles';
 import {
   TITLE_WITH_CONTENT,
@@ -12,18 +15,38 @@ import {
   USER_INFO,
 } from '../../constants/constant';
 import { Stroke } from '../../components/ButtonSets';
-import { TestSetMyPage } from '../../components/TestSets';
 import { decodeToken } from '../../util/util';
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const [testData, setTestData] = useState(null);
+  const containerRef = useRef(null);
+
+  const [testData, setTestData] = useState({
+    resultArr: [],
+    hasNextPage: false,
+  });
+  const [loading, setLoading] = useState(true);
+
   if (!sessionStorage.getItem(USER_INFO + 'registDate')) navigate('/login');
   const dateParts = sessionStorage
     .getItem(USER_INFO + 'registDate')
     .split('T')[0]
     .split('-');
   const registerDate = `${dateParts[0]}.${dateParts[1]}.${dateParts[2]}`;
+
+  useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef.current,
+      renderer: 'svg',
+      animationData: animationData,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     if (!decodeToken().state) {
@@ -41,8 +64,12 @@ export default function MyPage() {
         { params }
       )
       .then((res) => {
-        console.log('re---> ', res.data);
-        // setTestData(res.data)
+        setTestData((prev) => ({
+          ...prev,
+          resultArr: res.data.memberTestResultDTOList,
+          hasNextPage: res.data.hasNextPage,
+        }));
+        setLoading(false);
       });
   }, []);
   return (
@@ -67,18 +94,27 @@ export default function MyPage() {
         type_2={TYPE_MYPAGE}
         title=" 🐭 최근 테스트 결과(10개)"
       />
-      {/* {testData && testData.map((t, i) =>
-        <TestSetMyPage
-          key={i}
-          title={t.title}
-          content={{
-            description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-            date: '2023.06.28',
-          }}
-          type={TYPE_MYPAGE}
-        />
-      )
-      } */}
+      {loading && (
+        <div>
+          <div ref={containerRef} className={styles.loadImg}></div>
+        </div>
+      )}
+      {loading ||
+        testData.resultArr.map((t, i) => (
+          <TestSetMyPage
+            key={i}
+            title={t.title}
+            testId={t.testId}
+            testResultId={t.testResultId}
+            content={{
+              description: t.content,
+              date: t.testData,
+            }}
+            type={TYPE_MYPAGE}
+            imgUri={t.imageUrl}
+            hasNextPage={testData.hasNextPage}
+          />
+        ))}
 
       <div className={styles.seeMoreWrap}>
         <button>더보기</button>

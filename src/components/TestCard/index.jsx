@@ -5,7 +5,10 @@ import { TYPE_LATEST_MAIN, TYPE_MYPAGE } from '../../constants/constant';
 
 function TestCard(props) {
   const navigate = useNavigate();
-  const cn_1 = `${styles.inline}`;
+  const cn_1 =
+    props.type === TYPE_MYPAGE
+      ? `${styles.inline} ${styles.myPageImgWidth}`
+      : `${styles.inline}`;
   const cn_2 =
     props.type === TYPE_LATEST_MAIN
       ? `${styles.latest_thumbnail}`
@@ -21,6 +24,8 @@ function TestCard(props) {
     <div
       className={cn_1}
       onClick={() => {
+        if (props.type === TYPE_MYPAGE)
+          return navigate(`/record/${props.testId}/${props.testResultId}`);
         navigate(`/test-preview/${props.testId}`);
       }}
     >

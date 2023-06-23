@@ -4,6 +4,9 @@
   position: relative;
   cursor: pointer;
 }
+.myPageImgWidth {
+  width: 150px;
+}
 
 .inline > img {
   width: 370px;
@@ -18,7 +21,6 @@
 .latest_thumbnail {
   width: 120px;
   height: 15rem;
-  background-image: url('../../../public/images/test/card.jpeg');
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;

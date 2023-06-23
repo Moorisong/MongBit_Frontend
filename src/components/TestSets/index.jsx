@@ -32,7 +32,12 @@ function TestSetComplete(props) {
 function TestSetMyPage(props) {
   return (
     <div className={styles.testCardWrap}>
-      <TestCard type={props.type} />
+      <TestCard
+        type={props.type}
+        thumbnailUri={props.imgUri}
+        testId={props.testId}
+        testResultId={props.testResultId}
+      />
       <div className={styles.testCardTextWrap}>
         <p>{props.title}</p>
         <p>{props.content.description}</p>

@@ -11,6 +11,7 @@ import RandomTest from './RandomTest';
 import TestOn from './TestOn';
 import Result from './Result';
 import PreviewTest from './PreviewTest/indxe';
+import ViewOldResult from './ViewOldResult';
 
 function Router() {
   return (
@@ -24,6 +25,7 @@ function Router() {
       <Route path="/test-preview/:testId" element={<PreviewTest />} />
       <Route path="/test-on/:testId" element={<TestOn />} />
       <Route path="/result/:testId" element={<Result />} />
+      <Route path="/record/:testId/:testResultId" element={<ViewOldResult />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login/oauth2/kakao/code" element={<KakaoAuthHandle />} />
