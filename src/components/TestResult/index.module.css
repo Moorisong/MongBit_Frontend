@@ -16,7 +16,6 @@
 .resultImg {
   width: 340px;
   height: 450px;
-  background-color: gray;
 }
 
 .resultStrList {
@@ -79,6 +78,7 @@
   border: 1px solid #e6e6e6;
   padding: 5px 35px 5px 15px;
   border-radius: 15px;
+  cursor: pointer;
 }
 .retryDiv > p {
   font-size: 0.9rem;

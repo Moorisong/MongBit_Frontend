@@ -25,6 +25,10 @@ export default function TestResult(props) {
         setLikeData((prev) => ({ ...prev, likeCnt: res.data }));
       });
   }, [likeChanged]);
+
+  function clickRetry() {
+    navigate(`/test-preview/${props.testId}`);
+  }
   return (
     <div className={styles.resultWrap}>
       <img className={styles.resultImg} src={props.imgUri} />
@@ -46,7 +50,7 @@ export default function TestResult(props) {
         </div>
 
         <div className={styles.retryWrap}>
-          <div className={styles.retryDiv}>
+          <div className={styles.retryDiv} onClick={clickRetry}>
             <p>다시 해보기</p>
           </div>
           <img src="/images/test/retryIcon.svg" alt="retry" />
