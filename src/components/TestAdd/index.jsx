@@ -18,6 +18,7 @@ export default function TestAdd() {
   const [stage, setStage] = useState(1);
   const [qstStageIdx, setQstStageIdx] = useState(1);
   const [rstStageIdx, setRstStageIdx] = useState(1);
+  let [imgUploading, setImgUploading] = useState(false)
   const navigate = useNavigate();
 
   const mapTarget = {
@@ -84,6 +85,7 @@ export default function TestAdd() {
   }
 
   function onChange_s1_imageUrl(evt) {
+    setImgUploading(true)
     const file = evt.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
@@ -92,6 +94,7 @@ export default function TestAdd() {
       .post('https://mongbit-willneiman.koyeb.app/upload', formData)
       .then((response) => {
         setData((prev) => ({ ...prev, imageUrl: response.data }));
+        setImgUploading(false)
       })
       .catch((error) => {
         console.error(error);
@@ -119,6 +122,7 @@ export default function TestAdd() {
           onChange_s1_title={onChange_s1_title}
           onChange_s1_content={onChange_s1_content}
           onChange_s1_imageUrl={onChange_s1_imageUrl}
+          imgUploading={imgUploading}
         />
       )}
       {stage === 2 &&

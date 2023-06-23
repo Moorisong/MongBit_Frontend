@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useState } from 'react';
 
 import styles from './index.module.css';
 import { ALL_FULLFILL } from '../../constants/constant';
@@ -42,7 +43,10 @@ export function InfoPart(props) {
 
       <div className={`${styles.contentWrap} ${styles.stepWrap}`}>
         <button onClick={props.onClickMain}>메인</button>
-        <button onClick={props.onClickNext}>다음</button>
+        <button onClick={()=>{
+          if(props.imgUploading) return alert('업로드중')
+          props.onClickNext()
+        }}>다음</button>
       </div>
     </div>
   );
@@ -64,7 +68,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-          // defaultValue={resultObj.question}
+        // defaultValue={resultObj.question}
         ></textarea>
       </div>
 
@@ -77,7 +81,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-          // defaultValue={props.data ? props.data.answerPlus : ''}
+        // defaultValue={props.data ? props.data.answerPlus : ''}
         ></textarea>
       </div>
 
@@ -90,7 +94,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-          // defaultValue={datas ? props.data.answerMinus : ''}
+        // defaultValue={datas ? props.data.answerMinus : ''}
         ></textarea>
       </div>
 
@@ -117,14 +121,15 @@ export function QuestionPart(props) {
 }
 
 export function ResultPart(props) {
-  let resultObj = {};
+  let [resultObj, setResultObj] = useState({ result: '', contetn: '', imageUrl: '' })
+  let [imgUploading, setImgUploading] = useState(false)
   return (
     <div className={styles.wrap}>
       <div className={styles.contentWrap}>
         <p>{`[${props.idx} 번째 결과 Title]`}</p>
         <textarea
           onChange={(evt) => {
-            resultObj.title = evt.target.value;
+            setResultObj((prev) => ({ ...prev, title: evt.target.value }))
           }}
           cols="40"
           rows="3"
@@ -135,7 +140,7 @@ export function ResultPart(props) {
         <p>[결과 MBTI]</p>
         <textarea
           onChange={(evt) => {
-            resultObj.result = evt.target.value;
+            setResultObj((prev) => ({ ...prev, result: evt.target.value }))
           }}
           cols="40"
           rows="1"
@@ -146,7 +151,7 @@ export function ResultPart(props) {
         <p>[결과 Content]</p>
         <textarea
           onChange={(evt) => {
-            resultObj.content = evt.target.value;
+            setResultObj((prev) => ({ ...prev, content: evt.target.value }))
           }}
           cols="40"
           rows="7"
@@ -160,11 +165,14 @@ export function ResultPart(props) {
             const file = evt.target.files[0];
             const formData = new FormData();
             formData.append('file', file);
+            setImgUploading(true)
 
             axios
               .post('https://mongbit-willneiman.koyeb.app/upload', formData)
               .then((response) => {
-                resultObj.imageUrl = response.data;
+                setResultObj((prev) => ({ ...prev, imageUrl: response.data }))
+
+                setImgUploading(false)
               })
               .catch((error) => {
                 console.error(error);
@@ -177,8 +185,10 @@ export function ResultPart(props) {
         <button onClick={props.onClickPrev}>뒤로</button>
         <button
           onClick={() => {
-            if (!resultObj.result || !resultObj.content || !resultObj.imageUrl)
+            if (imgUploading) return alert('이미지 업로드 중입니다.')
+            if (!resultObj.result || !resultObj.content || !resultObj.imageUrl) {
               return alert(ALL_FULLFILL);
+            }
             const jsonString = JSON.stringify(resultObj);
             sessionStorage.setItem('mbResult', jsonString);
             props.onClickNext();
