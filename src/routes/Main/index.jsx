@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useEffect } from 'react';
 
 import styles from './index.module.css';
@@ -9,6 +10,14 @@ import { GoRandomStartBtn } from '../../components/ButtonSets';
 import { TITLE_WITH_CONTENT, TYPE_LATEST_MAIN } from '../../constants/constant';
 
 export default function Main() {
+  // Test 삭제
+  // useEffect(()=>{
+  //   axios.delete(`https://mongbit-willneiman.koyeb.app/api/v1/tests/test/6495270ff3a5da6b0ffee985`)
+  //   .then((res)=>{
+  //     console.log('r--> ', res)
+  //   })
+  // }, [])
+
   useEffect(() => {
     sessionStorage.getItem('mbResult') === '' &&
       sessionStorage.removeItem('mbResult');

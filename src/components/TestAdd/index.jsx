@@ -18,23 +18,20 @@ export default function TestAdd() {
   const [stage, setStage] = useState(1);
   const [qstStageIdx, setQstStageIdx] = useState(1);
   const [rstStageIdx, setRstStageIdx] = useState(1);
-  let [imgUploading, setImgUploading] = useState(false)
-  let [testDone, setTestDone] = useState(false)
+  let [imgUploading, setImgUploading] = useState(false);
+  let [testDone, setTestDone] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(()=>{
+  useEffect(() => {
     if (testDone) {
       axios
-        .post(
-          `https://mongbit-willneiman.koyeb.app/api/v1/tests/test`,
-          data
-        )
+        .post(`https://mongbit-willneiman.koyeb.app/api/v1/tests/test`, data)
         .then(() => {
           alert('완료');
           navigate('/main');
         });
     }
-  }, [testDone])
+  }, [testDone]);
 
   const mapTarget = {
     question: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -76,7 +73,7 @@ export default function TestAdd() {
         setRstStageIdx(rstStageIdx + 1);
         setIsNext(!isNext);
 
-        if (rstStageIdx === 16) setTestDone(true)
+        if (rstStageIdx === 16) setTestDone(true);
         break;
     }
   }
@@ -90,7 +87,7 @@ export default function TestAdd() {
   }
 
   function onChange_s1_imageUrl(evt) {
-    setImgUploading(true)
+    setImgUploading(true);
     const file = evt.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
@@ -99,7 +96,7 @@ export default function TestAdd() {
       .post('https://mongbit-willneiman.koyeb.app/upload', formData)
       .then((response) => {
         setData((prev) => ({ ...prev, imageUrl: response.data }));
-        setImgUploading(false)
+        setImgUploading(false);
       })
       .catch((error) => {
         console.error(error);
