@@ -64,7 +64,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-        // defaultValue={resultObj.question}
+          // defaultValue={resultObj.question}
         ></textarea>
       </div>
 
@@ -77,7 +77,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-        // defaultValue={props.data ? props.data.answerPlus : ''}
+          // defaultValue={props.data ? props.data.answerPlus : ''}
         ></textarea>
       </div>
 
@@ -90,7 +90,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-        // defaultValue={datas ? props.data.answerMinus : ''}
+          // defaultValue={datas ? props.data.answerMinus : ''}
         ></textarea>
       </div>
 

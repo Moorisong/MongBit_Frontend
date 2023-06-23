@@ -12,12 +12,18 @@ export default function Result() {
   const [isLoading, setIsLoading] = useState(true);
   const [resultData, SetResultData] = useState({
     titleStr: '',
-    contentStr: '',
+    contentStrArr: [],
     imgUri: '',
-    likeCnt: '',
   });
+  const [likeCnt, setLikeCnt] = useState(null)
+
   const { testId } = useParams();
   const memberId = sessionStorage.getItem('mongBitmemeberId');
+
+  useEffect(() => {
+    axios.get(`https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`)
+    .then((res)=> setLikeCnt(res.data))
+  }, [])
 
   useEffect(() => {
     const score = JSON.parse(sessionStorage.getItem('mbScore'));
@@ -34,10 +40,12 @@ export default function Result() {
         score
       )
       .then((res) => {
+        const contentArray = res.data.content.split('<br>')
+
         SetResultData((prev) => ({
           ...prev,
           titleStr: res.data.title,
-          contentStr: res.data.content,
+          contentStrArr: contentArray,
           imgUri: res.data.imggeUrl,
         }));
         setIsLoading(false);
@@ -53,8 +61,8 @@ export default function Result() {
         (resultData.titleStr && (
           <TestResult
             titleStr={resultData.titleStr}
-            contentStr={resultData.contentStr}
-            likeCnt={resultData.likeCnt}
+            contentStrArr={resultData.contentStrArr}
+            likeCnt={likeCnt && likeCnt}
           />
         ))}
 
