@@ -25,6 +25,8 @@ export default function MyPage() {
     resultArr: [],
     hasNextPage: false,
   });
+  let [page, setPage] = useState(0);
+  // let [clickSeeMore, setClickSeeMore] = useState(false)
   const [loading, setLoading] = useState(true);
 
   if (!sessionStorage.getItem(USER_INFO + 'registDate')) navigate('/login');
@@ -55,7 +57,7 @@ export default function MyPage() {
     }
     const memberId = sessionStorage.getItem('mongBitmemeberId');
     const params = {
-      page: 0,
+      page: page,
       size: 10,
     };
     axios
@@ -70,8 +72,10 @@ export default function MyPage() {
           hasNextPage: res.data.hasNextPage,
         }));
         setLoading(false);
+        setPage(page + 1);
       });
   }, []);
+
   return (
     <div className={styles.wrap}>
       <NavigationBar />
@@ -116,10 +120,46 @@ export default function MyPage() {
           />
         ))}
 
-      <div className={styles.seeMoreWrap}>
-        <button>더보기</button>
-        <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
-      </div>
+      {testData.hasNextPage && (
+        <div
+          className={styles.seeMoreWrap}
+          onClick={() => {
+            // setClickSeeMore(!clickSeeMore)
+
+            if (!decodeToken().state) {
+              sessionStorage.setItem('ngb', true);
+              return navigate('/login');
+            }
+            const memberId = sessionStorage.getItem('mongBitmemeberId');
+            const params = {
+              page: page,
+              size: 10,
+            };
+            axios
+              .get(
+                `https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${memberId}`,
+                { params }
+              )
+              .then((res) => {
+                let copy = [...testData.resultArr];
+                res.data.memberTestResultDTOList.forEach((ele) => {
+                  copy.push(ele);
+                });
+
+                setTestData((prev) => ({
+                  ...prev,
+                  resultArr: copy,
+                  hasNextPage: res.data.hasNextPage,
+                }));
+                setLoading(false);
+                setPage(page + 1);
+              });
+          }}
+        >
+          <button>더보기</button>
+          <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
+        </div>
+      )}
       <Footer type={TYPE_MYPAGE} />
     </div>
   );

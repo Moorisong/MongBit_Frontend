@@ -53,6 +53,9 @@
   margin-top: 30px;
 }
 
+.seeMoreWrap {
+  cursor: pointer;
+}
 .seeMoreWrap > button {
   color: #979797;
   font-size: 0.8rem;
