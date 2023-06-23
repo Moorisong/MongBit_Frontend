@@ -99,7 +99,8 @@ export function QuestionPart(props) {
       </div>
 
       <div className={`${styles.contentWrap} ${styles.stepWrap}`}>
-        <button onClick={props.onClickPrev}>뒤로</button>
+        {/* <button onClick={props.onClickPrev}>뒤로</button> */}
+        <button>뒤로</button>
         <button
           onClick={() => {
             if (
@@ -182,7 +183,8 @@ export function ResultPart(props) {
         />
       </div>
       <div className={`${styles.contentWrap} ${styles.stepWrap}`}>
-        <button onClick={props.onClickPrev}>뒤로</button>
+        {/* <button onClick={props.onClickPrev}>뒤로</button> */}
+        <button>뒤로</button>
         <button
           onClick={() => {
             if (imgUploading) return alert('이미지 업로드 중입니다.')
