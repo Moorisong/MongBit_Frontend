@@ -3,7 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import lottie from 'lottie-web';
 
-import animationData from './loading_2.json';
+import animationData_1 from './loading_2.json';
+import animationData_2 from './seeMoreIcon.json';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import styles from './index.module.css';
@@ -19,14 +20,15 @@ import { decodeToken } from '../../util/util';
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const containerRef = useRef(null);
+  const containerRef_1 = useRef(null);
+  const containerRef_2 = useRef(null);
 
   const [testData, setTestData] = useState({
     resultArr: [],
     hasNextPage: false,
   });
   let [page, setPage] = useState(0);
-  // let [clickSeeMore, setClickSeeMore] = useState(false)
+  let [clickSeeMore, setClickSeeMore] = useState(false);
   const [loading, setLoading] = useState(true);
 
   if (!sessionStorage.getItem(USER_INFO + 'registDate')) navigate('/login');
@@ -38,9 +40,9 @@ export default function MyPage() {
 
   useEffect(() => {
     const anim = lottie.loadAnimation({
-      container: containerRef.current,
+      container: containerRef_1.current,
       renderer: 'svg',
-      animationData: animationData,
+      animationData: animationData_1,
       loop: true,
       autoplay: true,
     });
@@ -49,6 +51,20 @@ export default function MyPage() {
       anim.destroy();
     };
   }, []);
+
+  useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_2.current,
+      renderer: 'svg',
+      animationData: animationData_2,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, [clickSeeMore]);
 
   useEffect(() => {
     if (!decodeToken().state) {
@@ -100,7 +116,7 @@ export default function MyPage() {
       />
       {loading && (
         <div>
-          <div ref={containerRef} className={styles.loadImg}></div>
+          <div ref={containerRef_1} className={styles.loadImg}></div>
         </div>
       )}
       {loading ||
@@ -124,7 +140,7 @@ export default function MyPage() {
         <div
           className={styles.seeMoreWrap}
           onClick={() => {
-            // setClickSeeMore(!clickSeeMore)
+            setClickSeeMore(true);
 
             if (!decodeToken().state) {
               sessionStorage.setItem('ngb', true);
@@ -153,13 +169,23 @@ export default function MyPage() {
                 }));
                 setLoading(false);
                 setPage(page + 1);
+                setClickSeeMore(false);
               });
           }}
         >
-          <button>더보기</button>
-          <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
+          {clickSeeMore ? (
+            <div className={styles.loadImgWrap_2}>
+              <div ref={containerRef_2}></div>
+            </div>
+          ) : (
+            <>
+              <button>더보기</button>
+              <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
+            </>
+          )}
         </div>
       )}
+
       <Footer type={TYPE_MYPAGE} />
     </div>
   );

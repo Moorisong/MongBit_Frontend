@@ -10,3 +10,15 @@
   display: flex;
   justify-content: center;
 }
+.loadImgWrap {
+  width: 400px;
+  height: 500px;
+  padding-top: 50px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loadImgWrap > div {
+  width: 300px;
+}
