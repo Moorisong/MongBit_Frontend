@@ -12,7 +12,7 @@ import { TITLE_WITH_CONTENT, TYPE_LATEST_MAIN } from '../../constants/constant';
 export default function Main() {
   // Test 삭제
   // useEffect(()=>{
-  //   axios.delete(`https://mongbit-willneiman.koyeb.app/api/v1/tests/test/649533e1c4024e2f6686d26d`)
+  //   axios.delete(`https://mongbit-willneiman.koyeb.app/api/v1/tests/test/6496950f0cb7f21ff5503fe6`)
   //   .then((res)=>{
   //     console.log('r--> ', res)
   //   })

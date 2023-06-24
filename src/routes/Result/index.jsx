@@ -38,6 +38,7 @@ export default function Result() {
       sessionStorage.setItem('ngb', location.pathname);
       return navigate('/need-login');
     }
+    if (!sessionStorage.getItem('mbScore')) return navigate('/exception');
     window.onpopstate = handlePopstate;
 
     axios
@@ -68,6 +69,7 @@ export default function Result() {
           contentStrArr: contentArray,
           imgUri: res.data.imageUrl,
         }));
+        sessionStorage.removeItem('mbScore');
         setIsLoading(false);
       });
 
