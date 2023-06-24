@@ -32,9 +32,11 @@ function TestCard(props) {
       <img src={props.thumbnailUri} className={cn_2} />
       {props.type === TYPE_MYPAGE || (
         <div className={cn_3}>
-          <p className={`${styles[props.textClass]} ${styles.p}`}>
-            {props.thumbnailStr}
-          </p>
+          {props.type === TYPE_LATEST_MAIN ? (
+            <p className={styles.p_2}>{props.thumbnailStr}</p>
+          ) : (
+            <p className={styles.p_1}>{props.thumbnailStr}</p>
+          )}
           {props.type === TYPE_LATEST_MAIN && (
             <div className={styles.playCntWrap}>
               <button className={styles.plyCntBtn} />
