@@ -12,6 +12,7 @@ import TestOn from './TestOn';
 import Result from './Result';
 import PreviewTest from './PreviewTest/indxe';
 import ViewOldResult from './ViewOldResult';
+import NeedLogIn from './NeedLogIn';
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/result/:testId" element={<Result />} />
       <Route path="/record/:testId/:testResultId" element={<ViewOldResult />} />
       <Route path="/mypage" element={<MyPage />} />
+      <Route path="/need-login" element={<NeedLogIn />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login/oauth2/kakao/code" element={<KakaoAuthHandle />} />
     </Routes>

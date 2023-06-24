@@ -35,7 +35,7 @@ export default function Login() {
         onClick={() => {
           kakaoLogin();
         }}
-      ></button>
+      />
       <div className={styles.docs}>
         <span>
           <p>이용약관</p>

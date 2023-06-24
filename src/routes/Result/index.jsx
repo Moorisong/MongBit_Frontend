@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 import styles from './index.module.css';
@@ -7,6 +7,7 @@ import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import ResultLoading from '../../components/ResultLoading';
 import TestResult from '../../components/TestResult';
+import { decodeToken } from '../../util/util';
 
 export default function Result() {
   const [isLoading, setIsLoading] = useState(true);
@@ -17,18 +18,23 @@ export default function Result() {
   });
   const [likeCnt, setLikeCnt] = useState(null);
 
+  const navigate = useNavigate();
+  const location = useLocation();
   const { testId } = useParams();
   const memberId = sessionStorage.getItem('mongBitmemeberId');
 
   useEffect(() => {
+    if (!decodeToken().state) {
+      sessionStorage.setItem('ngb', location.pathname);
+      return navigate('/need-login');
+    }
+
     axios
       .get(
         `https://mongbit-willneiman.koyeb.app/api/v1/test/${testId}/like/count`
       )
       .then((res) => setLikeCnt(res.data));
-  }, []);
 
-  useEffect(() => {
     const score = JSON.parse(sessionStorage.getItem('mbScore'));
 
     axios
