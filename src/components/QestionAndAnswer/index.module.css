@@ -1,6 +1,7 @@
 .wrap {
   width: 400px;
   height: 100%;
+  max-height: 700px;
   background-color: #fff5da;
   display: flex;
   flex-direction: column;
@@ -13,7 +14,7 @@
 }
 
 .progressWrap {
-  margin-top: 30px;
+  margin-top: 50px;
   width: 350px;
   position: relative;
 }
@@ -135,6 +136,10 @@
   margin-bottom: 100px;
 }
 
+.answerWrap > div:last-child {
+  margin-top: 40px;
+}
+
 .answer > div {
   background-color: #ffffff;
   border: 1px solid #e6e6e6;
@@ -142,7 +147,6 @@
   width: 350px;
   padding: 20px 0 20px 0;
   text-align: center;
-  margin-bottom: 30px;
   cursor: pointer;
   user-select: none;
 }
