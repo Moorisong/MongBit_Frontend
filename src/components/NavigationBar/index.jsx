@@ -21,13 +21,11 @@ export default function NavigationBar() {
   }, []);
 
   function clickMypageBtn() {
-    if (!sessionStorage.getItem(TOKEN_NAME)) {
+    if (!sessionStorage.getItem(TOKEN_NAME) || !decodeToken().state) {
+      sessionStorage.setItem('ngb', location.pathname);
       return navigate('/login');
     }
-    if (decodeToken().state) {
-      return navigate('/mypage');
-    }
-    navigate('/login');
+    navigate('/mypage');
   }
   function clickLogOut() {
     sessionStorage.setItem(TOKEN_NAME, '');

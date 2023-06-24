@@ -42,7 +42,7 @@ export default function KakaoAuthHandle() {
             if (prev) {
               // 직전 페이지로 이동이 필요한 경우
               sessionStorage.setItem('ngb', false);
-              prev.indexOf('need-login') ? navigate(-2) : navigate(prev);
+              prev.indexOf('need-login') > -1 ? navigate(-2) : navigate(prev);
             } else {
               navigate('/main');
             }

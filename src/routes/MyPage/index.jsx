@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import lottie from 'lottie-web';
 
@@ -20,6 +20,7 @@ import { decodeToken } from '../../util/util';
 
 export default function MyPage() {
   const navigate = useNavigate();
+  const location = useLocation();
   const containerRef_1 = useRef(null);
   const containerRef_2 = useRef(null);
 
@@ -68,8 +69,8 @@ export default function MyPage() {
 
   useEffect(() => {
     if (!decodeToken().state) {
-      sessionStorage.setItem('ngb', true);
-      return navigate('/login');
+      sessionStorage.setItem('ngb', location.pathname);
+      navigate('/login');
     }
     const memberId = sessionStorage.getItem('mongBitmemeberId');
     const params = {
@@ -143,7 +144,7 @@ export default function MyPage() {
             setClickSeeMore(true);
 
             if (!decodeToken().state) {
-              sessionStorage.setItem('ngb', true);
+              sessionStorage.setItem('ngb', location.pathname);
               return navigate('/login');
             }
             const memberId = sessionStorage.getItem('mongBitmemeberId');
