@@ -23,11 +23,22 @@ export default function Result() {
   const { testId } = useParams();
   const memberId = sessionStorage.getItem('mongBitmemeberId');
 
+  // useEffect(() => {
+  //   //뒤로 가기 누르면 예외 페이지로 이동
+  //   window.onpopstate = handlePopstate;
+
+  //   return () => {
+  //     // 클리어 시켜주기
+  //     window.onpopstate = null;
+  //   };
+  // }, [])
+
   useEffect(() => {
     if (!decodeToken().state) {
       sessionStorage.setItem('ngb', location.pathname);
       return navigate('/need-login');
     }
+    window.onpopstate = handlePopstate;
 
     axios
       .get(
@@ -59,7 +70,17 @@ export default function Result() {
         }));
         setIsLoading(false);
       });
+
+    return () => {
+      // 클리어 시켜주기
+      window.onpopstate = null;
+    };
   }, []);
+
+  function handlePopstate() {
+    navigate('/exception');
+  }
+
   return (
     <div className={styles.wrap}>
       <div className={styles.bgWhite}>

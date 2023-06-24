@@ -13,6 +13,7 @@ import Result from './Result';
 import PreviewTest from './PreviewTest/indxe';
 import ViewOldResult from './ViewOldResult';
 import NeedLogIn from './NeedLogIn';
+import ExeptionPage from './ExceptionPage';
 
 function Router() {
   return (
@@ -29,6 +30,7 @@ function Router() {
       <Route path="/record/:testId/:testResultId" element={<ViewOldResult />} />
       <Route path="/mypage" element={<MyPage />} />
       <Route path="/need-login" element={<NeedLogIn />} />
+      <Route path="/exception" element={<ExeptionPage />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login/oauth2/kakao/code" element={<KakaoAuthHandle />} />
     </Routes>
