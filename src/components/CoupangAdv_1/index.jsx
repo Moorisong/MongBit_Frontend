@@ -13,10 +13,9 @@ export default function CoupangAdv() {
   }, []);
   return (
     <iframe
-      ref={iframeRef}
-      src="https://ads-partners.coupang.com/widgets.html?id=665416&template=carousel&trackingCode=AF7346840&subId=&width=400&height=90&tsource="
+      src="https://ads-partners.coupang.com/widgets.html?id=665493&template=carousel&trackingCode=AF7346840&subId=&width=400&height=90&tsource="
       width="400"
-      height="90"
+      height="70"
       frameBorder="0"
       scrolling="no"
       referrerPolicy="unsafe-url"

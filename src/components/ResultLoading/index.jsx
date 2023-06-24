@@ -3,6 +3,8 @@ import lottie from 'lottie-web';
 
 import animationData from './loadingIcon.json';
 import styles from './index.module.css';
+import CoupangAdv_1 from '../CoupangAdv_1';
+import CoupangAdv_2 from '../CoupangAdv_2';
 
 export default function ResultLoading() {
   const containerRef = useRef(null);
@@ -23,6 +25,7 @@ export default function ResultLoading() {
 
   return (
     <div className={styles.wrap}>
+      <CoupangAdv_1 />
       <div className={styles.content}>
         <div>
           <span className={styles.pointText}>나</span>
@@ -32,6 +35,7 @@ export default function ResultLoading() {
           <div ref={containerRef} className={styles.loadImg}></div>
         </div>
       </div>
+      <CoupangAdv_2 />
     </div>
   );
 }
