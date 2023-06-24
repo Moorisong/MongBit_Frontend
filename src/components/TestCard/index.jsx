@@ -32,9 +32,15 @@ function TestCard(props) {
       <img src={props.thumbnailUri} className={cn_2} />
       {props.type === TYPE_MYPAGE || (
         <div className={cn_3}>
-          <span className={`${styles[props.textClass]} ${styles.span}`}>
+          <p className={`${styles[props.textClass]} ${styles.p}`}>
             {props.thumbnailStr}
-          </span>
+          </p>
+          {props.type === TYPE_LATEST_MAIN && (
+            <div className={styles.playCntWrap}>
+              <button className={styles.plyCntBtn} />
+              <p className={styles.playCntText}>{props.playCnt}</p>
+            </div>
+          )}
         </div>
       )}
     </div>

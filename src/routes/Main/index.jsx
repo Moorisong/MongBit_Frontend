@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 import styles from './index.module.css';
 import { TitleWithText } from '../../components/Titles';
@@ -17,11 +18,21 @@ export default function Main() {
   //   })
   // }, [])
 
+  const [latestTestData, setLatestTestData] = useState({
+    testArr: [],
+  });
+
   useEffect(() => {
     sessionStorage.getItem('mbResult') === '' &&
       sessionStorage.removeItem('mbResult');
     sessionStorage.getItem('mbTest') === '' &&
       sessionStorage.removeItem('mbTest');
+
+    axios
+      .get(`https://mongbit-willneiman.koyeb.app/api/v1/tests/0/3`)
+      .then((res) => {
+        setLatestTestData((prev) => ({ ...prev, testArr: res.data }));
+      });
   }, []);
   return (
     <div className={styles.containerWrap}>
@@ -40,18 +51,17 @@ export default function Main() {
         <div className={styles.miniTestWrap}>
           <TitleWithText title="💙 최신 심테" />
           <div className={styles.latesCardWrap}>
-            <TestCard thumbnailStr="전생 테스트" type={TYPE_LATEST_MAIN} />
-            <TestCard thumbnailStr="이세계에서.." type={TYPE_LATEST_MAIN} />
-            <TestCard thumbnailStr="장난 유형으.." type={TYPE_LATEST_MAIN} />
-          </div>
-        </div>
-
-        <div className={styles.miniTestWrap}>
-          <TitleWithText title="💚 기타 등등" />
-          <div className={styles.latesCardWrap}>
-            <TestCard thumbnailStr="살다보면.." type={TYPE_LATEST_MAIN} />
-            <TestCard thumbnailStr="낙서 유형.." type={TYPE_LATEST_MAIN} />
-            <TestCard thumbnailStr="기억 속에서.." type={TYPE_LATEST_MAIN} />
+            {latestTestData.testArr.length > 0 &&
+              latestTestData.testArr.map((t, i) => (
+                <TestCard
+                  key={i}
+                  thumbnailStr={t.title}
+                  type={TYPE_LATEST_MAIN}
+                  testId={t.id}
+                  thumbnailUri={t.imageUrl}
+                  playCnt={t.playCount}
+                />
+              ))}
           </div>
         </div>
       </div>

@@ -19,7 +19,7 @@
 }
 
 .latest_thumbnail {
-  width: 120px;
+  width: 120px !important;
   height: 15rem;
   background-repeat: no-repeat;
   background-position: center;
@@ -39,11 +39,9 @@
 
 .latest_titleBox {
   width: 120px;
-  height: 2.5rem;
-  background-color: #838383;
   opacity: 0.7;
   display: flex;
-  align-items: center;
+  flex-direction: column;
 }
 
 .test_on_titleBox {
@@ -51,10 +49,28 @@
   height: 2.5rem;
 }
 
-.span {
-  color: white;
-  font-size: 0.9rem;
+.p {
+  color: black;
+  font-size: 0.8rem;
   padding-left: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.playCntWrap {
+  display: flex;
+  flex-direction: row;
+}
+.plyCntBtn {
+  background-image: url('../../../public/images/buttonSet/playCnt.svg');
+  width: 15px;
+  height: 15px;
+  margin: 2px 0 0 2px;
+}
+.playCntText {
+  font-size: 0.8rem;
+  padding-left: 3px;
+  margin-top: -1px;
 }
 
 .test_on_text {
