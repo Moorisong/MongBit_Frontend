@@ -26,7 +26,7 @@ export default function TestPreview(props) {
     thumbnailStr: props.thumbnailStr,
     thumbnailUri: props.thumbnailUri,
     playCnt: props.playCnt,
-    description: props.description,
+    conentArr: props.description.split('<br>'),
     likeState: false,
     likeCnt: 0,
     comment: [],
@@ -149,7 +149,14 @@ export default function TestPreview(props) {
           <CardButton type={TYPE_PLAY_CNT} data={data.playCnt} />
         </div>
         <Stroke type_1={TYPE_ON_TEST} type_2="2" />
-        <p className={styles.contentTextWrap}>{data.description}</p>
+
+        <ul className={styles.contentUl}>
+          {data.conentArr.map((str, i) => (
+            <li key={i}>
+              <p>{str}</p>
+            </li>
+          ))}
+        </ul>
         <GoRandomStartBtn url={`/test-on/${data.testId}`} str="테스트 시작" />
         <ul className={styles.buttonSet}>
           <li>
