@@ -156,6 +156,10 @@ export default function TestResult(props) {
       <button
         className={styles.shareBtn}
         onClick={() => {
+          if (!decodeToken().state) {
+            sessionStorage.setItem('ngb', location.pathname);
+            return navigate('/login');
+          }
           const likeCntNum =
             location.pathname.indexOf('result') > -1
               ? props.likeCnt

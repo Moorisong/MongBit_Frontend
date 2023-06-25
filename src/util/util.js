@@ -62,7 +62,8 @@ export function handleCopyLink(link) {
 }
 
 export function shareToKatalk(testId, title, description, testImgUri) {
-  if(!window.Kakao.isInitialized()) window.Kakao.init('ca73594b776443da06b27edae4131915');
+  if (!window.Kakao.isInitialized())
+    window.Kakao.init('ca73594b776443da06b27edae4131915');
   window.Kakao.Share.sendDefault({
     objectType: 'list',
     headerTitle: '몽빗 테스트 공유해요 :)',
@@ -111,7 +112,8 @@ export function shareToKatalk_result(
   pathName,
   likeCnt
 ) {
-  if(!window.Kakao.isInitialized()) window.Kakao.init('ca73594b776443da06b27edae4131915');
+  if (!window.Kakao.isInitialized())
+    window.Kakao.init('ca73594b776443da06b27edae4131915');
 
   window.Kakao.Share.sendDefault({
     objectType: 'feed',

@@ -208,6 +208,12 @@ export default function TestPreview(props) {
               str={linkCopyState ? '링크 복사됨' : '링크 복사'}
               linkCopyState={linkCopyState}
             />
+            {/* {
+              linkCopyState &&
+              <div>
+                <input readOnly defaultValue={`https://mong-bit-frontend.vercel.app${location.pathname}`} />
+              </div>
+            } */}
           </li>
           {likeLoading ? (
             <li className={styles.likeWrap}>
@@ -259,6 +265,10 @@ export default function TestPreview(props) {
           )}
           <li
             onClick={() => {
+              if (!decodeToken().state) {
+                sessionStorage.setItem('ngb', location.pathname);
+                return navigate('/login');
+              }
               shareToKatalk(
                 data.testId,
                 data.thumbnailStr,
