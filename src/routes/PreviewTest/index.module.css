@@ -13,7 +13,7 @@
 .loadImgWrap {
   width: 400px;
   height: 500px;
-  padding-top: 100px;
+  padding: 250px 0 350px 0;
   background-color: white;
   display: flex;
   flex-direction: column;
