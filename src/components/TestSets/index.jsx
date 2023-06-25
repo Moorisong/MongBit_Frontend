@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { CardButton, Stroke } from '../ButtonSets';
 import { TestCard } from '../TestCard';
 import {
@@ -30,6 +32,7 @@ function TestSetComplete(props) {
 }
 
 function TestSetMyPage(props) {
+  const navigate = useNavigate()
   return (
     <div className={styles.testCardWrap}>
       <TestCard
@@ -38,7 +41,12 @@ function TestSetMyPage(props) {
         testId={props.testId}
         testResultId={props.testResultId}
       />
-      <div className={styles.testCardTextWrap}>
+      <div
+        className={styles.testCardTextWrap}
+        onClick={() =>
+          navigate(`/record/${props.testId}/${props.testResultId}`)
+        }
+      >
         <p>{props.title}</p>
         <p>{props.content.description}</p>
         <p>{props.content.date}</p>

@@ -57,10 +57,6 @@ export function formatTimeDifference(dateString) {
   }
 }
 
-export function handleCopyLink(link) {
-  window.navigator.clipboard.writeText(link);
-}
-
 export function shareToKatalk(testId, title, description, testImgUri) {
   if (!window.Kakao.isInitialized())
     window.Kakao.init('ca73594b776443da06b27edae4131915');

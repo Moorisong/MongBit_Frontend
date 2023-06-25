@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import cx from 'classnames';
 import lottie from 'lottie-web';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import animationData_1 from './commentLoading.json';
 import animationData_2 from './commentAreaLaoadingIcon.json';
@@ -20,7 +21,7 @@ import {
   TYPE_COMMENT,
   TYPE_PLAY_CNT,
 } from '../../constants/constant';
-import { decodeToken, handleCopyLink, shareToKatalk } from '../../util/util';
+import { decodeToken, shareToKatalk } from '../../util/util';
 import styles from './index.module.css';
 
 export default function TestPreview(props) {
@@ -195,25 +196,24 @@ export default function TestPreview(props) {
         </ul>
         <GoRandomStartBtn url={`/test-on/${data.testId}`} str="테스트 시작" />
         <ul className={styles.buttonSet}>
-          <li
-            onClick={() => {
-              handleCopyLink(
-                `https://mong-bit-frontend.vercel.app${location.pathname}`
-              );
-              setLinkCopyState(true);
-            }}
-          >
-            <TestButton
-              btnType="linkCopy"
-              str={linkCopyState ? '링크 복사됨' : '링크 복사'}
-              linkCopyState={linkCopyState}
-            />
-            {/* {
-              linkCopyState &&
-              <div>
-                <input readOnly defaultValue={`https://mong-bit-frontend.vercel.app${location.pathname}`} />
-              </div>
-            } */}
+          <li>
+            <div
+              className={styles.linkCopyWrap}
+              onClick={() => {
+                setLinkCopyState(true);
+              }}
+            >
+              <CopyToClipboard
+                text={`https://mong-bit-frontend.vercel.app${location.pathname}`}
+              >
+                <button
+                  className={
+                    linkCopyState ? styles.linkCopied : styles.noneLinkCopied
+                  }
+                ></button>
+              </CopyToClipboard>
+              <p>{linkCopyState ? '링크 복사' : '링크 복사됨'}</p>
+            </div>
           </li>
           {likeLoading ? (
             <li className={styles.likeWrap}>

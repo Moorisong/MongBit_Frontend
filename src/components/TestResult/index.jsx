@@ -1,15 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 import styles from './index.module.css';
 import { Stroke } from '../ButtonSets';
 import { TestButton } from '../ButtonSets';
-import {
-  decodeToken,
-  handleCopyLink,
-  shareToKatalk_result,
-} from '../../util/util';
+import { decodeToken, shareToKatalk_result } from '../../util/util';
 
 export default function TestResult(props) {
   const [likeLoading, setLikeLoading] = useState(true);
@@ -86,20 +83,24 @@ export default function TestResult(props) {
       <Stroke />
 
       <div className={styles.buttonsWrap}>
-        <div
-          className={styles.partWrap}
-          onClick={() => {
-            handleCopyLink(
-              `https://mong-bit-frontend.vercel.app${location.pathname}`
-            );
-            setLinkCopyState(true);
-          }}
-        >
-          <TestButton
-            btnType="linkCopy"
-            str={linkCopyState ? '링크 복사됨' : '링크 복사'}
-            linkCopyState={linkCopyState}
-          />
+        <div className={styles.partWrap}>
+          <div
+            className={styles.linkCopyWrap}
+            onClick={() => {
+              setLinkCopyState(true);
+            }}
+          >
+            <CopyToClipboard
+              text={`https://mong-bit-frontend.vercel.app${location.pathname}`}
+            >
+              <button
+                className={
+                  linkCopyState ? styles.linkCopied : styles.noneLinkCopied
+                }
+              ></button>
+            </CopyToClipboard>
+            <p>{linkCopyState ? '링크 복사됨' : '링크 복사'}</p>
+          </div>
         </div>
 
         <div className={styles.retryWrap}>
