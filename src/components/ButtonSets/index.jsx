@@ -37,9 +37,20 @@ export function TestButton(props) {
     ? `${styles.button} ${styles.liked}`
     : `${styles.button} ${styles.noneLiked}`;
   const cn_2 = `${styles.button} ${styles[props.btnType]}`;
+  const cn_3 = props.linkCopyState
+    ? `${styles.button} ${styles.linkCopied}`
+    : `${styles.button} ${styles.noneLinkCopied}`;
   return (
     <div className={styles.testBtnWrap}>
-      <button className={props.btnType === 'like' ? cn_1 : cn_2}></button>
+      <button
+        className={
+          props.btnType === 'like'
+            ? cn_1
+            : props.btnType === 'linkCopy'
+            ? cn_3
+            : cn_2
+        }
+      ></button>
       <p className={styles.btnNameText}>{props.str}</p>
     </div>
   );

@@ -46,7 +46,12 @@ export default function Main() {
       <GoRandomStartBtn url="/test-random" str="아무거나 시작" />
       <div className={styles.testWrap}>
         <TitleWithText title="🌟 심테의 근본, MBTI 검사" />
-        <TestCard thumbnailStr="전생에서 내가 공룡이었다면?" />
+        <TestCard
+          thumbnailStr="MBTI 기본 검사"
+          testId="649708e8a3b85f774064cddf"
+          thumbnailUri="https://img.freepik.com/free-vector/paper-style-galaxy-background_23-2148985024.jpg?w=1380&t=st=1687624381~exp=1687624981~hmac=580716719978cefc3dd742602467ba14a5113b2daa335aae1d2aa4cacbb15305"
+          playCnt="22"
+        />
 
         <div className={styles.miniTestWrap}>
           <TitleWithText title="💙 최신 심테" />

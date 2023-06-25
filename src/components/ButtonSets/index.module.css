@@ -94,10 +94,16 @@
   background-image: url('../../../public/images/test/comment.svg');
 }
 
-.bookMark {
+.linkCopied {
   width: 2rem;
   height: 2rem;
-  background-image: url('../../../public/images/test/bookMark.svg');
+  background-image: url('../../../public/images/test/linkCopyIcon.svg');
+}
+
+.noneLinkCopied {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/noneLinkCopyIcon.svg');
 }
 
 .liked {
@@ -115,7 +121,7 @@
 .share {
   width: 2rem;
   height: 2rem;
-  background-image: url('../../../public/images/test/share.svg');
+  background-image: url('../../../public/images/test/shareIcon.svg');
 }
 
 .testBtnWrap {

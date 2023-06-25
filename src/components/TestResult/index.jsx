@@ -1,15 +1,20 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import cx from 'classnames';
 
 import styles from './index.module.css';
 import { Stroke } from '../ButtonSets';
-import { decodeToken } from '../../util/util';
+import { TestButton } from '../ButtonSets';
+import {
+  decodeToken,
+  handleCopyLink,
+  shareToKatalk_result,
+} from '../../util/util';
 
 export default function TestResult(props) {
   const [likeLoading, setLikeLoading] = useState(true);
   const [likeChanged, setLikeChanged] = useState(true);
+  let [linkCopyState, setLinkCopyState] = useState(false);
   let [isSubmittingLike, setIsSubmittingLike] = useState(false);
   const [likeData, setLikeData] = useState({
     likeState: false,
@@ -81,9 +86,20 @@ export default function TestResult(props) {
       <Stroke />
 
       <div className={styles.buttonsWrap}>
-        <div className={styles.partWrap}>
-          <button className={styles.bookMarkBtn}></button>
-          <p>북마크</p>
+        <div
+          className={styles.partWrap}
+          onClick={() => {
+            handleCopyLink(
+              `https://mong-bit-frontend.vercel.app${location.pathname}`
+            );
+            setLinkCopyState(true);
+          }}
+        >
+          <TestButton
+            btnType="linkCopy"
+            str={linkCopyState ? '링크 복사됨' : '링크 복사'}
+            linkCopyState={linkCopyState}
+          />
         </div>
 
         <div className={styles.retryWrap}>
@@ -93,53 +109,69 @@ export default function TestResult(props) {
           <img src="/images/test/retryIcon.svg" alt="retry" />
         </div>
 
-        <div className={styles.partWrap}>
-          <button
-            className={cx(
-              likeData.likeState ? styles.likedBtn : styles.noneLikedBtn,
-              {
-                [styles.likedBtn]: likeData.likeState,
-              }
-            )}
-            onClick={async () => {
-              if (!decodeToken().state) {
-                sessionStorage.setItem('ngb', location.pathname);
-                return navigate('/login');
-              }
+        <div
+          className={styles.partWrap}
+          onClick={async () => {
+            if (!decodeToken().state) {
+              sessionStorage.setItem('ngb', location.pathname);
+              return navigate('/login');
+            }
 
-              if (isSubmittingLike) return;
-              setIsSubmittingLike(true);
+            if (isSubmittingLike) return;
+            setIsSubmittingLike(true);
 
-              if (likeData.likeState) {
-                setLikeData((prev) => ({
-                  ...prev,
-                  likeState: false,
-                  likeCnt: prev.likeCnt - 1,
-                }));
-                await axios.delete(
-                  `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/${memberId}/like`
-                );
-                setLikeChanged(!likeChanged);
-              } else {
-                setLikeData((prev) => ({
-                  ...prev,
-                  likeState: true,
-                  likeCnt: prev.likeCnt + 1,
-                }));
-                await axios.post(
-                  `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/${memberId}/like`,
-                  { testId: props.testId, memberId: memberId }
-                );
-                setLikeChanged(!likeChanged);
-              }
-              setIsSubmittingLike(false);
-            }}
-          ></button>
-          <p>재밌당</p>
+            if (likeData.likeState) {
+              setLikeData((prev) => ({
+                ...prev,
+                likeState: false,
+                likeCnt: prev.likeCnt - 1,
+              }));
+              await axios.delete(
+                `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/${memberId}/like`
+              );
+              setLikeChanged(!likeChanged);
+            } else {
+              setLikeData((prev) => ({
+                ...prev,
+                likeState: true,
+                likeCnt: prev.likeCnt + 1,
+              }));
+              await axios.post(
+                `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/${memberId}/like`,
+                { testId: props.testId, memberId: memberId }
+              );
+              setLikeChanged(!likeChanged);
+            }
+            setIsSubmittingLike(false);
+          }}
+        >
+          <TestButton
+            btnType="like"
+            str="재밌당"
+            likeState={likeData.likeState}
+          />
           <p className={styles.likeCnt}>{likeData.likeCnt}</p>
         </div>
       </div>
-      <button className={styles.shareBtn}>친구에게 테스트 공유하기</button>
+      <button
+        className={styles.shareBtn}
+        onClick={() => {
+          const likeCntNum =
+            location.pathname.indexOf('result') > -1
+              ? props.likeCnt
+              : likeData.likeCnt;
+          shareToKatalk_result(
+            props.testId,
+            props.titleStr,
+            props.contentStrArr.join(),
+            props.imgUri,
+            location.pathname,
+            likeCntNum
+          );
+        }}
+      >
+        친구에게 테스트 공유하기
+      </button>
     </div>
   );
 }

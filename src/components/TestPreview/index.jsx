@@ -20,7 +20,7 @@ import {
   TYPE_COMMENT,
   TYPE_PLAY_CNT,
 } from '../../constants/constant';
-import { decodeToken } from '../../util/util';
+import { decodeToken, handleCopyLink, shareToKatalk } from '../../util/util';
 import styles from './index.module.css';
 
 export default function TestPreview(props) {
@@ -34,6 +34,7 @@ export default function TestPreview(props) {
     likeCnt: 0,
     comment: [],
   });
+  let [linkCopyState, setLinkCopyState] = useState(false);
 
   const [likeLoading, setLikeLoading] = useState(true);
   const [likeChanged, setLikeChanged] = useState(true);
@@ -168,6 +169,7 @@ export default function TestPreview(props) {
       });
     setIsSubmittingComment(false);
   }
+
   return (
     <div className={styles.wrap}>
       {/* 테스트  */}
@@ -193,8 +195,19 @@ export default function TestPreview(props) {
         </ul>
         <GoRandomStartBtn url={`/test-on/${data.testId}`} str="테스트 시작" />
         <ul className={styles.buttonSet}>
-          <li>
-            <TestButton btnType="bookMark" str="북마크" />
+          <li
+            onClick={() => {
+              handleCopyLink(
+                `https://mong-bit-frontend.vercel.app${location.pathname}`
+              );
+              setLinkCopyState(true);
+            }}
+          >
+            <TestButton
+              btnType="linkCopy"
+              str={linkCopyState ? '링크 복사됨' : '링크 복사'}
+              linkCopyState={linkCopyState}
+            />
           </li>
           {likeLoading ? (
             <li className={styles.likeWrap}>
@@ -244,7 +257,16 @@ export default function TestPreview(props) {
               <p className={styles.likeCntNum}>{data.likeCnt}</p>
             </li>
           )}
-          <li>
+          <li
+            onClick={() => {
+              shareToKatalk(
+                data.testId,
+                data.thumbnailStr,
+                data.conentArr.join(),
+                data.thumbnailUri
+              );
+            }}
+          >
             <TestButton btnType="share" str="공유하기" />
           </li>
         </ul>

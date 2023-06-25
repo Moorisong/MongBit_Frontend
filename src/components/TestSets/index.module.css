@@ -19,6 +19,7 @@
 
 .testCardTextWrap {
   width: 235px;
+  margin-left: -15px;
 }
 
 .testCardTextWrap > p:first-child {
