@@ -8,6 +8,7 @@ import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import TestResult from '../../components/TestResult';
 import animationData from './loading_1.json';
+import { DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
 
 export default function ViewOldResult() {
   const [testData, setTestData] = useState(null);
@@ -34,7 +35,7 @@ export default function ViewOldResult() {
   useEffect(() => {
     axios
       .get(
-        `https://mongbit-willneiman.koyeb.app/api/v1/tests/test/test-result/${testId}/${testResultId}`
+        `${DOMAIN_BE_DEV}/api/v1/tests/test/test-result/${testId}/${testResultId}`
       )
       .then((res) => {
         setTestData(res.data);

@@ -12,11 +12,14 @@ import { TestSetMyPage } from '../../components/TestSets';
 import { TitleWithText } from '../../components/Titles';
 import {
   TITLE_WITH_CONTENT,
+  TOKEN_NAME,
   TYPE_MYPAGE,
   USER_INFO,
+  DOMAIN_BE_PROD,
+  DOMAIN_BE_DEV,
 } from '../../constants/constant';
 import { Stroke } from '../../components/ButtonSets';
-import { decodeToken } from '../../util/util';
+import { clearSessionStorage, decodeToken } from '../../util/util';
 
 export default function MyPage() {
   const navigate = useNavigate();
@@ -68,28 +71,54 @@ export default function MyPage() {
   }, [clickSeeMore]);
 
   useEffect(() => {
+    // 토큰 없는 경우
     if (!decodeToken().state) {
       sessionStorage.setItem('ngb', location.pathname);
       navigate('/login');
     }
-    const memberId = sessionStorage.getItem('mongBitmemeberId');
-    const params = {
-      page: page,
-      size: 10,
+
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: sessionStorage.getItem(TOKEN_NAME),
     };
+
+    //토큰 검증
     axios
-      .get(
-        `https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${memberId}`,
-        { params }
-      )
-      .then((res) => {
-        setTestData((prev) => ({
-          ...prev,
-          resultArr: res.data.memberTestResultDTOList,
-          hasNextPage: res.data.hasNextPage,
-        }));
-        setLoading(false);
-        setPage(page + 1);
+      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
+        headers,
+      })
+      .then(() => {
+        const memberId = sessionStorage.getItem('mongBitmemeberId');
+        const params = {
+          page: page,
+          size: 10,
+        };
+
+        // 마이페이지 테스트 기록 조회
+        axios
+          .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
+            params,
+          })
+          .then((res) => {
+            setTestData((prev) => ({
+              ...prev,
+              resultArr: res.data.memberTestResultDTOList,
+              hasNextPage: res.data.hasNextPage,
+            }));
+            setLoading(false);
+            setPage(page + 1);
+          });
+      })
+      .catch((err) => {
+        if (
+          err.response.status === 400 ||
+          err.response.status === 401 ||
+          err.response.status === 403
+        ) {
+          clearSessionStorage();
+          sessionStorage.setItem('ngb', location.pathname);
+          navigate('/login');
+        }
       });
   }, []);
 
@@ -153,10 +182,9 @@ export default function MyPage() {
               size: 10,
             };
             axios
-              .get(
-                `https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${memberId}`,
-                { params }
-              )
+              .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
+                params,
+              })
               .then((res) => {
                 let copy = [...testData.resultArr];
                 res.data.memberTestResultDTOList.forEach((ele) => {

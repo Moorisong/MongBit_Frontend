@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 
-import { DOMAIN, TOKEN_NAME } from '../constants/constant';
+import { DOMAIN, TOKEN_NAME, USER_INFO } from '../constants/constant';
 
 export function decodeToken() {
   if (!sessionStorage.getItem(TOKEN_NAME)) {
@@ -143,4 +143,12 @@ export function shareToKatalk_result(
       },
     ],
   });
+}
+
+export function clearSessionStorage() {
+  sessionStorage.setItem(TOKEN_NAME, '');
+  sessionStorage.setItem(USER_INFO + 'memeberId', '');
+  sessionStorage.setItem(USER_INFO + 'thumbnail', '');
+  sessionStorage.setItem(USER_INFO + 'registDate', '');
+  sessionStorage.setItem(USER_INFO + 'username', '');
 }

@@ -8,6 +8,8 @@ import {
   ALL_FULLFILL,
   NUMBER_500,
   LENGTH_OVER_500,
+  DOMAIN_BE_PROD,
+  DOMAIN_BE_DEV,
 } from '../../constants/constant';
 
 export default function TestAdd() {
@@ -28,12 +30,10 @@ export default function TestAdd() {
 
   useEffect(() => {
     if (testDone) {
-      axios
-        .post(`https://mongbit-willneiman.koyeb.app/api/v1/tests/test`, data)
-        .then(() => {
-          alert('완료');
-          navigate('/main');
-        });
+      axios.post(`${DOMAIN_BE_DEV}/api/v1/tests/test`, data).then(() => {
+        alert('완료');
+        navigate('/main');
+      });
     }
   }, [testDone]);
 
@@ -110,7 +110,7 @@ export default function TestAdd() {
     formData.append('file', file);
 
     axios
-      .post('https://mongbit-willneiman.koyeb.app/upload', formData)
+      .post(`${DOMAIN_BE_DEV}/upload`, formData)
       .then((response) => {
         setData((prev) => ({ ...prev, imageUrl: response.data }));
         setImgUploading(false);

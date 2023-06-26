@@ -6,7 +6,12 @@ import { TitleWithText } from '../../components/Titles';
 import { TestSetComplete } from '../../components/TestSets';
 import NavigationBar from '../../components/NavigationBar';
 import styels from './index.module.css';
-import { TYPE_TEST_LIST, TITLE_WITH_CONTENT } from '../../constants/constant';
+import {
+  TYPE_TEST_LIST,
+  TITLE_WITH_CONTENT,
+  DOMAIN_BE_PROD,
+  DOMAIN_BE_DEV,
+} from '../../constants/constant';
 
 export default function TestList() {
   const [data, setData] = useState([]);
@@ -15,11 +20,9 @@ export default function TestList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get(`https://mongbit-willneiman.koyeb.app/api/v1/tests`)
-      .then((res) => {
-        setData(res.data);
-      });
+    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests`).then((res) => {
+      setData(res.data);
+    });
   }, []);
 
   return (
