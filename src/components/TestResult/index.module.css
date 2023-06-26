@@ -4,7 +4,6 @@
   justify-content: center;
   align-items: center;
   width: 400px;
-  height: 100vh;
   background-color: white;
   position: relative;
 }
@@ -37,7 +36,7 @@
   flex-direction: row;
   justify-content: space-around;
   margin-top: 20px;
-  padding-bottom: 80px;
+  padding-bottom: 30px;
 }
 .partWrap {
   display: flex;
@@ -111,4 +110,106 @@
   background-image: url('../../../public/images/test/noneLinkCopyIcon.svg');
   background-color: white;
   background-size: contain;
+}
+
+.commentInput {
+  width: 100%;
+  max-width: 370px;
+  height: 2.5rem;
+  padding: 0 40px 0 10px;
+  background-color: #f1f1f1;
+  font-size: 12px;
+  color: #979797;
+  border-radius: 0.3rem;
+}
+
+.commentInput::placeholder {
+  color: #979797;
+}
+
+.commentInput:focus {
+  outline: none;
+}
+
+.modifyInputBoderBottomRed {
+  border-bottom: 2px solid red;
+}
+
+.charsLimit {
+  color: #979797;
+  position: absolute;
+  top: -19px;
+  right: 5px;
+  font-size: 11px;
+}
+.contentTextWrap {
+  width: 370px;
+  font-size: 1rem;
+  color: black;
+  font-weight: 300;
+  margin: 10px 0 20px 0;
+}
+
+.commentInputWrap {
+  width: 370px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.commentContentWrap {
+  position: relative;
+}
+
+.commentWrap {
+  width: 370px;
+  margin: 10px 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.commentWrap span {
+  color: #979797;
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+
+.commentWrap p {
+  width: 100%;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: 350;
+  margin: 3px 0 0 3px;
+}
+
+.seeMoreWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+  width: 100px;
+  height: 30px;
+  border-radius: 15px;
+}
+
+.seeMoreWrap > button {
+  color: #979797;
+  font-size: 0.8rem;
+  width: 100px;
+  border-radius: 15px;
+}
+
+.loadImgWrap_1 {
+  width: 60px;
+  height: 60px;
+}
+
+.loadImgWrap_2 {
+  width: 100px;
+  height: 30px;
+  position: relative;
+  left: calc(50% - 50px);
 }

@@ -1,11 +1,15 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import lottie from 'lottie-web';
+import cx from 'classnames';
 
 import styles from './index.module.css';
-import { Stroke } from '../ButtonSets';
-import { TestButton } from '../ButtonSets';
+import { Stroke, Comment, AddCommentButton } from '../ButtonSets';
+import animationData_1 from './commentLoading.json';
+import animationData_2 from './commentAreaLaoadingIcon.json';
+import { TestButton, CardButton } from '../ButtonSets';
 import {
   decodeToken,
   shareToKatalk_result,
@@ -16,23 +20,75 @@ import {
   TOKEN_NAME,
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
+  TYPE_COMMENT,
 } from '../../constants/constant';
 
 export default function TestResult(props) {
+  const [commentIndex, setCommentIndex] = useState([0, false]);
+  const [commentLoading, setCommentLoading] = useState(true);
+  const [commentChanged, setCommentChanged] = useState(true);
+  let [commentValue, setCommentValue] = useState('');
+  const [commentCnt, setCommentCnt] = useState(0);
+  let [commentSeeMoreLoading, setCommentSeeMoreLoading] = useState(false);
+  let [isSubmittingComment, setIsSubmittingComment] = useState(false);
+
   const [likeLoading, setLikeLoading] = useState(true);
   const [likeChanged, setLikeChanged] = useState(true);
   let [linkCopyState, setLinkCopyState] = useState(false);
   let [isSubmittingLike, setIsSubmittingLike] = useState(false);
+
   const [likeData, setLikeData] = useState({
     likeState: false,
     likeCnt: 0,
   });
+
+  let [data, setData] = useState({
+    testId: props.testId,
+    thumbnailStr: props.thumbnailStr,
+    thumbnailUri: props.thumbnailUri,
+    playCnt: props.playCnt,
+    contentArr: props.contentStrArr,
+    comment: [],
+  });
+
+  useEffect(() => {
+    axios
+      .get(
+        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+      )
+      .then((res) => {
+        setData((prev) => ({ ...prev, comment: res.data.commentDTOList }));
+        setCommentLoading(false);
+        setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
+      });
+  }, [commentChanged]);
+
+  data.comment.sort(
+    (a, b) => new Date(b.commentDate) - new Date(a.commentDate)
+  );
+
   const memberId = sessionStorage.getItem('mongBitmemeberId');
   const resultPathName =
     location.pathname.indexOf('record') > -1
       ? location.pathname
       : `/record/${props.testId}/${props.testResultId}`;
   const navigate = useNavigate();
+  const containerRef_1 = useRef(null);
+  const containerRef_2 = useRef(null);
+
+  useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_1.current,
+      renderer: 'svg',
+      animationData: animationData_1,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, [commentSeeMoreLoading]);
 
   useEffect(() => {
     const fetchLikeDataLogIned = async () => {
@@ -133,6 +189,106 @@ export default function TestResult(props) {
     }
     setIsSubmittingLike(false);
   }
+
+  async function addComment() {
+    await axios
+      .post(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {
+        memberId: sessionStorage.getItem('mongBitmemeberId'),
+        testId: data.testId,
+        content: commentValue,
+      })
+      .then((res) => {
+        setCommentIndex([0, res.data.hasNextPage]);
+        setCommentChanged(!commentChanged);
+      });
+    setIsSubmittingComment(false);
+  }
+
+  function clickTestShare() {
+    if (!decodeToken().state) {
+      sessionStorage.setItem('ngb', location.pathname);
+      return navigate('/login');
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: sessionStorage.getItem(TOKEN_NAME),
+    };
+
+    axios
+      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
+      .catch((err) => {
+        if (
+          err.response.status === 400 ||
+          err.response.status === 401 ||
+          err.response.status === 403
+        ) {
+          clearSessionStorage();
+          sessionStorage.setItem('ngb', location.pathname);
+          navigate('/login');
+        }
+      });
+
+    const likeCntNum =
+      location.pathname.indexOf('result') > -1
+        ? props.likeCnt
+        : likeData.likeCnt;
+    shareToKatalk_result(
+      props.testId,
+      props.titleStr,
+      props.contentStrArr.join(),
+      props.imgUri,
+      resultPathName,
+      likeCntNum
+    );
+  }
+
+  function clickAddCommentBtn() {
+    if (!decodeToken().state) {
+      sessionStorage.setItem('ngb', location.pathname);
+      return navigate('/login');
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: sessionStorage.getItem(TOKEN_NAME),
+    };
+
+    axios
+      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
+      .catch((err) => {
+        if (
+          err.response.status === 400 ||
+          err.response.status === 401 ||
+          err.response.status === 403
+        ) {
+          clearSessionStorage();
+          sessionStorage.setItem('ngb', location.pathname);
+          navigate('/login');
+        }
+      });
+
+    if (!commentValue) return;
+    setCommentValue('');
+    addComment();
+  }
+  function clikeSeeMoreBtn() {
+    setCommentSeeMoreLoading(true);
+    axios
+      .get(
+        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+      )
+      .then((res) => {
+        let newArr = [...data.comment];
+        res.data.commentDTOList.forEach((d) => {
+          newArr.push(d);
+        });
+        setData((prev) => ({ ...prev, comment: newArr }));
+        setCommentLoading(false);
+        setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
+        setCommentSeeMoreLoading(false);
+      });
+  }
   return (
     <div className={styles.resultWrap}>
       <img className={styles.resultImg} src={props.imgUri} />
@@ -182,47 +338,115 @@ export default function TestResult(props) {
           <p className={styles.likeCnt}>{likeData.likeCnt}</p>
         </div>
       </div>
-      <button
-        className={styles.shareBtn}
-        onClick={() => {
-          if (!decodeToken().state) {
-            sessionStorage.setItem('ngb', location.pathname);
-            return navigate('/login');
-          }
 
-          const headers = {
-            'Content-Type': 'application/json',
-            Authorization: sessionStorage.getItem(TOKEN_NAME),
-          };
+      {/* 댓글 */}
+      <CardButton type={TYPE_COMMENT} data={commentCnt} />
 
-          axios
-            .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
-            .catch((err) => {
-              if (
-                err.response.status === 400 ||
-                err.response.status === 401 ||
-                err.response.status === 403
-              ) {
-                clearSessionStorage();
+      <div className={styles.commentInputWrap}>
+        <span
+          className={styles.charsLimit}
+        >{`${commentValue.length} / 100`}</span>
+        <input
+          maxLength="100"
+          type="text"
+          value={commentValue}
+          className={cx(styles.commentInput, {
+            [styles.modifyInputBoderBottomRed]: commentValue.length >= 100,
+          })}
+          placeholder="나쁜말 하면 신고합니다 ㅇㅅㅇ"
+          onChange={(evt) => {
+            setCommentValue(evt.currentTarget.value);
+          }}
+          onKeyDown={(evt) => {
+            if (evt.key === 'Enter') {
+              if (!decodeToken().state) {
                 sessionStorage.setItem('ngb', location.pathname);
-                navigate('/login');
+                return navigate('/login');
               }
-            });
 
-          const likeCntNum =
-            location.pathname.indexOf('result') > -1
-              ? props.likeCnt
-              : likeData.likeCnt;
-          shareToKatalk_result(
-            props.testId,
-            props.titleStr,
-            props.contentStrArr.join(),
-            props.imgUri,
-            resultPathName,
-            likeCntNum
-          );
-        }}
-      >
+              const headers = {
+                'Content-Type': 'application/json',
+                Authorization: sessionStorage.getItem(TOKEN_NAME),
+              };
+
+              axios
+                .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
+                .catch((err) => {
+                  if (
+                    err.response.status === 400 ||
+                    err.response.status === 401 ||
+                    err.response.status === 403
+                  ) {
+                    clearSessionStorage();
+                    sessionStorage.setItem('ngb', location.pathname);
+                    navigate('/login');
+                  }
+                });
+
+              if (!evt.currentTarget.value) return;
+
+              setCommentValue('');
+              setIsSubmittingComment(true);
+
+              //댓글 추가 요청이 진행 중일때 추가로 등록하지 못하도록 조치함
+              if (isSubmittingComment) return;
+              addComment();
+            }
+          }}
+        />
+        <AddCommentButton onClick={clickAddCommentBtn} />
+      </div>
+
+      <div className={styles.commentWrap}>
+        {commentLoading ? (
+          <div className={styles.loadImgWrap_2}>
+            <div ref={containerRef_2}></div>
+          </div>
+        ) : (
+          <>
+            {data.comment.map((com, i) => (
+              <div key={i} className={styles.commentContentWrap}>
+                <Comment
+                  data={com}
+                  deleteComment={() => {
+                    axios
+                      .delete(
+                        `${DOMAIN_BE_DEV}/api/v1/test/comments/${com.id}`
+                      )
+                      .then(() => {
+                        setCommentIndex((prev) => [0, prev[1]]);
+                        setCommentChanged(!commentChanged);
+                      });
+                  }}
+                  modifyComment={() => {
+                    setCommentIndex((prev) => [0, prev[1]]);
+                    setCommentChanged(!commentChanged);
+                  }}
+                  memberId={memberId}
+                  testId={data.testId}
+                  id={com.id}
+                />
+              </div>
+            ))}
+          </>
+        )}
+      </div>
+      {commentIndex[1] && (
+        <div className={styles.seeMoreWrap}>
+          {commentSeeMoreLoading ? (
+            <div className={styles.loadImgWrap_1}>
+              <div ref={containerRef_1}></div>
+            </div>
+          ) : (
+            <>
+              <button onClick={clikeSeeMoreBtn}>더보기</button>
+              <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
+            </>
+          )}
+        </div>
+      )}
+
+      <button className={styles.shareBtn} onClick={clickTestShare}>
         친구에게 테스트 공유하기
       </button>
     </div>

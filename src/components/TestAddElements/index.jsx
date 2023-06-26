@@ -67,6 +67,21 @@ export function QuestionPart(props) {
   let resultObj = { index: props.idx };
   // const initialState = props.data ? {index: props.idx, question: datas.question, answerPlus: datas.answerPlus, answerMinus: datas.answerMinus} : {index: props.idx}
   // const [resultObj, setResultObjt] = useState(initialState)
+
+  function clickGoNext() {
+    if (!resultObj.question || !resultObj.answerPlus || !resultObj.answerMinus)
+      return alert(ALL_FULLFILL);
+
+    if (
+      resultObj.question.length > NUMBER_500 ||
+      resultObj.answerPlus.length > NUMBER_500 ||
+      resultObj.answerMinus.length > NUMBER_500
+    )
+      return alert(LENGTH_OVER_500);
+    const jsonString = JSON.stringify(resultObj);
+    sessionStorage.setItem('mbTest', jsonString);
+    props.onClickNext();
+  }
   return (
     <div className={styles.wrap}>
       <div className={styles.contentWrap}>
@@ -78,7 +93,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-        // defaultValue={resultObj.question}
+          // defaultValue={resultObj.question}
         ></textarea>
       </div>
 
@@ -91,7 +106,7 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-        // defaultValue={props.data ? props.data.answerPlus : ''}
+          // defaultValue={props.data ? props.data.answerPlus : ''}
         ></textarea>
       </div>
 
@@ -104,35 +119,14 @@ export function QuestionPart(props) {
           }}
           cols="40"
           rows="5"
-        // defaultValue={datas ? props.data.answerMinus : ''}
+          // defaultValue={datas ? props.data.answerMinus : ''}
         ></textarea>
       </div>
 
       <div className={`${styles.contentWrap} ${styles.stepWrap}`}>
         {/* <button onClick={props.onClickPrev}>뒤로</button> */}
         <button>뒤로</button>
-        <button
-          onClick={() => {
-            if (
-              !resultObj.question ||
-              !resultObj.answerPlus ||
-              !resultObj.answerMinus
-            )
-              return alert(ALL_FULLFILL);
-
-            if (
-              resultObj.question.length > NUMBER_500 ||
-              resultObj.answerPlus.length > NUMBER_500 ||
-              resultObj.answerMinus.length > NUMBER_500
-            )
-              return alert(LENGTH_OVER_500);
-            const jsonString = JSON.stringify(resultObj);
-            sessionStorage.setItem('mbTest', jsonString);
-            props.onClickNext();
-          }}
-        >
-          다음
-        </button>
+        <button onClick={clickGoNext}>다음</button>
       </div>
     </div>
   );
@@ -145,6 +139,20 @@ export function ResultPart(props) {
     imageUrl: '',
   });
   let [imgUploading, setImgUploading] = useState(false);
+  function clickGoNext() {
+    if (imgUploading) return alert('이미지를 업로드 중입니다.');
+    if (!resultObj.result || !resultObj.content || !resultObj.imageUrl) {
+      return alert(ALL_FULLFILL);
+    }
+    if (
+      resultObj.result.length > NUMBER_500 ||
+      resultObj.content.length > NUMBER_500
+    )
+      return alert(LENGTH_OVER_500);
+    const jsonString = JSON.stringify(resultObj);
+    sessionStorage.setItem('mbResult', jsonString);
+    props.onClickNext();
+  }
   return (
     <div className={styles.wrap}>
       <div className={styles.contentWrap}>
@@ -205,28 +213,7 @@ export function ResultPart(props) {
       <div className={`${styles.contentWrap} ${styles.stepWrap}`}>
         {/* <button onClick={props.onClickPrev}>뒤로</button> */}
         <button>뒤로</button>
-        <button
-          onClick={() => {
-            if (imgUploading) return alert('이미지를 업로드 중입니다.');
-            if (
-              !resultObj.result ||
-              !resultObj.content ||
-              !resultObj.imageUrl
-            ) {
-              return alert(ALL_FULLFILL);
-            }
-            if (
-              resultObj.result.length > NUMBER_500 ||
-              resultObj.content.length > NUMBER_500
-            )
-              return alert(LENGTH_OVER_500);
-            const jsonString = JSON.stringify(resultObj);
-            sessionStorage.setItem('mbResult', jsonString);
-            props.onClickNext();
-          }}
-        >
-          다음
-        </button>
+        <button onClick={clickGoNext}>다음</button>
       </div>
     </div>
   );

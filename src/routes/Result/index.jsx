@@ -95,7 +95,7 @@ export default function Result() {
         ))}
 
       <div className={`${styles.bgWhite} ${styles.footerWrap}`}>
-        {isLoading && <Footer />}
+        {isLoading || <Footer />}
       </div>
     </div>
   );
