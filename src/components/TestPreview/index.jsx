@@ -344,7 +344,7 @@ export default function TestPreview(props) {
                   }
                 ></button>
               </CopyToClipboard>
-              <p>{linkCopyState ? '링크 복사' : '링크 복사됨'}</p>
+              <p>{linkCopyState ? '링크 복사됨' : '링크 복사'}</p>
             </div>
           </li>
           {likeLoading ? (
