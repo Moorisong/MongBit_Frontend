@@ -36,7 +36,6 @@
   flex-direction: row;
   justify-content: space-around;
   margin-top: 20px;
-  padding-bottom: 30px;
 }
 .partWrap {
   display: flex;
@@ -212,4 +211,8 @@
   height: 30px;
   position: relative;
   left: calc(50% - 50px);
+}
+
+.coupangAdvWrap{
+  margin: 20px 0 20px 0;
 }

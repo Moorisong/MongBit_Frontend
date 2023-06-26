@@ -18,7 +18,7 @@ export default function KakaoAuthHandle() {
     if (code) {
       try {
         axios
-          .get(`${DOMAIN_BE_DEV}/login/oauth2/kakao/code?code=${code}`)
+          .get(`${DOMAIN_BE_PROD}/login/oauth2/kakao/code?code=${code}`)
           .then((response) => {
             sessionStorage.setItem(
               TOKEN_NAME,
