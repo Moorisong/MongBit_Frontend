@@ -20,7 +20,7 @@ export default function TestList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests`).then((res) => {
+    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests`).then((res) => {
       setData(res.data);
     });
   }, []);
