@@ -1,5 +1,5 @@
 // Domain
-export const DOMAIN = 'https://mongbit.vercel.app'
+export const DOMAIN = 'https://mongbit.vercel.app';
 
 export const TOKEN_NAME = 'mongBitToken';
 export const USER_INFO = 'mongBit';

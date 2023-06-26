@@ -20,9 +20,14 @@ import {
   TYPE_ON_TEST,
   TYPE_COMMENT,
   TYPE_PLAY_CNT,
-  DOMAIN
+  DOMAIN,
+  TOKEN_NAME,
 } from '../../constants/constant';
-import { decodeToken, shareToKatalk } from '../../util/util';
+import {
+  decodeToken,
+  shareToKatalk,
+  clearSessionStorage,
+} from '../../util/util';
 import styles from './index.module.css';
 
 export default function TestPreview(props) {
@@ -172,6 +177,60 @@ export default function TestPreview(props) {
     setIsSubmittingComment(false);
   }
 
+  async function clickLikeBtn() {
+    if (!decodeToken().state) {
+      sessionStorage.setItem('ngb', location.pathname);
+      return navigate('/login');
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: sessionStorage.getItem(TOKEN_NAME),
+    };
+
+    axios
+      .get(`https://mongbit-willneiman.koyeb.app/api/v1/tokens/validity`, {
+        headers,
+      })
+      .catch((err) => {
+        if (
+          err.response.status === 400 ||
+          err.response.status === 401 ||
+          err.response.status === 403
+        ) {
+          clearSessionStorage();
+          sessionStorage.setItem('ngb', location.pathname);
+          navigate('/login');
+        }
+      });
+
+    setIsSubmittingLike(true);
+    if (isSubmittingLike) return;
+    if (data.likeState) {
+      setData((prev) => ({
+        ...prev,
+        likeCnt: prev.likeCnt - 1,
+        likeState: false,
+      }));
+      await axios.delete(
+        `https://mongbit-willneiman.koyeb.app/api/v1/test/${data.testId}/${memberId}/like`
+      );
+      setLikeChanged(!likeChanged);
+    } else {
+      setData((prev) => ({
+        ...prev,
+        likeCnt: prev.likeCnt + 1,
+        likeState: true,
+      }));
+      await axios.post(
+        `https://mongbit-willneiman.koyeb.app/api/v1/test/${data.testId}/${memberId}/like`,
+        { testId: data.testId, memberId: memberId }
+      );
+      setLikeChanged(!likeChanged);
+    }
+    setIsSubmittingLike(false);
+  }
+
   return (
     <div className={styles.wrap}>
       {/* 테스트  */}
@@ -204,9 +263,7 @@ export default function TestPreview(props) {
                 setLinkCopyState(true);
               }}
             >
-              <CopyToClipboard
-                text={`${DOMAIN}${location.pathname}`}
-              >
+              <CopyToClipboard text={`${DOMAIN}${location.pathname}`}>
                 <button
                   className={
                     linkCopyState ? styles.linkCopied : styles.noneLinkCopied
@@ -221,41 +278,7 @@ export default function TestPreview(props) {
               <p>로딩중</p>
             </li>
           ) : (
-            <li
-              className={styles.likeWrap}
-              onClick={async () => {
-                if (!decodeToken().state) {
-                  sessionStorage.setItem('ngb', location.pathname);
-                  return navigate('/login');
-                }
-
-                setIsSubmittingLike(true);
-                if (isSubmittingLike) return;
-                if (data.likeState) {
-                  setData((prev) => ({
-                    ...prev,
-                    likeCnt: prev.likeCnt - 1,
-                    likeState: false,
-                  }));
-                  await axios.delete(
-                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${data.testId}/${memberId}/like`
-                  );
-                  setLikeChanged(!likeChanged);
-                } else {
-                  setData((prev) => ({
-                    ...prev,
-                    likeCnt: prev.likeCnt + 1,
-                    likeState: true,
-                  }));
-                  await axios.post(
-                    `https://mongbit-willneiman.koyeb.app/api/v1/test/${data.testId}/${memberId}/like`,
-                    { testId: data.testId, memberId: memberId }
-                  );
-                  setLikeChanged(!likeChanged);
-                }
-                setIsSubmittingLike(false);
-              }}
-            >
+            <li className={styles.likeWrap} onClick={clickLikeBtn}>
               <TestButton
                 btnType="like"
                 str="재밌당"
@@ -270,6 +293,29 @@ export default function TestPreview(props) {
                 sessionStorage.setItem('ngb', location.pathname);
                 return navigate('/login');
               }
+
+              const headers = {
+                'Content-Type': 'application/json',
+                Authorization: sessionStorage.getItem(TOKEN_NAME),
+              };
+
+              axios
+                .get(
+                  `https://mongbit-willneiman.koyeb.app/api/v1/tokens/validity`,
+                  { headers }
+                )
+                .catch((err) => {
+                  if (
+                    err.response.status === 400 ||
+                    err.response.status === 401 ||
+                    err.response.status === 403
+                  ) {
+                    clearSessionStorage();
+                    sessionStorage.setItem('ngb', location.pathname);
+                    navigate('/login');
+                  }
+                });
+
               shareToKatalk(
                 data.testId,
                 data.thumbnailStr,
@@ -307,6 +353,29 @@ export default function TestPreview(props) {
                   sessionStorage.setItem('ngb', location.pathname);
                   return navigate('/login');
                 }
+
+                const headers = {
+                  'Content-Type': 'application/json',
+                  Authorization: sessionStorage.getItem(TOKEN_NAME),
+                };
+
+                axios
+                  .get(
+                    `https://mongbit-willneiman.koyeb.app/api/v1/tokens/validity`,
+                    { headers }
+                  )
+                  .catch((err) => {
+                    if (
+                      err.response.status === 400 ||
+                      err.response.status === 401 ||
+                      err.response.status === 403
+                    ) {
+                      clearSessionStorage();
+                      sessionStorage.setItem('ngb', location.pathname);
+                      navigate('/login');
+                    }
+                  });
+
                 if (!evt.currentTarget.value) return;
 
                 setCommentValue('');
@@ -320,7 +389,33 @@ export default function TestPreview(props) {
           />
           <AddCommentButton
             onClick={() => {
-              if (!decodeToken().state) return navigate('/login');
+              if (!decodeToken().state) {
+                sessionStorage.setItem('ngb', location.pathname);
+                return navigate('/login');
+              }
+
+              const headers = {
+                'Content-Type': 'application/json',
+                Authorization: sessionStorage.getItem(TOKEN_NAME),
+              };
+
+              axios
+                .get(
+                  `https://mongbit-willneiman.koyeb.app/api/v1/tokens/validity`,
+                  { headers }
+                )
+                .catch((err) => {
+                  if (
+                    err.response.status === 400 ||
+                    err.response.status === 401 ||
+                    err.response.status === 403
+                  ) {
+                    clearSessionStorage();
+                    sessionStorage.setItem('ngb', location.pathname);
+                    navigate('/login');
+                  }
+                });
+
               if (!commentValue) return;
               setCommentValue('');
               addComment();
