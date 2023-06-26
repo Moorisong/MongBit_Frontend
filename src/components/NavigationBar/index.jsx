@@ -82,7 +82,9 @@ export default function NavigationBar() {
           <li>
             <ul className={styles.ulWrap}>
               개발자 정보
-              <li>몽몽이 크루</li>
+              <li>
+                <Link to="/devInfo">몽뭉이 크루</Link>
+              </li>
             </ul>
           </li>
           {decodeToken().role === 'ROLE_ADMIN' && (

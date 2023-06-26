@@ -63,9 +63,9 @@ export default function Result() {
         }));
         sessionStorage.removeItem('mbScore');
         sessionStorage.setItem('mbResultId', res.data.id);
-        setTimeout(()=>{
+        setTimeout(() => {
           setIsLoading(false);
-        }, 3000)
+        }, 3000);
       });
 
     return () => {

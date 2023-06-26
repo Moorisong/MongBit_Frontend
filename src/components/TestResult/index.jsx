@@ -329,9 +329,7 @@ export default function TestResult(props) {
 
   function deleteCommnet(com) {
     axios
-      .delete(
-        `${DOMAIN_BE_PROD}/api/v1/test/comments/${com.id}`
-      )
+      .delete(`${DOMAIN_BE_PROD}/api/v1/test/comments/${com.id}`)
       .then(() => {
         setCommentIndex((prev) => [0, prev[1]]);
         setCommentChanged(!commentChanged);
@@ -424,7 +422,9 @@ export default function TestResult(props) {
               <div key={i} className={styles.commentContentWrap}>
                 <Comment
                   data={com}
-                  deleteComment={() => { deleteCommnet(com) }}
+                  deleteComment={() => {
+                    deleteCommnet(com);
+                  }}
                   modifyComment={() => {
                     setCommentIndex((prev) => [0, prev[1]]);
                     setCommentChanged(!commentChanged);
