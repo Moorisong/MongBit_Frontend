@@ -11,12 +11,13 @@ import {
   TITLE_WITH_CONTENT,
   TYPE_LATEST_MAIN,
   DOMAIN_BE_PROD,
+  DOMAIN_BE_DEV,
 } from '../../constants/constant';
 
 export default function Main() {
   // Test 삭제
   // useEffect(()=>{
-  //   axios.delete(`${DOMAIN_BE_PROD}/api/v1/tests/test/6496950f0cb7f21ff5503fe6`)
+  //   axios.delete(`${DOMAIN_BE_DEV}/api/v1/tests/test/6496950f0cb7f21ff5503fe6`)
   //   .then((res)=>{
   //     console.log('r--> ', res)
   //   })
@@ -32,7 +33,7 @@ export default function Main() {
     sessionStorage.getItem('mbTest') === '' &&
       sessionStorage.removeItem('mbTest');
 
-    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/0/3`).then((res) => {
+    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/0/3`).then((res) => {
       setLatestTestData((prev) => ({ ...prev, testArr: res.data }));
     });
   }, []);

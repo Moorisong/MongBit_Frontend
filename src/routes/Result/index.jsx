@@ -8,7 +8,7 @@ import Footer from '../../components/Footer';
 import ResultLoading from '../../components/ResultLoading';
 import TestResult from '../../components/TestResult';
 import { decodeToken } from '../../util/util';
-import { DOMAIN_BE_PROD } from '../../constants/constant';
+import { DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
 
 export default function Result() {
   const [isLoading, setIsLoading] = useState(true);
@@ -34,18 +34,18 @@ export default function Result() {
     window.onpopstate = handlePopstate;
 
     axios
-      .get(`${DOMAIN_BE_PROD}/api/v1/test/${testId}/like/count`)
+      .get(`${DOMAIN_BE_DEV}/api/v1/test/${testId}/like/count`)
       .then((res) => setLikeCnt(res.data));
 
     const score = JSON.parse(sessionStorage.getItem('mbScore'));
 
     axios
-      .get(`${DOMAIN_BE_PROD}/api/v1/test/${testId}/like/count`)
+      .get(`${DOMAIN_BE_DEV}/api/v1/test/${testId}/like/count`)
       .then((res) => SetResultData((prev) => ({ ...prev, likeCnt: res.data })));
 
     axios
       .post(
-        `${DOMAIN_BE_PROD}/api/v1/member-test-result/${testId}/${memberId}`,
+        `${DOMAIN_BE_DEV}/api/v1/member-test-result/${testId}/${memberId}`,
         score
       )
       .then((res) => {

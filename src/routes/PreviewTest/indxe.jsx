@@ -8,7 +8,7 @@ import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import TestPreview from '../../components/TestPreview';
 import styles from './index.module.css';
-import { DOMAIN_BE_PROD } from '../../constants/constant';
+import { DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
 
 export default function PreviewTest() {
   const { testId } = useParams();
@@ -16,7 +16,7 @@ export default function PreviewTest() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/test/${testId}`).then((res) => {
+    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/test/${testId}`).then((res) => {
       setData(res.data);
     });
   }, []);

@@ -16,6 +16,7 @@ import {
   TYPE_MYPAGE,
   USER_INFO,
   DOMAIN_BE_PROD,
+  DOMAIN_BE_DEV,
 } from '../../constants/constant';
 import { Stroke } from '../../components/ButtonSets';
 import { clearSessionStorage, decodeToken } from '../../util/util';
@@ -83,7 +84,7 @@ export default function MyPage() {
 
     //토큰 검증
     axios
-      .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, {
+      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
         headers,
       })
       .then(() => {
@@ -95,7 +96,7 @@ export default function MyPage() {
 
         // 마이페이지 테스트 기록 조회
         axios
-          .get(`${DOMAIN_BE_PROD}/api/v1/member-test-result/${memberId}`, {
+          .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
             params,
           })
           .then((res) => {
@@ -181,7 +182,7 @@ export default function MyPage() {
               size: 10,
             };
             axios
-              .get(`${DOMAIN_BE_PROD}/api/v1/member-test-result/${memberId}`, {
+              .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
                 params,
               })
               .then((res) => {

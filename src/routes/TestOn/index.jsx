@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 import Footer from '../../components/Footer';
 import NavigationBar from '../../components/NavigationBar';
-import { DOMAIN_BE_PROD, TYPE_MYPAGE } from '../../constants/constant';
+import { DOMAIN_BE_PROD, TYPE_MYPAGE, DOMAIN_BE_DEV } from '../../constants/constant';
 import styles from './index.module.css';
 import QuestionAndAnswer from '../../components/QestionAndAnswer';
 
@@ -18,7 +18,7 @@ export default function TestOn() {
   let [testDone, setTestDone] = useState(false);
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/test/${testId}`).then((res) => {
+    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/test/${testId}`).then((res) => {
       setTestData(res.data);
     });
   }, []);

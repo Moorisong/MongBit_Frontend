@@ -4,6 +4,7 @@ import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import {
   DOMAIN_BE_PROD,
+  DOMAIN_BE_DEV,
   TOKEN_NAME,
   USER_INFO,
 } from '../../constants/constant';
@@ -17,7 +18,7 @@ export default function KakaoAuthHandle() {
     if (code) {
       try {
         axios
-          .get(`${DOMAIN_BE_PROD}/login/oauth2/kakao/code?code=${code}`)
+          .get(`${DOMAIN_BE_DEV}/login/oauth2/kakao/code?code=${code}`)
           .then((response) => {
             sessionStorage.setItem(
               TOKEN_NAME,

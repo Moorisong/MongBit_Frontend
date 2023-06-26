@@ -23,6 +23,7 @@ import {
   DOMAIN,
   TOKEN_NAME,
   DOMAIN_BE_PROD,
+  DOMAIN_BE_DEV,
 } from '../../constants/constant';
 import {
   decodeToken,
@@ -92,7 +93,7 @@ export default function TestPreview(props) {
 
   useEffect(() => {
     axios
-      .get(`${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/comments/count`)
+      .get(`${DOMAIN_BE_DEV}/api/v1/test/${data.testId}/comments/count`)
       .then((res) => {
         setCommentCnt(res.data);
       });
@@ -103,9 +104,9 @@ export default function TestPreview(props) {
       try {
         const [stateResponse, cntResponse] = await Promise.all([
           axios.get(
-            `${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/${memberId}/like`
+            `${DOMAIN_BE_DEV}/api/v1/test/${data.testId}/${memberId}/like`
           ),
-          axios.get(`${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/like/count`),
+          axios.get(`${DOMAIN_BE_DEV}/api/v1/test/${data.testId}/like/count`),
         ]);
 
         setData((prev) => ({
@@ -122,7 +123,7 @@ export default function TestPreview(props) {
     const fetchLikeDataNoLogined = async () => {
       try {
         axios
-          .get(`${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/like/count`)
+          .get(`${DOMAIN_BE_DEV}/api/v1/test/${data.testId}/like/count`)
           .then((res) => {
             setData((prev) => ({
               ...prev,
@@ -145,7 +146,7 @@ export default function TestPreview(props) {
   useEffect(() => {
     axios
       .get(
-        `${DOMAIN_BE_PROD}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
       )
       .then((res) => {
         setData((prev) => ({ ...prev, comment: res.data.commentDTOList }));
@@ -160,7 +161,7 @@ export default function TestPreview(props) {
 
   async function addComment() {
     await axios
-      .post(`${DOMAIN_BE_PROD}/api/v1/test/comments`, {
+      .post(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {
         memberId: sessionStorage.getItem('mongBitmemeberId'),
         testId: data.testId,
         content: commentValue,
@@ -184,7 +185,7 @@ export default function TestPreview(props) {
     };
 
     axios
-      .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, {
+      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
         headers,
       })
       .catch((err) => {
@@ -208,7 +209,7 @@ export default function TestPreview(props) {
         likeState: false,
       }));
       await axios.delete(
-        `${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/${memberId}/like`
+        `${DOMAIN_BE_DEV}/api/v1/test/${data.testId}/${memberId}/like`
       );
       setLikeChanged(!likeChanged);
     } else {
@@ -218,7 +219,7 @@ export default function TestPreview(props) {
         likeState: true,
       }));
       await axios.post(
-        `${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/${memberId}/like`,
+        `${DOMAIN_BE_DEV}/api/v1/test/${data.testId}/${memberId}/like`,
         { testId: data.testId, memberId: memberId }
       );
       setLikeChanged(!likeChanged);
@@ -295,7 +296,7 @@ export default function TestPreview(props) {
               };
 
               axios
-                .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, { headers })
+                .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
                 .catch((err) => {
                   if (
                     err.response.status === 400 ||
@@ -352,7 +353,7 @@ export default function TestPreview(props) {
                 };
 
                 axios
-                  .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, { headers })
+                  .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
                   .catch((err) => {
                     if (
                       err.response.status === 400 ||
@@ -389,7 +390,7 @@ export default function TestPreview(props) {
               };
 
               axios
-                .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, { headers })
+                .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
                 .catch((err) => {
                   if (
                     err.response.status === 400 ||
@@ -423,7 +424,7 @@ export default function TestPreview(props) {
                     deleteComment={() => {
                       axios
                         .delete(
-                          `${DOMAIN_BE_PROD}/api/v1/test/comments/${com.id}`
+                          `${DOMAIN_BE_DEV}/api/v1/test/comments/${com.id}`
                         )
                         .then(() => {
                           setCommentIndex((prev) => [0, prev[1]]);
@@ -457,7 +458,7 @@ export default function TestPreview(props) {
                   setCommentSeeMoreLoading(true);
                   await axios
                     .get(
-                      `${DOMAIN_BE_PROD}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+                      `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
                     )
                     .then((res) => {
                       let newArr = [...data.comment];

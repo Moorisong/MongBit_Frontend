@@ -10,6 +10,7 @@ import {
   TYPE_TEST_LIST,
   TITLE_WITH_CONTENT,
   DOMAIN_BE_PROD,
+  DOMAIN_BE_DEV,
 } from '../../constants/constant';
 
 export default function TestLatest() {
@@ -19,7 +20,7 @@ export default function TestLatest() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/0/10`).then((res) => {
+    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/0/10`).then((res) => {
       setData(res.data);
     });
   }, []);
