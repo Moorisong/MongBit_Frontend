@@ -14,6 +14,18 @@
   align-items: center;
 }
 
+.contentUl {
+  display: flex;
+  flex-direction: column;
+  width: 370px;
+  margin-bottom: 10px;
+}
+
+.contentUl > li {
+  color: #979797;
+  font-size: 0.9rem;
+}
+
 .likeCntNumWrap {
   text-align: center;
 }
@@ -97,10 +109,10 @@
 
 .commentWrap {
   width: 370px;
-  margin: 10px 0 20px 0;
+  margin: 50px 0 20px 0;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .commentWrap span {
@@ -132,4 +144,37 @@
 .seeMoreWrap > button {
   color: #979797;
   font-size: 0.8rem;
+}
+
+.loadImgWrap_1 {
+  width: 60px;
+  height: 60px;
+}
+
+.loadImgWrap_2 {
+  width: 100px;
+  height: 30px;
+  position: relative;
+  left: calc(50% - 50px);
+}
+
+.linkCopyWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.linkCopied {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/linkCopyIcon.svg');
+  background-color: white;
+  background-size: contain;
+}
+
+.noneLinkCopied {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/noneLinkCopyIcon.svg');
+  background-color: white;
+  background-size: contain;
 }

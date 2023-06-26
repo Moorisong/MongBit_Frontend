@@ -2,6 +2,9 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import TestPreview from '../../components/TestPreview';
+import NavigationBar from '../../components/NavigationBar';
+import Footer from '../../components/Footer';
+import styles from './index.module.css';
 
 export default function RandomTest() {
   const [thumbnailStr, setThumbnailStr] = useState('');
@@ -14,7 +17,6 @@ export default function RandomTest() {
     axios
       .get(`https://mongbit-willneiman.koyeb.app/api/v1/tests/random`)
       .then((res) => {
-        console.log('d---> ', res.data);
         setThumbnailStr(res.data.title);
         setPlayCnt(res.data.playCount);
         setDescription(res.data.content);
@@ -23,10 +25,10 @@ export default function RandomTest() {
       });
   }, []);
 
-  if (!description) return <div>로딩중</div>;
-
   return (
-    <>
+    <div className={styles.wrap}>
+      <NavigationBar />
+
       {description && (
         <TestPreview
           testId={testId}
@@ -36,6 +38,7 @@ export default function RandomTest() {
           thumbnailUri={thumbnailUri}
         />
       )}
-    </>
+      <Footer />
+    </div>
   );
 }

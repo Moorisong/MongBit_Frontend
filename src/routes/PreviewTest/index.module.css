@@ -1,0 +1,24 @@
+.bgWhite {
+  width: 400px;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
+
+.footerWrap {
+  width: 400px;
+  display: flex;
+  justify-content: center;
+}
+.loadImgWrap {
+  width: 400px;
+  height: 500px;
+  padding: 250px 0 350px 0;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loadImgWrap > div {
+  width: 200px;
+}

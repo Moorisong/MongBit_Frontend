@@ -1,8 +1,12 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import cx from 'classnames';
+import lottie from 'lottie-web';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
+import animationData_1 from './commentLoading.json';
+import animationData_2 from './commentAreaLaoadingIcon.json';
 import { TestCard } from '../TestCard';
 import {
   CardButton,
@@ -17,9 +21,7 @@ import {
   TYPE_COMMENT,
   TYPE_PLAY_CNT,
 } from '../../constants/constant';
-import { decodeToken } from '../../util/util';
-import NavigationBar from '../NavigationBar';
-import Footer from '../Footer';
+import { decodeToken, shareToKatalk } from '../../util/util';
 import styles from './index.module.css';
 
 export default function TestPreview(props) {
@@ -28,11 +30,12 @@ export default function TestPreview(props) {
     thumbnailStr: props.thumbnailStr,
     thumbnailUri: props.thumbnailUri,
     playCnt: props.playCnt,
-    description: props.description,
+    conentArr: props.description.split('<br>'),
     likeState: false,
     likeCnt: 0,
     comment: [],
   });
+  let [linkCopyState, setLinkCopyState] = useState(false);
 
   const [likeLoading, setLikeLoading] = useState(true);
   const [likeChanged, setLikeChanged] = useState(true);
@@ -43,10 +46,42 @@ export default function TestPreview(props) {
   let [isSubmittingComment, setIsSubmittingComment] = useState(false);
   let [isSubmittingLike, setIsSubmittingLike] = useState(false);
   const [commentCnt, setCommentCnt] = useState(0);
+  let [commentSeeMoreLoading, setCommentSeeMoreLoading] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const containerRef_1 = useRef(null);
+  const containerRef_2 = useRef(null);
 
-  const memberId = localStorage.getItem('mongBitmemeberId');
+  const memberId = sessionStorage.getItem('mongBitmemeberId');
+
+  useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_1.current,
+      renderer: 'svg',
+      animationData: animationData_1,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, [commentSeeMoreLoading]);
+
+  useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_2.current,
+      renderer: 'svg',
+      animationData: animationData_2,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, [commentLoading]);
 
   useEffect(() => {
     axios
@@ -124,8 +159,8 @@ export default function TestPreview(props) {
 
   async function addComment() {
     await axios
-      .post(`https://mongbit-willneiman.koyeb.app/api/v1/test/comment`, {
-        memberId: localStorage.getItem('mongBitmemeberId'),
+      .post(`https://mongbit-willneiman.koyeb.app/api/v1/test/comments`, {
+        memberId: sessionStorage.getItem('mongBitmemeberId'),
         testId: data.testId,
         content: commentValue,
       })
@@ -135,10 +170,9 @@ export default function TestPreview(props) {
       });
     setIsSubmittingComment(false);
   }
+
   return (
     <div className={styles.wrap}>
-      {/* 네비게이션 바 */}
-      <NavigationBar />
       {/* 테스트  */}
       <div className={styles.contentWrap}>
         <div>
@@ -147,15 +181,39 @@ export default function TestPreview(props) {
             thumbnailUri={data.thumbnailUri}
             thumbnailClass="normal_thumbnail"
             titleBoxClass="normal_titleBox"
+            testId={data.testId}
           />
           <CardButton type={TYPE_PLAY_CNT} data={data.playCnt} />
         </div>
         <Stroke type_1={TYPE_ON_TEST} type_2="2" />
-        <p className={styles.contentTextWrap}>{data.description}</p>
-        <GoRandomStartBtn url="ksh" str="테스트 시작" />
+
+        <ul className={styles.contentUl}>
+          {data.conentArr.map((str, i) => (
+            <li key={i}>
+              <p>{str}</p>
+            </li>
+          ))}
+        </ul>
+        <GoRandomStartBtn url={`/test-on/${data.testId}`} str="테스트 시작" />
         <ul className={styles.buttonSet}>
           <li>
-            <TestButton btnType="bookMark" str="북마크" />
+            <div
+              className={styles.linkCopyWrap}
+              onClick={() => {
+                setLinkCopyState(true);
+              }}
+            >
+              <CopyToClipboard
+                text={`https://mong-bit-frontend.vercel.app${location.pathname}`}
+              >
+                <button
+                  className={
+                    linkCopyState ? styles.linkCopied : styles.noneLinkCopied
+                  }
+                ></button>
+              </CopyToClipboard>
+              <p>{linkCopyState ? '링크 복사' : '링크 복사됨'}</p>
+            </div>
           </li>
           {likeLoading ? (
             <li className={styles.likeWrap}>
@@ -165,7 +223,10 @@ export default function TestPreview(props) {
             <li
               className={styles.likeWrap}
               onClick={async () => {
-                if (!decodeToken().state) return navigate('/login');
+                if (!decodeToken().state) {
+                  sessionStorage.setItem('ngb', location.pathname);
+                  return navigate('/login');
+                }
 
                 setIsSubmittingLike(true);
                 if (isSubmittingLike) return;
@@ -202,7 +263,20 @@ export default function TestPreview(props) {
               <p className={styles.likeCntNum}>{data.likeCnt}</p>
             </li>
           )}
-          <li>
+          <li
+            onClick={() => {
+              if (!decodeToken().state) {
+                sessionStorage.setItem('ngb', location.pathname);
+                return navigate('/login');
+              }
+              shareToKatalk(
+                data.testId,
+                data.thumbnailStr,
+                data.conentArr.join(),
+                data.thumbnailUri
+              );
+            }}
+          >
             <TestButton btnType="share" str="공유하기" />
           </li>
         </ul>
@@ -228,7 +302,10 @@ export default function TestPreview(props) {
             }}
             onKeyDown={(evt) => {
               if (evt.key === 'Enter') {
-                if (!decodeToken().state) return navigate('/login');
+                if (!decodeToken().state) {
+                  sessionStorage.setItem('ngb', location.pathname);
+                  return navigate('/login');
+                }
                 if (!evt.currentTarget.value) return;
 
                 setCommentValue('');
@@ -252,7 +329,9 @@ export default function TestPreview(props) {
 
         <div className={styles.commentWrap}>
           {commentLoading ? (
-            <p>로딩중</p>
+            <div className={styles.loadImgWrap_2}>
+              <div ref={containerRef_2}></div>
+            </div>
           ) : (
             <>
               {data.comment.map((com, i) => (
@@ -262,7 +341,7 @@ export default function TestPreview(props) {
                     deleteComment={() => {
                       axios
                         .delete(
-                          `https://mongbit-willneiman.koyeb.app/api/v1/test/comment/${com.id}`
+                          `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${com.id}`
                         )
                         .then(() => {
                           setCommentIndex((prev) => [0, prev[1]]);
@@ -285,29 +364,41 @@ export default function TestPreview(props) {
       </div>
       {commentIndex[1] && (
         <div className={styles.seeMoreWrap}>
-          <button
-            onClick={async () => {
-              await axios
-                .get(
-                  `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
-                )
-                .then((res) => {
-                  let newArr = [...data.comment];
-                  res.data.commentDTOList.forEach((d) => {
-                    newArr.push(d);
-                  });
-                  setData((prev) => ({ ...prev, comment: newArr }));
-                  setCommentLoading(false);
-                  setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
-                });
-            }}
-          >
-            더보기
-          </button>
-          <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
+          {commentSeeMoreLoading ? (
+            <div className={styles.loadImgWrap_1}>
+              <div ref={containerRef_1}></div>
+            </div>
+          ) : (
+            <>
+              <button
+                onClick={async () => {
+                  setCommentSeeMoreLoading(true);
+                  await axios
+                    .get(
+                      `https://mongbit-willneiman.koyeb.app/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+                    )
+                    .then((res) => {
+                      let newArr = [...data.comment];
+                      res.data.commentDTOList.forEach((d) => {
+                        newArr.push(d);
+                      });
+                      setData((prev) => ({ ...prev, comment: newArr }));
+                      setCommentLoading(false);
+                      setCommentIndex([
+                        commentIndex[0] + 1,
+                        res.data.hasNextPage,
+                      ]);
+                      setCommentSeeMoreLoading(false);
+                    });
+                }}
+              >
+                더보기
+              </button>
+              <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
+            </>
+          )}
         </div>
       )}
-      <Footer type={TYPE_ON_TEST} />
     </div>
   );
 }

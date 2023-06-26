@@ -3,12 +3,12 @@ import jwtDecode from 'jwt-decode';
 import { TOKEN_NAME } from '../constants/constant';
 
 export function decodeToken() {
-  if (!localStorage.getItem(TOKEN_NAME)) {
+  if (!sessionStorage.getItem(TOKEN_NAME)) {
     return {
       state: false,
     };
   }
-  const token = localStorage.getItem(TOKEN_NAME);
+  const token = sessionStorage.getItem(TOKEN_NAME);
   const decodedToken = jwtDecode(token);
 
   const expiration = decodedToken.exp;
@@ -55,4 +55,92 @@ export function formatTimeDifference(dateString) {
     const diffYears = Math.floor(diffMinutes / (60 * 24 * 30 * 12));
     return `${diffYears}년 전`;
   }
+}
+
+export function shareToKatalk(testId, title, description, testImgUri) {
+  if (!window.Kakao.isInitialized())
+    window.Kakao.init('ca73594b776443da06b27edae4131915');
+  window.Kakao.Share.sendDefault({
+    objectType: 'list',
+    headerTitle: '몽빗 테스트 공유해요 :)',
+    headerLink: {
+      // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+      mobileWebUrl: 'https://mong-bit-frontend.vercel.app',
+      webUrl: 'https://mong-bit-frontend.vercel.app',
+    },
+    contents: [
+      {
+        title: '몽빗(MongBit)',
+        description: 'MBTI 심테 공작소',
+        imageUrl: 'https://i.ibb.co/cFBf09g/share-logo.png',
+        link: {
+          mobileWebUrl: 'https://mong-bit-frontend.vercel.app',
+          webUrl: 'https://mong-bit-frontend.vercel.app',
+        },
+      },
+      {
+        title: title,
+        description: description,
+        imageUrl: testImgUri,
+        link: {
+          mobileWebUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
+          webUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
+        },
+      },
+    ],
+    buttons: [
+      {
+        title: '테스트 하러 가기',
+        link: {
+          mobileWebUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
+          webUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
+        },
+      },
+    ],
+  });
+}
+
+export function shareToKatalk_result(
+  testId,
+  title,
+  description,
+  resultImgUri,
+  pathName,
+  likeCnt
+) {
+  if (!window.Kakao.isInitialized())
+    window.Kakao.init('ca73594b776443da06b27edae4131915');
+
+  window.Kakao.Share.sendDefault({
+    objectType: 'feed',
+    content: {
+      title: '몽빗 테스트 결과 공유해요 :)',
+      description: title,
+      imageUrl: resultImgUri,
+      link: {
+        // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
+        mobileWebUrl: `https://mong-bit-frontend.vercel.app${pathName}`,
+        webUrl: `https://mong-bit-frontend.vercel.app${pathName}`,
+      },
+    },
+    social: {
+      likeCount: likeCnt,
+    },
+    buttons: [
+      {
+        title: '테스트 하기',
+        link: {
+          mobileWebUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
+          webUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
+        },
+      },
+      {
+        title: '결과 보기',
+        link: {
+          mobileWebUrl: `https://mong-bit-frontend.vercel.app${pathName}`,
+          webUrl: `https://mong-bit-frontend.vercel.app${pathName}`,
+        },
+      },
+    ],
+  });
 }

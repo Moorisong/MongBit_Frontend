@@ -8,6 +8,12 @@ import Admin from './Admin';
 import KakaoAuthHandle from './KakaoAuthHandle';
 import MyPage from './MyPage';
 import RandomTest from './RandomTest';
+import TestOn from './TestOn';
+import Result from './Result';
+import PreviewTest from './PreviewTest/indxe';
+import ViewOldResult from './ViewOldResult';
+import NeedLogIn from './NeedLogIn';
+import ExeptionPage from './ExceptionPage';
 
 function Router() {
   return (
@@ -18,7 +24,13 @@ function Router() {
       <Route path="/test/list" element={<TestList />} />
       <Route path="/test/latest" element={<TestLatest />} />
       <Route path="/test-random" element={<RandomTest />} />
+      <Route path="/test-preview/:testId" element={<PreviewTest />} />
+      <Route path="/test-on/:testId" element={<TestOn />} />
+      <Route path="/result/:testId" element={<Result />} />
+      <Route path="/record/:testId/:testResultId" element={<ViewOldResult />} />
       <Route path="/mypage" element={<MyPage />} />
+      <Route path="/need-login" element={<NeedLogIn />} />
+      <Route path="/exception" element={<ExeptionPage />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/login/oauth2/kakao/code" element={<KakaoAuthHandle />} />
     </Routes>

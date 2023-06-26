@@ -1,0 +1,28 @@
+.wrap {
+  width: 400px;
+  height: 100%;
+  background-color: #fff5da;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.content {
+  margin: 150px 0 130px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pointText {
+  color: #ffc52f;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.loadImg {
+  width: 250px;
+  height: 250px;
+}

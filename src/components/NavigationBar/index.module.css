@@ -140,11 +140,11 @@
   cursor: pointer;
 }
 
-ul {
+.menuUlWrapper {
   font-weight: bold;
 }
 
-li {
+.menuUlWrapper > li {
   list-style: none;
   font-size: 0.9rem;
   font-weight: normal;
@@ -173,6 +173,21 @@ li {
 .logOutWrap > p,
 .logOutWrap > button {
   cursor: pointer;
+}
+
+.adminBtn {
+  position: absolute;
+  bottom: 60px;
+  left: -6px;
+  background-color: white;
+}
+
+.adminBtn > p {
+  padding-right: 5px;
+  color: #979797;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 350;
 }
 
 .menuWrap > ul:last-child {

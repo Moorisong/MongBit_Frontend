@@ -1,6 +1,6 @@
 import axios from 'axios';
 import cx from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import {
@@ -37,9 +37,20 @@ export function TestButton(props) {
     ? `${styles.button} ${styles.liked}`
     : `${styles.button} ${styles.noneLiked}`;
   const cn_2 = `${styles.button} ${styles[props.btnType]}`;
+  const cn_3 = props.linkCopyState
+    ? `${styles.button} ${styles.linkCopied}`
+    : `${styles.button} ${styles.noneLinkCopied}`;
   return (
     <div className={styles.testBtnWrap}>
-      <button className={props.btnType === 'like' ? cn_1 : cn_2}></button>
+      <button
+        className={
+          props.btnType === 'like'
+            ? cn_1
+            : props.btnType === 'linkCopy'
+            ? cn_3
+            : cn_2
+        }
+      ></button>
       <p className={styles.btnNameText}>{props.str}</p>
     </div>
   );
@@ -60,7 +71,11 @@ export function Comment(props) {
   const navigate = useNavigate();
   let [isCommentEditMode, setIsCommentEditMode] = useState(false);
   let [newValue, setNewValue] = useState(null);
+  // const [warn, setWarn] = useState(false);
 
+  useEffect(() => {
+    sessionStorage.removeItem('mbComm');
+  }, []);
   return (
     <div className={styles.commentWrapper}>
       <img
@@ -90,20 +105,25 @@ export function Comment(props) {
                 }}
                 onKeyDown={(evt) => {
                   if (evt.key === 'Enter') {
-                    if (props.data.content === newValue)
+                    if (props.data.content === newValue) {
+                      sessionStorage.removeItem('mbComm');
+                      // setWarn(false);
                       return setIsCommentEditMode(false);
+                    }
                     if (
-                      !localStorage.getItem('mongBitmemeberId') ||
+                      !sessionStorage.getItem('mongBitmemeberId') ||
                       !decodeToken().state
                     )
                       return navigate('/login');
                     props.data.content = newValue;
+                    sessionStorage.removeItem('mbComm');
+                    // setWarn(false);
                     setIsCommentEditMode(false);
                     axios
-                      .put(
-                        `https://mongbit-willneiman.koyeb.app/api/v1/test/comment`,
+                      .patch(
+                        `https://mongbit-willneiman.koyeb.app/api/v1/test/comments`,
                         {
-                          memberId: localStorage.getItem('mongBitmemeberId'),
+                          memberId: sessionStorage.getItem('mongBitmemeberId'),
                           testId: props.testId,
                           content: newValue,
                           id: props.id,
@@ -122,22 +142,31 @@ export function Comment(props) {
             } / 100`}</span>
             <button
               onClick={() => {
-                if (!newValue) return setIsCommentEditMode(false);
-                if (props.data.content === newValue)
+                if (!newValue) {
+                  sessionStorage.removeItem('mbComm');
+                  // setWarn(false);
                   return setIsCommentEditMode(false);
+                }
+                if (props.data.content === newValue) {
+                  sessionStorage.removeItem('mbComm');
+                  // setWarn(false);
+                  return setIsCommentEditMode(false);
+                }
                 if (
-                  !localStorage.getItem('mongBitmemeberId') ||
+                  !sessionStorage.getItem('mongBitmemeberId') ||
                   !decodeToken().state
                 )
                   return navigate('/login');
 
                 props.data.content = newValue;
+                sessionStorage.removeItem('mbComm');
+                // setWarn(false);
                 setIsCommentEditMode(false);
                 axios
-                  .put(
-                    `https://mongbit-willneiman.koyeb.app/api/v1/test/comment`,
+                  .patch(
+                    `https://mongbit-willneiman.koyeb.app/api/v1/test/comments`,
                     {
-                      memberId: localStorage.getItem('mongBitmemeberId'),
+                      memberId: sessionStorage.getItem('mongBitmemeberId'),
                       testId: props.testId,
                       content: newValue,
                       id: props.id,
@@ -157,6 +186,8 @@ export function Comment(props) {
               onClick={(evt) => {
                 const oldVal = evt.currentTarget.value;
                 setNewValue(oldVal);
+                sessionStorage.removeItem('mbComm');
+                // setWarn(false);
                 setIsCommentEditMode(false);
               }}
             >
@@ -171,10 +202,15 @@ export function Comment(props) {
           ? isCommentEditMode || (
               <div className={styles.modifyArea}>
                 <div className={styles.modifyWrap}>
-                  {localStorage.getItem('mongBitmemeberId') ===
+                  {sessionStorage.getItem('mongBitmemeberId') ===
                     props.data.memberId && (
                     <button
                       onClick={() => {
+                        if (sessionStorage.getItem('mbComm')) {
+                          // setWarn(true);
+                          return setIsCommentEditMode(false);
+                        }
+                        sessionStorage.setItem('mbComm', true);
                         setIsCommentEditMode(true);
                       }}
                     >
@@ -183,6 +219,8 @@ export function Comment(props) {
                   )}
                   <button
                     onClick={() => {
+                      if (sessionStorage.getItem('mbComm')) return;
+                      // return setWarn(true);
                       const result = confirm('삭제 하시겠습니까?');
                       if (result) return props.deleteComment();
                       if (!result) return;
@@ -194,12 +232,18 @@ export function Comment(props) {
               </div>
             )
           : //일반 User는 본인이 작성한 댓글에만 수정, 삭제 가능하도록 함
-            localStorage.getItem('mongBitmemeberId') === props.data.memberId &&
+            sessionStorage.getItem('mongBitmemeberId') ===
+              props.data.memberId &&
             (isCommentEditMode || (
               <div className={styles.modifyArea}>
                 <div className={styles.modifyWrap}>
                   <button
                     onClick={() => {
+                      if (sessionStorage.getItem('mbComm')) {
+                        // setWarn(true);
+                        return setIsCommentEditMode(false);
+                      }
+                      sessionStorage.setItem('mbComm', true);
                       setIsCommentEditMode(true);
                     }}
                   >
@@ -207,6 +251,8 @@ export function Comment(props) {
                   </button>
                   <button
                     onClick={() => {
+                      if (sessionStorage.getItem('mbComm')) return;
+                      // return setWarn(true);
                       const result = confirm('삭제 하시겠습니까?');
                       if (result) return props.deleteComment();
                       if (!result) return;

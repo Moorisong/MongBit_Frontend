@@ -1,0 +1,158 @@
+.wrap {
+  width: 400px;
+  height: 100%;
+  max-height: 700px;
+  background-color: #fff5da;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+}
+
+.display_none {
+  display: none;
+}
+
+.progressWrap {
+  margin-top: 50px;
+  width: 350px;
+  position: relative;
+}
+
+.barWrap {
+  margin-bottom: 15px;
+}
+
+.barWrap > div:first-child {
+  width: 100%;
+  height: 10px;
+  background-color: white;
+  border: 1px solid #cdcdcd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  position: absolute;
+}
+
+.gaugeBar_1,
+.gaugeBar_2,
+.gaugeBar_3,
+.gaugeBar_4,
+.gaugeBar_5,
+.gaugeBar_6,
+.gaugeBar_7,
+.gaugeBar_8,
+.gaugeBar_9,
+.gaugeBar_10,
+.gaugeBar_11,
+.gaugeBar_12 {
+  background-color: #ffc52f;
+  height: 10px;
+  border: 1px solid #cdcdcd;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  position: absolute;
+  transition: width 0.3s ease-in-out;
+}
+
+.gaugeBar_1 {
+  width: 8.3%;
+}
+
+.gaugeBar_2 {
+  width: 16.6%;
+}
+
+.gaugeBar_3 {
+  width: 24.9%;
+}
+
+.gaugeBar_4 {
+  width: 33.2%;
+}
+
+.gaugeBar_5 {
+  width: 41.5%;
+}
+
+.gaugeBar_6 {
+  width: 49.8%;
+}
+
+.gaugeBar_7 {
+  width: 58.1%;
+}
+
+.gaugeBar_8 {
+  width: 66.4%;
+}
+
+.gaugeBar_9 {
+  width: 74.7%;
+}
+
+.gaugeBar_10 {
+  width: 83%;
+}
+
+.gaugeBar_11 {
+  width: 91.3%;
+}
+
+.gaugeBar_12 {
+  width: 100%;
+}
+
+.progressWrap > span {
+  color: black;
+  font-size: 0.8rem;
+}
+
+.progressWrap > span:last-child {
+  color: #979797;
+  font-size: 0.8rem;
+}
+
+.questionWrap {
+  width: 370px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 80px 0 100px 0;
+  text-align: center;
+}
+
+.questionWrap > p {
+  color: black;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.answerWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100px;
+}
+
+.answerWrap > div:last-child {
+  margin-top: 40px;
+}
+
+.answer > div {
+  background-color: #ffffff;
+  border: 1px solid #e6e6e6;
+  border-radius: 5px;
+  width: 350px;
+  padding: 20px 0 20px 0;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.answer span {
+  color: black;
+  font-weight: 300;
+  font-size: 0.9rem;
+}

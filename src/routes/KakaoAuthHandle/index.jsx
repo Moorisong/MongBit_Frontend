@@ -1,16 +1,12 @@
-import { useRecoilState } from 'recoil';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
 import { TOKEN_NAME, USER_INFO } from '../../constants/constant';
-import { tokenInfo } from '../../atom';
-import { decodeToken } from '../../util/util';
 
 export default function KakaoAuthHandle() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [token, setToken] = useRecoilState(tokenInfo);
   const code = searchParams.get('code');
 
   useEffect(() => {
@@ -21,37 +17,42 @@ export default function KakaoAuthHandle() {
             `https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`
           )
           .then((response) => {
-            localStorage.setItem(TOKEN_NAME, response.headers['authorization']);
-            localStorage.setItem(
+            sessionStorage.setItem(
+              TOKEN_NAME,
+              response.headers['authorization']
+            );
+            sessionStorage.setItem(
               USER_INFO + 'memeberId',
               response.data.memberId
             );
-            localStorage.setItem(
+            sessionStorage.setItem(
               USER_INFO + 'thumbnail',
               response.data.thumbnail
             );
-            localStorage.setItem(
+            sessionStorage.setItem(
               USER_INFO + 'registDate',
               response.data.registDate
             );
-            localStorage.setItem(
+            sessionStorage.setItem(
               USER_INFO + 'username',
               response.data.username
             );
-            navigate(-2);
 
-            const decodedToken = decodeToken();
-
-            setToken({
-              state: decodedToken.state,
-              role: decodedToken.role,
-            });
-          }, []);
+            const prev = sessionStorage.getItem('ngb');
+            if (prev) {
+              // 직전 페이지로 이동이 필요한 경우
+              sessionStorage.setItem('ngb', false);
+              prev.indexOf('need-login') > -1 ? navigate(-2) : navigate(prev);
+            } else {
+              navigate('/main');
+            }
+          });
       } catch (error) {
         console.error(error);
       }
     }
   }, []);
+
   return (
     <div>
       <button></button>

@@ -1,47 +1,38 @@
-import { useRecoilState } from 'recoil';
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import cx from 'classnames';
 
 import styles from './index.module.css';
 import { TOKEN_NAME, USER_INFO } from '../../constants/constant';
-import { tokenInfo } from '../../atom';
 import { decodeToken } from '../../util/util';
 
 export default function NavigationBar() {
   const navigate = useNavigate();
   const location = useLocation();
   const [menuClicked, setMenuClicked] = useState(false);
-  const [token, setToken] = useRecoilState(tokenInfo);
 
   useEffect(() => {
     if (!decodeToken().state) {
-      localStorage.setItem(USER_INFO + 'memeberId', '');
-      localStorage.setItem(USER_INFO + 'thumbnail', '');
-      localStorage.setItem(USER_INFO + 'registDate', '');
-      localStorage.setItem(USER_INFO + 'username', '');
+      sessionStorage.setItem(USER_INFO + 'memeberId', '');
+      sessionStorage.setItem(USER_INFO + 'thumbnail', '');
+      sessionStorage.setItem(USER_INFO + 'registDate', '');
+      sessionStorage.setItem(USER_INFO + 'username', '');
     }
   }, []);
 
   function clickMypageBtn() {
-    if (!localStorage.getItem(TOKEN_NAME)) {
+    if (!sessionStorage.getItem(TOKEN_NAME) || !decodeToken().state) {
+      sessionStorage.setItem('ngb', location.pathname);
       return navigate('/login');
     }
-    if (decodeToken().state) {
-      return navigate('/mypage');
-    }
-    navigate('/login');
+    navigate('/mypage');
   }
   function clickLogOut() {
-    localStorage.setItem(TOKEN_NAME, '');
-    localStorage.setItem(USER_INFO + 'memeberId', '');
-    localStorage.setItem(USER_INFO + 'thumbnail', '');
-    localStorage.setItem(USER_INFO + 'registDate', '');
-    localStorage.setItem(USER_INFO + 'username', '');
-    setToken({
-      state: false,
-      role: '',
-    });
+    sessionStorage.setItem(TOKEN_NAME, '');
+    sessionStorage.setItem(USER_INFO + 'memeberId', '');
+    sessionStorage.setItem(USER_INFO + 'thumbnail', '');
+    sessionStorage.setItem(USER_INFO + 'registDate', '');
+    sessionStorage.setItem(USER_INFO + 'username', '');
     setMenuClicked(false);
     navigate('/main');
   }
@@ -72,7 +63,7 @@ export default function NavigationBar() {
           [styles.menuMoveToRight]: menuClicked,
         })}
       >
-        <ul>
+        <ul className={styles.menuUlWrapper}>
           <li>
             <ul className={styles.ulWrap}>
               심리테스트
@@ -94,9 +85,21 @@ export default function NavigationBar() {
               <li>몽몽이 크루</li>
             </ul>
           </li>
+          {decodeToken().role === 'ROLE_ADMIN' && (
+            <li>
+              <button
+                className={styles.adminBtn}
+                onClick={() => {
+                  navigate('/admin');
+                }}
+              >
+                <p>관리자 페이지</p>
+              </button>
+            </li>
+          )}
           <li>
             <ul>
-              {decodeToken().state ? (
+              {decodeToken().state && (
                 <li className={styles.logOutWrap}>
                   <p onClick={clickLogOut}>로그아웃</p>
                   <button
@@ -105,8 +108,6 @@ export default function NavigationBar() {
                   ></button>
                   <img src="/images/navigationBar/logo_dog.svg" alt="logo" />
                 </li>
-              ) : (
-                ''
               )}
             </ul>
           </li>

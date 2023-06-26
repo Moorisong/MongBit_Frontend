@@ -1,0 +1,114 @@
+.resultWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 400px;
+  height: 100vh;
+  background-color: white;
+  position: relative;
+}
+.resultWrap > p {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin: 40px 0 20px 0;
+}
+.resultImg {
+  width: 340px;
+  height: 450px;
+}
+
+.resultStrList {
+  width: 350px;
+  margin: 30px 0 30px 0;
+  padding-left: 28px;
+}
+
+.resultStrList > li {
+  list-style: disc;
+  margin-bottom: 5px;
+}
+.resultStrList span {
+  font-size: 0.9rem;
+}
+.buttonsWrap {
+  width: 350px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding-bottom: 80px;
+}
+.partWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.retryDiv {
+  border: 1px solid #e6e6e6;
+  padding: 5px 35px 5px 15px;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.retryDiv > p {
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.partWrap > p {
+  font-size: 0.9rem;
+  margin-top: 3px;
+}
+.likeCnt {
+  color: #979797;
+}
+.retryWrap {
+  position: relative;
+  padding-top: 10px;
+}
+.retryWrap > img {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 12px;
+  top: 18px;
+}
+
+.shareBtn {
+  width: 100%;
+  max-width: 400px;
+  height: 3.5rem;
+  font-size: 1rem;
+  border-radius: 1.5rem 1.5rem 0 0;
+  background-color: #ffc52f;
+  color: white;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 30px 0 0 0;
+  position: fixed;
+  bottom: 0;
+}
+.linkCopyWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.linkCopied {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/linkCopyIcon.svg');
+  background-color: white;
+  background-size: contain;
+}
+
+.noneLinkCopied {
+  width: 2rem;
+  height: 2rem;
+  background-image: url('../../../public/images/test/noneLinkCopyIcon.svg');
+  background-color: white;
+  background-size: contain;
+}

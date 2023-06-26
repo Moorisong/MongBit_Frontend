@@ -1,9 +1,14 @@
-import { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import axios from 'axios';
+import lottie from 'lottie-web';
 
+import animationData_1 from './loading_2.json';
+import animationData_2 from './seeMoreIcon.json';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import styles from './index.module.css';
+import { TestSetMyPage } from '../../components/TestSets';
 import { TitleWithText } from '../../components/Titles';
 import {
   TITLE_WITH_CONTENT,
@@ -11,20 +16,83 @@ import {
   USER_INFO,
 } from '../../constants/constant';
 import { Stroke } from '../../components/ButtonSets';
-import { TestSetMyPage } from '../../components/TestSets';
 import { decodeToken } from '../../util/util';
 
 export default function MyPage() {
   const navigate = useNavigate();
-  const dateParts = localStorage
+  const location = useLocation();
+  const containerRef_1 = useRef(null);
+  const containerRef_2 = useRef(null);
+
+  const [testData, setTestData] = useState({
+    resultArr: [],
+    hasNextPage: false,
+  });
+  let [page, setPage] = useState(0);
+  let [clickSeeMore, setClickSeeMore] = useState(false);
+  const [loading, setLoading] = useState(true);
+
+  if (!sessionStorage.getItem(USER_INFO + 'registDate')) navigate('/login');
+  const dateParts = sessionStorage
     .getItem(USER_INFO + 'registDate')
     .split('T')[0]
     .split('-');
   const registerDate = `${dateParts[0]}.${dateParts[1]}.${dateParts[2]}`;
 
   useEffect(() => {
-    if (!decodeToken().state) return navigate('/login');
+    const anim = lottie.loadAnimation({
+      container: containerRef_1.current,
+      renderer: 'svg',
+      animationData: animationData_1,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
   }, []);
+
+  useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_2.current,
+      renderer: 'svg',
+      animationData: animationData_2,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, [clickSeeMore]);
+
+  useEffect(() => {
+    if (!decodeToken().state) {
+      sessionStorage.setItem('ngb', location.pathname);
+      navigate('/login');
+    }
+    const memberId = sessionStorage.getItem('mongBitmemeberId');
+    const params = {
+      page: page,
+      size: 10,
+    };
+    axios
+      .get(
+        `https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${memberId}`,
+        { params }
+      )
+      .then((res) => {
+        setTestData((prev) => ({
+          ...prev,
+          resultArr: res.data.memberTestResultDTOList,
+          hasNextPage: res.data.hasNextPage,
+        }));
+        setLoading(false);
+        setPage(page + 1);
+      });
+  }, []);
+
   return (
     <div className={styles.wrap}>
       <NavigationBar />
@@ -32,12 +100,12 @@ export default function MyPage() {
 
       <div className={styles.userInfoWrap}>
         <img
-          src={localStorage.getItem(USER_INFO + 'thumbnail')}
+          src={sessionStorage.getItem(USER_INFO + 'thumbnail')}
           alt="user_img"
           className={styles.userImg}
         />
         <div className={styles.spanWrap}>
-          <p>{localStorage.getItem(USER_INFO + 'username')}</p>
+          <p>{sessionStorage.getItem(USER_INFO + 'username')}</p>
           <p>{registerDate} 가입</p>
         </div>
       </div>
@@ -47,55 +115,78 @@ export default function MyPage() {
         type_2={TYPE_MYPAGE}
         title=" 🐭 최근 테스트 결과(10개)"
       />
-      <TestSetMyPage
-        title="물고기로 알아보는 레알 지옥 파티 인성..."
-        content={{
-          description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-          date: '2023.06.28',
-        }}
-        type={TYPE_MYPAGE}
-      />
-      <Stroke type_1={TYPE_MYPAGE} type_2="2" />
-      <TestSetMyPage
-        title="아오 컴포넌트 열라 짜기 귀찮아 죽겠.."
-        content={{
-          description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-          date: '2023.06.28',
-        }}
-        type={TYPE_MYPAGE}
-      />
-      <Stroke type_1={TYPE_MYPAGE} type_2="2" />
-      <TestSetMyPage
-        title="물고기로 알아보는 레알 지옥 파티 인성..."
-        content={{
-          description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-          date: '2023.06.28',
-        }}
-        type={TYPE_MYPAGE}
-      />
-      <Stroke type_1={TYPE_MYPAGE} type_2="2" />
-      <TestSetMyPage
-        title="물고기로 알아보는 레알 지옥 파티 인성..."
-        content={{
-          description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-          date: '2023.06.28',
-        }}
-        type={TYPE_MYPAGE}
-      />
-      <Stroke type_1={TYPE_MYPAGE} type_2="2" />
-      <TestSetMyPage
-        title="물고기로 알아보는 레알 지옥 파티 인성..."
-        content={{
-          description: '내게 3초만 줘. 다 잊어줄테니. 붕어!',
-          date: '2023.06.28',
-        }}
-        type={TYPE_MYPAGE}
-      />
+      {loading && (
+        <div>
+          <div ref={containerRef_1} className={styles.loadImg}></div>
+        </div>
+      )}
+      {loading ||
+        testData.resultArr.map((t, i) => (
+          <TestSetMyPage
+            key={i}
+            title={t.title}
+            testId={t.testId}
+            testResultId={t.testResultId}
+            content={{
+              description: t.content,
+              date: t.testData,
+            }}
+            type={TYPE_MYPAGE}
+            imgUri={t.imageUrl}
+            hasNextPage={testData.hasNextPage}
+          />
+        ))}
 
-      <div className={styles.seeMoreWrap}>
-        <button>더보기</button>
-        <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
-      </div>
+      {testData.hasNextPage && (
+        <div
+          className={styles.seeMoreWrap}
+          onClick={() => {
+            setClickSeeMore(true);
+
+            if (!decodeToken().state) {
+              sessionStorage.setItem('ngb', location.pathname);
+              return navigate('/login');
+            }
+            const memberId = sessionStorage.getItem('mongBitmemeberId');
+            const params = {
+              page: page,
+              size: 10,
+            };
+            axios
+              .get(
+                `https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${memberId}`,
+                { params }
+              )
+              .then((res) => {
+                let copy = [...testData.resultArr];
+                res.data.memberTestResultDTOList.forEach((ele) => {
+                  copy.push(ele);
+                });
+
+                setTestData((prev) => ({
+                  ...prev,
+                  resultArr: copy,
+                  hasNextPage: res.data.hasNextPage,
+                }));
+                setLoading(false);
+                setPage(page + 1);
+                setClickSeeMore(false);
+              });
+          }}
+        >
+          {clickSeeMore ? (
+            <div className={styles.loadImgWrap_2}>
+              <div ref={containerRef_2}></div>
+            </div>
+          ) : (
+            <>
+              <button>더보기</button>
+              <img src="/images/test/seeMoreIcon.svg" alt="see_more" />
+            </>
+          )}
+        </div>
+      )}
+
       <Footer type={TYPE_MYPAGE} />
     </div>
   );
