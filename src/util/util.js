@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode';
 
-import { TOKEN_NAME } from '../constants/constant';
+import { DOMAIN, TOKEN_NAME } from '../constants/constant';
 
 export function decodeToken() {
   if (!sessionStorage.getItem(TOKEN_NAME)) {
@@ -65,8 +65,8 @@ export function shareToKatalk(testId, title, description, testImgUri) {
     headerTitle: '몽빗 테스트 공유해요 :)',
     headerLink: {
       // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-      mobileWebUrl: 'https://mong-bit-frontend.vercel.app',
-      webUrl: 'https://mong-bit-frontend.vercel.app',
+      mobileWebUrl: DOMAIN,
+      webUrl: DOMAIN,
     },
     contents: [
       {
@@ -74,8 +74,8 @@ export function shareToKatalk(testId, title, description, testImgUri) {
         description: 'MBTI 심테 공작소',
         imageUrl: 'https://i.ibb.co/cFBf09g/share-logo.png',
         link: {
-          mobileWebUrl: 'https://mong-bit-frontend.vercel.app',
-          webUrl: 'https://mong-bit-frontend.vercel.app',
+          mobileWebUrl: DOMAIN,
+          webUrl: DOMAIN,
         },
       },
       {
@@ -83,8 +83,8 @@ export function shareToKatalk(testId, title, description, testImgUri) {
         description: description,
         imageUrl: testImgUri,
         link: {
-          mobileWebUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
-          webUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
+          mobileWebUrl: `${DOMAIN}/test-preview/${testId}`,
+          webUrl: `${DOMAIN}/test-preview/${testId}`,
         },
       },
     ],
@@ -92,8 +92,8 @@ export function shareToKatalk(testId, title, description, testImgUri) {
       {
         title: '테스트 하러 가기',
         link: {
-          mobileWebUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
-          webUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
+          mobileWebUrl: `${DOMAIN}/test-preview/${testId}`,
+          webUrl: `${DOMAIN}/test-preview/${testId}`,
         },
       },
     ],
@@ -119,8 +119,8 @@ export function shareToKatalk_result(
       imageUrl: resultImgUri,
       link: {
         // [내 애플리케이션] > [플랫폼] 에서 등록한 사이트 도메인과 일치해야 함
-        mobileWebUrl: `https://mong-bit-frontend.vercel.app${pathName}`,
-        webUrl: `https://mong-bit-frontend.vercel.app${pathName}`,
+        mobileWebUrl: `${DOMAIN}${pathName}`,
+        webUrl: `${DOMAIN}${pathName}`,
       },
     },
     social: {
@@ -130,15 +130,15 @@ export function shareToKatalk_result(
       {
         title: '테스트 하기',
         link: {
-          mobileWebUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
-          webUrl: `https://mong-bit-frontend.vercel.app/test-preview/${testId}`,
+          mobileWebUrl: `${DOMAIN}/test-preview/${testId}`,
+          webUrl: `${DOMAIN}/test-preview/${testId}`,
         },
       },
       {
         title: '결과 보기',
         link: {
-          mobileWebUrl: `https://mong-bit-frontend.vercel.app${pathName}`,
-          webUrl: `https://mong-bit-frontend.vercel.app${pathName}`,
+          mobileWebUrl: `${DOMAIN}${pathName}`,
+          webUrl: `${DOMAIN}${pathName}`,
         },
       },
     ],

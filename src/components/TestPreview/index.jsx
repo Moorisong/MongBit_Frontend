@@ -20,6 +20,7 @@ import {
   TYPE_ON_TEST,
   TYPE_COMMENT,
   TYPE_PLAY_CNT,
+  DOMAIN
 } from '../../constants/constant';
 import { decodeToken, shareToKatalk } from '../../util/util';
 import styles from './index.module.css';
@@ -204,7 +205,7 @@ export default function TestPreview(props) {
               }}
             >
               <CopyToClipboard
-                text={`https://mong-bit-frontend.vercel.app${location.pathname}`}
+                text={`${DOMAIN}${location.pathname}`}
               >
                 <button
                   className={

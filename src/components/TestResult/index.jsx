@@ -7,6 +7,7 @@ import styles from './index.module.css';
 import { Stroke } from '../ButtonSets';
 import { TestButton } from '../ButtonSets';
 import { decodeToken, shareToKatalk_result } from '../../util/util';
+import { DOMAIN } from '../../constants/constant';
 
 export default function TestResult(props) {
   const [likeLoading, setLikeLoading] = useState(true);
@@ -95,7 +96,7 @@ export default function TestResult(props) {
             }}
           >
             <CopyToClipboard
-              text={`https://mong-bit-frontend.vercel.app${location.pathname}`}
+              text={`${DOMAIN}${location.pathname}`}
             >
               <button
                 className={
