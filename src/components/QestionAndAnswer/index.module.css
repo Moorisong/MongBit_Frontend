@@ -51,8 +51,11 @@
   border-radius: 5px;
   margin-bottom: 10px;
   position: absolute;
-  transition: width 0.3s ease-in-out;
 }
+
+/* .transition {
+  transition: width 1s ease-in-out;
+} */
 
 .gaugeBar_1 {
   width: 8.3%;
@@ -149,6 +152,11 @@
   text-align: center;
   cursor: pointer;
   user-select: none;
+  transition: background-color 0.1s ease-in-out;
+}
+
+.answer > div:hover {
+  background-color: #f4f4f4;
 }
 
 .answer span {

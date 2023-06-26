@@ -343,12 +343,10 @@ export default function TestResult(props) {
   }
 
   function deleteCommnet(com) {
-    axios
-      .delete(`${DOMAIN_BE_PROD}/api/v1/test/comments/${com.id}`)
-      .then(() => {
-        setCommentIndex((prev) => [0, prev[1]]);
-        setCommentChanged(!commentChanged);
-      });
+    axios.delete(`${DOMAIN_BE_PROD}/api/v1/test/comments/${com.id}`).then(() => {
+      setCommentIndex((prev) => [0, prev[1]]);
+      setCommentChanged(!commentChanged);
+    });
   }
   return (
     <div className={styles.resultWrap}>
