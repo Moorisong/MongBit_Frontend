@@ -4,6 +4,7 @@
   align-items: center;
   background-color: white;
   width: 400px;
+  padding-bottom: 50px;
 }
 
 .titleTextWrap {
@@ -19,12 +20,21 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  position: fixed;
+  bottom: -100px;
+  transform: translateY(0%);
+  transition: all 0.5s ease-in-out;
 }
 
 .goRandomBtnWrap > img {
   position: absolute;
   padding: 10px 0 0 100px;
   height: 30px;
+}
+
+.slideIn {
+  bottom: 0;
+  transform: translateY(0%);
 }
 
 .goRandomStartBtn {

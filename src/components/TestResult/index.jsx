@@ -32,11 +32,12 @@ export default function TestResult(props) {
   let [commentSeeMoreLoading, setCommentSeeMoreLoading] = useState(false);
   let [isSubmittingComment, setIsSubmittingComment] = useState(false);
 
-  const [likeLoading, setLikeLoading] = useState(true);
+  // const [likeLoading, setLikeLoading] = useState(true);
   const [likeChanged, setLikeChanged] = useState(true);
   let [linkCopyState, setLinkCopyState] = useState(false);
   let [isSubmittingLike, setIsSubmittingLike] = useState(false);
 
+  const [slideIn, setSlideIn] = useState(false);
   const [likeData, setLikeData] = useState({
     likeState: false,
     likeCnt: 0,
@@ -105,23 +106,19 @@ export default function TestResult(props) {
           likeState: stateResponse.data,
           likeCnt: cntResponse.data,
         }));
-        setLikeLoading(false);
+        // setLikeLoading(false);
       } catch (err) {
         console.log('err--> ', err);
       }
     };
 
     const fetchLikeDataNoLogined = async () => {
-      try {
-        axios
-          .get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`)
-          .then((res) => {
-            setLikeData((prev) => ({ ...prev, likeCnt: res.data }));
-          });
-        setLikeLoading(false);
-      } catch (err) {
-        console.log('err--> ', err);
-      }
+      axios
+        .get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`)
+        .then((res) => {
+          setLikeData((prev) => ({ ...prev, likeCnt: res.data }));
+        });
+      // setLikeLoading(false);
     };
 
     if (decodeToken().state) {
@@ -130,6 +127,24 @@ export default function TestResult(props) {
       fetchLikeDataNoLogined();
     }
   }, [likeChanged]);
+
+  useEffect(() => {
+    axios
+      .get(`${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/comments/count`)
+      .then((res) => {
+        setCommentCnt(res.data);
+      });
+  }, [commentChanged]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSlideIn(true);
+    }, 1000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
 
   function clickRetry() {
     navigate(`/test-preview/${props.testId}`);
@@ -146,7 +161,7 @@ export default function TestResult(props) {
       Authorization: sessionStorage.getItem(TOKEN_NAME),
     };
 
-    await axios
+    axios
       .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, {
         headers,
       })
@@ -191,7 +206,7 @@ export default function TestResult(props) {
   }
 
   async function addComment() {
-    await axios
+    axios
       .post(`${DOMAIN_BE_PROD}/api/v1/test/comments`, {
         memberId: sessionStorage.getItem('mongBitmemeberId'),
         testId: data.testId,
@@ -453,7 +468,12 @@ export default function TestResult(props) {
         </div>
       )}
 
-      <button className={styles.shareBtn} onClick={clickTestShare}>
+      <button
+        className={cx(styles.shareBtn, {
+          [styles.slideIn]: slideIn,
+        })}
+        onClick={clickTestShare}
+      >
         친구에게 테스트 공유하기
       </button>
     </div>

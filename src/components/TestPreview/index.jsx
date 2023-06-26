@@ -24,6 +24,7 @@ import {
   TOKEN_NAME,
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
+  TYPE_TEST_PREVIEW,
 } from '../../constants/constant';
 import {
   decodeToken,
@@ -120,20 +121,16 @@ export default function TestPreview(props) {
       }
     };
 
-    const fetchLikeDataNoLogined = async () => {
-      try {
-        axios
-          .get(`${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/like/count`)
-          .then((res) => {
-            setData((prev) => ({
-              ...prev,
-              likeCnt: res.data,
-            }));
-          });
-        setLikeLoading(false);
-      } catch (err) {
-        console.log('err--> ', err);
-      }
+    const fetchLikeDataNoLogined = () => {
+      axios
+        .get(`${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/like/count`)
+        .then((res) => {
+          setData((prev) => ({
+            ...prev,
+            likeCnt: res.data,
+          }));
+        });
+      setLikeLoading(false);
     };
 
     if (decodeToken().state) {
@@ -159,8 +156,8 @@ export default function TestPreview(props) {
     (a, b) => new Date(b.commentDate) - new Date(a.commentDate)
   );
 
-  async function addComment() {
-    await axios
+  function addComment() {
+    axios
       .post(`${DOMAIN_BE_PROD}/api/v1/test/comments`, {
         memberId: sessionStorage.getItem('mongBitmemeberId'),
         testId: data.testId,
@@ -316,6 +313,7 @@ export default function TestPreview(props) {
             thumbnailClass="normal_thumbnail"
             titleBoxClass="normal_titleBox"
             testId={data.testId}
+            type={TYPE_TEST_PREVIEW}
           />
           <CardButton type={TYPE_PLAY_CNT} data={data.playCnt} />
         </div>

@@ -7,6 +7,9 @@
 .myPageImgWidth {
   width: 150px;
 }
+.preview {
+  pointer-events: none;
+}
 
 .inline > img {
   width: 370px;
