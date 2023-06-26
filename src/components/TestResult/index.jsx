@@ -11,7 +11,12 @@ import {
   shareToKatalk_result,
   clearSessionStorage,
 } from '../../util/util';
-import { DOMAIN, TOKEN_NAME, DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
+import {
+  DOMAIN,
+  TOKEN_NAME,
+  DOMAIN_BE_PROD,
+  DOMAIN_BE_DEV,
+} from '../../constants/constant';
 
 export default function TestResult(props) {
   const [likeLoading, setLikeLoading] = useState(true);

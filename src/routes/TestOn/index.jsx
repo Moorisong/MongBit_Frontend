@@ -4,7 +4,11 @@ import { useEffect, useState } from 'react';
 
 import Footer from '../../components/Footer';
 import NavigationBar from '../../components/NavigationBar';
-import { DOMAIN_BE_PROD, TYPE_MYPAGE, DOMAIN_BE_DEV } from '../../constants/constant';
+import {
+  DOMAIN_BE_PROD,
+  TYPE_MYPAGE,
+  DOMAIN_BE_DEV,
+} from '../../constants/constant';
 import styles from './index.module.css';
 import QuestionAndAnswer from '../../components/QestionAndAnswer';
 

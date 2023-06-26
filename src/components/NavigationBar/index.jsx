@@ -21,10 +21,10 @@ export default function NavigationBar() {
   }, []);
 
   function clickMypageBtn() {
-    // if (!sessionStorage.getItem(TOKEN_NAME) || !decodeToken().state) {
-    //   sessionStorage.setItem('ngb', location.pathname);
-    //   return navigate('/login');
-    // }
+    if (!sessionStorage.getItem(TOKEN_NAME) || !decodeToken().state) {
+      sessionStorage.setItem('ngb', '/mypage');
+      return navigate('/login');
+    }
     navigate('/mypage');
   }
   function clickLogOut() {

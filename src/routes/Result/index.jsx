@@ -30,7 +30,10 @@ export default function Result() {
       sessionStorage.setItem('ngb', location.pathname);
       return navigate('/need-login');
     }
-    if (!sessionStorage.getItem('mbScore')) return navigate('/exception');
+    if (!sessionStorage.getItem('mbScore'))
+      return navigate(
+        `/record/${testId}/${sessionStorage.getItem('mbResultId')}`
+      );
     window.onpopstate = handlePopstate;
 
     axios
@@ -59,6 +62,7 @@ export default function Result() {
           testResultId: res.data.id,
         }));
         sessionStorage.removeItem('mbScore');
+        sessionStorage.setItem('mbResultId', res.data.id);
         setIsLoading(false);
       });
 
