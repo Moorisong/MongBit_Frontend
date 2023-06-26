@@ -18,6 +18,10 @@ export default function TestResult(props) {
     likeCnt: 0,
   });
   const memberId = sessionStorage.getItem('mongBitmemeberId');
+  const resultPathName =
+    location.pathname.indexOf('record') > -1
+      ? location.pathname
+      : `/record/${props.testId}/${props.testResultId}`;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -158,7 +162,6 @@ export default function TestResult(props) {
         className={styles.shareBtn}
         onClick={() => {
           if (!decodeToken().state) {
-            sessionStorage.setItem('ngb', location.pathname);
             return navigate('/login');
           }
           const likeCntNum =
@@ -170,7 +173,7 @@ export default function TestResult(props) {
             props.titleStr,
             props.contentStrArr.join(),
             props.imgUri,
-            location.pathname,
+            resultPathName,
             likeCntNum
           );
         }}

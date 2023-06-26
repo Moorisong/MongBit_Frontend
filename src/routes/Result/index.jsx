@@ -15,6 +15,7 @@ export default function Result() {
     titleStr: '',
     contentStrArr: [],
     imgUri: '',
+    testResultId: '',
   });
   const [likeCnt, setLikeCnt] = useState(null);
 
@@ -22,16 +23,6 @@ export default function Result() {
   const location = useLocation();
   const { testId } = useParams();
   const memberId = sessionStorage.getItem('mongBitmemeberId');
-
-  // useEffect(() => {
-  //   //뒤로 가기 누르면 예외 페이지로 이동
-  //   window.onpopstate = handlePopstate;
-
-  //   return () => {
-  //     // 클리어 시켜주기
-  //     window.onpopstate = null;
-  //   };
-  // }, [])
 
   useEffect(() => {
     if (!decodeToken().state) {
@@ -68,6 +59,7 @@ export default function Result() {
           titleStr: res.data.title,
           contentStrArr: contentArray,
           imgUri: res.data.imageUrl,
+          testResultId: res.data.id,
         }));
         sessionStorage.removeItem('mbScore');
         setIsLoading(false);
@@ -97,6 +89,7 @@ export default function Result() {
             likeCnt={likeCnt && likeCnt}
             testId={testId}
             imgUri={resultData.imgUri}
+            testResultId={resultData.testResultId}
           />
         ))}
 
