@@ -12,6 +12,7 @@ import { TestSetMyPage } from '../../components/TestSets';
 import { TitleWithText } from '../../components/Titles';
 import {
   TITLE_WITH_CONTENT,
+  TOKEN_NAME,
   TYPE_MYPAGE,
   USER_INFO,
 } from '../../constants/constant';
@@ -68,29 +69,37 @@ export default function MyPage() {
   }, [clickSeeMore]);
 
   useEffect(() => {
-    if (!decodeToken().state) {
-      sessionStorage.setItem('ngb', location.pathname);
-      navigate('/login');
-    }
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': sessionStorage.getItem(TOKEN_NAME),
+    };
+    axios.get(`https://mongbit-willneiman.koyeb.app/api/v1/tokens/validity`, { headers })
+    .then((res)=>{
+      console.log('1111---> ', res)
+    })
+    // if (!decodeToken().state) {
+    //   sessionStorage.setItem('ngb', location.pathname);
+    //   navigate('/login');
+    // }
     const memberId = sessionStorage.getItem('mongBitmemeberId');
     const params = {
       page: page,
       size: 10,
     };
-    axios
-      .get(
-        `https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${memberId}`,
-        { params }
-      )
-      .then((res) => {
-        setTestData((prev) => ({
-          ...prev,
-          resultArr: res.data.memberTestResultDTOList,
-          hasNextPage: res.data.hasNextPage,
-        }));
-        setLoading(false);
-        setPage(page + 1);
-      });
+  //   axios
+  //     .get(
+  //       `https://mongbit-willneiman.koyeb.app/api/v1/member-test-result/${memberId}`,
+  //       { params }
+  //     )
+  //     .then((res) => {
+  //       setTestData((prev) => ({
+  //         ...prev,
+  //         resultArr: res.data.memberTestResultDTOList,
+  //         hasNextPage: res.data.hasNextPage,
+  //       }));
+  //       setLoading(false);
+  //       setPage(page + 1);
+  //     });
   }, []);
 
   return (
