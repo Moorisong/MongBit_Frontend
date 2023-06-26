@@ -39,9 +39,9 @@ export default function TestResult(props) {
       try {
         const [stateResponse, cntResponse] = await Promise.all([
           axios.get(
-            `${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/${memberId}/like`
+            `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`
           ),
-          axios.get(`${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/like/count`),
+          axios.get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`),
         ]);
 
         setLikeData((prev) => ({
@@ -58,7 +58,7 @@ export default function TestResult(props) {
     const fetchLikeDataNoLogined = async () => {
       try {
         axios
-          .get(`${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/like/count`)
+          .get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`)
           .then((res) => {
             setLikeData((prev) => ({ ...prev, likeCnt: res.data }));
           });
@@ -91,7 +91,7 @@ export default function TestResult(props) {
     };
 
     await axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
+      .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, {
         headers,
       })
       .catch((err) => {
@@ -116,7 +116,7 @@ export default function TestResult(props) {
         likeCnt: prev.likeCnt - 1,
       }));
       await axios.delete(
-        `${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/${memberId}/like`
+        `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`
       );
       setLikeChanged(!likeChanged);
     } else {
@@ -126,12 +126,51 @@ export default function TestResult(props) {
         likeCnt: prev.likeCnt + 1,
       }));
       await axios.post(
-        `${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/${memberId}/like`,
+        `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`,
         { testId: props.testId, memberId: memberId }
       );
       setLikeChanged(!likeChanged);
     }
     setIsSubmittingLike(false);
+  }
+
+  function clickTestShare() {
+    if (!decodeToken().state) {
+      sessionStorage.setItem('ngb', location.pathname);
+      return navigate('/login');
+    }
+
+    const headers = {
+      'Content-Type': 'application/json',
+      Authorization: sessionStorage.getItem(TOKEN_NAME),
+    };
+
+    axios
+      .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, { headers })
+      .catch((err) => {
+        if (
+          err.response.status === 400 ||
+          err.response.status === 401 ||
+          err.response.status === 403
+        ) {
+          clearSessionStorage();
+          sessionStorage.setItem('ngb', location.pathname);
+          navigate('/login');
+        }
+      });
+
+    const likeCntNum =
+      location.pathname.indexOf('result') > -1
+        ? props.likeCnt
+        : likeData.likeCnt;
+    shareToKatalk_result(
+      props.testId,
+      props.titleStr,
+      props.contentStrArr.join(),
+      props.imgUri,
+      resultPathName,
+      likeCntNum
+    );
   }
   return (
     <div className={styles.resultWrap}>
@@ -182,47 +221,7 @@ export default function TestResult(props) {
           <p className={styles.likeCnt}>{likeData.likeCnt}</p>
         </div>
       </div>
-      <button
-        className={styles.shareBtn}
-        onClick={() => {
-          if (!decodeToken().state) {
-            sessionStorage.setItem('ngb', location.pathname);
-            return navigate('/login');
-          }
-
-          const headers = {
-            'Content-Type': 'application/json',
-            Authorization: sessionStorage.getItem(TOKEN_NAME),
-          };
-
-          axios
-            .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
-            .catch((err) => {
-              if (
-                err.response.status === 400 ||
-                err.response.status === 401 ||
-                err.response.status === 403
-              ) {
-                clearSessionStorage();
-                sessionStorage.setItem('ngb', location.pathname);
-                navigate('/login');
-              }
-            });
-
-          const likeCntNum =
-            location.pathname.indexOf('result') > -1
-              ? props.likeCnt
-              : likeData.likeCnt;
-          shareToKatalk_result(
-            props.testId,
-            props.titleStr,
-            props.contentStrArr.join(),
-            props.imgUri,
-            resultPathName,
-            likeCntNum
-          );
-        }}
-      >
+      <button className={styles.shareBtn} onClick={clickTestShare}>
         친구에게 테스트 공유하기
       </button>
     </div>

@@ -49,8 +49,8 @@ export function TestButton(props) {
           props.btnType === 'like'
             ? cn_1
             : props.btnType === 'linkCopy'
-              ? cn_3
-              : cn_2
+            ? cn_3
+            : cn_2
         }
       ></button>
       <p className={styles.btnNameText}>{props.str}</p>
@@ -78,6 +78,43 @@ export function Comment(props) {
   useEffect(() => {
     sessionStorage.removeItem('mbComm');
   }, []);
+
+  function updateComment() {
+    if (!newValue) {
+      sessionStorage.removeItem('mbComm');
+      // setWarn(false);
+      return setIsCommentEditMode(false);
+    }
+    if (props.data.content === newValue) {
+      sessionStorage.removeItem('mbComm');
+      // setWarn(false);
+      return setIsCommentEditMode(false);
+    }
+    if (!sessionStorage.getItem('mongBitmemeberId') || !decodeToken().state)
+      return navigate('/login');
+
+    props.data.content = newValue;
+    sessionStorage.removeItem('mbComm');
+    setIsCommentEditMode(false);
+    axios
+      .patch(`${DOMAIN_BE_PROD}/api/v1/test/comments`, {
+        memberId: sessionStorage.getItem('mongBitmemeberId'),
+        testId: props.testId,
+        content: newValue,
+        id: props.id,
+      })
+      .then((res) => {
+        if (res.status === 400) return alert(res.data);
+        props.modifyComment();
+      });
+  }
+
+  function cancelUpdataComment(evt) {
+    const oldVal = evt.currentTarget.value;
+    setNewValue(oldVal);
+    sessionStorage.removeItem('mbComm');
+    setIsCommentEditMode(false);
+  }
   return (
     <div className={styles.commentWrapper}>
       <img
@@ -122,7 +159,7 @@ export function Comment(props) {
                     // setWarn(false);
                     setIsCommentEditMode(false);
                     axios
-                      .patch(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {
+                      .patch(`${DOMAIN_BE_PROD}/api/v1/test/comments`, {
                         memberId: sessionStorage.getItem('mongBitmemeberId'),
                         testId: props.testId,
                         content: newValue,
@@ -136,42 +173,11 @@ export function Comment(props) {
                 }}
               ></input>
             }
-            <span className={styles.charsLimit}>{`${newValue ? newValue.length : props.data.content.length
-              } / 100`}</span>
+            <span className={styles.charsLimit}>{`${
+              newValue ? newValue.length : props.data.content.length
+            } / 100`}</span>
             <button
-              onClick={() => {
-                if (!newValue) {
-                  sessionStorage.removeItem('mbComm');
-                  // setWarn(false);
-                  return setIsCommentEditMode(false);
-                }
-                if (props.data.content === newValue) {
-                  sessionStorage.removeItem('mbComm');
-                  // setWarn(false);
-                  return setIsCommentEditMode(false);
-                }
-                if (
-                  !sessionStorage.getItem('mongBitmemeberId') ||
-                  !decodeToken().state
-                )
-                  return navigate('/login');
-
-                props.data.content = newValue;
-                sessionStorage.removeItem('mbComm');
-                // setWarn(false);
-                setIsCommentEditMode(false);
-                axios
-                  .patch(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {
-                    memberId: sessionStorage.getItem('mongBitmemeberId'),
-                    testId: props.testId,
-                    content: newValue,
-                    id: props.id,
-                  })
-                  .then((res) => {
-                    if (res.status === 400) return alert(res.data);
-                    props.modifyComment();
-                  });
-              }}
+              onClick={updateComment}
               className={styles.newCommRightBtn_apply}
             >
               확인
@@ -179,11 +185,7 @@ export function Comment(props) {
             <button
               className={styles.newCommRightBtn_cancel}
               onClick={(evt) => {
-                const oldVal = evt.currentTarget.value;
-                setNewValue(oldVal);
-                sessionStorage.removeItem('mbComm');
-                // setWarn(false);
-                setIsCommentEditMode(false);
+                cancelUpdataComment(evt);
               }}
             >
               취소
@@ -195,14 +197,13 @@ export function Comment(props) {
         // Admin일 때는 모든 댓글 삭제만 가능하도록 함
         decodeToken().role === 'ROLE_ADMIN'
           ? isCommentEditMode || (
-            <div className={styles.modifyArea}>
-              <div className={styles.modifyWrap}>
-                {sessionStorage.getItem('mongBitmemeberId') ===
-                  props.data.memberId && (
+              <div className={styles.modifyArea}>
+                <div className={styles.modifyWrap}>
+                  {sessionStorage.getItem('mongBitmemeberId') ===
+                    props.data.memberId && (
                     <button
                       onClick={() => {
                         if (sessionStorage.getItem('mbComm')) {
-                          // setWarn(true);
                           return setIsCommentEditMode(false);
                         }
                         sessionStorage.setItem('mbComm', true);
@@ -212,52 +213,49 @@ export function Comment(props) {
                       수정
                     </button>
                   )}
-                <button
-                  onClick={() => {
-                    if (sessionStorage.getItem('mbComm')) return;
-                    // return setWarn(true);
-                    const result = confirm('삭제 하시겠습니까?');
-                    if (result) return props.deleteComment();
-                    if (!result) return;
-                  }}
-                >
-                  삭제
-                </button>
+                  <button
+                    onClick={() => {
+                      if (sessionStorage.getItem('mbComm')) return;
+                      const result = confirm('삭제 하시겠습니까?');
+                      if (result) return props.deleteComment();
+                      if (!result) return;
+                    }}
+                  >
+                    삭제
+                  </button>
+                </div>
               </div>
-            </div>
-          )
+            )
           : //일반 User는 본인이 작성한 댓글에만 수정, 삭제 가능하도록 함
-          sessionStorage.getItem('mongBitmemeberId') ===
-          props.data.memberId &&
-          (isCommentEditMode || (
-            <div className={styles.modifyArea}>
-              <div className={styles.modifyWrap}>
-                <button
-                  onClick={() => {
-                    if (sessionStorage.getItem('mbComm')) {
-                      // setWarn(true);
-                      return setIsCommentEditMode(false);
-                    }
-                    sessionStorage.setItem('mbComm', true);
-                    setIsCommentEditMode(true);
-                  }}
-                >
-                  수정
-                </button>
-                <button
-                  onClick={() => {
-                    if (sessionStorage.getItem('mbComm')) return;
-                    // return setWarn(true);
-                    const result = confirm('삭제 하시겠습니까?');
-                    if (result) return props.deleteComment();
-                    if (!result) return;
-                  }}
-                >
-                  삭제
-                </button>
+            sessionStorage.getItem('mongBitmemeberId') ===
+              props.data.memberId &&
+            (isCommentEditMode || (
+              <div className={styles.modifyArea}>
+                <div className={styles.modifyWrap}>
+                  <button
+                    onClick={() => {
+                      if (sessionStorage.getItem('mbComm')) {
+                        return setIsCommentEditMode(false);
+                      }
+                      sessionStorage.setItem('mbComm', true);
+                      setIsCommentEditMode(true);
+                    }}
+                  >
+                    수정
+                  </button>
+                  <button
+                    onClick={() => {
+                      if (sessionStorage.getItem('mbComm')) return;
+                      const result = confirm('삭제 하시겠습니까?');
+                      if (result) return props.deleteComment();
+                      if (!result) return;
+                    }}
+                  >
+                    삭제
+                  </button>
+                </div>
               </div>
-            </div>
-          ))
+            ))
       }
     </div>
   );

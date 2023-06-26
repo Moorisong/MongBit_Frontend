@@ -84,7 +84,7 @@ export default function MyPage() {
 
     //토큰 검증
     axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
+      .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, {
         headers,
       })
       .then(() => {
@@ -96,7 +96,7 @@ export default function MyPage() {
 
         // 마이페이지 테스트 기록 조회
         axios
-          .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
+          .get(`${DOMAIN_BE_PROD}/api/v1/member-test-result/${memberId}`, {
             params,
           })
           .then((res) => {
@@ -122,6 +122,38 @@ export default function MyPage() {
       });
   }, []);
 
+  function clickSeeMoreResult() {
+    setClickSeeMore(true);
+
+    if (!decodeToken().state) {
+      sessionStorage.setItem('ngb', location.pathname);
+      return navigate('/login');
+    }
+    const memberId = sessionStorage.getItem('mongBitmemeberId');
+    const params = {
+      page: page,
+      size: 10,
+    };
+    axios
+      .get(`${DOMAIN_BE_PROD}/api/v1/member-test-result/${memberId}`, {
+        params,
+      })
+      .then((res) => {
+        let copy = [...testData.resultArr];
+        res.data.memberTestResultDTOList.forEach((ele) => {
+          copy.push(ele);
+        });
+
+        setTestData((prev) => ({
+          ...prev,
+          resultArr: copy,
+          hasNextPage: res.data.hasNextPage,
+        }));
+        setLoading(false);
+        setPage(page + 1);
+        setClickSeeMore(false);
+      });
+  }
   return (
     <div className={styles.wrap}>
       <NavigationBar />
@@ -167,41 +199,7 @@ export default function MyPage() {
         ))}
 
       {testData.hasNextPage && (
-        <div
-          className={styles.seeMoreWrap}
-          onClick={() => {
-            setClickSeeMore(true);
-
-            if (!decodeToken().state) {
-              sessionStorage.setItem('ngb', location.pathname);
-              return navigate('/login');
-            }
-            const memberId = sessionStorage.getItem('mongBitmemeberId');
-            const params = {
-              page: page,
-              size: 10,
-            };
-            axios
-              .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
-                params,
-              })
-              .then((res) => {
-                let copy = [...testData.resultArr];
-                res.data.memberTestResultDTOList.forEach((ele) => {
-                  copy.push(ele);
-                });
-
-                setTestData((prev) => ({
-                  ...prev,
-                  resultArr: copy,
-                  hasNextPage: res.data.hasNextPage,
-                }));
-                setLoading(false);
-                setPage(page + 1);
-                setClickSeeMore(false);
-              });
-          }}
-        >
+        <div className={styles.seeMoreWrap} onClick={clickSeeMoreResult}>
           {clickSeeMore ? (
             <div className={styles.loadImgWrap_2}>
               <div ref={containerRef_2}></div>
