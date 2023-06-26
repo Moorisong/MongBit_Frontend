@@ -2,7 +2,11 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 
-import { TOKEN_NAME, USER_INFO } from '../../constants/constant';
+import {
+  DOMAIN_BE_PROD,
+  TOKEN_NAME,
+  USER_INFO,
+} from '../../constants/constant';
 
 export default function KakaoAuthHandle() {
   const navigate = useNavigate();
@@ -13,9 +17,7 @@ export default function KakaoAuthHandle() {
     if (code) {
       try {
         axios
-          .get(
-            `https://mongbit-willneiman.koyeb.app/login/oauth2/kakao/code?code=${code}`
-          )
+          .get(`${DOMAIN_BE_PROD}/login/oauth2/kakao/code?code=${code}`)
           .then((response) => {
             sessionStorage.setItem(
               TOKEN_NAME,

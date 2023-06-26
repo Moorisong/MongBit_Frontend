@@ -6,6 +6,7 @@ import {
   ALL_FULLFILL,
   NUMBER_500,
   LENGTH_OVER_500,
+  DOMAIN_BE_PROD,
 } from '../../constants/constant';
 
 export function InfoPart(props) {
@@ -188,7 +189,7 @@ export function ResultPart(props) {
             setImgUploading(true);
 
             axios
-              .post('https://mongbit-willneiman.koyeb.app/upload', formData)
+              .post(`${DOMAIN_BE_PROD}/upload`, formData)
               .then((response) => {
                 setResultObj((prev) => ({ ...prev, imageUrl: response.data }));
                 setImgUploading(false);

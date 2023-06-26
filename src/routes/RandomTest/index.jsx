@@ -5,6 +5,7 @@ import TestPreview from '../../components/TestPreview';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import styles from './index.module.css';
+import { DOMAIN_BE_PROD } from '../../constants/constant';
 
 export default function RandomTest() {
   const [thumbnailStr, setThumbnailStr] = useState('');
@@ -14,15 +15,13 @@ export default function RandomTest() {
   const [testId, setTestId] = useState('');
 
   useEffect(() => {
-    axios
-      .get(`https://mongbit-willneiman.koyeb.app/api/v1/tests/random`)
-      .then((res) => {
-        setThumbnailStr(res.data.title);
-        setPlayCnt(res.data.playCount);
-        setDescription(res.data.content);
-        setThumbnailUri(res.data.imageUrl);
-        setTestId(res.data.id);
-      });
+    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/random`).then((res) => {
+      setThumbnailStr(res.data.title);
+      setPlayCnt(res.data.playCount);
+      setDescription(res.data.content);
+      setThumbnailUri(res.data.imageUrl);
+      setTestId(res.data.id);
+    });
   }, []);
 
   return (

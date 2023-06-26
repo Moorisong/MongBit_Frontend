@@ -11,7 +11,7 @@ import {
   shareToKatalk_result,
   clearSessionStorage,
 } from '../../util/util';
-import { DOMAIN, TOKEN_NAME } from '../../constants/constant';
+import { DOMAIN, TOKEN_NAME, DOMAIN_BE_PROD } from '../../constants/constant';
 
 export default function TestResult(props) {
   const [likeLoading, setLikeLoading] = useState(true);
@@ -34,11 +34,9 @@ export default function TestResult(props) {
       try {
         const [stateResponse, cntResponse] = await Promise.all([
           axios.get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/${memberId}/like`
+            `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`
           ),
-          axios.get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/like/count`
-          ),
+          axios.get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`),
         ]);
 
         setLikeData((prev) => ({
@@ -55,9 +53,7 @@ export default function TestResult(props) {
     const fetchLikeDataNoLogined = async () => {
       try {
         axios
-          .get(
-            `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/like/count`
-          )
+          .get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`)
           .then((res) => {
             setLikeData((prev) => ({ ...prev, likeCnt: res.data }));
           });
@@ -90,7 +86,7 @@ export default function TestResult(props) {
     };
 
     await axios
-      .get(`https://mongbit-willneiman.koyeb.app/api/v1/tokens/validity`, {
+      .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, {
         headers,
       })
       .catch((err) => {
@@ -115,7 +111,7 @@ export default function TestResult(props) {
         likeCnt: prev.likeCnt - 1,
       }));
       await axios.delete(
-        `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/${memberId}/like`
+        `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`
       );
       setLikeChanged(!likeChanged);
     } else {
@@ -125,7 +121,7 @@ export default function TestResult(props) {
         likeCnt: prev.likeCnt + 1,
       }));
       await axios.post(
-        `https://mongbit-willneiman.koyeb.app/api/v1/test/${props.testId}/${memberId}/like`,
+        `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`,
         { testId: props.testId, memberId: memberId }
       );
       setLikeChanged(!likeChanged);
@@ -195,10 +191,7 @@ export default function TestResult(props) {
           };
 
           axios
-            .get(
-              `https://mongbit-willneiman.koyeb.app/api/v1/tokens/validity`,
-              { headers }
-            )
+            .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, { headers })
             .catch((err) => {
               if (
                 err.response.status === 400 ||
