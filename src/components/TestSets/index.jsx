@@ -33,6 +33,7 @@ function TestSetComplete(props) {
 
 function TestSetMyPage(props) {
   const navigate = useNavigate();
+  const descArr = props.content.description.split('<br>');
   return (
     <div className={styles.testCardWrap}>
       <TestCard
@@ -48,7 +49,17 @@ function TestSetMyPage(props) {
         }
       >
         <p>{props.title}</p>
-        <p>{props.content.description}</p>
+        <div className={styles.myPageDescription}>
+          {
+            <ul>
+              {descArr.map((d, i) => (
+                <li key={i}>
+                  <p>{d}</p>
+                </li>
+              ))}
+            </ul>
+          }
+        </div>
         <p>{props.content.date}</p>
       </div>
     </div>

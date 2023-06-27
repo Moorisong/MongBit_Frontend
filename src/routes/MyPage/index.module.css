@@ -76,3 +76,18 @@
 .loadImgWrap_2 > div {
   padding-top: 5px;
 }
+
+.noResultWrap {
+  margin: 150px 0 200px 0;
+}
+.noResultWrap > p {
+  margin-top: 50px;
+}
+.goTestLink {
+  text-align: center;
+  padding: 8px;
+  border-radius: 1.5rem;
+  background-color: #ffc52f;
+  color: white;
+  margin-top: 20px;
+}

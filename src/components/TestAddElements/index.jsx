@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { useState } from 'react';
 
 import styles from './index.module.css';
@@ -37,21 +36,11 @@ export function InfoPart(props) {
         ></textarea>
       </div>
 
-      <div className={styles.contentWrap}>
-        <p>[테스트 Image]</p>
-        <input
-          onChange={(evt) => {
-            props.onChange_s1_imageUrl(evt);
-          }}
-          type="file"
-        />
-      </div>
-
       <div className={`${styles.contentWrap} ${styles.stepWrap}`}>
         <button onClick={props.onClickMain}>메인</button>
         <button
           onClick={() => {
-            if (props.imgUploading) return alert('이미지를 업로드 중입니다.');
+            // if (props.imgUploading) return alert('이미지를 업로드 중입니다.');
             props.onClickNext();
           }}
         >
@@ -135,13 +124,11 @@ export function QuestionPart(props) {
 export function ResultPart(props) {
   let [resultObj, setResultObj] = useState({
     result: '',
-    contetn: '',
-    imageUrl: '',
+    content: '',
   });
-  let [imgUploading, setImgUploading] = useState(false);
+
   function clickGoNext() {
-    if (imgUploading) return alert('이미지를 업로드 중입니다.');
-    if (!resultObj.result || !resultObj.content || !resultObj.imageUrl) {
+    if (!resultObj.result || !resultObj.content) {
       return alert(ALL_FULLFILL);
     }
     if (
@@ -188,32 +175,55 @@ export function ResultPart(props) {
         ></textarea>
       </div>
 
-      <div className={styles.contentWrap}>
-        <p>[결과 Image]</p>
-        <input
-          onChange={(evt) => {
-            const file = evt.target.files[0];
-            const formData = new FormData();
-            formData.append('file', file);
-            setImgUploading(true);
-
-            axios
-              .post(`${DOMAIN_BE_DEV}/upload`, formData)
-              .then((response) => {
-                setResultObj((prev) => ({ ...prev, imageUrl: response.data }));
-                setImgUploading(false);
-              })
-              .catch((error) => {
-                console.error(error);
-              });
-          }}
-          type="file"
-        />
-      </div>
       <div className={`${styles.contentWrap} ${styles.stepWrap}`}>
         {/* <button onClick={props.onClickPrev}>뒤로</button> */}
         <button>뒤로</button>
         <button onClick={clickGoNext}>다음</button>
+      </div>
+    </div>
+  );
+}
+
+export function ImagePart(props) {
+  const mapTartet = [
+    '0',
+    'ENFJ',
+    'ENFP',
+    'ENTJ',
+    'ENTP',
+    'ESFJ',
+    'ESFP',
+    'ESTJ',
+    'ESTP',
+    'INFJ',
+    'INFP',
+    'INTJ',
+    'INTP',
+    'ISFJ',
+    'ISFP',
+    'ISTJ',
+    'ISTP',
+  ];
+
+  return (
+    <div className={styles.wrap}>
+      {mapTartet.map((t, i) => (
+        <div key={i} className={styles.imageWrap}>
+          <p>{i === 0 ? '[테스트 이미지]' : `[${i}번째 결과] - ${t}`}</p>
+          <input
+            type="file"
+            className={styles.fileInput}
+            onChange={(evt) => {
+              window.mbInputIndex = i;
+              props.inputOnChange(evt);
+            }}
+          />
+        </div>
+      ))}
+      <div className={`${styles.contentWrap} ${styles.stepWrap}`}>
+        {/* <button onClick={props.onClickPrev}>뒤로</button> */}
+        <button>뒤로</button>
+        <button onClick={props.onClickNext}>다음</button>
       </div>
     </div>
   );

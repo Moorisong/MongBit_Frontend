@@ -37,18 +37,18 @@ export default function Result() {
     window.onpopstate = handlePopstate;
 
     axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/test/${testId}/like/count`)
+      .get(`${DOMAIN_BE_PROD}/api/v1/test/${testId}/like/count`)
       .then((res) => setLikeCnt(res.data));
 
     const score = JSON.parse(sessionStorage.getItem('mbScore'));
 
     axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/test/${testId}/like/count`)
+      .get(`${DOMAIN_BE_PROD}/api/v1/test/${testId}/like/count`)
       .then((res) => SetResultData((prev) => ({ ...prev, likeCnt: res.data })));
 
     axios
       .post(
-        `${DOMAIN_BE_DEV}/api/v1/member-test-result/${testId}/${memberId}`,
+        `${DOMAIN_BE_PROD}/api/v1/member-test-result/${testId}/${memberId}`,
         score
       )
       .then((res) => {
@@ -63,7 +63,9 @@ export default function Result() {
         }));
         sessionStorage.removeItem('mbScore');
         sessionStorage.setItem('mbResultId', res.data.id);
-        setIsLoading(false);
+        setTimeout(() => {
+          setIsLoading(false);
+        }, 3000);
       });
 
     return () => {
@@ -95,7 +97,7 @@ export default function Result() {
         ))}
 
       <div className={`${styles.bgWhite} ${styles.footerWrap}`}>
-        {isLoading || <Footer />}
+        <Footer />
       </div>
     </div>
   );

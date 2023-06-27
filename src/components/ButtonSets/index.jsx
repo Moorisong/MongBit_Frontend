@@ -97,7 +97,7 @@ export function Comment(props) {
     sessionStorage.removeItem('mbComm');
     setIsCommentEditMode(false);
     axios
-      .patch(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {
+      .patch(`${DOMAIN_BE_PROD}/api/v1/test/comments`, {
         memberId: sessionStorage.getItem('mongBitmemeberId'),
         testId: props.testId,
         content: newValue,
@@ -159,7 +159,7 @@ export function Comment(props) {
                     // setWarn(false);
                     setIsCommentEditMode(false);
                     axios
-                      .patch(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {
+                      .patch(`${DOMAIN_BE_PROD}/api/v1/test/comments`, {
                         memberId: sessionStorage.getItem('mongBitmemeberId'),
                         testId: props.testId,
                         content: newValue,

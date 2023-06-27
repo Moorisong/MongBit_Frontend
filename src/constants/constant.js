@@ -1,13 +1,15 @@
 // Domain
 export const DOMAIN = 'https://mongbit.vercel.app';
 export const DOMAIN_BE_DEV = 'https://mongbit-willneiman.koyeb.app';
-export const DOMAIN_BE_PROD = 'http://3.39.194.200:8080';
+export const DOMAIN_BE_PROD = 'https://mongbit.site';
+// export const DOMAIN_BE_PROD = 'http://3.39.194.200:8080';
 
 export const TOKEN_NAME = 'mongBitToken';
 export const USER_INFO = 'mongBit';
 
 // Type of the page
 export const TYPE_TEST_LIST = 'test_list';
+export const TYPE_TEST_PREVIEW = 'test_preview';
 export const TYPE_LATEST_MAIN = 'main_latest';
 export const TITLE_WITH_CONTENT = 'with_content';
 export const TYPE_ON_TEST = 'on_test';

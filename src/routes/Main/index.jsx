@@ -17,7 +17,7 @@ import {
 export default function Main() {
   // Test 삭제
   // useEffect(()=>{
-  //   axios.delete(`${DOMAIN_BE_DEV}/api/v1/tests/test/6496950f0cb7f21ff5503fe6`)
+  //   axios.delete(`${DOMAIN_BE_PROD}/api/v1/tests/test/649ac867a5c2e650640a17fb`)
   //   .then((res)=>{
   //     console.log('r--> ', res)
   //   })
@@ -33,7 +33,7 @@ export default function Main() {
     sessionStorage.getItem('mbTest') === '' &&
       sessionStorage.removeItem('mbTest');
 
-    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/0/3`).then((res) => {
+    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/0/3`).then((res) => {
       setLatestTestData((prev) => ({ ...prev, testArr: res.data }));
     });
   }, []);
@@ -50,10 +50,9 @@ export default function Main() {
       <div className={styles.testWrap}>
         <TitleWithText title="🌟 심테의 근본, MBTI 검사" />
         <TestCard
-          thumbnailStr="MBTI 기본 검사"
-          testId="649708e8a3b85f774064cddf"
-          thumbnailUri="https://img.freepik.com/free-vector/paper-style-galaxy-background_23-2148985024.jpg?w=1380&t=st=1687624381~exp=1687624981~hmac=580716719978cefc3dd742602467ba14a5113b2daa335aae1d2aa4cacbb15305"
-          playCnt="22"
+          thumbnailStr="겁나 빠르게 끝내는 퀵 MBTI"
+          testId="649a7bccaa04db61384808c5"
+          thumbnailUri="https://i.ibb.co/pwj20tf/cover.png"
         />
 
         <div className={styles.miniTestWrap}>

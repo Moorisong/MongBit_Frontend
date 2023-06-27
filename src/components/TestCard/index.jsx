@@ -1,13 +1,19 @@
 import { useNavigate } from 'react-router-dom';
 
 import styles from './index.module.css';
-import { TYPE_LATEST_MAIN, TYPE_MYPAGE } from '../../constants/constant';
+import {
+  TYPE_LATEST_MAIN,
+  TYPE_MYPAGE,
+  TYPE_TEST_PREVIEW,
+} from '../../constants/constant';
 
 function TestCard(props) {
   const navigate = useNavigate();
   const cn_1 =
     props.type === TYPE_MYPAGE
       ? `${styles.inline} ${styles.myPageImgWidth}`
+      : props.type === TYPE_TEST_PREVIEW
+      ? `${styles.inline} ${styles.preview}`
       : `${styles.inline}`;
   const cn_2 =
     props.type === TYPE_LATEST_MAIN

@@ -16,43 +16,36 @@ export default function KakaoAuthHandle() {
 
   useEffect(() => {
     if (code) {
-      try {
-        axios
-          .get(`${DOMAIN_BE_DEV}/login/oauth2/kakao/code?code=${code}`)
-          .then((response) => {
-            sessionStorage.setItem(
-              TOKEN_NAME,
-              response.headers['authorization']
-            );
-            sessionStorage.setItem(
-              USER_INFO + 'memeberId',
-              response.data.memberId
-            );
-            sessionStorage.setItem(
-              USER_INFO + 'thumbnail',
-              response.data.thumbnail
-            );
-            sessionStorage.setItem(
-              USER_INFO + 'registDate',
-              response.data.registDate
-            );
-            sessionStorage.setItem(
-              USER_INFO + 'username',
-              response.data.username
-            );
+      axios
+        .get(`${DOMAIN_BE_PROD}/login/oauth2/kakao/code?code=${code}`)
+        .then((response) => {
+          sessionStorage.setItem(TOKEN_NAME, response.headers['authorization']);
+          sessionStorage.setItem(
+            USER_INFO + 'memeberId',
+            response.data.memberId
+          );
+          sessionStorage.setItem(
+            USER_INFO + 'thumbnail',
+            response.data.thumbnail
+          );
+          sessionStorage.setItem(
+            USER_INFO + 'registDate',
+            response.data.registDate
+          );
+          sessionStorage.setItem(
+            USER_INFO + 'username',
+            response.data.username
+          );
 
-            const prev = sessionStorage.getItem('ngb');
-            if (prev) {
-              // 직전 페이지로 이동이 필요한 경우
-              sessionStorage.setItem('ngb', false);
-              prev.indexOf('need-login') > -1 ? navigate(-2) : navigate(prev);
-            } else {
-              navigate('/main');
-            }
-          });
-      } catch (error) {
-        console.error(error);
-      }
+          const prev = sessionStorage.getItem('ngb');
+          if (prev) {
+            // 직전 페이지로 이동이 필요한 경우
+            sessionStorage.setItem('ngb', false);
+            prev.indexOf('need-login') > -1 ? navigate(-2) : navigate(prev);
+          } else {
+            navigate('/main');
+          }
+        });
     }
   }, []);
 

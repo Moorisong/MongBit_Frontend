@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import axios from 'axios';
 import lottie from 'lottie-web';
 
@@ -84,7 +84,7 @@ export default function MyPage() {
 
     //토큰 검증
     axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
+      .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, {
         headers,
       })
       .then(() => {
@@ -96,7 +96,7 @@ export default function MyPage() {
 
         // 마이페이지 테스트 기록 조회
         axios
-          .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
+          .get(`${DOMAIN_BE_PROD}/api/v1/member-test-result/${memberId}`, {
             params,
           })
           .then((res) => {
@@ -135,7 +135,7 @@ export default function MyPage() {
       size: 10,
     };
     axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
+      .get(`${DOMAIN_BE_PROD}/api/v1/member-test-result/${memberId}`, {
         params,
       })
       .then((res) => {
@@ -181,7 +181,14 @@ export default function MyPage() {
           <div ref={containerRef_1} className={styles.loadImg}></div>
         </div>
       )}
-      {loading ||
+      {!loading && testData.resultArr.length == 0 ? (
+        <div className={styles.noResultWrap}>
+          <p>최근 테스트 결과가 없습니다.</p>
+          <Link to="/test/list" className={styles.goTestLink}>
+            테스트 보러 가기
+          </Link>
+        </div>
+      ) : (
         testData.resultArr.map((t, i) => (
           <TestSetMyPage
             key={i}
@@ -196,7 +203,8 @@ export default function MyPage() {
             imgUri={t.imageUrl}
             hasNextPage={testData.hasNextPage}
           />
-        ))}
+        ))
+      )}
 
       {testData.hasNextPage && (
         <div className={styles.seeMoreWrap} onClick={clickSeeMoreResult}>

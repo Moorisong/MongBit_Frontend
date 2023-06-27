@@ -27,9 +27,15 @@
   color: black;
   font-size: 0.8rem;
   font-weight: 500;
+  margin-bottom: 10px;
 }
 
 .testCardTextWrap p {
   color: #979797;
   font-size: 0.7rem;
+}
+
+.myPageDescription {
+  height: 13rem;
+  overflow-y: auto;
 }
