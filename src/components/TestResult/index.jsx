@@ -139,7 +139,7 @@ export default function TestResult(props) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setSlideIn(true);
-    }, 1000);
+    }, 2000);
 
     return () => {
       clearTimeout(timer);

@@ -67,7 +67,7 @@ export default function Result() {
         sessionStorage.setItem('mbResultId', res.data.id);
         timer = setTimeout(() => {
           setIsLoading(false);
-        }, 2000);
+        }, 3000);
       });
 
     return () => {
