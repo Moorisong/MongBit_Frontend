@@ -35,7 +35,7 @@ export default function TestAdd() {
   useEffect(() => {
     if (!imgUploading) {
       axios
-        .post(`${DOMAIN_BE_PROD}/api/v1/tests/test`, data)
+        .post(`${DOMAIN_BE_DEV}/api/v1/tests/test`, data)
         .then(() => {
           alert('테스트 등록 완료. 고생 많으셨어요 :)');
           navigate('/main');
@@ -118,7 +118,7 @@ export default function TestAdd() {
     setImgUploading(true);
     const promiseArr = [];
     imgCntArr.forEach((fdata) => {
-      const promise = axios.post(`${DOMAIN_BE_PROD}/upload`, fdata);
+      const promise = axios.post(`${DOMAIN_BE_DEV}/upload`, fdata);
       promiseArr.push(promise);
     });
 

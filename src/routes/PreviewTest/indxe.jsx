@@ -16,7 +16,7 @@ export default function PreviewTest() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/test/${testId}`).then((res) => {
+    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/test/${testId}`).then((res) => {
       setData(res.data);
     });
   }, []);
