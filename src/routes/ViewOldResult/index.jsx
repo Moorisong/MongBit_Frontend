@@ -27,6 +27,8 @@ export default function ViewOldResult() {
       autoplay: true,
     });
 
+    window.scrollTo(0, 0);
+
     return () => {
       anim.destroy();
     };
