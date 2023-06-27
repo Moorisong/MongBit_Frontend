@@ -19,7 +19,7 @@ export default function QuestionAndAnswer(props) {
           <div></div>
           <div className={barClassName}></div>
         </div>
-        <span>{`질문 ${props.q_idx} /`}</span>
+        <span>{`질문 ${props.q_idx + 1} /`}</span>
         <span>12</span>
       </div>
 
