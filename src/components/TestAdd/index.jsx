@@ -30,7 +30,7 @@ export default function TestAdd() {
 
   useEffect(() => {
     if (testDone) {
-      axios.post(`${DOMAIN_BE_DEV}/api/v1/tests/test`, data).then(() => {
+      axios.post(`${DOMAIN_BE_PROD}/api/v1/tests/test`, data).then(() => {
         alert('완료');
         navigate('/main');
       });
@@ -110,7 +110,7 @@ export default function TestAdd() {
     formData.append('file', file);
 
     axios
-      .post(`${DOMAIN_BE_DEV}/upload`, formData)
+      .post(`${DOMAIN_BE_PROD}/upload`, formData)
       .then((response) => {
         setData((prev) => ({ ...prev, imageUrl: response.data }));
         setImgUploading(false);

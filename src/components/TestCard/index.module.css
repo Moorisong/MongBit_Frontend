@@ -7,6 +7,9 @@
 .myPageImgWidth {
   width: 150px;
 }
+.myPage {
+  height: 13rem;
+}
 .preview {
   pointer-events: none;
 }
