@@ -125,7 +125,7 @@ export function QuestionPart(props) {
 export function ResultPart(props) {
   let [resultObj, setResultObj] = useState({
     result: '',
-    contetn: '',
+    content: '',
   });
 
   function clickGoNext() {
@@ -205,7 +205,7 @@ export function ImagePart(props) {
       ))}
       <div className={`${styles.contentWrap} ${styles.stepWrap}`}>
         {/* <button onClick={props.onClickPrev}>뒤로</button> */}
-        <button>뒤로</button>
+      <button>뒤로</button>
         <button onClick={props.onClickNext}>다음</button>
       </div>
     </div>
