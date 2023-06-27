@@ -221,7 +221,9 @@ export default function MyPage() {
         </div>
       )}
 
-      <Footer type={TYPE_MYPAGE} />
+      <div className={styles.footerWrap}>
+        <Footer type={TYPE_MYPAGE} />
+      </div>
     </div>
   );
 }

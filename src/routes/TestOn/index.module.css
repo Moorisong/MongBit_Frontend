@@ -1,12 +1,19 @@
-.bgWhite {
+.wrap {
   width: 400px;
   background-color: white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
+  position: relative;
+  padding-bottom: 100px;
 }
 
 .footerWrap {
   width: 400px;
   display: flex;
   justify-content: center;
+  position: absolute;
+  bottom: 0;
+  background-color: white;
 }
