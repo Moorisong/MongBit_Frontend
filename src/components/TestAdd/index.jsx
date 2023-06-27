@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './index.module.css';
-import { InfoPart, QuestionPart, ResultPart } from '../TestAddElements';
+import { ImagePart, InfoPart, QuestionPart, ResultPart } from '../TestAddElements';
 import {
   ALL_FULLFILL,
   NUMBER_500,
@@ -20,7 +20,6 @@ export default function TestAdd() {
     questions: [],
     results: [],
   });
-  const [isNext, setIsNext] = useState(true);
   const [stage, setStage] = useState(1);
   const [qstStageIdx, setQstStageIdx] = useState(1);
   const [rstStageIdx, setRstStageIdx] = useState(1);
@@ -56,12 +55,11 @@ export default function TestAdd() {
   function onClickNext() {
     switch (stage) {
       case 1:
-        if (!data.title || !data.content || !data.imageUrl)
-          return alert(ALL_FULLFILL);
-        if (data.title.length > NUMBER_500 || data.content > NUMBER_500)
-          return alert(LENGTH_OVER_500);
+        // if (!data.title || !data.content || !data.imageUrl)
+        //   return alert(ALL_FULLFILL);
+        // if (data.title.length > NUMBER_500 || data.content > NUMBER_500)
+        //   return alert(LENGTH_OVER_500);
         setStage(stage + 1);
-        setIsNext(!isNext);
         break;
       case 2:
         setData((prev) => {
@@ -73,8 +71,6 @@ export default function TestAdd() {
         });
 
         setQstStageIdx(qstStageIdx + 1);
-        setIsNext(!isNext);
-
         if (qstStageIdx === 12) {
           setStage(stage + 1);
         }
@@ -88,10 +84,15 @@ export default function TestAdd() {
           return { ...prev, results: copy };
         });
         setRstStageIdx(rstStageIdx + 1);
-        setIsNext(!isNext);
 
-        if (rstStageIdx === 16) setTestDone(true);
+        // if (rstStageIdx === 1) setTestDone(true);
+        if (rstStageIdx === 16) {
+          setStage(stage + 1);
+        }
         break;
+      case 4:
+        console.log('오우 여기까지 왔군-=-> ', data)
+      // setTestDone(true); 해주기
     }
   }
 
@@ -170,6 +171,7 @@ export default function TestAdd() {
               />
             )
         )}
+      {stage === 4 && <ImagePart onClickNext={onClickNext}/>}
     </div>
   );
 }

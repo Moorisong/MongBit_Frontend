@@ -50,3 +50,8 @@
 .contentWrap > input {
   border: 0.5px solid #979797;
 }
+
+.imageWrap > input {
+  width: 100px;
+  height: 100px;
+}
