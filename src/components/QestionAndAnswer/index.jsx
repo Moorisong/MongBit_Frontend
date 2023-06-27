@@ -3,26 +3,12 @@ import cx from 'classnames';
 import styles from './index.module.css';
 
 export default function QuestionAndAnswer(props) {
-  // const barClassName = styles[`gaugeBar_${props.q_idx}`];
-  const barClassName = cx(styles[`gaugeBar_${props.q_idx}`], {
-    [styles.transition]: props.q_idx > 0,
-  });
-
   return (
     <div
       className={cx(styles.wrap, {
         [styles.display_none]: false,
       })}
     >
-      <div className={styles.progressWrap}>
-        <div className={styles.barWrap}>
-          <div></div>
-          <div className={barClassName}></div>
-        </div>
-        <span>{`질문 ${props.q_idx + 1} /`}</span>
-        <span>12</span>
-      </div>
-
       <div className={styles.questionWrap}>
         <p>{props.q_str}</p>
       </div>
