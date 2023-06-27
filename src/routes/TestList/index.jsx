@@ -27,7 +27,7 @@ export default function TestList() {
     });
     const timer = setTimeout(() => {
       setSlideIn(true);
-    }, 1000);
+    }, 3000);
 
     return () => {
       clearTimeout(timer);
