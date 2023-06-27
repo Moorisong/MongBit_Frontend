@@ -197,6 +197,7 @@ export function ImagePart(props) {
       {
         mapTartet.map((t, i) => (
           <div key={i} className={styles.imageWrap}>
+            <p>{i === 0 ? '테스트 이미지' : `${i}번째 결과지`}</p>
             <input type='file' />
           </div>
         ))
