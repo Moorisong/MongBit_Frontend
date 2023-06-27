@@ -28,6 +28,7 @@ export default function Main() {
   });
 
   useEffect(() => {
+    console.log('test')
     sessionStorage.getItem('mbResult') === '' &&
       sessionStorage.removeItem('mbResult');
     sessionStorage.getItem('mbTest') === '' &&
