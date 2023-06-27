@@ -4,7 +4,6 @@ export const DOMAIN_BE_DEV = 'https://mongbit-willneiman.koyeb.app';
 export const DOMAIN_BE_PROD = 'https://mongbit.site:8080';
 // export const DOMAIN_BE_PROD = 'http://3.39.194.200:8080';
 
-
 export const TOKEN_NAME = 'mongBitToken';
 export const USER_INFO = 'mongBit';
 
