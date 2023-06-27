@@ -3,7 +3,12 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styles from './index.module.css';
-import { ImagePart, InfoPart, QuestionPart, ResultPart } from '../TestAddElements';
+import {
+  ImagePart,
+  InfoPart,
+  QuestionPart,
+  ResultPart,
+} from '../TestAddElements';
 import {
   ALL_FULLFILL,
   NUMBER_500,
@@ -23,18 +28,24 @@ export default function TestAdd() {
   const [stage, setStage] = useState(1);
   const [qstStageIdx, setQstStageIdx] = useState(1);
   const [rstStageIdx, setRstStageIdx] = useState(1);
-  let [imgUploading, setImgUploading] = useState(false);
-  let [testDone, setTestDone] = useState(false);
+  let [imgUploading, setImgUploading] = useState(true);
+  let [imgCntArr, setImgCntArr] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (testDone) {
-      axios.post(`${DOMAIN_BE_PROD}/api/v1/tests/test`, data).then(() => {
-        alert('완료');
-        navigate('/main');
-      });
+    if (!imgUploading) {
+      axios
+        .post(`${DOMAIN_BE_PROD}/api/v1/tests/test`, data)
+        .then(() => {
+          alert('테스트 등록 완료. 고생 많으셨어요 :)');
+          navigate('/main');
+        })
+        .catch((err) => {
+          alert('에러 발생함');
+          console.log('err--> ', err);
+        });
     }
-  }, [testDone]);
+  }, [imgUploading]);
 
   const mapTarget = {
     question: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
@@ -55,10 +66,10 @@ export default function TestAdd() {
   function onClickNext() {
     switch (stage) {
       case 1:
-        // if (!data.title || !data.content || !data.imageUrl)
-        //   return alert(ALL_FULLFILL);
-        // if (data.title.length > NUMBER_500 || data.content > NUMBER_500)
-        //   return alert(LENGTH_OVER_500);
+        if (!data.title || !data.content)
+          return alert(ALL_FULLFILL);
+        if (data.title.length > NUMBER_500 || data.content > NUMBER_500)
+          return alert(LENGTH_OVER_500);
         setStage(stage + 1);
         break;
       case 2:
@@ -85,14 +96,10 @@ export default function TestAdd() {
         });
         setRstStageIdx(rstStageIdx + 1);
 
-        // if (rstStageIdx === 1) setTestDone(true);
         if (rstStageIdx === 16) {
           setStage(stage + 1);
         }
         break;
-      case 4:
-        console.log('오우 여기까지 왔군-=-> ', data)
-      // setTestDone(true); 해주기
     }
   }
 
@@ -104,21 +111,45 @@ export default function TestAdd() {
     setData((prev) => ({ ...prev, content: evt.target.value }));
   }
 
-  function onChange_s1_imageUrl(evt) {
+  function imgUploadStart() {
+    console.log('imgCntArr--> ', imgCntArr)
+    const isAllFormData = imgCntArr.every((item) => item instanceof FormData);
+    if (imgCntArr.length != 17 || !isAllFormData) return alert('모든 항목에 이미지를 업로드 해주세요.')
+
     setImgUploading(true);
+    const promiseArr = [];
+    imgCntArr.forEach((fdata, i) => {
+      const promise = axios.post(`${DOMAIN_BE_PROD}/upload`, fdata);
+      promiseArr.push(promise);
+    });
+
+    Promise.all(promiseArr)
+      .then((results) => {
+        results.forEach((res, idx) => {
+          if (idx === 0) {
+            setData((prev) => ({ ...prev, imageUrl: res.data }));
+          } else {
+            let copy = [...data.results];
+            copy[idx - 1].imageUrl = res.data;
+            setData((prev) => ({ ...prev, results: copy }));
+          }
+        });
+        setImgUploading(false);
+      })
+      .catch((error) => {
+        console.log('Error:', error);
+        setImgUploading(false);
+      });
+  }
+
+  function makeFormData(evt) {
     const file = evt.target.files[0];
     const formData = new FormData();
     formData.append('file', file);
 
-    axios
-      .post(`${DOMAIN_BE_PROD}/upload`, formData)
-      .then((response) => {
-        setData((prev) => ({ ...prev, imageUrl: response.data }));
-        setImgUploading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    let copy = [...imgCntArr];
+    copy[window.mbInputIndex] = formData;
+    setImgCntArr(copy);
   }
 
   function onClickPrev() {
@@ -141,8 +172,8 @@ export default function TestAdd() {
           onClickNext={onClickNext}
           onChange_s1_title={onChange_s1_title}
           onChange_s1_content={onChange_s1_content}
-          onChange_s1_imageUrl={onChange_s1_imageUrl}
-          imgUploading={imgUploading}
+          // onChange_s1_imageUrl={onChange_s1_imageUrl}
+          imgUploading={imgUploading[1]}
         />
       )}
       {stage === 2 &&
@@ -171,7 +202,14 @@ export default function TestAdd() {
               />
             )
         )}
-      {stage === 4 && <ImagePart onClickNext={onClickNext}/>}
+      {stage === 4 && (
+        <ImagePart
+          inputOnChange={(evt) => {
+            makeFormData(evt);
+          }}
+          onClickNext={imgUploadStart}
+        />
+      )}
     </div>
   );
 }

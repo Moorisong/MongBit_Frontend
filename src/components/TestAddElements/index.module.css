@@ -52,9 +52,12 @@
 }
 
 .imageWrap {
-  margin: 30px 0 20px 0;
+  margin: 30px 0 10px 0;
 }
 .imageWrap > input {
-  width: 200px;
-  padding-bottom: 10px;
+  width: 300px;
+  padding: 10px 0 10px 0;
+}
+.fileInput {
+  color: navy;
 }

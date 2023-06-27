@@ -17,7 +17,7 @@ import {
 export default function Main() {
   // Test 삭제
   // useEffect(()=>{
-  //   axios.delete(`${DOMAIN_BE_PROD}/api/v1/tests/test/6496950f0cb7f21ff5503fe6`)
+  //   axios.delete(`${DOMAIN_BE_PROD}/api/v1/tests/test/649ab183a5c2e650640a17b3`)
   //   .then((res)=>{
   //     console.log('r--> ', res)
   //   })
