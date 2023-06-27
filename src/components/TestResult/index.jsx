@@ -372,9 +372,7 @@ export default function TestResult(props) {
               setLinkCopyState(true);
             }}
           >
-            <CopyToClipboard
-              text={`${DOMAIN}/record/${props.testId}/${props.testResultId}`}
-            >
+            <CopyToClipboard text={`${DOMAIN}${resultPathName}`}>
               <button
                 className={
                   linkCopyState ? styles.linkCopied : styles.noneLinkCopied
