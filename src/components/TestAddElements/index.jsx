@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import styles from './index.module.css';
 import {
@@ -136,7 +135,7 @@ export function ResultPart(props) {
       resultObj.result.length > NUMBER_500 ||
       resultObj.content.length > NUMBER_500
     )
-    return alert(LENGTH_OVER_500);
+      return alert(LENGTH_OVER_500);
     const jsonString = JSON.stringify(resultObj);
     sessionStorage.setItem('mbResult', jsonString);
     props.onClickNext();
@@ -186,13 +185,31 @@ export function ResultPart(props) {
 }
 
 export function ImagePart(props) {
-  const mapTartet = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+  const mapTartet = [
+    '0',
+    'ENFJ',
+    'ENFP',
+    'ENTJ',
+    'ENTP',
+    'ESFJ',
+    'ESFP',
+    'ESTJ',
+    'ESTP',
+    'INFJ',
+    'INFP',
+    'INTJ',
+    'INTP',
+    'ISFJ',
+    'ISFP',
+    'ISTJ',
+    'ISTP',
+  ];
 
   return (
     <div className={styles.wrap}>
       {mapTartet.map((t, i) => (
         <div key={i} className={styles.imageWrap}>
-          <p>{i === 0 ? '[테스트 이미지]' : `[${i}번째 결과지]`}</p>
+          <p>{i === 0 ? '[테스트 이미지]' : `[${i}번째 결과] - ${t}`}</p>
           <input
             type="file"
             className={styles.fileInput}
@@ -205,7 +222,7 @@ export function ImagePart(props) {
       ))}
       <div className={`${styles.contentWrap} ${styles.stepWrap}`}>
         {/* <button onClick={props.onClickPrev}>뒤로</button> */}
-      <button>뒤로</button>
+        <button>뒤로</button>
         <button onClick={props.onClickNext}>다음</button>
       </div>
     </div>

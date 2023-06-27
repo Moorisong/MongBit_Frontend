@@ -66,8 +66,7 @@ export default function TestAdd() {
   function onClickNext() {
     switch (stage) {
       case 1:
-        if (!data.title || !data.content)
-          return alert(ALL_FULLFILL);
+        if (!data.title || !data.content) return alert(ALL_FULLFILL);
         if (data.title.length > NUMBER_500 || data.content > NUMBER_500)
           return alert(LENGTH_OVER_500);
         setStage(stage + 1);
@@ -112,13 +111,13 @@ export default function TestAdd() {
   }
 
   function imgUploadStart() {
-    console.log('imgCntArr--> ', imgCntArr)
     const isAllFormData = imgCntArr.every((item) => item instanceof FormData);
-    if (imgCntArr.length != 17 || !isAllFormData) return alert('모든 항목에 이미지를 업로드 해주세요.')
+    if (imgCntArr.length != 17 || !isAllFormData)
+      return alert('모든 항목에 이미지를 업로드 해주세요.');
 
     setImgUploading(true);
     const promiseArr = [];
-    imgCntArr.forEach((fdata, i) => {
+    imgCntArr.forEach((fdata) => {
       const promise = axios.post(`${DOMAIN_BE_PROD}/upload`, fdata);
       promiseArr.push(promise);
     });
