@@ -26,6 +26,8 @@ export default function Result() {
   const memberId = sessionStorage.getItem('mongBitmemeberId');
 
   useEffect(() => {
+    let timer;
+
     if (!decodeToken().state) {
       sessionStorage.setItem('ngb', location.pathname);
       return navigate('/need-login');
@@ -63,13 +65,13 @@ export default function Result() {
         }));
         sessionStorage.removeItem('mbScore');
         sessionStorage.setItem('mbResultId', res.data.id);
-        setTimeout(() => {
+        timer = setTimeout(() => {
           setIsLoading(false);
-        }, 3000);
+        }, 2000);
       });
 
     return () => {
-      // 클리어 시켜주기
+      clearTimeout(timer);
       window.onpopstate = null;
     };
   }, []);
