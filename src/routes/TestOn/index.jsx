@@ -22,9 +22,7 @@ export default function TestOn() {
   let [score, setScore] = useState([0, 0, 0, 0]);
   let [testDone, setTestDone] = useState(false);
 
-  const barClassName = cx(styles[`gaugeBar_${qstStageIdx}`], {
-    [styles.transition]: qstStageIdx > -1,
-  });
+  const barClassName = styles[`gaugeBar_${qstStageIdx}`];
 
   useEffect(() => {
     axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/test/${testId}`).then((res) => {

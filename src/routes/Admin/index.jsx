@@ -13,7 +13,6 @@ export default function Admin() {
   useEffect(() => {
     if (decodeToken().role !== 'ROLE_ADMIN') return navigate('/main');
   }, []);
-
   return (
     <div className={styles.wrap}>
       <div className={styles.bgWhite}>
