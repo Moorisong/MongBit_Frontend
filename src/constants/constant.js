@@ -28,3 +28,4 @@ export const NUMBER_500 = 500;
 //Alert msg
 export const ALL_FULLFILL = '모든 항목을 입력해주세요.';
 export const LENGTH_OVER_500 = '500자 이상으로 작성한 항목이 존재합니다.';
+export const COMMENT_TIME = '코멘트 등록은 20초 간격으로 가능합니다.';

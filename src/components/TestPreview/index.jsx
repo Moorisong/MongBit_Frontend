@@ -25,6 +25,7 @@ import {
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
   TYPE_TEST_PREVIEW,
+  COMMENT_TIME,
 } from '../../constants/constant';
 import {
   decodeToken,
@@ -153,6 +154,22 @@ export default function TestPreview(props) {
       });
   }, [commentChanged]);
 
+  useEffect(() => {
+    // 댓글 도배 방지용
+
+    let timer_AddCommnetBtn;
+
+    if (!canAddComment) {
+      timer_AddCommnetBtn = setTimeout(() => {
+        setCanAddComment(true);
+      }, 20000);
+    }
+
+    return () => {
+      clearTimeout(timer_AddCommnetBtn);
+    };
+  }, [canAddComment]);
+
   data.comment.sort(
     (a, b) => new Date(b.commentDate) - new Date(a.commentDate)
   );
@@ -258,7 +275,7 @@ export default function TestPreview(props) {
   }
 
   function clickAddCommentBtn() {
-
+    if (!canAddComment) alert(COMMENT_TIME);
     if (canAddComment) {
       if (!decodeToken().state) {
         sessionStorage.setItem('ngb', location.pathname);
@@ -289,34 +306,13 @@ export default function TestPreview(props) {
       addComment();
 
       setCanAddComment(false);
-
-      setTimeout(() => {
-        setCanAddComment(true);
-      }, 60000);
     }
-
-  }
-  function clikeSeeMoreBtn() {
-    setCommentSeeMoreLoading(true);
-    axios
-      .get(
-        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
-      )
-      .then((res) => {
-        let newArr = [...data.comment];
-        res.data.commentDTOList.forEach((d) => {
-          newArr.push(d);
-        });
-        setData((prev) => ({ ...prev, comment: newArr }));
-        setCommentLoading(false);
-        setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
-        setCommentSeeMoreLoading(false);
-      });
   }
 
   function commentAddWithEnter(evt) {
-    if (canAddComment) {
-      if (evt.key === 'Enter') {
+    if (evt.key === 'Enter') {
+      if (!canAddComment) alert(COMMENT_TIME);
+      if (canAddComment) {
         if (!decodeToken().state) {
           sessionStorage.setItem('ngb', location.pathname);
           return navigate('/login');
@@ -355,9 +351,26 @@ export default function TestPreview(props) {
       // 일정 시간이 지난 후에 다시 추가할 수 있도록 타이머 설정
       setTimeout(() => {
         setCanAddComment(true);
-      }, 60000);
+      }, 20000);
     }
+  }
 
+  function clikeSeeMoreBtn() {
+    setCommentSeeMoreLoading(true);
+    axios
+      .get(
+        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+      )
+      .then((res) => {
+        let newArr = [...data.comment];
+        res.data.commentDTOList.forEach((d) => {
+          newArr.push(d);
+        });
+        setData((prev) => ({ ...prev, comment: newArr }));
+        setCommentLoading(false);
+        setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
+        setCommentSeeMoreLoading(false);
+      });
   }
   return (
     <div className={styles.wrap}>
@@ -440,7 +453,9 @@ export default function TestPreview(props) {
             onChange={(evt) => {
               setCommentValue(evt.currentTarget.value);
             }}
-            onKeyDown={(evt) => { commentAddWithEnter(evt) }}
+            onKeyDown={(evt) => {
+              commentAddWithEnter(evt);
+            }}
           />
           <AddCommentButton onClick={clickAddCommentBtn} />
         </div>

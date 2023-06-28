@@ -21,6 +21,7 @@ import {
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
   TYPE_COMMENT,
+  COMMENT_TIME,
 } from '../../constants/constant';
 
 export default function TestResult(props) {
@@ -30,6 +31,7 @@ export default function TestResult(props) {
   let [commentValue, setCommentValue] = useState('');
   const [commentCnt, setCommentCnt] = useState(0);
   let [commentSeeMoreLoading, setCommentSeeMoreLoading] = useState(false);
+  const [canAddComment, setCanAddComment] = useState(true);
   let [isSubmittingComment, setIsSubmittingComment] = useState(false);
 
   // const [likeLoading, setLikeLoading] = useState(true);
@@ -63,6 +65,22 @@ export default function TestResult(props) {
         setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
       });
   }, [commentChanged]);
+
+  useEffect(() => {
+    // 댓글 도배 방지용
+
+    let timer_AddCommnetBtn;
+
+    if (!canAddComment) {
+      timer_AddCommnetBtn = setTimeout(() => {
+        setCanAddComment(true);
+      }, 20000);
+    }
+
+    return () => {
+      clearTimeout(timer_AddCommnetBtn);
+    };
+  }, [canAddComment]);
 
   data.comment.sort(
     (a, b) => new Date(b.commentDate) - new Date(a.commentDate)
@@ -259,54 +277,8 @@ export default function TestResult(props) {
   }
 
   function clickAddCommentBtn() {
-    if (!decodeToken().state) {
-      sessionStorage.setItem('ngb', location.pathname);
-      return navigate('/login');
-    }
-
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: sessionStorage.getItem(TOKEN_NAME),
-    };
-
-    axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
-      .catch((err) => {
-        if (
-          err.response.status === 400 ||
-          err.response.status === 401 ||
-          err.response.status === 403
-        ) {
-          clearSessionStorage();
-          sessionStorage.setItem('ngb', location.pathname);
-          navigate('/login');
-        }
-      });
-
-    if (!commentValue) return;
-    setCommentValue('');
-    addComment();
-  }
-  function clikeSeeMoreBtn() {
-    setCommentSeeMoreLoading(true);
-    axios
-      .get(
-        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
-      )
-      .then((res) => {
-        let newArr = [...data.comment];
-        res.data.commentDTOList.forEach((d) => {
-          newArr.push(d);
-        });
-        setData((prev) => ({ ...prev, comment: newArr }));
-        setCommentLoading(false);
-        setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
-        setCommentSeeMoreLoading(false);
-      });
-  }
-
-  function addCommnetWithKey(evt) {
-    if (evt.key === 'Enter') {
+    if (!canAddComment) alert(COMMENT_TIME);
+    if (canAddComment) {
       if (!decodeToken().state) {
         sessionStorage.setItem('ngb', location.pathname);
         return navigate('/login');
@@ -331,15 +303,76 @@ export default function TestResult(props) {
           }
         });
 
-      if (!evt.currentTarget.value) return;
-
+      if (!commentValue) return;
       setCommentValue('');
-      setIsSubmittingComment(true);
-
-      //댓글 추가 요청이 진행 중일때 추가로 등록하지 못하도록 조치함
-      if (isSubmittingComment) return;
       addComment();
+
+      setCanAddComment(false);
     }
+  }
+
+  function commentAddWithEnter(evt) {
+    if (evt.key === 'Enter') {
+      if (!canAddComment) alert(COMMENT_TIME);
+      if (canAddComment) {
+        if (!decodeToken().state) {
+          sessionStorage.setItem('ngb', location.pathname);
+          return navigate('/login');
+        }
+
+        const headers = {
+          'Content-Type': 'application/json',
+          Authorization: sessionStorage.getItem(TOKEN_NAME),
+        };
+
+        axios
+          .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
+          .catch((err) => {
+            if (
+              err.response.status === 400 ||
+              err.response.status === 401 ||
+              err.response.status === 403
+            ) {
+              clearSessionStorage();
+              sessionStorage.setItem('ngb', location.pathname);
+              navigate('/login');
+            }
+          });
+
+        if (!evt.currentTarget.value) return;
+
+        setCommentValue('');
+        setIsSubmittingComment(true);
+
+        //댓글 추가 요청이 진행 중일때 추가로 등록하지 못하도록 조치함
+        if (isSubmittingComment) return;
+        addComment();
+        setCanAddComment(false);
+      }
+
+      // 일정 시간이 지난 후에 다시 추가할 수 있도록 타이머 설정
+      setTimeout(() => {
+        setCanAddComment(true);
+      }, 20000);
+    }
+  }
+
+  function clikeSeeMoreBtn() {
+    setCommentSeeMoreLoading(true);
+    axios
+      .get(
+        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+      )
+      .then((res) => {
+        let newArr = [...data.comment];
+        res.data.commentDTOList.forEach((d) => {
+          newArr.push(d);
+        });
+        setData((prev) => ({ ...prev, comment: newArr }));
+        setCommentLoading(false);
+        setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
+        setCommentSeeMoreLoading(false);
+      });
   }
 
   function deleteCommnet(com) {
@@ -421,7 +454,9 @@ export default function TestResult(props) {
           onChange={(evt) => {
             setCommentValue(evt.currentTarget.value);
           }}
-          onKeyDown={addCommnetWithKey}
+          onKeyDown={(evt) => {
+            commentAddWithEnter(evt);
+          }}
         />
         <AddCommentButton onClick={clickAddCommentBtn} />
       </div>

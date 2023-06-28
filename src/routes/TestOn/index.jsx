@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import cx from 'classnames';
 
 import Footer from '../../components/Footer';
 import NavigationBar from '../../components/NavigationBar';
