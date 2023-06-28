@@ -27,7 +27,7 @@ export default function TestOn() {
   });
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/test/${testId}`).then((res) => {
+    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/test/${testId}`).then((res) => {
       setTestData(res.data);
     });
   }, []);

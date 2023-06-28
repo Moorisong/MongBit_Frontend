@@ -22,7 +22,7 @@ export default function TestLatest() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/0/10`).then((res) => {
+    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/0/10`).then((res) => {
       setData(res.data);
     });
     const timer = setTimeout(() => {

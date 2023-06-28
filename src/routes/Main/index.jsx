@@ -17,7 +17,7 @@ import {
 export default function Main() {
   // Test 삭제
   // useEffect(()=>{
-  //   axios.delete(`${DOMAIN_BE_DEV}/api/v1/tests/test/649ac867a5c2e650640a17fb`)
+  //   axios.delete(`${DOMAIN_BE_PROD}/api/v1/tests/test/649b8a80a5c2e650640a1a40`)
   //   .then((res)=>{
   //     console.log('r--> ', res)
   //   })
@@ -33,7 +33,7 @@ export default function Main() {
     sessionStorage.getItem('mbTest') === '' &&
       sessionStorage.removeItem('mbTest');
 
-    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/0/3`).then((res) => {
+    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/0/3`).then((res) => {
       setLatestTestData((prev) => ({ ...prev, testArr: res.data }));
     });
   }, []);

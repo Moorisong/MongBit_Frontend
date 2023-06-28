@@ -10,7 +10,6 @@ export function decodeToken() {
   }
   const token = sessionStorage.getItem(TOKEN_NAME);
   const decodedToken = jwtDecode(token);
-
   const expiration = decodedToken.exp;
   const expirationTime = new Date(expiration * 1000);
   const currentTime = new Date();
