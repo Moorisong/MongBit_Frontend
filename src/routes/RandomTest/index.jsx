@@ -15,7 +15,7 @@ export default function RandomTest() {
   const [testId, setTestId] = useState('');
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/random`).then((res) => {
+    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/random`).then((res) => {
       setThumbnailStr(res.data.title);
       setPlayCnt(res.data.playCount);
       setDescription(res.data.content);

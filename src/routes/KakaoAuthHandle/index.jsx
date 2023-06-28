@@ -17,7 +17,7 @@ export default function KakaoAuthHandle() {
   useEffect(() => {
     if (code) {
       axios
-        .get(`${DOMAIN_BE_PROD}/login/oauth2/kakao/code?code=${code}`)
+        .get(`${DOMAIN_BE_DEV}/login/oauth2/kakao/code?code=${code}`)
         .then((response) => {
           sessionStorage.setItem(TOKEN_NAME, response.headers['authorization']);
           sessionStorage.setItem(

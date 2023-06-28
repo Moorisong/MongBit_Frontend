@@ -66,52 +66,48 @@
   transition: width 0.3s ease-in-out;
 }
 
-.transition {
-  width: 8.3%;
-}
-
 .gaugeBar_1 {
-  width: 8.3%;
+  width: 0;
 }
 
 .gaugeBar_2 {
-  width: 16.6%;
+  width: 9%;
 }
 
 .gaugeBar_3 {
-  width: 24.9%;
+  width: 18%;
 }
 
 .gaugeBar_4 {
-  width: 33.2%;
+  width: 27%;
 }
 
 .gaugeBar_5 {
-  width: 41.5%;
+  width: 36%;
 }
 
 .gaugeBar_6 {
-  width: 49.8%;
+  width: 45%;
 }
 
 .gaugeBar_7 {
-  width: 58.1%;
+  width: 54%;
 }
 
 .gaugeBar_8 {
-  width: 66.4%;
+  width: 63%;
 }
 
 .gaugeBar_9 {
-  width: 74.7%;
+  width: 72%;
 }
 
 .gaugeBar_10 {
-  width: 83%;
+  width: 81%;
 }
 
 .gaugeBar_11 {
-  width: 91.3%;
+  width: 90%;
 }
 
 .gaugeBar_12 {

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import cx from 'classnames';
 
 import Footer from '../../components/Footer';
 import NavigationBar from '../../components/NavigationBar';
@@ -22,12 +21,10 @@ export default function TestOn() {
   let [score, setScore] = useState([0, 0, 0, 0]);
   let [testDone, setTestDone] = useState(false);
 
-  const barClassName = cx(styles[`gaugeBar_${qstStageIdx}`], {
-    [styles.transition]: qstStageIdx > -1,
-  });
+  const barClassName = styles[`gaugeBar_${qstStageIdx}`];
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/test/${testId}`).then((res) => {
+    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/test/${testId}`).then((res) => {
       setTestData(res.data);
     });
   }, []);
