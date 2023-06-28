@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import cx from 'classnames';
 
 import Footer from '../../components/Footer';
 import NavigationBar from '../../components/NavigationBar';
@@ -20,7 +21,10 @@ export default function TestOn() {
   let [testData, setTestData] = useState({});
   let [qstStageIdx, setQstStageIdx] = useState(1);
   let [score, setScore] = useState([0, 0, 0, 0]);
-  let [testDone, setTestDone] = useState(false);
+  let [testDone, setTestDone] = useState({
+    state: false,
+    lastClick: false,
+  });
 
   const barClassName = styles[`gaugeBar_${qstStageIdx}`];
 
@@ -38,11 +42,24 @@ export default function TestOn() {
   }, []);
 
   useEffect(() => {
-    if (testDone) {
+    let timer;
+    if (testDone.lastClick) {
+      timer = setTimeout(() => {
+        setTestDone((prev) => ({ ...prev, state: true }));
+      }, 1000);
+    }
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, [testDone.lastClick]);
+
+  useEffect(() => {
+    if (testDone.state) {
       sessionStorage.setItem('mbScore', JSON.stringify(score));
       return navigate(`/result/${testId}`);
     }
-  }, [testDone]);
+  }, [testDone.state]);
 
   function clickAnswer_plus() {
     if (qstStageIdx === 1 || qstStageIdx === 2 || qstStageIdx === 3) {
@@ -69,12 +86,12 @@ export default function TestOn() {
     }
 
     if (qstStageIdx === 12) {
+      setTestDone((prev) => ({ ...prev, lastClick: true }));
       let copy = [...score];
       copy[3] += 1;
       setScore(copy);
-      setTestDone(true);
     }
-    setQstStageIdx(qstStageIdx + 1);
+    if (qstStageIdx !== 12) setQstStageIdx(qstStageIdx + 1);
   }
 
   function clickAnswer_minus() {
@@ -102,12 +119,12 @@ export default function TestOn() {
     }
 
     if (qstStageIdx === 12) {
+      setTestDone((prev) => ({ ...prev, lastClick: true }));
       let copy = [...score];
       copy[3] -= 1;
       setScore(copy);
-      setTestDone(true);
     }
-    setQstStageIdx(qstStageIdx + 1);
+    if (qstStageIdx !== 12) setQstStageIdx(qstStageIdx + 1);
   }
 
   return (
@@ -120,7 +137,11 @@ export default function TestOn() {
         <div className={styles.progressWrap}>
           <div className={styles.barWrap}>
             <div></div>
-            <div className={barClassName}></div>
+            <div
+              className={cx(barClassName, {
+                [styles.gaugeBar_13]: testDone.lastClick,
+              })}
+            ></div>
           </div>
           <span>{`질문 ${qstStageIdx} /`}</span>
           <span>12</span>
