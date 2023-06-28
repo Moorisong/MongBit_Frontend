@@ -11,6 +11,7 @@ import {
 } from '../../constants/constant';
 import styles from './index.module.css';
 import QuestionAndAnswer from '../../components/QestionAndAnswer';
+import { getHeaders } from '../../util/util';
 
 export default function TestOn() {
   const navigate = useNavigate();
@@ -24,9 +25,16 @@ export default function TestOn() {
   const barClassName = styles[`gaugeBar_${qstStageIdx}`];
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/test/${testId}`).then((res) => {
-      setTestData(res.data);
-    });
+    const headers = getHeaders();
+    axios
+      .get(`${DOMAIN_BE_PROD}/api/v1/tests/test/${testId}`, { headers })
+      .then((res) => {
+        setTestData(res.data);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
+      });
   }, []);
 
   useEffect(() => {

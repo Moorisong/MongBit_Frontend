@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import lottie from 'lottie-web';
@@ -9,16 +9,25 @@ import Footer from '../../components/Footer';
 import TestPreview from '../../components/TestPreview';
 import styles from './index.module.css';
 import { DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
+import { getHeaders } from '../../util/util';
 
 export default function PreviewTest() {
   const { testId } = useParams();
   const [data, setData] = useState({});
   const containerRef = useRef(null);
+  const navigate = useNavigate();
+  const headers = getHeaders();
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/test/${testId}`).then((res) => {
-      setData(res.data);
-    });
+    axios
+      .get(`${DOMAIN_BE_PROD}/api/v1/tests/test/${testId}`, { headers })
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
+      });
   }, []);
 
   useEffect(() => {

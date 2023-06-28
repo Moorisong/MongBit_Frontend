@@ -10,7 +10,7 @@ import {
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
 } from '../../constants/constant';
-import { decodeToken, formatTimeDifference } from '../../util/util';
+import { decodeToken, formatTimeDifference, getHeaders } from '../../util/util';
 import styles from './index.module.css';
 
 export function CardButton(props) {
@@ -93,16 +93,27 @@ export function Comment(props) {
     props.data.content = newValue;
     sessionStorage.removeItem('mbComm');
     setIsCommentEditMode(false);
+
+    const headers = getHeaders();
+
     axios
-      .patch(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {
-        memberId: sessionStorage.getItem('mongBitmemeberId'),
-        testId: props.testId,
-        content: newValue,
-        id: props.id,
-      })
+      .patch(
+        `${DOMAIN_BE_PROD}/api/v1/test/comments`,
+        {
+          memberId: sessionStorage.getItem('mongBitmemeberId'),
+          testId: props.testId,
+          content: newValue,
+          id: props.id,
+        },
+        { headers }
+      )
       .then((res) => {
         if (res.status === 400) return alert(res.data);
         props.modifyComment();
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
       });
   }
 
@@ -153,16 +164,26 @@ export function Comment(props) {
                     props.data.content = newValue;
                     sessionStorage.removeItem('mbComm');
                     setIsCommentEditMode(false);
+
+                    const headers = getHeaders();
                     axios
-                      .patch(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {
-                        memberId: sessionStorage.getItem('mongBitmemeberId'),
-                        testId: props.testId,
-                        content: newValue,
-                        id: props.id,
-                      })
+                      .patch(
+                        `${DOMAIN_BE_PROD}/api/v1/test/comments`,
+                        {
+                          memberId: sessionStorage.getItem('mongBitmemeberId'),
+                          testId: props.testId,
+                          content: newValue,
+                          id: props.id,
+                        },
+                        { headers }
+                      )
                       .then((res) => {
                         if (res.status === 400) return alert(res.data);
                         props.modifyComment();
+                      })
+                      .catch((err) => {
+                        alert(err.response.data);
+                        navigate('/login');
                       });
                   }
                 }}

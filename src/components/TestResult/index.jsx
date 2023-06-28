@@ -10,14 +10,9 @@ import CoupangAdv_1 from '../CoupangAdv_1';
 import { Stroke, Comment, AddCommentButton } from '../ButtonSets';
 import animationData_1 from './commentLoading.json';
 import { TestButton, CardButton } from '../ButtonSets';
-import {
-  decodeToken,
-  shareToKatalk_result,
-  clearSessionStorage,
-} from '../../util/util';
+import { decodeToken, shareToKatalk_result, getHeaders } from '../../util/util';
 import {
   DOMAIN,
-  TOKEN_NAME,
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
   TYPE_COMMENT,
@@ -55,14 +50,20 @@ export default function TestResult(props) {
   });
 
   useEffect(() => {
+    const headers = getHeaders();
     axios
       .get(
-        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+        `${DOMAIN_BE_PROD}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`,
+        { headers }
       )
       .then((res) => {
         setData((prev) => ({ ...prev, comment: res.data.commentDTOList }));
         setCommentLoading(false);
         setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
       });
   }, [commentChanged]);
 
@@ -110,13 +111,18 @@ export default function TestResult(props) {
   }, [commentSeeMoreLoading]);
 
   useEffect(() => {
+    const headers = getHeaders();
     const fetchLikeDataLogIned = async () => {
       try {
         const [stateResponse, cntResponse] = await Promise.all([
           axios.get(
-            `${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/${memberId}/like`
+            `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`,
+            { headers }
           ),
-          axios.get(`${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/like/count`),
+          axios.get(
+            `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`,
+            { headers }
+          ),
         ]);
 
         setLikeData((prev) => ({
@@ -126,15 +132,23 @@ export default function TestResult(props) {
         }));
         // setLikeLoading(false);
       } catch (err) {
-        console.log('err--> ', err);
+        alert(err.response.data);
+        navigate('/login');
       }
     };
 
     const fetchLikeDataNoLogined = async () => {
+      const headers = getHeaders();
       axios
-        .get(`${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/like/count`)
+        .get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`, {
+          headers,
+        })
         .then((res) => {
           setLikeData((prev) => ({ ...prev, likeCnt: res.data }));
+        })
+        .catch((err) => {
+          alert(err.response.data);
+          navigate('/login');
         });
       // setLikeLoading(false);
     };
@@ -147,10 +161,17 @@ export default function TestResult(props) {
   }, [likeChanged]);
 
   useEffect(() => {
+    const headers = getHeaders();
     axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/test/${data.testId}/comments/count`)
+      .get(`${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/comments/count`, {
+        headers,
+      })
       .then((res) => {
         setCommentCnt(res.data);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
       });
   }, [commentChanged]);
 
@@ -174,26 +195,7 @@ export default function TestResult(props) {
       return navigate('/login');
     }
 
-    // const headers = {
-    //   'Content-Type': 'application/json',
-    //   Authorization: sessionStorage.getItem(TOKEN_NAME),
-    // };
-
-    // axios
-    //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
-    //     headers,
-    //   })
-    //   .catch((err) => {
-    //     if (
-    //       err.response.status === 400 ||
-    //       err.response.status === 401 ||
-    //       err.response.status === 403
-    //     ) {
-    //       clearSessionStorage();
-    //       sessionStorage.setItem('ngb', location.pathname);
-    //       navigate('/login');
-    //     }
-    //   });
+    const headers = getHeaders();
 
     if (isSubmittingLike) return;
     setIsSubmittingLike(true);
@@ -204,9 +206,15 @@ export default function TestResult(props) {
         likeState: false,
         likeCnt: prev.likeCnt - 1,
       }));
-      await axios.delete(
-        `${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/${memberId}/like`
-      );
+      await axios
+        .delete(
+          `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`,
+          { headers }
+        )
+        .catch((err) => {
+          alert(err.response.data);
+          navigate('/login');
+        });
       setLikeChanged(!likeChanged);
     } else {
       setLikeData((prev) => ({
@@ -214,25 +222,40 @@ export default function TestResult(props) {
         likeState: true,
         likeCnt: prev.likeCnt + 1,
       }));
-      await axios.post(
-        `${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/${memberId}/like`,
-        { testId: props.testId, memberId: memberId }
-      );
+      await axios
+        .post(
+          `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`,
+          { testId: props.testId, memberId: memberId },
+          { headers }
+        )
+        .catch((err) => {
+          alert(err.response.data);
+          navigate('/login');
+        });
       setLikeChanged(!likeChanged);
     }
     setIsSubmittingLike(false);
   }
 
   async function addComment() {
+    const headers = getHeaders();
     axios
-      .post(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {
-        memberId: sessionStorage.getItem('mongBitmemeberId'),
-        testId: data.testId,
-        content: commentValue,
-      })
+      .post(
+        `${DOMAIN_BE_PROD}/api/v1/test/comments`,
+        {
+          memberId: sessionStorage.getItem('mongBitmemeberId'),
+          testId: data.testId,
+          content: commentValue,
+        },
+        { headers }
+      )
       .then((res) => {
         setCommentIndex([0, res.data.hasNextPage]);
         setCommentChanged(!commentChanged);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
       });
     setIsSubmittingComment(false);
   }
@@ -242,25 +265,6 @@ export default function TestResult(props) {
       sessionStorage.setItem('ngb', location.pathname);
       return navigate('/login');
     }
-
-    // const headers = {
-    //   'Content-Type': 'application/json',
-    //   Authorization: sessionStorage.getItem(TOKEN_NAME),
-    // };
-
-    // axios
-    //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
-    //   .catch((err) => {
-    //     if (
-    //       err.response.status === 400 ||
-    //       err.response.status === 401 ||
-    //       err.response.status === 403
-    //     ) {
-    //       clearSessionStorage();
-    //       sessionStorage.setItem('ngb', location.pathname);
-    //       navigate('/login');
-    //     }
-    //   });
 
     const likeCntNum =
       location.pathname.indexOf('result') > -1
@@ -284,25 +288,6 @@ export default function TestResult(props) {
         return navigate('/login');
       }
 
-      // const headers = {
-      //   'Content-Type': 'application/json',
-      //   Authorization: sessionStorage.getItem(TOKEN_NAME),
-      // };
-
-      // axios
-      //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
-      //   .catch((err) => {
-      //     if (
-      //       err.response.status === 400 ||
-      //       err.response.status === 401 ||
-      //       err.response.status === 403
-      //     ) {
-      //       clearSessionStorage();
-      //       sessionStorage.setItem('ngb', location.pathname);
-      //       navigate('/login');
-      //     }
-      //   });
-
       if (!commentValue) return;
       setCommentValue('');
       addComment();
@@ -319,25 +304,6 @@ export default function TestResult(props) {
           sessionStorage.setItem('ngb', location.pathname);
           return navigate('/login');
         }
-
-        // const headers = {
-        //   'Content-Type': 'application/json',
-        //   Authorization: sessionStorage.getItem(TOKEN_NAME),
-        // };
-
-        // axios
-        //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
-        //   .catch((err) => {
-        //     if (
-        //       err.response.status === 400 ||
-        //       err.response.status === 401 ||
-        //       err.response.status === 403
-        //     ) {
-        //       clearSessionStorage();
-        //       sessionStorage.setItem('ngb', location.pathname);
-        //       navigate('/login');
-        //     }
-        //   });
 
         if (!evt.currentTarget.value) return;
 
@@ -359,9 +325,11 @@ export default function TestResult(props) {
 
   function clikeSeeMoreBtn() {
     setCommentSeeMoreLoading(true);
+    const headers = getHeaders();
     axios
       .get(
-        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+        `${DOMAIN_BE_PROD}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`,
+        { headers }
       )
       .then((res) => {
         let newArr = [...data.comment];
@@ -372,15 +340,28 @@ export default function TestResult(props) {
         setCommentLoading(false);
         setCommentIndex([commentIndex[0] + 1, res.data.hasNextPage]);
         setCommentSeeMoreLoading(false);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
       });
   }
 
   function deleteCommnet(com) {
+    const headers = getHeaders();
+    const data = {
+      id: com.id,
+      memberId: sessionStorage.getItem('mongBitmemeberId'),
+    };
     axios
-      .delete(`${DOMAIN_BE_DEV}/api/v1/test/comments/${com.id}`)
+      .delete(`${DOMAIN_BE_PROD}/api/v1/test/comments`, { headers, data })
       .then(() => {
         setCommentIndex((prev) => [0, prev[1]]);
         setCommentChanged(!commentChanged);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
       });
   }
   return (

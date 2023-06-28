@@ -12,14 +12,13 @@ import { TestSetMyPage } from '../../components/TestSets';
 import { TitleWithText } from '../../components/Titles';
 import {
   TITLE_WITH_CONTENT,
-  TOKEN_NAME,
   TYPE_MYPAGE,
   USER_INFO,
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
 } from '../../constants/constant';
 import { Stroke } from '../../components/ButtonSets';
-import { clearSessionStorage, decodeToken } from '../../util/util';
+import { decodeToken, getHeaders } from '../../util/util';
 
 export default function MyPage() {
   const navigate = useNavigate();
@@ -77,40 +76,18 @@ export default function MyPage() {
       navigate('/login');
     }
 
-    // const headers = {
-    //   'Content-Type': 'application/json',
-    //   Authorization: sessionStorage.getItem(TOKEN_NAME),
-    // };
-
-    //토큰 검증
-    // axios
-    //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
-    //     headers,
-    //   })
-    //   .then(() => {
-    //   })
-    //   .catch((err) => {
-    //     if (
-    //       err.response.status === 400 ||
-    //       err.response.status === 401 ||
-    //       err.response.status === 403
-    //     ) {
-    //       clearSessionStorage();
-    //       sessionStorage.setItem('ngb', location.pathname);
-    //       navigate('/login');
-    //     }
-    //   });
-
     // 마이페이지 테스트 기록 조회
     const memberId = sessionStorage.getItem('mongBitmemeberId');
     const params = {
       page: page,
       size: 10,
     };
+    const headers = getHeaders();
 
     axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
-        params,
+      .get(`${DOMAIN_BE_PROD}/api/v1/member-test-result/${memberId}`, {
+        params: params,
+        headers: headers,
       })
       .then((res) => {
         setTestData((prev) => ({
@@ -120,6 +97,10 @@ export default function MyPage() {
         }));
         setLoading(false);
         setPage(page + 1);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
       });
   }, []);
 
@@ -135,16 +116,20 @@ export default function MyPage() {
       page: page,
       size: 10,
     };
+    const headers = getHeaders();
     axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
-        params,
-      })
+      .get(
+        `${DOMAIN_BE_PROD}/api/v1/member-test-result/${memberId}`,
+        {
+          params,
+        },
+        { headers }
+      )
       .then((res) => {
         let copy = [...testData.resultArr];
         res.data.memberTestResultDTOList.forEach((ele) => {
           copy.push(ele);
         });
-
         setTestData((prev) => ({
           ...prev,
           resultArr: copy,
@@ -153,6 +138,10 @@ export default function MyPage() {
         setLoading(false);
         setPage(page + 1);
         setClickSeeMore(false);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
       });
   }
   return (

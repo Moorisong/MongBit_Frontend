@@ -1,7 +1,7 @@
 import axios from 'axios';
 import lottie from 'lottie-web';
 import { useState, useEffect, useRef } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
 import styles from './index.module.css';
 import NavigationBar from '../../components/NavigationBar';
@@ -9,12 +9,14 @@ import Footer from '../../components/Footer';
 import TestResult from '../../components/TestResult';
 import animationData from './loading_1.json';
 import { DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
+import { getHeaders } from '../../util/util';
 
 export default function ViewOldResult() {
   const [testData, setTestData] = useState(null);
   const [loading, setLoading] = useState(true);
   const { testId } = useParams();
   const { testResultId } = useParams();
+  const navigate = useNavigate();
 
   const containerRef = useRef(null);
 
@@ -35,13 +37,19 @@ export default function ViewOldResult() {
   }, []);
 
   useEffect(() => {
+    const headers = getHeaders();
     axios
       .get(
-        `${DOMAIN_BE_DEV}/api/v1/tests/test/test-result/${testId}/${testResultId}`
+        `${DOMAIN_BE_PROD}/api/v1/tests/test/test-result/${testId}/${testResultId}`,
+        { headers }
       )
       .then((res) => {
         setTestData(res.data);
         setLoading(false);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
       });
   }, []);
   return (
