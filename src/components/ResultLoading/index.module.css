@@ -1,5 +1,14 @@
+@media (max-width: 375px) {
+  .wrap {
+    width: 375px;
+  }
+}
+@media (min-width: 376px) {
+  .wrap {
+    width: 400px;
+  }
+}
 .wrap {
-  width: 400px;
   height: 100%;
   background-color: #fff5da;
   display: flex;
@@ -7,7 +16,6 @@
   align-items: center;
   position: relative;
 }
-
 .content {
   margin: 130px 0 110px 0;
   display: flex;

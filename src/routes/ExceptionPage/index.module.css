@@ -1,5 +1,28 @@
+@media (max-width: 375px) {
+  .bgWhite {
+    width: 375px;
+  }
+
+  .footerWrap {
+    width: 375px;
+  }
+  .logoImgWrap {
+    width: 375px;
+  }
+}
+@media (min-width: 376px) {
+  .bgWhite {
+    width: 400px;
+  }
+
+  .footerWrap {
+    width: 400px;
+  }
+  .logoImgWrap {
+    width: 400px;
+  }
+}
 .bgWhite {
-  width: 400px;
   max-height: 700px;
   height: 100%;
   background-color: white;
@@ -8,11 +31,17 @@
 }
 
 .footerWrap {
-  width: 400px;
   display: flex;
   justify-content: center;
 }
-
+.logoImgWrap {
+  width: 375px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}
 .textBox {
   color: black;
   font-size: 1.4rem;
@@ -23,14 +52,7 @@
   padding: 140px 0 80px 0;
   background-color: white;
 }
-.logoImgWrap {
-  width: 400px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 50px;
-}
+
 .logoImgWrap > img {
   width: 12rem;
   height: 5rem;

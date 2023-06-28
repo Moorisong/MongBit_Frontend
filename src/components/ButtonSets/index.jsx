@@ -73,7 +73,6 @@ export function Comment(props) {
   const navigate = useNavigate();
   let [isCommentEditMode, setIsCommentEditMode] = useState(false);
   let [newValue, setNewValue] = useState(null);
-  // const [warn, setWarn] = useState(false);
 
   useEffect(() => {
     sessionStorage.removeItem('mbComm');
@@ -82,12 +81,10 @@ export function Comment(props) {
   function updateComment() {
     if (!newValue) {
       sessionStorage.removeItem('mbComm');
-      // setWarn(false);
       return setIsCommentEditMode(false);
     }
     if (props.data.content === newValue) {
       sessionStorage.removeItem('mbComm');
-      // setWarn(false);
       return setIsCommentEditMode(false);
     }
     if (!sessionStorage.getItem('mongBitmemeberId') || !decodeToken().state)
@@ -146,7 +143,6 @@ export function Comment(props) {
                   if (evt.key === 'Enter') {
                     if (props.data.content === newValue) {
                       sessionStorage.removeItem('mbComm');
-                      // setWarn(false);
                       return setIsCommentEditMode(false);
                     }
                     if (
@@ -156,7 +152,6 @@ export function Comment(props) {
                       return navigate('/login');
                     props.data.content = newValue;
                     sessionStorage.removeItem('mbComm');
-                    // setWarn(false);
                     setIsCommentEditMode(false);
                     axios
                       .patch(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {

@@ -1,6 +1,15 @@
+@media (max-width: 375px) {
+  .wrap {
+    width: 100%;
+  }
+}
+@media (min-width: 376px) {
+  .wrap {
+    width: 100%;
+  }
+}
 .wrap {
-  width: 100%;
-  max-width: 370px;
+  max-width: 345px;
   color: #979797;
   font-size: 0.7rem;
   background-color: white;

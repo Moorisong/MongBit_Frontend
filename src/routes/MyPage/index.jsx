@@ -77,48 +77,49 @@ export default function MyPage() {
       navigate('/login');
     }
 
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: sessionStorage.getItem(TOKEN_NAME),
-    };
+    // const headers = {
+    //   'Content-Type': 'application/json',
+    //   Authorization: sessionStorage.getItem(TOKEN_NAME),
+    // };
 
     //토큰 검증
-    axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
-        headers,
-      })
-      .then(() => {
-        const memberId = sessionStorage.getItem('mongBitmemeberId');
-        const params = {
-          page: page,
-          size: 10,
-        };
+    // axios
+    //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
+    //     headers,
+    //   })
+    //   .then(() => {
+    //   })
+    //   .catch((err) => {
+    //     if (
+    //       err.response.status === 400 ||
+    //       err.response.status === 401 ||
+    //       err.response.status === 403
+    //     ) {
+    //       clearSessionStorage();
+    //       sessionStorage.setItem('ngb', location.pathname);
+    //       navigate('/login');
+    //     }
+    //   });
 
-        // 마이페이지 테스트 기록 조회
-        axios
-          .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
-            params,
-          })
-          .then((res) => {
-            setTestData((prev) => ({
-              ...prev,
-              resultArr: res.data.memberTestResultDTOList,
-              hasNextPage: res.data.hasNextPage,
-            }));
-            setLoading(false);
-            setPage(page + 1);
-          });
+    // 마이페이지 테스트 기록 조회
+    const memberId = sessionStorage.getItem('mongBitmemeberId');
+    const params = {
+      page: page,
+      size: 10,
+    };
+
+    axios
+      .get(`${DOMAIN_BE_DEV}/api/v1/member-test-result/${memberId}`, {
+        params,
       })
-      .catch((err) => {
-        if (
-          err.response.status === 400 ||
-          err.response.status === 401 ||
-          err.response.status === 403
-        ) {
-          clearSessionStorage();
-          sessionStorage.setItem('ngb', location.pathname);
-          navigate('/login');
-        }
+      .then((res) => {
+        setTestData((prev) => ({
+          ...prev,
+          resultArr: res.data.memberTestResultDTOList,
+          hasNextPage: res.data.hasNextPage,
+        }));
+        setLoading(false);
+        setPage(page + 1);
       });
   }, []);
 

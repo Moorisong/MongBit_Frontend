@@ -1,14 +1,81 @@
+@media (max-width: 375px) {
+  .wrap {
+    max-width: 375px;
+  }
+
+  .contentWrap {
+    width: 375px;
+  }
+
+  .contentUl {
+    width: 345px;
+  }
+
+  .buttonSet {
+    width: 345px;
+  }
+
+  .commentInput {
+    width: 100%;
+    max-width: 345px;
+  }
+
+  .contentTextWrap {
+    width: 345px;
+  }
+
+  .commentInputWrap {
+    width: 345px;
+  }
+
+  .commentWrap {
+    width: 345px;
+  }
+}
+
+@media (min-width: 376px) {
+  .wrap {
+    max-width: 400px;
+  }
+
+  .contentWrap {
+    width: 400px;
+  }
+
+  .contentUl {
+    width: 370px;
+  }
+
+  .buttonSet {
+    width: 370px;
+  }
+
+  .commentInput {
+    width: 100%;
+    max-width: 370px;
+  }
+
+  .contentTextWrap {
+    width: 370px;
+  }
+
+  .commentInputWrap {
+    width: 370px;
+  }
+
+  .commentWrap {
+    width: 370px;
+  }
+}
 .wrap {
   display: flex;
   flex-direction: column;
   align-items: center;
   background-color: white;
   width: 100%;
-  max-width: 400px;
 }
 
 .contentWrap {
-  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,10 +84,46 @@
 .contentUl {
   display: flex;
   flex-direction: column;
-  width: 370px;
+
   margin-bottom: 10px;
 }
 
+.buttonSet {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  margin: 30px 0 10px 0;
+}
+
+.commentInput {
+  height: 2.5rem;
+  padding: 0 40px 0 10px;
+  background-color: #f1f1f1;
+  font-size: 12px;
+  color: #979797;
+  border-radius: 0.3rem;
+}
+
+.contentTextWrap {
+  font-size: 1rem;
+  color: black;
+  font-weight: 300;
+  margin: 10px 0 20px 0;
+}
+
+.commentInputWrap {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: relative;
+}
+
+.commentWrap {
+  margin: 10px 0 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
 .contentUl > li {
   color: #979797;
   font-size: 0.9rem;
@@ -28,14 +131,6 @@
 
 .likeCntNumWrap {
   text-align: center;
-}
-
-.buttonSet {
-  width: 370px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  margin: 30px 0 10px 0;
 }
 
 .buttonSet > li p {
@@ -57,17 +152,6 @@
   color: #979797;
 }
 
-.commentInput {
-  width: 100%;
-  max-width: 370px;
-  height: 2.5rem;
-  padding: 0 40px 0 10px;
-  background-color: #f1f1f1;
-  font-size: 12px;
-  color: #979797;
-  border-radius: 0.3rem;
-}
-
 .commentInput::placeholder {
   color: #979797;
 }
@@ -87,32 +171,9 @@
   right: 5px;
   font-size: 11px;
 }
-.contentTextWrap {
-  width: 370px;
-  font-size: 1rem;
-  color: black;
-  font-weight: 300;
-  margin: 10px 0 20px 0;
-}
-
-.commentInputWrap {
-  width: 370px;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  position: relative;
-}
 
 .commentContentWrap {
   position: relative;
-}
-
-.commentWrap {
-  width: 370px;
-  margin: 10px 0 20px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
 .commentWrap span {
@@ -163,6 +224,7 @@
   flex-direction: column;
   align-items: center;
 }
+
 .linkCopied {
   width: 2rem;
   height: 2rem;

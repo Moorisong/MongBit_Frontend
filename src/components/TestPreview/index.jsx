@@ -194,26 +194,26 @@ export default function TestPreview(props) {
       return navigate('/login');
     }
 
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: sessionStorage.getItem(TOKEN_NAME),
-    };
+    // const headers = {
+    //   'Content-Type': 'application/json',
+    //   Authorization: sessionStorage.getItem(TOKEN_NAME),
+    // };
 
-    axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
-        headers,
-      })
-      .catch((err) => {
-        if (
-          err.response.status === 400 ||
-          err.response.status === 401 ||
-          err.response.status === 403
-        ) {
-          clearSessionStorage();
-          sessionStorage.setItem('ngb', location.pathname);
-          navigate('/login');
-        }
-      });
+    // axios
+    //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
+    //     headers,
+    //   })
+    //   .catch((err) => {
+    //     if (
+    //       err.response.status === 400 ||
+    //       err.response.status === 401 ||
+    //       err.response.status === 403
+    //     ) {
+    //       clearSessionStorage();
+    //       sessionStorage.setItem('ngb', location.pathname);
+    //       navigate('/login');
+    //     }
+    //   });
 
     setIsSubmittingLike(true);
     if (isSubmittingLike) return;
@@ -247,24 +247,24 @@ export default function TestPreview(props) {
       return navigate('/login');
     }
 
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: sessionStorage.getItem(TOKEN_NAME),
-    };
+    // const headers = {
+    //   'Content-Type': 'application/json',
+    //   Authorization: sessionStorage.getItem(TOKEN_NAME),
+    // };
 
-    axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
-      .catch((err) => {
-        if (
-          err.response.status === 400 ||
-          err.response.status === 401 ||
-          err.response.status === 403
-        ) {
-          clearSessionStorage();
-          sessionStorage.setItem('ngb', location.pathname);
-          navigate('/login');
-        }
-      });
+    // axios
+    //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
+    //   .catch((err) => {
+    //     if (
+    //       err.response.status === 400 ||
+    //       err.response.status === 401 ||
+    //       err.response.status === 403
+    //     ) {
+    //       clearSessionStorage();
+    //       sessionStorage.setItem('ngb', location.pathname);
+    //       navigate('/login');
+    //     }
+    //   });
 
     shareToKatalk(
       data.testId,
@@ -282,24 +282,24 @@ export default function TestPreview(props) {
         return navigate('/login');
       }
 
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: sessionStorage.getItem(TOKEN_NAME),
-      };
+      // const headers = {
+      //   'Content-Type': 'application/json',
+      //   Authorization: sessionStorage.getItem(TOKEN_NAME),
+      // };
 
-      axios
-        .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
-        .catch((err) => {
-          if (
-            err.response.status === 400 ||
-            err.response.status === 401 ||
-            err.response.status === 403
-          ) {
-            clearSessionStorage();
-            sessionStorage.setItem('ngb', location.pathname);
-            navigate('/login');
-          }
-        });
+      // axios
+      //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
+      //   .catch((err) => {
+      //     if (
+      //       err.response.status === 400 ||
+      //       err.response.status === 401 ||
+      //       err.response.status === 403
+      //     ) {
+      //       clearSessionStorage();
+      //       sessionStorage.setItem('ngb', location.pathname);
+      //       navigate('/login');
+      //     }
+      //   });
 
       if (!commentValue) return;
       setCommentValue('');
@@ -318,24 +318,24 @@ export default function TestPreview(props) {
           return navigate('/login');
         }
 
-        const headers = {
-          'Content-Type': 'application/json',
-          Authorization: sessionStorage.getItem(TOKEN_NAME),
-        };
+        // const headers = {
+        //   'Content-Type': 'application/json',
+        //   Authorization: sessionStorage.getItem(TOKEN_NAME),
+        // };
 
-        axios
-          .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
-          .catch((err) => {
-            if (
-              err.response.status === 400 ||
-              err.response.status === 401 ||
-              err.response.status === 403
-            ) {
-              clearSessionStorage();
-              sessionStorage.setItem('ngb', location.pathname);
-              navigate('/login');
-            }
-          });
+        // axios
+        //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
+        //   .catch((err) => {
+        //     if (
+        //       err.response.status === 400 ||
+        //       err.response.status === 401 ||
+        //       err.response.status === 403
+        //     ) {
+        //       clearSessionStorage();
+        //       sessionStorage.setItem('ngb', location.pathname);
+        //       navigate('/login');
+        //     }
+        //   });
 
         if (!evt.currentTarget.value) return;
 

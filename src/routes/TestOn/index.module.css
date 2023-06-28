@@ -1,5 +1,36 @@
+@media (max-width: 375px) {
+  .wrap {
+    width: 375px;
+  }
+
+  .footerWrap {
+    width: 375px;
+  }
+
+  .progressContentWrap {
+    width: 375px;
+  }
+  .progressWrap {
+    width: 330px;
+  }
+}
+@media (min-width: 376px) {
+  .wrap {
+    width: 400px;
+  }
+
+  .footerWrap {
+    width: 400px;
+  }
+
+  .progressContentWrap {
+    width: 400px;
+  }
+  .progressWrap {
+    width: 350px;
+  }
+}
 .wrap {
-  width: 400px;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -10,7 +41,6 @@
 }
 
 .footerWrap {
-  width: 400px;
   display: flex;
   justify-content: center;
   position: absolute;
@@ -18,16 +48,13 @@
 }
 
 .progressContentWrap {
-  width: 400px;
   background-color: #fff5da;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-
 .progressWrap {
   margin-top: 50px;
-  width: 350px;
   position: relative;
 }
 

@@ -1,5 +1,25 @@
+@media (max-width: 375px) {
+  .wrap {
+    width: 375px;
+  }
+
+  .kakaoLogInBtn {
+    width: 100%;
+    max-width: 345px;
+  }
+}
+@media (min-width: 376px) {
+  .wrap {
+    width: 400px;
+  }
+
+  .kakaoLogInBtn {
+    width: 100%;
+    max-width: 370px;
+  }
+}
+
 .wrap {
-  width: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -7,8 +27,6 @@
 }
 
 .kakaoLogInBtn {
-  width: 100%;
-  max-width: 370px;
   height: 3rem;
   background-image: url('../../../public/images/logIn/kakaoLogInBtn.png');
   background-repeat: no-repeat;
@@ -16,7 +34,6 @@
   background-size: cover;
   margin-bottom: 120px;
 }
-
 .textSamll {
   color: black;
   font-size: 0.8rem;

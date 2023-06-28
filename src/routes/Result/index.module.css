@@ -1,12 +1,28 @@
+@media (max-width: 375px) {
+  .bgWhite {
+    width: 375px;
+  }
+  .footerWrap {
+    width: 400px;
+  }
+}
+@media (min-width: 376px) {
+  .bgWhite {
+    width: 400px;
+  }
+
+  .footerWrap {
+    width: 400px;
+  }
+}
+
 .bgWhite {
-  width: 400px;
   background-color: white;
   display: flex;
   justify-content: center;
 }
 
 .footerWrap {
-  width: 400px;
   display: flex;
   justify-content: center;
   padding-bottom: 60px;
