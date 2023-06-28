@@ -15,7 +15,9 @@ import {
   LENGTH_OVER_500,
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
+  TOKEN_NAME,
 } from '../../constants/constant';
+import { getHeaders } from '../../util/util';
 
 export default function TestAdd() {
   const [data, setData] = useState({
@@ -34,15 +36,16 @@ export default function TestAdd() {
 
   useEffect(() => {
     if (!imgUploading) {
+      const headers = getHeaders();
       axios
-        .post(`${DOMAIN_BE_DEV}/api/v1/tests/test`, data)
+        .post(`${DOMAIN_BE_PROD}/api/v1/tests/test`, data, { headers })
         .then(() => {
           alert('테스트 등록 완료. 고생 많으셨어요 :)');
           navigate('/main');
         })
         .catch((err) => {
-          alert('에러 발생함');
-          console.log('err--> ', err);
+          alert(err.response.data);
+          navigate('/login');
         });
     }
   }, [imgUploading]);
@@ -117,8 +120,15 @@ export default function TestAdd() {
 
     setImgUploading(true);
     const promiseArr = [];
+    const headers = {
+      'Content-Type': 'multipart/form-data',
+      Authorization: sessionStorage.getItem(TOKEN_NAME),
+    };
+
     imgCntArr.forEach((fdata) => {
-      const promise = axios.post(`${DOMAIN_BE_DEV}/upload`, fdata);
+      const promise = axios.post(`${DOMAIN_BE_PROD}/upload`, fdata, {
+        headers,
+      });
       promiseArr.push(promise);
     });
 
@@ -135,9 +145,10 @@ export default function TestAdd() {
         });
         setImgUploading(false);
       })
-      .catch((error) => {
-        console.log('Error:', error);
+      .catch((err) => {
+        alert(err.response.data);
         setImgUploading(false);
+        navigate('/login');
       });
   }
 

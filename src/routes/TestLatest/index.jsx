@@ -13,6 +13,7 @@ import {
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
 } from '../../constants/constant';
+import { getHeaders } from '../../util/util';
 
 export default function TestLatest() {
   const [data, setData] = useState([]);
@@ -22,9 +23,16 @@ export default function TestLatest() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/0/10`).then((res) => {
-      setData(res.data);
-    });
+    const headers = getHeaders();
+    axios
+      .get(`${DOMAIN_BE_PROD}/api/v1/tests/0/10`, { headers })
+      .then((res) => {
+        setData(res.data);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
+      });
     const timer = setTimeout(() => {
       setSlideIn(true);
     }, 3000);

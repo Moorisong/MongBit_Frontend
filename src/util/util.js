@@ -151,3 +151,10 @@ export function clearSessionStorage() {
   sessionStorage.setItem(USER_INFO + 'registDate', '');
   sessionStorage.setItem(USER_INFO + 'username', '');
 }
+
+export function getHeaders() {
+  return {
+    'Content-Type': 'application/json',
+    Authorization: sessionStorage.getItem(TOKEN_NAME),
+  };
+}

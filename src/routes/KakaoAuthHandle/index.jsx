@@ -8,6 +8,7 @@ import {
   TOKEN_NAME,
   USER_INFO,
 } from '../../constants/constant';
+import { getHeaders } from '../../util/util';
 
 export default function KakaoAuthHandle() {
   const navigate = useNavigate();
@@ -15,9 +16,12 @@ export default function KakaoAuthHandle() {
   const code = searchParams.get('code');
 
   useEffect(() => {
+    const headers = getHeaders();
     if (code) {
       axios
-        .get(`${DOMAIN_BE_DEV}/login/oauth2/kakao/code?code=${code}`)
+        .get(`${DOMAIN_BE_PROD}/login/oauth2/kakao/code?code=${code}`, {
+          headers,
+        })
         .then((response) => {
           sessionStorage.setItem(TOKEN_NAME, response.headers['authorization']);
           sessionStorage.setItem(
@@ -45,6 +49,10 @@ export default function KakaoAuthHandle() {
           } else {
             navigate('/main');
           }
+        })
+        .catch((err) => {
+          alert(err.response.data);
+          navigate('/login');
         });
     }
   }, []);

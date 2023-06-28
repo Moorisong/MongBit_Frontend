@@ -7,7 +7,7 @@ import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import ResultLoading from '../../components/ResultLoading';
 import TestResult from '../../components/TestResult';
-import { decodeToken } from '../../util/util';
+import { decodeToken, getHeaders } from '../../util/util';
 import { DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
 
 export default function Result() {
@@ -38,20 +38,31 @@ export default function Result() {
       );
     window.onpopstate = handlePopstate;
 
+    const headers = getHeaders();
+
     axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/test/${testId}/like/count`)
-      .then((res) => setLikeCnt(res.data));
+      .get(`${DOMAIN_BE_PROD}/api/v1/test/${testId}/like/count`, { headers })
+      .then((res) => setLikeCnt(res.data))
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
+      });
 
     const score = JSON.parse(sessionStorage.getItem('mbScore'));
 
     axios
-      .get(`${DOMAIN_BE_DEV}/api/v1/test/${testId}/like/count`)
-      .then((res) => SetResultData((prev) => ({ ...prev, likeCnt: res.data })));
+      .get(`${DOMAIN_BE_PROD}/api/v1/test/${testId}/like/count`, { headers })
+      .then((res) => SetResultData((prev) => ({ ...prev, likeCnt: res.data })))
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
+      });
 
     axios
       .post(
-        `${DOMAIN_BE_DEV}/api/v1/member-test-result/${testId}/${memberId}`,
-        score
+        `${DOMAIN_BE_PROD}/api/v1/member-test-result/${testId}/${memberId}`,
+        score,
+        { headers }
       )
       .then((res) => {
         const contentArray = res.data.content.split('<br>');
@@ -68,6 +79,10 @@ export default function Result() {
         timer = setTimeout(() => {
           setIsLoading(false);
         }, 3000);
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
       });
 
     return () => {

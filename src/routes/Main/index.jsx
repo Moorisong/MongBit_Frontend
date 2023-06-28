@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import styles from './index.module.css';
@@ -13,16 +14,19 @@ import {
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
 } from '../../constants/constant';
+import { getHeaders } from '../../util/util';
 
 export default function Main() {
   // Test 삭제
   // useEffect(()=>{
-  //   axios.delete(`${DOMAIN_BE_DEV}/api/v1/tests/test/649b8a80a5c2e650640a1a40`)
+  //   const headers = getHeaders()
+  //   axios.delete(`${DOMAIN_BE_PROD}/api/v1/tests/test/649bf46ea5c2e650640a276e`, {headers})
   //   .then((res)=>{
   //     console.log('r--> ', res)
   //   })
   // }, [])
 
+  const navigate = useNavigate();
   const [latestTestData, setLatestTestData] = useState({
     testArr: [],
   });
@@ -33,9 +37,16 @@ export default function Main() {
     sessionStorage.getItem('mbTest') === '' &&
       sessionStorage.removeItem('mbTest');
 
-    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/0/3`).then((res) => {
-      setLatestTestData((prev) => ({ ...prev, testArr: res.data }));
-    });
+    const headers = getHeaders();
+    axios
+      .get(`${DOMAIN_BE_PROD}/api/v1/tests/0/3`, { headers })
+      .then((res) => {
+        setLatestTestData((prev) => ({ ...prev, testArr: res.data }));
+      })
+      .catch((err) => {
+        alert(err.response.data);
+        navigate('/login');
+      });
   }, []);
   return (
     <div className={styles.containerWrap}>
