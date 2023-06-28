@@ -2,42 +2,40 @@
   .titleTextWrap {
     width: 100%;
     max-width: 345px;
-    background-color: white;
-    margin-bottom: 20px;
   }
 
   .goRandomBtnWrap {
     width: 375px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: fixed;
-    bottom: -100px;
-    transform: translateY(0%);
-    transition: all 0.5s ease-in-out;
   }
 }
+
 @media (min-width: 376px) {
   .titleTextWrap {
     width: 100%;
     max-width: 370px;
-    background-color: white;
-    margin-bottom: 20px;
   }
 
   .goRandomBtnWrap {
     width: 400px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    position: fixed;
-    bottom: -100px;
-    transform: translateY(0%);
-    transition: all 0.5s ease-in-out;
   }
 }
+
+.titleTextWrap {
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.goRandomBtnWrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: fixed;
+  bottom: -100px;
+  transform: translateY(0%);
+  transition: all 0.5s ease-in-out;
+}
+
 .containerWrap {
   display: flex;
   flex-direction: column;

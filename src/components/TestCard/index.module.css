@@ -1,71 +1,66 @@
 @media (max-width: 375px) {
-  .inline {
-    display: inline-block;
-    position: relative;
-    cursor: pointer;
-  }
   .inline > img {
     width: 345px;
-    object-fit: cover;
   }
 
   .normal_thumbnail {
     width: 345px;
-    height: 15rem;
   }
   .normal_titleBox {
     width: 345px;
-    height: 2.5rem;
-    background-color: black;
-    opacity: 0.7;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    bottom: 5px;
   }
   .latest_thumbnail {
     width: 110px !important;
-    height: 15rem;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
   }
 }
 @media (min-width: 376px) {
   .inline {
-    display: inline-block;
     padding-right: 5px;
-    position: relative;
-    cursor: pointer;
   }
   .inline > img {
     width: 370px;
-    object-fit: cover;
   }
 
   .normal_thumbnail {
     width: 370px;
-    height: 15rem;
   }
   .normal_titleBox {
     width: 370px;
-    height: 2.5rem;
-    background-color: black;
-    opacity: 0.7;
-    display: flex;
-    align-items: center;
-    position: absolute;
-    bottom: 5px;
   }
   .latest_thumbnail {
     width: 120px !important;
-    height: 15rem;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
   }
 }
+.inline {
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+}
 
+.inline > img {
+  object-fit: cover;
+}
+
+.normal_thumbnail {
+  height: 15rem;
+}
+
+.normal_titleBox {
+  height: 2.5rem;
+  background-color: black;
+  opacity: 0.7;
+  display: flex;
+  align-items: center;
+  position: absolute;
+  bottom: 5px;
+}
+
+.latest_thumbnail {
+  height: 15rem;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
 .myPageImgWidth {
   width: 150px;
 }

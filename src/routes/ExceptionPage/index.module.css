@@ -1,52 +1,47 @@
 @media (max-width: 375px) {
   .bgWhite {
     width: 375px;
-    max-height: 700px;
-    height: 100%;
-    background-color: white;
-    display: flex;
-    justify-content: center;
   }
 
   .footerWrap {
     width: 375px;
-    display: flex;
-    justify-content: center;
   }
   .logoImgWrap {
     width: 375px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 50px;
   }
 }
 @media (min-width: 376px) {
   .bgWhite {
     width: 400px;
-    max-height: 700px;
-    height: 100%;
-    background-color: white;
-    display: flex;
-    justify-content: center;
   }
 
   .footerWrap {
     width: 400px;
-    display: flex;
-    justify-content: center;
   }
   .logoImgWrap {
     width: 400px;
-    background-color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-bottom: 50px;
   }
 }
+.bgWhite {
+  max-height: 700px;
+  height: 100%;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+}
 
+.footerWrap {
+  display: flex;
+  justify-content: center;
+}
+.logoImgWrap {
+  width: 375px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}
 .textBox {
   color: black;
   font-size: 1.4rem;

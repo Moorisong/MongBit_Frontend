@@ -2,30 +2,20 @@
   .fixedWrap {
     width: 100%;
     max-width: 340px;
-    background-color: white;
-    height: 5rem;
   }
 
   .navWrap {
     width: 345px;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
   }
+
   .menuWrap {
     width: 180px;
     height: 100%;
     left: calc(50% - 400px);
     top: -1px;
     transition: all 0.3s ease-in-out;
-    border: 1px solid rgb(242, 242, 242);
-    background-color: white;
-    position: fixed;
-    z-index: 2;
   }
+
   .menuMoveToRight {
     left: calc(50% - 190px);
   }
@@ -35,33 +25,44 @@
   .fixedWrap {
     width: 100%;
     max-width: 370px;
-    background-color: white;
-    height: 5rem;
   }
 
   .navWrap {
     width: 370px;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    background-color: white;
   }
+
   .menuWrap {
     width: 200px;
     height: 100%;
     left: calc(50% - 400px);
     top: -1px;
     transition: all 0.3s ease-in-out;
-    border: 1px solid rgb(242, 242, 242);
-    background-color: white;
-    position: fixed;
-    z-index: 2;
   }
+
   .menuMoveToRight {
     left: calc(50% - 200px);
   }
+}
+
+.fixedWrap {
+  background-color: white;
+  height: 5rem;
+}
+
+.navWrap {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+}
+
+.menuWrap {
+  border: 1px solid rgb(242, 242, 242);
+  background-color: white;
+  position: fixed;
+  z-index: 2;
 }
 
 .wrap {
