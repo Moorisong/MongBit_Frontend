@@ -37,7 +37,7 @@ export default function ViewOldResult() {
   useEffect(() => {
     axios
       .get(
-        `${DOMAIN_BE_DEV}/api/v1/tests/test/test-result/${testId}/${testResultId}`
+        `${DOMAIN_BE_PROD}/api/v1/tests/test/test-result/${testId}/${testResultId}`
       )
       .then((res) => {
         setTestData(res.data);

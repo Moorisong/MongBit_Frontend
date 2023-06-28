@@ -1,8 +1,18 @@
-.wrap {
-  max-width: 370px;
-  width: 100%;
-  background-color: white;
-  margin: 10px 0 10px 0;
+@media (max-width: 375px) {
+  .wrap {
+    max-width: 345px;
+    width: 100%;
+    background-color: white;
+    margin: 10px 0 10px 0;
+  }
+}
+@media (min-width: 376px) {
+  .wrap {
+    max-width: 370px;
+    width: 100%;
+    background-color: white;
+    margin: 10px 0 10px 0;
+  }
 }
 
 .title {

@@ -1,3 +1,19 @@
+@media (max-width: 375px) {
+  .userInfoWrap {
+    width: 345px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+}
+@media (min-width: 376px) {
+  .userInfoWrap {
+    width: 370px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+}
 .wrap {
   width: 400px;
   display: flex;
@@ -12,13 +28,6 @@
   width: 2rem;
   height: 2rem;
   background-color: red;
-}
-
-.userInfoWrap {
-  width: 370px;
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
 }
 
 .userImg {

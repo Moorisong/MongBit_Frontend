@@ -1,16 +1,50 @@
-.bgWhite {
-  width: 400px;
-  max-height: 700px;
-  height: 100%;
-  background-color: white;
-  display: flex;
-  justify-content: center;
-}
+@media (max-width: 375px) {
+  .bgWhite {
+    width: 375px;
+    max-height: 700px;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+  }
 
-.footerWrap {
-  width: 400px;
-  display: flex;
-  justify-content: center;
+  .footerWrap {
+    width: 375px;
+    display: flex;
+    justify-content: center;
+  }
+  .logoImgWrap {
+    width: 375px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+  }
+}
+@media (min-width: 376px) {
+  .bgWhite {
+    width: 400px;
+    max-height: 700px;
+    height: 100%;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+  }
+
+  .footerWrap {
+    width: 400px;
+    display: flex;
+    justify-content: center;
+  }
+  .logoImgWrap {
+    width: 400px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 50px;
+  }
 }
 
 .textBox {
@@ -23,14 +57,7 @@
   padding: 140px 0 80px 0;
   background-color: white;
 }
-.logoImgWrap {
-  width: 400px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding-bottom: 50px;
-}
+
 .logoImgWrap > img {
   width: 12rem;
   height: 5rem;

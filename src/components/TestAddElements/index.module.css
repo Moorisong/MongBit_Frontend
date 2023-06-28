@@ -1,3 +1,28 @@
+@media (max-width: 375px) {
+  .contentWrap {
+    width: 345px;
+    margin-bottom: 30px;
+  }
+
+  .contentWrap > p,
+  .contentWrap > textarea,
+  .contentWrap > input {
+    width: 345px;
+  }
+}
+@media (min-width: 376px) {
+  .contentWrap {
+    width: 370px;
+    margin-bottom: 30px;
+  }
+
+  .contentWrap > p,
+  .contentWrap > textarea,
+  .contentWrap > input {
+    width: 370px;
+  }
+}
+
 .wrap {
   display: flex;
   flex-direction: column;
@@ -14,16 +39,6 @@
   display: none;
 }
 
-.contentWrap {
-  width: 370px;
-  margin-bottom: 30px;
-}
-
-.contentWrap > p,
-.contentWrap > textarea,
-.contentWrap > input {
-  width: 370px;
-}
 .stepWrap {
   display: flex;
   flex-direction: row;
@@ -33,7 +48,7 @@
 }
 
 .stepWrap > button {
-  margin: 0 69px;
+  margin: 0 60px;
   background-color: #979797;
   color: white;
   font-weight: 300;
