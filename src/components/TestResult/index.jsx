@@ -57,7 +57,7 @@ export default function TestResult(props) {
   useEffect(() => {
     axios
       .get(
-        `${DOMAIN_BE_PROD}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
       )
       .then((res) => {
         setData((prev) => ({ ...prev, comment: res.data.commentDTOList }));
@@ -114,9 +114,9 @@ export default function TestResult(props) {
       try {
         const [stateResponse, cntResponse] = await Promise.all([
           axios.get(
-            `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`
+            `${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/${memberId}/like`
           ),
-          axios.get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`),
+          axios.get(`${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/like/count`),
         ]);
 
         setLikeData((prev) => ({
@@ -132,7 +132,7 @@ export default function TestResult(props) {
 
     const fetchLikeDataNoLogined = async () => {
       axios
-        .get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`)
+        .get(`${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/like/count`)
         .then((res) => {
           setLikeData((prev) => ({ ...prev, likeCnt: res.data }));
         });
@@ -148,7 +148,7 @@ export default function TestResult(props) {
 
   useEffect(() => {
     axios
-      .get(`${DOMAIN_BE_PROD}/api/v1/test/${data.testId}/comments/count`)
+      .get(`${DOMAIN_BE_DEV}/api/v1/test/${data.testId}/comments/count`)
       .then((res) => {
         setCommentCnt(res.data);
       });
@@ -174,26 +174,26 @@ export default function TestResult(props) {
       return navigate('/login');
     }
 
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: sessionStorage.getItem(TOKEN_NAME),
-    };
+    // const headers = {
+    //   'Content-Type': 'application/json',
+    //   Authorization: sessionStorage.getItem(TOKEN_NAME),
+    // };
 
-    axios
-      .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, {
-        headers,
-      })
-      .catch((err) => {
-        if (
-          err.response.status === 400 ||
-          err.response.status === 401 ||
-          err.response.status === 403
-        ) {
-          clearSessionStorage();
-          sessionStorage.setItem('ngb', location.pathname);
-          navigate('/login');
-        }
-      });
+    // axios
+    //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, {
+    //     headers,
+    //   })
+    //   .catch((err) => {
+    //     if (
+    //       err.response.status === 400 ||
+    //       err.response.status === 401 ||
+    //       err.response.status === 403
+    //     ) {
+    //       clearSessionStorage();
+    //       sessionStorage.setItem('ngb', location.pathname);
+    //       navigate('/login');
+    //     }
+    //   });
 
     if (isSubmittingLike) return;
     setIsSubmittingLike(true);
@@ -205,7 +205,7 @@ export default function TestResult(props) {
         likeCnt: prev.likeCnt - 1,
       }));
       await axios.delete(
-        `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`
+        `${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/${memberId}/like`
       );
       setLikeChanged(!likeChanged);
     } else {
@@ -215,7 +215,7 @@ export default function TestResult(props) {
         likeCnt: prev.likeCnt + 1,
       }));
       await axios.post(
-        `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`,
+        `${DOMAIN_BE_DEV}/api/v1/test/${props.testId}/${memberId}/like`,
         { testId: props.testId, memberId: memberId }
       );
       setLikeChanged(!likeChanged);
@@ -225,7 +225,7 @@ export default function TestResult(props) {
 
   async function addComment() {
     axios
-      .post(`${DOMAIN_BE_PROD}/api/v1/test/comments`, {
+      .post(`${DOMAIN_BE_DEV}/api/v1/test/comments`, {
         memberId: sessionStorage.getItem('mongBitmemeberId'),
         testId: data.testId,
         content: commentValue,
@@ -243,24 +243,24 @@ export default function TestResult(props) {
       return navigate('/login');
     }
 
-    const headers = {
-      'Content-Type': 'application/json',
-      Authorization: sessionStorage.getItem(TOKEN_NAME),
-    };
+    // const headers = {
+    //   'Content-Type': 'application/json',
+    //   Authorization: sessionStorage.getItem(TOKEN_NAME),
+    // };
 
-    axios
-      .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, { headers })
-      .catch((err) => {
-        if (
-          err.response.status === 400 ||
-          err.response.status === 401 ||
-          err.response.status === 403
-        ) {
-          clearSessionStorage();
-          sessionStorage.setItem('ngb', location.pathname);
-          navigate('/login');
-        }
-      });
+    // axios
+    //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
+    //   .catch((err) => {
+    //     if (
+    //       err.response.status === 400 ||
+    //       err.response.status === 401 ||
+    //       err.response.status === 403
+    //     ) {
+    //       clearSessionStorage();
+    //       sessionStorage.setItem('ngb', location.pathname);
+    //       navigate('/login');
+    //     }
+    //   });
 
     const likeCntNum =
       location.pathname.indexOf('result') > -1
@@ -284,24 +284,24 @@ export default function TestResult(props) {
         return navigate('/login');
       }
 
-      const headers = {
-        'Content-Type': 'application/json',
-        Authorization: sessionStorage.getItem(TOKEN_NAME),
-      };
+      // const headers = {
+      //   'Content-Type': 'application/json',
+      //   Authorization: sessionStorage.getItem(TOKEN_NAME),
+      // };
 
-      axios
-        .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, { headers })
-        .catch((err) => {
-          if (
-            err.response.status === 400 ||
-            err.response.status === 401 ||
-            err.response.status === 403
-          ) {
-            clearSessionStorage();
-            sessionStorage.setItem('ngb', location.pathname);
-            navigate('/login');
-          }
-        });
+      // axios
+      //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
+      //   .catch((err) => {
+      //     if (
+      //       err.response.status === 400 ||
+      //       err.response.status === 401 ||
+      //       err.response.status === 403
+      //     ) {
+      //       clearSessionStorage();
+      //       sessionStorage.setItem('ngb', location.pathname);
+      //       navigate('/login');
+      //     }
+      //   });
 
       if (!commentValue) return;
       setCommentValue('');
@@ -320,24 +320,24 @@ export default function TestResult(props) {
           return navigate('/login');
         }
 
-        const headers = {
-          'Content-Type': 'application/json',
-          Authorization: sessionStorage.getItem(TOKEN_NAME),
-        };
+        // const headers = {
+        //   'Content-Type': 'application/json',
+        //   Authorization: sessionStorage.getItem(TOKEN_NAME),
+        // };
 
-        axios
-          .get(`${DOMAIN_BE_PROD}/api/v1/tokens/validity`, { headers })
-          .catch((err) => {
-            if (
-              err.response.status === 400 ||
-              err.response.status === 401 ||
-              err.response.status === 403
-            ) {
-              clearSessionStorage();
-              sessionStorage.setItem('ngb', location.pathname);
-              navigate('/login');
-            }
-          });
+        // axios
+        //   .get(`${DOMAIN_BE_DEV}/api/v1/tokens/validity`, { headers })
+        //   .catch((err) => {
+        //     if (
+        //       err.response.status === 400 ||
+        //       err.response.status === 401 ||
+        //       err.response.status === 403
+        //     ) {
+        //       clearSessionStorage();
+        //       sessionStorage.setItem('ngb', location.pathname);
+        //       navigate('/login');
+        //     }
+        //   });
 
         if (!evt.currentTarget.value) return;
 
@@ -361,7 +361,7 @@ export default function TestResult(props) {
     setCommentSeeMoreLoading(true);
     axios
       .get(
-        `${DOMAIN_BE_PROD}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
+        `${DOMAIN_BE_DEV}/api/v1/test/comments/${data.testId}/page/${commentIndex[0]}`
       )
       .then((res) => {
         let newArr = [...data.comment];
@@ -376,12 +376,10 @@ export default function TestResult(props) {
   }
 
   function deleteCommnet(com) {
-    axios
-      .delete(`${DOMAIN_BE_PROD}/api/v1/test/comments/${com.id}`)
-      .then(() => {
-        setCommentIndex((prev) => [0, prev[1]]);
-        setCommentChanged(!commentChanged);
-      });
+    axios.delete(`${DOMAIN_BE_DEV}/api/v1/test/comments/${com.id}`).then(() => {
+      setCommentIndex((prev) => [0, prev[1]]);
+      setCommentChanged(!commentChanged);
+    });
   }
   return (
     <div className={styles.resultWrap}>

@@ -24,7 +24,7 @@ export default function TestOn() {
   const barClassName = styles[`gaugeBar_${qstStageIdx}`];
 
   useEffect(() => {
-    axios.get(`${DOMAIN_BE_PROD}/api/v1/tests/test/${testId}`).then((res) => {
+    axios.get(`${DOMAIN_BE_DEV}/api/v1/tests/test/${testId}`).then((res) => {
       setTestData(res.data);
     });
   }, []);
