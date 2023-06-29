@@ -32,10 +32,12 @@ export default function Result() {
     } else {
       navigate(`/before-result/${testId}`);
     }
+
     if (!sessionStorage.getItem('mbScore'))
       return navigate(
         `/record/${testId}/${sessionStorage.getItem('mbResultId')}`
       );
+
     window.onpopstate = handlePopstate;
 
     const headers = getHeaders();
