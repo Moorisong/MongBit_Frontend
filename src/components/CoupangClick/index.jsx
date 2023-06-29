@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -24,6 +24,7 @@ export default function CoupangClick(props) {
   });
 
   const navigate = useNavigate();
+  const timerRef = useRef(null); // Ref to store the timer
 
   useEffect(() => {
     const headers = getHeaders();
@@ -41,11 +42,13 @@ export default function CoupangClick(props) {
   }, []);
 
   useEffect(() => {
-    let timer;
     const handleWindowFocus = () => {
       // 몽빗 페이지로 돌아왔을 경우
-      const timer = setTimeout(() => {
-        if(sessionStorage.getItem('mbAdvClicked')){
+      if (sessionStorage.getItem('mbAdvClicked')) {
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+        }
+        timerRef.current = setTimeout(() => {
           setShowLoading(false);
           navigate(`/result/${testId}`);
         }, 3000);
@@ -55,7 +58,10 @@ export default function CoupangClick(props) {
     document.addEventListener('visibilitychange', handleWindowFocus);
 
     return () => {
-      window.removeEventListener('focus', handleWindowFocus);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      document.removeEventListener('visibilitychange', handleWindowFocus);
     };
   }, []);
 
@@ -65,6 +71,7 @@ export default function CoupangClick(props) {
     setShowLoading(true);
     window.open(link, '_blank');
   }
+
   return (
     <div className={styles.wrap}>
       <div className={styles.bgWhite}>
