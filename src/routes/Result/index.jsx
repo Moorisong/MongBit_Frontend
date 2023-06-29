@@ -5,13 +5,11 @@ import axios from 'axios';
 import styles from './index.module.css';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
-import ResultLoading from '../../components/ResultLoading';
 import TestResult from '../../components/TestResult';
 import { decodeToken, getHeaders } from '../../util/util';
 import { DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
 
 export default function Result() {
-  const [isLoading, setIsLoading] = useState(true);
   const [resultData, SetResultData] = useState({
     titleStr: '',
     contentStrArr: [],
@@ -25,11 +23,14 @@ export default function Result() {
   const memberId = sessionStorage.getItem('mongBitmemeberId');
 
   useEffect(() => {
-    let timer;
-
     if (!decodeToken().state) {
       sessionStorage.setItem('ngb', location.pathname);
       return navigate('/need-login');
+    }
+    if (sessionStorage.getItem('mbAdvClicked')) {
+      sessionStorage.removeItem('mbAdvClicked');
+    } else {
+      navigate(`/before-result/${testId}`);
     }
     if (!sessionStorage.getItem('mbScore'))
       return navigate(
@@ -68,9 +69,6 @@ export default function Result() {
         }));
         sessionStorage.removeItem('mbScore');
         sessionStorage.setItem('mbResultId', res.data.id);
-        timer = setTimeout(() => {
-          setIsLoading(false);
-        }, 3000);
       })
       .catch((err) => {
         alert(err.response.data);
@@ -78,7 +76,6 @@ export default function Result() {
       });
 
     return () => {
-      clearTimeout(timer);
       window.onpopstate = null;
     };
   }, []);
@@ -92,19 +89,16 @@ export default function Result() {
       <div className={styles.bgWhite}>
         <NavigationBar />
       </div>
-      {isLoading && <ResultLoading />}
-      {isLoading ||
-        (resultData.titleStr && (
-          <TestResult
-            titleStr={resultData.titleStr}
-            contentStrArr={resultData.contentStrArr}
-            likeCnt={resultData.likeCnt && resultData.likeCnt}
-            testId={testId}
-            imgUri={resultData.imgUri}
-            testResultId={resultData.testResultId}
-          />
-        ))}
-
+      {resultData.titleStr && (
+        <TestResult
+          titleStr={resultData.titleStr}
+          contentStrArr={resultData.contentStrArr}
+          likeCnt={resultData.likeCnt && resultData.likeCnt}
+          testId={testId}
+          imgUri={resultData.imgUri}
+          testResultId={resultData.testResultId}
+        />
+      )}
       <div className={`${styles.bgWhite} ${styles.footerWrap}`}>
         <Footer />
       </div>

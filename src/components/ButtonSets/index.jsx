@@ -69,6 +69,25 @@ export function AddCommentButton(props) {
   );
 }
 
+export function CommentReadOnly(props) {
+  useEffect(() => {
+    sessionStorage.removeItem('mbComm');
+  }, []);
+
+  return (
+    <div className={styles.commentWrapper}>
+      <img src={props.data.thumbnailImage} className={`${styles.userImg}`} />
+      <div className={styles.userAndDateReadOnly}>
+        <div>
+          <span>{`${props.data.username} · `}</span>
+          <span>{formatTimeDifference(props.data.commentDate)}</span>
+        </div>
+        <p>{props.data.content}</p>
+      </div>
+    </div>
+  );
+}
+
 export function Comment(props) {
   const navigate = useNavigate();
   let [isCommentEditMode, setIsCommentEditMode] = useState(false);

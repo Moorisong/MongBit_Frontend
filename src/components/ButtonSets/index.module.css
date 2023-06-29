@@ -115,6 +115,7 @@
   color: black;
   font-weight: normal;
   font-size: 14px;
+  margin-left: 3px;
 }
 
 .button {
@@ -295,4 +296,22 @@
 
 .goRandomStartBtn:hover {
   background-color: #f8b713;
+}
+.userAndDateReadOnly {
+  width: 100%;
+  max-width: 315px;
+  margin: -5px 0 0 47px;
+  word-wrap: break-word;
+}
+.userAndDateReadOnly > div span {
+  color: #979797;
+  font-size: 0.8rem;
+  font-weight: 300;
+}
+.userAndDateReadOnly > p {
+  width: 100%;
+  color: black;
+  font-size: 0.8rem;
+  font-weight: 350;
+  margin: 3px 0 0 3px;
 }

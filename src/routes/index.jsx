@@ -15,6 +15,7 @@ import ViewOldResult from './ViewOldResult';
 import NeedLogIn from './NeedLogIn';
 import ExeptionPage from './ExceptionPage';
 import DevInfo from './DevInfo';
+import CoupangClick from '../components/CoupangClick';
 
 function Router() {
   return (
@@ -27,6 +28,7 @@ function Router() {
       <Route path="/test-random" element={<RandomTest />} />
       <Route path="/test-preview/:testId" element={<PreviewTest />} />
       <Route path="/test-on/:testId" element={<TestOn />} />
+      <Route path="/before-result/:testId" element={<CoupangClick />} />
       <Route path="/result/:testId" element={<Result />} />
       <Route path="/record/:testId/:testResultId" element={<ViewOldResult />} />
       <Route path="/mypage" element={<MyPage />} />
