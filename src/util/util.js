@@ -71,7 +71,7 @@ export function shareToKatalk(testId, title, description, testImgUri) {
       {
         title: '몽빗(MongBit)',
         description: 'MBTI 심테 공작소',
-        imageUrl: 'https://i.ibb.co/cFBf09g/share-logo.png',
+        imageUrl: '/images/og/og_logo.png',
         link: {
           mobileWebUrl: DOMAIN,
           webUrl: DOMAIN,
