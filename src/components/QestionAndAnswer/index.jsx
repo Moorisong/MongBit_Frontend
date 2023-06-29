@@ -12,7 +12,6 @@ export default function QuestionAndAnswer(props) {
       <div className={styles.questionWrap}>
         <p>{props.q_str}</p>
       </div>
-
       <div className={styles.answerWrap}>
         <div className={styles.answer} onClick={props.clickAnswer_plus}>
           <div>
@@ -26,6 +25,12 @@ export default function QuestionAndAnswer(props) {
           </div>
         </div>
       </div>
+      {props.q_idx === 0 || (
+        <div onClick={props.clickGoBack} className={styles.clickGoBack}>
+          <button>이전 질문</button>
+          <img src="/images/test/leftArrowIcon.svg" alt="leftArrow" />
+        </div>
+      )}
     </div>
   );
 }
