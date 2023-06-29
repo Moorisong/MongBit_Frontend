@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
@@ -24,6 +24,7 @@ export default function CoupangClick(props) {
   });
 
   const navigate = useNavigate();
+  const timerRef = useRef(null);
 
   useEffect(() => {
     const headers = getHeaders();
@@ -41,21 +42,30 @@ export default function CoupangClick(props) {
   }, []);
 
   useEffect(() => {
-    let timer;
-    const handleWindowFocus = () => {
-      // 몽빗 페이지로 돌아왔을 경우
-      const timer = setTimeout(() => {
-        if(sessionStorage.getItem('mbAdvClicked')){
+    const handleDocVisibilitychange = () => {
+      // 광고 페이지에서 몽빗 페이지로 돌아올때마다 실행되도록 함
+
+      if (sessionStorage.getItem('mbAdvClicked')) {
+        if (timerRef.current) {
+          clearTimeout(timerRef.current);
+        }
+        timerRef.current = setTimeout(() => {
           setShowLoading(false);
           navigate(`/result/${testId}`);
         }, 3000);
       }
     };
 
-    document.addEventListener('visibilitychange', handleWindowFocus);
+    document.addEventListener('visibilitychange', handleDocVisibilitychange);
 
     return () => {
-      window.removeEventListener('focus', handleWindowFocus);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+      document.removeEventListener(
+        'visibilitychange',
+        handleDocVisibilitychange
+      );
     };
   }, []);
 
@@ -65,6 +75,7 @@ export default function CoupangClick(props) {
     setShowLoading(true);
     window.open(link, '_blank');
   }
+
   return (
     <div className={styles.wrap}>
       <div className={styles.bgWhite}>
