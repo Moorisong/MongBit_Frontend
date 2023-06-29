@@ -44,8 +44,8 @@ export default function CoupangClick(props) {
     let timer;
     const handleWindowFocus = () => {
       // 몽빗 페이지로 돌아왔을 경우
-      if ((sessionStorage.getItem('mbAdvClicked') && !document.hidden)) {
-        timer = setTimeout(() => {
+      const timer = setTimeout(() => {
+        if(sessionStorage.getItem('mbAdvClicked')){
           setShowLoading(false);
           navigate(`/result/${testId}`);
         }, 3000);
@@ -55,8 +55,7 @@ export default function CoupangClick(props) {
     document.addEventListener('visibilitychange', handleWindowFocus);
 
     return () => {
-      clearTimeout(timer);
-      document.removeEventListener('visibilitychange', handleWindowFocus);
+      window.removeEventListener('focus', handleWindowFocus);
     };
   }, []);
 
