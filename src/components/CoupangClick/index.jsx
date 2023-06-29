@@ -41,23 +41,21 @@ export default function CoupangClick(props) {
   }, []);
 
   useEffect(() => {
+    let timer;
     const handleWindowFocus = () => {
       // 몽빗 페이지로 돌아왔을 경우
-      const timer = setTimeout(() => {
+      timer = setTimeout(() => {
         if(sessionStorage.getItem('mbAdvClicked')){
           setShowLoading(false);
           navigate(`/result/${testId}`);
         }
       }, 3000);
-
-      return () => {
-        clearTimeout(timer);
-      };
     };
 
     window.addEventListener('focus', handleWindowFocus);
 
     return () => {
+      clearTimeout(timer);
       window.removeEventListener('focus', handleWindowFocus);
     };
   }, []);
