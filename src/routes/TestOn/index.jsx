@@ -20,11 +20,12 @@ export default function TestOn() {
 
   let [testData, setTestData] = useState({});
   let [qstStageIdx, setQstStageIdx] = useState(1);
-  let [score, setScore] = useState([0, 0, 0, 0]);
+  let [score, setScore] = useState([]);
   let [testDone, setTestDone] = useState({
     state: false,
     lastClick: false,
   });
+  let [putArr, setPutArr] = useState([]);
 
   const barClassName = styles[`gaugeBar_${qstStageIdx}`];
 
@@ -61,70 +62,35 @@ export default function TestOn() {
     }
   }, [testDone.state]);
 
+  function clickGoBack() {
+    putArr[qstStageIdx - 1] = 0;
+    setPutArr([...putArr]);
+    setQstStageIdx(qstStageIdx - 1);
+  }
+
+  function makeScore() {
+    setTestDone((prev) => ({ ...prev, lastClick: true }));
+
+    const part_1 = putArr[1] + putArr[2] + putArr[3];
+    const part_2 = putArr[4] + putArr[5] + putArr[6];
+    const part_3 = putArr[7] + putArr[8] + putArr[9];
+    const part_4 = putArr[10] + putArr[11] + putArr[12];
+
+    setScore([part_1, part_2, part_3, part_4]);
+  }
+
   function clickAnswer_plus() {
-    if (qstStageIdx === 1 || qstStageIdx === 2 || qstStageIdx === 3) {
-      let copy = [...score];
-      copy[0] += 1;
-      setScore(copy);
-    }
-    if (qstStageIdx === 4 || qstStageIdx === 5 || qstStageIdx === 6) {
-      let copy = [...score];
-      copy[1] += 1;
-      setScore(copy);
-    }
-
-    if (qstStageIdx === 7 || qstStageIdx === 8 || qstStageIdx === 9) {
-      let copy = [...score];
-      copy[2] += 1;
-      setScore(copy);
-    }
-
-    if (qstStageIdx === 10 || qstStageIdx === 11) {
-      let copy = [...score];
-      copy[3] += 1;
-      setScore(copy);
-    }
-
-    if (qstStageIdx === 12) {
-      setTestDone((prev) => ({ ...prev, lastClick: true }));
-      let copy = [...score];
-      copy[3] += 1;
-      setScore(copy);
-    }
+    putArr[qstStageIdx] = 1;
+    setPutArr([...putArr]);
     if (qstStageIdx !== 12) setQstStageIdx(qstStageIdx + 1);
+    if (qstStageIdx === 12) makeScore();
   }
 
   function clickAnswer_minus() {
-    if (qstStageIdx === 1 || qstStageIdx === 2 || qstStageIdx === 3) {
-      let copy = [...score];
-      copy[0] -= 1;
-      setScore(copy);
-    }
-    if (qstStageIdx === 4 || qstStageIdx === 5 || qstStageIdx === 6) {
-      let copy = [...score];
-      copy[1] -= 1;
-      setScore(copy);
-    }
-
-    if (qstStageIdx === 7 || qstStageIdx === 8 || qstStageIdx === 9) {
-      let copy = [...score];
-      copy[2] -= 1;
-      setScore(copy);
-    }
-
-    if (qstStageIdx === 10 || qstStageIdx === 11 || qstStageIdx === 12) {
-      let copy = [...score];
-      copy[3] -= 1;
-      setScore(copy);
-    }
-
-    if (qstStageIdx === 12) {
-      setTestDone((prev) => ({ ...prev, lastClick: true }));
-      let copy = [...score];
-      copy[3] -= 1;
-      setScore(copy);
-    }
+    putArr[qstStageIdx] = -1;
+    setPutArr([...putArr]);
     if (qstStageIdx !== 12) setQstStageIdx(qstStageIdx + 1);
+    if (qstStageIdx === 12) makeScore();
   }
 
   return (
@@ -164,6 +130,7 @@ export default function TestOn() {
                 a_str_2={q.answerMinus}
                 clickAnswer_plus={clickAnswer_plus}
                 clickAnswer_minus={clickAnswer_minus}
+                clickGoBack={clickGoBack}
               />
             )
         )}
