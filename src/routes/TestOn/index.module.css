@@ -154,3 +154,7 @@
   color: #979797;
   font-size: 0.8rem;
 }
+
+.noClick {
+  pointer-events: none;
+}

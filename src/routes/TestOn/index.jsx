@@ -128,7 +128,11 @@ export default function TestOn() {
   }
 
   return (
-    <div className={styles.wrap}>
+    <div
+      className={cx(styles.wrap, {
+        [styles.noClick]: testDone.lastClick,
+      })}
+    >
       <div className={styles.bgWhite}>
         <NavigationBar />
       </div>
