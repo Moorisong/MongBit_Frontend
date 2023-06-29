@@ -18,7 +18,6 @@ export default function Result() {
     imgUri: '',
     testResultId: '',
   });
-  const [likeCnt, setLikeCnt] = useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -42,22 +41,15 @@ export default function Result() {
 
     axios
       .get(`${DOMAIN_BE_PROD}/api/v1/test/${testId}/like/count`, { headers })
-      .then((res) => setLikeCnt(res.data))
+      .then((res) => {
+        SetResultData((prev) => ({ ...prev, likeCnt: res.data }));
+      })
       .catch((err) => {
         alert(err.response.data);
         navigate('/login');
       });
 
     const score = JSON.parse(sessionStorage.getItem('mbScore'));
-
-    axios
-      .get(`${DOMAIN_BE_PROD}/api/v1/test/${testId}/like/count`, { headers })
-      .then((res) => SetResultData((prev) => ({ ...prev, likeCnt: res.data })))
-      .catch((err) => {
-        alert(err.response.data);
-        navigate('/login');
-      });
-
     axios
       .post(
         `${DOMAIN_BE_PROD}/api/v1/member-test-result/${testId}/${memberId}`,
@@ -106,7 +98,7 @@ export default function Result() {
           <TestResult
             titleStr={resultData.titleStr}
             contentStrArr={resultData.contentStrArr}
-            likeCnt={likeCnt && likeCnt}
+            likeCnt={resultData.likeCnt && resultData.likeCnt}
             testId={testId}
             imgUri={resultData.imgUri}
             testResultId={resultData.testResultId}
