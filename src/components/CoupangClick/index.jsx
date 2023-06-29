@@ -44,8 +44,10 @@ export default function CoupangClick(props) {
     const handleWindowFocus = () => {
       // 몽빗 페이지로 돌아왔을 경우
       const timer = setTimeout(() => {
-        setShowLoading(false);
-        navigate(`/result/${testId}`);
+        if(sessionStorage.getItem('mbAdvClicked')){
+          setShowLoading(false);
+          navigate(`/result/${testId}`);
+        }
       }, 3000);
 
       return () => {
