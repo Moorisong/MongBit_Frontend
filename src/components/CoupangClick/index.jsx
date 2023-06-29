@@ -41,24 +41,22 @@ export default function CoupangClick(props) {
   }, []);
 
   useEffect(() => {
+    let timer;
     const handleWindowFocus = () => {
       // 몽빗 페이지로 돌아왔을 경우
-      const timer = setTimeout(() => {
-        if(sessionStorage.getItem('mbAdvClicked')){
+      if ((sessionStorage.getItem('mbAdvClicked') && !document.hidden)) {
+        timer = setTimeout(() => {
           setShowLoading(false);
           navigate(`/result/${testId}`);
-        }
-      }, 3000);
-
-      return () => {
-        clearTimeout(timer);
-      };
+        }, 3000);
+      }
     };
 
-    window.addEventListener('focus', handleWindowFocus);
+    document.addEventListener('visibilitychange', handleWindowFocus);
 
     return () => {
-      window.removeEventListener('focus', handleWindowFocus);
+      clearTimeout(timer);
+      document.removeEventListener('visibilitychange', handleWindowFocus);
     };
   }, []);
 
