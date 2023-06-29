@@ -24,7 +24,7 @@ export default function CoupangClick(props) {
   });
 
   const navigate = useNavigate();
-  const timerRef = useRef(null); // Ref to store the timer
+  const timerRef = useRef(null);
 
   useEffect(() => {
     const headers = getHeaders();
@@ -42,8 +42,9 @@ export default function CoupangClick(props) {
   }, []);
 
   useEffect(() => {
-    const handleWindowFocus = () => {
-      // 몽빗 페이지로 돌아왔을 경우
+    const handleDocVisibilitychange = () => {
+      // 광고 페이지에서 몽빗 페이지로 돌아올때마다 실행되도록 함
+
       if (sessionStorage.getItem('mbAdvClicked')) {
         if (timerRef.current) {
           clearTimeout(timerRef.current);
@@ -55,13 +56,16 @@ export default function CoupangClick(props) {
       }
     };
 
-    document.addEventListener('visibilitychange', handleWindowFocus);
+    document.addEventListener('visibilitychange', handleDocVisibilitychange);
 
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
       }
-      document.removeEventListener('visibilitychange', handleWindowFocus);
+      document.removeEventListener(
+        'visibilitychange',
+        handleDocVisibilitychange
+      );
     };
   }, []);
 
