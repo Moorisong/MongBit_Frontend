@@ -54,6 +54,7 @@
   align-items: center;
   position: absolute;
   bottom: 5px;
+  border-radius: 0 0 1rem 1rem;
 }
 
 .latest_thumbnail {
@@ -87,7 +88,7 @@
 .p_1 {
   color: white;
   font-size: 0.8rem;
-  padding-left: 3px;
+  padding-left: 10px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
