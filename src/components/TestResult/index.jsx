@@ -490,7 +490,7 @@ export default function TestResult(props) {
         })}
         onClick={clickTestShare}
       >
-        친구에게 테스트 공유하기
+        친구에게 테스트 결과 공유하기
       </button>
     </div>
   );
