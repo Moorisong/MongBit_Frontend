@@ -52,7 +52,24 @@ export default function TestAdd() {
 
   const mapTarget = {
     question: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    result: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+    result: [
+      'ENFJ',
+      'ENFP',
+      'ENTJ',
+      'ENTP',
+      'ESFJ',
+      'ESFP',
+      'ESTJ',
+      'ESTP',
+      'INFJ',
+      'INFP',
+      'INTJ',
+      'INTP',
+      'ISFJ',
+      'ISFP',
+      'ISTJ',
+      'ISTP',
+    ],
   };
 
   const getAnswerTypeArr = () => {
@@ -202,13 +219,14 @@ export default function TestAdd() {
         )}
       {stage === 3 &&
         mapTarget.result.map(
-          (t) =>
-            rstStageIdx === t && (
+          (t, i) =>
+            rstStageIdx - 1 === i && (
               <ResultPart
                 key={t}
                 onClickNext={onClickNext}
                 onClickPrev={onClickPrev}
-                idx={t}
+                idx={i + 1}
+                resultName={t}
               />
             )
         )}
