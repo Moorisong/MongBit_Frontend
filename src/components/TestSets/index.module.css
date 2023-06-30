@@ -7,7 +7,7 @@
     max-width: 345px;
   }
   .testCardTextWrap {
-    width: 215px;
+    width: 210px;
   }
 }
 @media (min-width: 376px) {
@@ -19,7 +19,7 @@
     max-width: 370px;
   }
   .testCardTextWrap {
-    width: 235px;
+    width: 230px;
   }
 }
 
@@ -31,7 +31,7 @@
   margin: 10px 0 10px 0;
 }
 .testCardTextWrap {
-  margin-left: -25px;
+  margin-left: -20px;
   cursor: pointer;
 }
 .move_testList {

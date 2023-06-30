@@ -127,6 +127,7 @@
 .resultImg {
   width: 340px;
   height: 450px;
+  border-radius: 1rem;
 }
 
 .resultStrList {
