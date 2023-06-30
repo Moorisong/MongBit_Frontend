@@ -85,8 +85,8 @@ export default function CoupangClick(props) {
       {showLoading && <ResultLoading />}
 
       {showLoading || (
-        <div className={styles.content} onClick={clickLink}>
-          <div>
+        <div className={styles.content}>
+          <div onClick={clickLink}>
             <button>쿠팡 보고 와서 결과 확인</button>
             <p>솔직하게 말할게요. 서버비 때문이예요ㅜㅜ </p>
           </div>

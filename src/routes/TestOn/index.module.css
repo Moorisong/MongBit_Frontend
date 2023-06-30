@@ -95,6 +95,7 @@
 
 .gaugeBar_1 {
   width: 0;
+  border: none;
 }
 
 .gaugeBar_2 {
