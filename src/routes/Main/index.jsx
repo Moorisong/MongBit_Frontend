@@ -20,7 +20,7 @@ export default function Main() {
   // Test 삭제
   // useEffect(()=>{
   //   const headers = getHeaders()
-  //   axios.delete(`${DOMAIN_BE_PROD}/api/v1/tests/test/649bf46ea5c2e650640a276e`, {headers})
+  //   axios.delete(`${DOMAIN_BE_PROD}/api/v1/tests/test/649e4baa11bc25457a51f534`, {headers})
   //   .then((res)=>{
   //     console.log('r--> ', res)
   //   })

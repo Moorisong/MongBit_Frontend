@@ -143,24 +143,17 @@ export function ResultPart(props) {
   return (
     <div className={styles.wrap}>
       <div className={styles.contentWrap}>
-        <p>{`[${props.idx} 번째 결과 Title]`}</p>
+        <p>{`[${props.idx} 번째 결과 Title] --- ${props.resultName}`}</p>
         <textarea
           onChange={(evt) => {
-            setResultObj((prev) => ({ ...prev, title: evt.target.value }));
+            setResultObj((prev) => ({
+              ...prev,
+              title: evt.target.value,
+              result: props.resultName,
+            }));
           }}
           cols="40"
           rows="3"
-        ></textarea>
-      </div>
-
-      <div className={styles.contentWrap}>
-        <p>[결과 MBTI]</p>
-        <textarea
-          onChange={(evt) => {
-            setResultObj((prev) => ({ ...prev, result: evt.target.value }));
-          }}
-          cols="40"
-          rows="1"
         ></textarea>
       </div>
 
