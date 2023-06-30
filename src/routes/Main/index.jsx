@@ -41,7 +41,10 @@ export default function Main() {
     axios
       .get(`${DOMAIN_BE_PROD}/api/v1/tests/0/3`, { headers })
       .then((res) => {
-        setLatestTestData((prev) => ({ ...prev, testArr: res.data }));
+        setLatestTestData((prev) => ({
+          ...prev,
+          testArr: res.data.testCoverDTOList,
+        }));
       })
       .catch((err) => {
         alert(err.response.data);
