@@ -16,7 +16,10 @@ import {
 import { getHeaders } from '../../util/util';
 
 export default function TestLatest() {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState({
+    testArr: [],
+    hasNextPage: false,
+  });
   const [slideIn, setSlideIn] = useState(false);
   const titleStr = '😜 최신 심테';
   const contentStr = '몽빗 최신 심테들 여기 다 모여있어요!';
@@ -27,7 +30,11 @@ export default function TestLatest() {
     axios
       .get(`${DOMAIN_BE_PROD}/api/v1/tests/0/10`, { headers })
       .then((res) => {
-        setData(res.data);
+        setData((prev) => ({
+          ...prev,
+          testArr: res.data.testCoverDTOList,
+          hasNextPage: res.data.hasNextPage,
+        }));
       })
       .catch((err) => {
         alert(err.response.data);
@@ -56,7 +63,7 @@ export default function TestLatest() {
         />
       </div>
 
-      {data.map((d, i) => (
+      {data.testArr.map((d, i) => (
         <TestSetComplete
           key={i}
           type={TYPE_TEST_LIST}
