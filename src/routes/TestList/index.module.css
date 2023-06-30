@@ -75,3 +75,24 @@
   margin-top: 10px;
   padding-right: 25px;
 }
+.seeMoreWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f2;
+  width: 100px;
+  height: 30px;
+  border-radius: 15px;
+  margin-top: 30px;
+}
+
+.seeMoreWrap {
+  cursor: pointer;
+}
+.seeMoreWrap > button {
+  color: #979797;
+  font-size: 0.8rem;
+  width: 100px;
+  border-radius: 15px;
+}
