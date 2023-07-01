@@ -8,6 +8,7 @@ import Footer from '../../components/Footer';
 import TestResult from '../../components/TestResult';
 import { decodeToken, getHeaders } from '../../util/util';
 import { DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
+import { COUPANG_VISIT } from '../../constants/constant';
 
 export default function Result() {
   const [resultData, SetResultData] = useState({
@@ -27,11 +28,7 @@ export default function Result() {
       sessionStorage.setItem('ngb', location.pathname);
       return navigate('/need-login');
     }
-    if (sessionStorage.getItem('mbAdvClicked')) {
-      sessionStorage.removeItem('mbAdvClicked');
-    } else {
-      navigate(`/before-result/${testId}`);
-    }
+    checkCoupnagSiteVisit();
 
     if (!sessionStorage.getItem('mbScore'))
       return navigate(
@@ -84,6 +81,20 @@ export default function Result() {
 
   function handlePopstate() {
     navigate('/exception');
+  }
+
+  function isWithin24Hours(date1, date2) {
+    const oneDay = 24 * 60 * 60 * 1000;
+    const diff = Math.abs(new Date(date1) - new Date(date2));
+    return diff < oneDay;
+  }
+
+  function checkCoupnagSiteVisit() {
+    const coupangVisitDate = localStorage.getItem(COUPANG_VISIT);
+    const currentDate = new Date();
+
+    if (!coupangVisitDate || !isWithin24Hours(coupangVisitDate, currentDate))
+      navigate(`/before-result/${testId}`);
   }
 
   return (
