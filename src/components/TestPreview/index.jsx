@@ -429,7 +429,8 @@ export default function TestPreview(props) {
         <div
           className={cx(styles.commentWrap, {
             [styles.commentWrapLoading]: commentLoading,
-          })}>
+          })}
+        >
           {commentLoading ? (
             <div className={styles.loadImgWrap_2}>
               <div ref={containerRef_2}></div>

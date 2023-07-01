@@ -1,8 +1,19 @@
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+
 import styles from './index.module.css';
 import Footer from '../../components/Footer';
 import NavigationBar from '../../components/NavigationBar';
 
 export default function ExeptionPage() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    window.onpopstate = handlePopstate;
+  }, []);
+
+  function handlePopstate() {
+    navigate('/main');
+  }
   return (
     <div className={styles.wrap}>
       <div className={styles.bgWhite}>

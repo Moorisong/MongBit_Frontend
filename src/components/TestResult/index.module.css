@@ -119,9 +119,14 @@
 }
 
 .resultWrap > p {
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.3rem;
+  font-weight: 600;
   margin: 35px 0 35px 0;
+  background-color: #fff8e4;
+  border-radius: 1rem;
+  padding: 5px 0 5px 0;
+  width: 340px;
+  text-align: center;
 }
 .resultImg {
   width: 340px;
@@ -130,17 +135,25 @@
 }
 
 .resultStrList {
-  width: 350px;
-  padding-left: 28px;
+  width: 340px;
+  padding-left: 10px;
   margin-bottom: 20px;
+  list-style: none;
 }
 
 .resultStrList > li {
-  list-style: disc;
   margin-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
 }
-.resultStrList span {
+.resultStrList img {
+  padding-bottom: 2px;
+}
+.resultStrList p {
   font-size: 1rem;
+  padding: 0 0 0 10px;
+  word-break: break-all;
 }
 
 .partWrap {

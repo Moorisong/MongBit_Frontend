@@ -119,9 +119,12 @@ export default function TestResult(props) {
             `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`,
             { headers }
           ),
-          axios.get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`, {
-            headers,
-          }),
+          axios.get(
+            `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`,
+            {
+              headers,
+            }
+          ),
         ]);
 
         setLikeData((prev) => ({
@@ -370,7 +373,8 @@ export default function TestResult(props) {
       <ul className={styles.resultStrList}>
         {props.contentStrArr.map((str, i) => (
           <li key={i}>
-            <span>{str}</span>
+            <img src="/images/test/circleIcon.svg" alt="circle" />
+            <p>{str}</p>
           </li>
         ))}
       </ul>
