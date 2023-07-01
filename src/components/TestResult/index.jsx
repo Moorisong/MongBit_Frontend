@@ -119,10 +119,9 @@ export default function TestResult(props) {
             `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`,
             { headers }
           ),
-          axios.get(
-            `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`,
-            { headers }
-          ),
+          axios.get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`, {
+            headers,
+          }),
         ]);
 
         setLikeData((prev) => ({

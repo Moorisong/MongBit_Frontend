@@ -5,8 +5,6 @@ import {
   ALL_FULLFILL,
   NUMBER_500,
   LENGTH_OVER_500,
-  DOMAIN_BE_PROD,
-  DOMAIN_BE_DEV,
 } from '../../constants/constant';
 
 export function InfoPart(props) {

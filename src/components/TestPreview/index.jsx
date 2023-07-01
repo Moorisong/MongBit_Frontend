@@ -42,7 +42,6 @@ export default function TestPreview(props) {
   });
   let [linkCopyState, setLinkCopyState] = useState(false);
 
-  const [likeLoading, setLikeLoading] = useState(true);
   const [likeChanged, setLikeChanged] = useState(true);
   const [commentIndex, setCommentIndex] = useState([0, false]);
   const [commentLoading, setCommentLoading] = useState(true);
@@ -124,7 +123,6 @@ export default function TestPreview(props) {
           likeState: stateResponse.data,
           likeCnt: cntResponse.data,
         }));
-        setLikeLoading(false);
       } catch (err) {
         alert(err.response.data);
         navigate('/login');
@@ -147,7 +145,6 @@ export default function TestPreview(props) {
           alert(err.response.data);
           navigate('/login');
         });
-      setLikeLoading(false);
     };
 
     if (decodeToken().state) {
@@ -388,20 +385,16 @@ export default function TestPreview(props) {
               <p>{linkCopyState ? '링크 복사됨' : '링크 복사'}</p>
             </div>
           </li>
-          {likeLoading ? (
-            <li className={styles.likeWrap}>
-              <p>로딩중</p>
-            </li>
-          ) : (
-            <li className={styles.likeWrap} onClick={clickLikeBtn}>
-              <TestButton
-                btnType="like"
-                str="재밌당"
-                likeState={data.likeState}
-              />
-              <p className={styles.likeCntNum}>{data.likeCnt}</p>
-            </li>
-          )}
+
+          <li className={styles.likeWrap} onClick={clickLikeBtn}>
+            <TestButton
+              btnType="like"
+              str="재밌당"
+              likeState={data.likeState}
+            />
+            <p className={styles.likeCntNum}>{data.likeCnt}</p>
+          </li>
+
           <li onClick={clickTestShare}>
             <TestButton btnType="share" str="공유하기" />
           </li>
@@ -433,7 +426,10 @@ export default function TestPreview(props) {
           <AddCommentButton onClick={clickAddCommentBtn} />
         </div>
 
-        <div className={styles.commentWrap}>
+        <div
+          className={cx(styles.commentWrap, {
+            [styles.commentWrapLoading]: commentLoading,
+          })}>
           {commentLoading ? (
             <div className={styles.loadImgWrap_2}>
               <div ref={containerRef_2}></div>
