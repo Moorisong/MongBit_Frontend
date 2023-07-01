@@ -1,11 +1,6 @@
 import jwtDecode from 'jwt-decode';
 
-import {
-  COUPANG_VISIT,
-  DOMAIN,
-  TOKEN_NAME,
-  USER_INFO,
-} from '../constants/constant';
+import { DOMAIN, TOKEN_NAME, USER_INFO } from '../constants/constant';
 
 export function decodeToken() {
   if (!sessionStorage.getItem(TOKEN_NAME)) {
