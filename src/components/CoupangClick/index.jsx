@@ -12,6 +12,7 @@ import {
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
   TYPE_COMMENT,
+  COUPANG_VISIT,
 } from '../../constants/constant';
 
 export default function CoupangClick(props) {
@@ -43,9 +44,9 @@ export default function CoupangClick(props) {
 
   useEffect(() => {
     const handleDocVisibilitychange = () => {
-      // 광고 페이지에서 몽빗 페이지로 돌아올때마다 실행되도록 함
+      // 쿠팡 광고 페이지에서 몽빗 페이지로 돌아올때마다 실행되도록 함
 
-      if (sessionStorage.getItem('mbAdvClicked')) {
+      if (localStorage.getItem(COUPANG_VISIT)) {
         if (timerRef.current) {
           clearTimeout(timerRef.current);
         }
@@ -69,10 +70,15 @@ export default function CoupangClick(props) {
     };
   }, []);
 
+  function saveCoupangVisitDate() {
+    const currentDate = new Date();
+    localStorage.setItem(COUPANG_VISIT, currentDate);
+  }
+
   function clickLink() {
     const link = 'https://link.coupang.com/a/2s6aq';
-    sessionStorage.setItem('mbAdvClicked', true);
     setShowLoading(true);
+    saveCoupangVisitDate();
     window.open(link, '_blank');
   }
 
