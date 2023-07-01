@@ -9,6 +9,7 @@ import TestResult from '../../components/TestResult';
 import { decodeToken, getHeaders } from '../../util/util';
 import { DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
 import { COUPANG_VISIT } from '../../constants/constant';
+import ResultLoading from '../../components/ResultLoading';
 
 export default function Result() {
   const [resultData, SetResultData] = useState({
@@ -17,6 +18,7 @@ export default function Result() {
     imgUri: '',
     testResultId: '',
   });
+  let [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -74,7 +76,12 @@ export default function Result() {
         navigate('/login');
       });
 
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 3000);
+
     return () => {
+      clearTimeout(timer);
       window.onpopstate = null;
     };
   }, []);
@@ -102,16 +109,18 @@ export default function Result() {
       <div className={styles.bgWhite}>
         <NavigationBar />
       </div>
-      {resultData.titleStr && (
-        <TestResult
-          titleStr={resultData.titleStr}
-          contentStrArr={resultData.contentStrArr}
-          likeCnt={resultData.likeCnt && resultData.likeCnt}
-          testId={testId}
-          imgUri={resultData.imgUri}
-          testResultId={resultData.testResultId}
-        />
-      )}
+      {loading && <ResultLoading />}
+      {loading ||
+        (resultData.titleStr && (
+          <TestResult
+            titleStr={resultData.titleStr}
+            contentStrArr={resultData.contentStrArr}
+            likeCnt={resultData.likeCnt && resultData.likeCnt}
+            testId={testId}
+            imgUri={resultData.imgUri}
+            testResultId={resultData.testResultId}
+          />
+        ))}
       <div className={`${styles.bgWhite} ${styles.footerWrap}`}>
         <Footer />
       </div>
