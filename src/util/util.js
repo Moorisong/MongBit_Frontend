@@ -154,7 +154,6 @@ export function clearSessionStorage() {
 
 export function getHeaders() {
   return {
-    'Content-Type': 'application/json',
     Authorization: sessionStorage.getItem(TOKEN_NAME),
   };
 }
