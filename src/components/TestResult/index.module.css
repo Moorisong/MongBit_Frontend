@@ -119,9 +119,14 @@
 }
 
 .resultWrap > p {
-  font-size: 1.5rem;
-  font-weight: 500;
+  font-size: 1.3rem;
+  font-weight: 600;
   margin: 35px 0 35px 0;
+  background-color: #eeeeee;
+  border-radius: 1rem;
+  padding: 5px 0 5px 0;
+  width: 340px;
+  text-align: center;
 }
 .resultImg {
   width: 340px;
