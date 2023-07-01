@@ -35,7 +35,6 @@
   justify-content: center;
 }
 .logoImgWrap {
-  width: 375px;
   background-color: white;
   display: flex;
   flex-direction: column;
