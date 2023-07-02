@@ -60,6 +60,16 @@ export default function TestPreview(props) {
 
   const memberId = sessionStorage.getItem('mongBitmemeberId');
 
+
+  useEffect(() => {
+    document
+      .querySelector('meta[property="og:url"]')
+      .setAttribute('content', DOMAIN + location.pathname);
+    document
+      .querySelector('meta[property="og:image"]')
+      .setAttribute('content', props.thumbnailUri);
+  }, []);
+
   useEffect(() => {
     const anim = lottie.loadAnimation({
       container: containerRef_1.current,
@@ -344,6 +354,14 @@ export default function TestPreview(props) {
   }
   return (
     <div className={styles.wrap}>
+
+      {/* SEO-- ksh
+      <Helmet>
+        <title>{`몽빗 : ${props.thumbnailStr}`}</title>
+        <meta property="og:url" content={DOMAIN + location.pathname} />
+        <meta property="og:image" content={props.thumbnailUri} />
+      </Helmet> */}
+
       {/* 테스트  */}
       <div className={styles.contentWrap}>
         <div>
