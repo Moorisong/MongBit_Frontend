@@ -279,7 +279,7 @@
   height: 60px;
 }
 
-.loadImgWrap_2 {
+.loadImgWrap_1 {
   width: 100px;
   height: 30px;
   position: relative;
@@ -288,4 +288,14 @@
 
 .coupangAdvWrap {
   margin: 20px 0 10px 0;
+}
+
+.loadImgWrap_2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+}
+.loadImgWrap_2 > div {
+  width: 100px;
 }

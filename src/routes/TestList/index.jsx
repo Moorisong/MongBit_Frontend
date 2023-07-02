@@ -1,8 +1,10 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import cx from 'classnames';
+import lottie from 'lottie-web';
 
+import animationData_1 from './loading_2.json';
 import { TitleWithText } from '../../components/Titles';
 import { TestSetComplete } from '../../components/TestSets';
 import NavigationBar from '../../components/NavigationBar';
@@ -20,11 +22,27 @@ export default function TestList() {
     testArr: [],
     hasNextPage: false,
   });
+  const containerRef_1 = useRef(null);
   const [slideIn, setSlideIn] = useState(false);
   let [page, setPage] = useState(0);
   const titleStr = '💛  몽빗 심테';
   const contentStr = '몽빗에 있는 모든 테스트는 이곳에!';
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_1.current,
+      renderer: 'svg',
+      animationData: animationData_1,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, []);
+
   useEffect(() => {
     const headers = getHeaders();
     axios
@@ -86,18 +104,24 @@ export default function TestList() {
         />
       </div>
 
-      {data.testArr.map((d, i) => (
-        <TestSetComplete
-          key={i}
-          type={TYPE_TEST_LIST}
-          thumbnailStr={d.title}
-          playCount={d.playCount}
-          likeCount={d.likeCount}
-          commentCount={d.commentCount}
-          imageUrl={d.imageUrl}
-          testId={d.id}
-        />
-      ))}
+      {data.testArr.length > 0 ? (
+        data.testArr.map((d, i) => (
+          <TestSetComplete
+            key={i}
+            type={TYPE_TEST_LIST}
+            thumbnailStr={d.title}
+            playCount={d.playCount}
+            likeCount={d.likeCount}
+            commentCount={d.commentCount}
+            imageUrl={d.imageUrl}
+            testId={d.id}
+          />
+        ))
+      ) : (
+        <div className={styles.loadImgWrap_1}>
+          <div ref={containerRef_1}></div>
+        </div>
+      )}
 
       {data.hasNextPage && (
         <div className={styles.seeMoreWrap} onClick={clickSeeMoreBtn}>

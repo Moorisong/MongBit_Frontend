@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import lottie from 'lottie-web';
 
 import styles from './index.module.css';
+import animationData_1 from './loading_1.json';
 import { TitleWithText } from '../../components/Titles';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
@@ -27,9 +29,24 @@ export default function Main() {
   // }, [])
 
   const navigate = useNavigate();
+  const containerRef_1 = useRef(null);
   const [latestTestData, setLatestTestData] = useState({
     testArr: [],
   });
+
+  useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_1.current,
+      renderer: 'svg',
+      animationData: animationData_1,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     sessionStorage.getItem('mbResult') === '' &&
@@ -72,7 +89,7 @@ export default function Main() {
         <div className={styles.miniTestWrap}>
           <TitleWithText title="💙 최신 심테" />
           <div className={styles.latesCardWrap}>
-            {latestTestData.testArr.length > 0 &&
+            {latestTestData.testArr.length > 0 ? (
               latestTestData.testArr.map((t, i) => (
                 <TestCard
                   key={i}
@@ -82,7 +99,12 @@ export default function Main() {
                   thumbnailUri={t.imageUrl}
                   playCnt={t.playCount}
                 />
-              ))}
+              ))
+            ) : (
+              <div className={styles.loadImgWrap_1}>
+                <div ref={containerRef_1}></div>
+              </div>
+            )}
           </div>
         </div>
       </div>
