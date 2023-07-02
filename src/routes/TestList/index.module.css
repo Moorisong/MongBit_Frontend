@@ -96,3 +96,15 @@
   width: 100px;
   border-radius: 15px;
 }
+
+.loadImgWrap_1 {
+  width: 370px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.loadImgWrap_1 > div {
+  width: 200px;
+  margin-top: 200px;
+}

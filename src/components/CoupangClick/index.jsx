@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
+import lottie from 'lottie-web';
 
 import NavigationBar from '../NavigationBar';
 import Footer from '../Footer';
@@ -8,6 +9,7 @@ import ResultLoading from '../ResultLoading';
 import styles from './index.module.css';
 import { CardButton, CommentReadOnly } from '../ButtonSets';
 import { getHeaders } from '../../util/util';
+import animationData_1 from './commentAreaLaoadingIcon.json';
 import {
   DOMAIN_BE_PROD,
   DOMAIN_BE_DEV,
@@ -17,6 +19,7 @@ import {
 
 export default function CoupangClick(props) {
   const { testId } = useParams();
+  const containerRef_1 = useRef(null);
   const [showLoading, setShowLoading] = useState(false);
   const [data, setData] = useState({
     testId: testId,
@@ -40,6 +43,20 @@ export default function CoupangClick(props) {
         alert(err.response.data);
         navigate('/login');
       });
+  }, []);
+
+  useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_1.current,
+      renderer: 'svg',
+      animationData: animationData_1,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
   }, []);
 
   useEffect(() => {
@@ -98,20 +115,26 @@ export default function CoupangClick(props) {
           </div>
         </div>
       )}
-
       {showLoading || (
         <div className={styles.commentWrap}>
           <CardButton type={TYPE_COMMENT} />
-          {data.comment.map((com, i) => (
-            <div key={i} className={styles.commentContentWrap}>
-              <CommentReadOnly
-                data={com}
-                memberId={data.memberId}
-                testId={data.testId}
-                id={com.id}
-              />
+
+          {data.comment.length > 0 ? (
+            data.comment.map((com, i) => (
+              <div key={i} className={styles.commentContentWrap}>
+                <CommentReadOnly
+                  data={com}
+                  memberId={data.memberId}
+                  testId={data.testId}
+                  id={com.id}
+                />
+              </div>
+            ))
+          ) : (
+            <div className={styles.loadImgWrap_1}>
+              <div ref={containerRef_1}></div>
             </div>
-          ))}
+          )}
         </div>
       )}
 

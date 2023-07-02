@@ -1,7 +1,9 @@
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import lottie from 'lottie-web';
 
+import animationData_1 from './loading_2.json';
 import TestPreview from '../../components/TestPreview';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
@@ -16,8 +18,17 @@ export default function RandomTest() {
   const [thumbnailUri, setThumbnailUri] = useState('');
   const [testId, setTestId] = useState('');
   const navigate = useNavigate();
+  const containerRef_1 = useRef(null);
 
   useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_1.current,
+      renderer: 'svg',
+      animationData: animationData_1,
+      loop: true,
+      autoplay: true,
+    });
+
     const headers = getHeaders();
     axios
       .get(`${DOMAIN_BE_PROD}/api/v1/tests/random`, { headers })
@@ -32,13 +43,17 @@ export default function RandomTest() {
         alert(err.response.data);
         navigate('/login');
       });
+
+    return () => {
+      anim.destroy();
+    };
   }, []);
 
   return (
     <div className={styles.wrap}>
       <NavigationBar />
 
-      {description && (
+      {description ? (
         <TestPreview
           testId={testId}
           thumbnailStr={thumbnailStr}
@@ -46,6 +61,10 @@ export default function RandomTest() {
           description={description}
           thumbnailUri={thumbnailUri}
         />
+      ) : (
+        <div className={styles.loadImgWrap_1}>
+          <div ref={containerRef_1}></div>
+        </div>
       )}
       <Footer />
     </div>

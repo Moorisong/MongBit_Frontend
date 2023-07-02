@@ -1,8 +1,10 @@
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import cx from 'classnames';
+import lottie from 'lottie-web';
 
+import animationData_1 from './loading_1.json';
 import Footer from '../../components/Footer';
 import NavigationBar from '../../components/NavigationBar';
 import {
@@ -16,6 +18,7 @@ import { getHeaders } from '../../util/util';
 
 export default function TestOn() {
   const navigate = useNavigate();
+  const containerRef_1 = useRef(null);
   const { testId } = useParams();
 
   let [testData, setTestData] = useState({});
@@ -40,6 +43,18 @@ export default function TestOn() {
         alert(err.response.data);
         navigate('/login');
       });
+
+    const anim = lottie.loadAnimation({
+      container: containerRef_1.current,
+      renderer: 'svg',
+      animationData: animationData_1,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
   }, []);
 
   useEffect(() => {
@@ -118,7 +133,7 @@ export default function TestOn() {
         </div>
       </div>
 
-      {testData.questions &&
+      {testData.questions ? (
         testData.questions.map(
           (q, i) =>
             qstStageIdx === q.index + 1 && (
@@ -133,7 +148,12 @@ export default function TestOn() {
                 clickGoBack={clickGoBack}
               />
             )
-        )}
+        )
+      ) : (
+        <div className={styles.loadImgWrap_1}>
+          <div ref={containerRef_1}></div>
+        </div>
+      )}
       <div className={`${styles.bgWhite} ${styles.footerWrap}`}>
         <Footer type={TYPE_MYPAGE} />
       </div>

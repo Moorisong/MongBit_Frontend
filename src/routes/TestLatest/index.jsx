@@ -1,8 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import cx from 'classnames';
+import lottie from 'lottie-web';
 
+import animationData_1 from './loading_2.json';
 import { TitleWithText } from '../../components/Titles';
 import { TestSetComplete } from '../../components/TestSets';
 import NavigationBar from '../../components/NavigationBar';
@@ -21,9 +23,25 @@ export default function TestLatest() {
     hasNextPage: false,
   });
   const [slideIn, setSlideIn] = useState(false);
+  const containerRef_1 = useRef(null);
+
   const titleStr = '😜 최신 심테';
   const contentStr = '몽빗 최신 심테들 여기 다 모여있어요!';
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_1.current,
+      renderer: 'svg',
+      animationData: animationData_1,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     const headers = getHeaders();
@@ -63,18 +81,24 @@ export default function TestLatest() {
         />
       </div>
 
-      {data.testArr.map((d, i) => (
-        <TestSetComplete
-          key={i}
-          type={TYPE_TEST_LIST}
-          thumbnailStr={d.title}
-          playCount={d.playCount}
-          likeCount={d.likeCount}
-          commentCount={d.commentCount}
-          imageUrl={d.imageUrl}
-          testId={d.id}
-        />
-      ))}
+      {data.testArr.length > 0 ? (
+        data.testArr.map((d, i) => (
+          <TestSetComplete
+            key={i}
+            type={TYPE_TEST_LIST}
+            thumbnailStr={d.title}
+            playCount={d.playCount}
+            likeCount={d.likeCount}
+            commentCount={d.commentCount}
+            imageUrl={d.imageUrl}
+            testId={d.id}
+          />
+        ))
+      ) : (
+        <div className={styles.loadImgWrap_1}>
+          <div ref={containerRef_1}></div>
+        </div>
+      )}
 
       <div
         className={cx(styles.goRandomBtnWrap, {

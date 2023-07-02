@@ -49,8 +49,8 @@ export function TestButton(props) {
           props.btnType === 'like'
             ? cn_1
             : props.btnType === 'linkCopy'
-            ? cn_3
-            : cn_2
+              ? cn_3
+              : cn_2
         }
       ></button>
       <p className={styles.btnNameText}>{props.str}</p>
@@ -208,9 +208,8 @@ export function Comment(props) {
                 }}
               ></input>
             }
-            <span className={styles.charsLimit}>{`${
-              newValue ? newValue.length : props.data.content.length
-            } / 100`}</span>
+            <span className={styles.charsLimit}>{`${newValue ? newValue.length : props.data.content.length
+              } / 100`}</span>
             <button
               onClick={updateComment}
               className={styles.newCommRightBtn_apply}
@@ -232,10 +231,10 @@ export function Comment(props) {
         // Admin일 때는 모든 댓글 삭제만 가능하도록 함
         decodeToken().role === 'ROLE_ADMIN'
           ? isCommentEditMode || (
-              <div className={styles.modifyArea}>
-                <div className={styles.modifyWrap}>
-                  {sessionStorage.getItem('mongBitmemeberId') ===
-                    props.data.memberId && (
+            <div className={styles.modifyArea}>
+              <div className={styles.modifyWrap}>
+                {sessionStorage.getItem('mongBitmemeberId') ===
+                  props.data.memberId && (
                     <button
                       onClick={() => {
                         if (sessionStorage.getItem('mbComm')) {
@@ -248,49 +247,49 @@ export function Comment(props) {
                       수정
                     </button>
                   )}
-                  <button
-                    onClick={() => {
-                      if (sessionStorage.getItem('mbComm')) return;
-                      const result = confirm('삭제 하시겠습니까?');
-                      if (result) return props.deleteComment();
-                      if (!result) return;
-                    }}
-                  >
-                    삭제
-                  </button>
-                </div>
+                <button
+                  onClick={() => {
+                    if (sessionStorage.getItem('mbComm')) return;
+                    const result = confirm('삭제 하시겠습니까?');
+                    if (result) return props.deleteComment();
+                    if (!result) return;
+                  }}
+                >
+                  삭제
+                </button>
               </div>
-            )
+            </div>
+          )
           : //일반 User는 본인이 작성한 댓글에만 수정, 삭제 가능하도록 함
-            sessionStorage.getItem('mongBitmemeberId') ===
-              props.data.memberId &&
-            (isCommentEditMode || (
-              <div className={styles.modifyArea}>
-                <div className={styles.modifyWrap}>
-                  <button
-                    onClick={() => {
-                      if (sessionStorage.getItem('mbComm')) {
-                        return setIsCommentEditMode(false);
-                      }
-                      sessionStorage.setItem('mbComm', true);
-                      setIsCommentEditMode(true);
-                    }}
-                  >
-                    수정
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (sessionStorage.getItem('mbComm')) return;
-                      const result = confirm('삭제 하시겠습니까?');
-                      if (result) return props.deleteComment();
-                      if (!result) return;
-                    }}
-                  >
-                    삭제
-                  </button>
-                </div>
+          sessionStorage.getItem('mongBitmemeberId') ===
+          props.data.memberId &&
+          (isCommentEditMode || (
+            <div className={styles.modifyArea}>
+              <div className={styles.modifyWrap}>
+                <button
+                  onClick={() => {
+                    if (sessionStorage.getItem('mbComm')) {
+                      return setIsCommentEditMode(false);
+                    }
+                    sessionStorage.setItem('mbComm', true);
+                    setIsCommentEditMode(true);
+                  }}
+                >
+                  수정
+                </button>
+                <button
+                  onClick={() => {
+                    if (sessionStorage.getItem('mbComm')) return;
+                    const result = confirm('삭제 하시겠습니까?');
+                    if (result) return props.deleteComment();
+                    if (!result) return;
+                  }}
+                >
+                  삭제
+                </button>
               </div>
-            ))
+            </div>
+          ))
       }
     </div>
   );

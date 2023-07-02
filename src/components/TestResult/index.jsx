@@ -9,6 +9,7 @@ import styles from './index.module.css';
 import CoupangAdv_1 from '../CoupangAdv_1';
 import { Stroke, Comment, AddCommentButton } from '../ButtonSets';
 import animationData_1 from './commentLoading.json';
+import animationData_2 from './commentAreaLaoadingIcon.json';
 import { TestButton, CardButton } from '../ButtonSets';
 import { decodeToken, shareToKatalk_result, getHeaders } from '../../util/util';
 import {
@@ -111,6 +112,20 @@ export default function TestResult(props) {
   }, [commentSeeMoreLoading]);
 
   useEffect(() => {
+    const anim = lottie.loadAnimation({
+      container: containerRef_2.current,
+      renderer: 'svg',
+      animationData: animationData_2,
+      loop: true,
+      autoplay: true,
+    });
+
+    return () => {
+      anim.destroy();
+    };
+  }, [commentLoading]);
+
+  useEffect(() => {
     const headers = getHeaders();
     const fetchLikeDataLogIned = async () => {
       try {
@@ -119,12 +134,9 @@ export default function TestResult(props) {
             `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/${memberId}/like`,
             { headers }
           ),
-          axios.get(
-            `${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`,
-            {
-              headers,
-            }
-          ),
+          axios.get(`${DOMAIN_BE_PROD}/api/v1/test/${props.testId}/like/count`, {
+            headers,
+          }),
         ]);
 
         setLikeData((prev) => ({
