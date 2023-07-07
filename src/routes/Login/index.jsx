@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import styles from './index.module.css';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
@@ -38,10 +40,15 @@ export default function Login() {
       />
       <div className={styles.docs}>
         <span>
-          <p>이용약관</p>
+          <Link to="/terms" target="_blank">
+            <p>이용약관</p>
+          </Link>
         </span>
+
         <span>
-          <p>개인정보처리방침</p>
+          <Link to="/policy" target="_blank">
+            <p>개인정보처리방침</p>
+          </Link>
         </span>
       </div>
       <Footer type={TYPE_LOGIN} />
