@@ -60,7 +60,6 @@ export default function TestPreview(props) {
 
   const memberId = sessionStorage.getItem('mongBitmemeberId');
 
-
   useEffect(() => {
     document
       .querySelector('meta[property="og:url"]')
@@ -354,7 +353,6 @@ export default function TestPreview(props) {
   }
   return (
     <div className={styles.wrap}>
-
       {/* SEO-- ksh
       <Helmet>
         <title>{`몽빗 : ${props.thumbnailStr}`}</title>

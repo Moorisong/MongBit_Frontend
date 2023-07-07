@@ -16,6 +16,8 @@ import NeedLogIn from './NeedLogIn';
 import ExeptionPage from './ExceptionPage';
 import DevInfo from './DevInfo';
 import CoupangClick from '../components/CoupangClick';
+import TermsService from './TermsService';
+import PrivacyPolicy from './PrivacyPolicy';
 
 function Router() {
   return (
@@ -36,6 +38,8 @@ function Router() {
       <Route path="/exception" element={<ExeptionPage />} />
       <Route path="/admin" element={<Admin />} />
       <Route path="/devInfo" element={<DevInfo />} />
+      <Route path="/terms" element={<TermsService />} />
+      <Route path="/policy" element={<PrivacyPolicy />} />
       <Route path="/login/oauth2/kakao/code" element={<KakaoAuthHandle />} />
     </Routes>
   );
