@@ -32,7 +32,7 @@
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  margin-bottom: 120px;
+  margin-bottom: 100px;
 }
 .textSamll {
   color: black;
@@ -60,20 +60,4 @@
   width: 12rem;
   height: 5rem;
   margin: 50px 0 20px 0;
-}
-
-.docs {
-  width: 100%;
-  max-width: 400px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-bottom: -30px;
-}
-
-.docs p {
-  width: 5rem;
-  color: #979797;
-  font-size: 0.7rem;
-  font-weight: 400;
 }
