@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import styles from './index.module.css';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
@@ -38,19 +36,6 @@ export default function Login() {
           kakaoLogin();
         }}
       />
-      <div className={styles.docs}>
-        <span>
-          <Link to="/terms" target="_blank">
-            <p>이용약관</p>
-          </Link>
-        </span>
-
-        <span>
-          <Link to="/policy" target="_blank">
-            <p>개인정보처리방침</p>
-          </Link>
-        </span>
-      </div>
       <Footer type={TYPE_LOGIN} />
     </div>
   );
