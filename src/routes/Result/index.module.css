@@ -16,6 +16,10 @@
   }
 }
 
+.displayNone {
+  display: none;
+}
+
 .bgWhite {
   background-color: white;
   display: flex;

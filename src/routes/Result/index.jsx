@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
+import cx from 'classnames';
 
 import styles from './index.module.css';
 import NavigationBar from '../../components/NavigationBar';
@@ -107,17 +108,22 @@ export default function Result() {
         <NavigationBar />
       </div>
       {loading && <ResultLoading />}
-      {loading ||
-        (resultData.titleStr && (
-          <TestResult
-            titleStr={resultData.titleStr}
-            contentStrArr={resultData.contentStrArr}
-            likeCnt={resultData.likeCnt && resultData.likeCnt}
-            testId={testId}
-            imgUri={resultData.imgUri}
-            testResultId={resultData.testResultId}
-          />
-        ))}
+
+      <div
+        className={cx(styles.resultWrap, {
+          [styles.displayNone]: loading,
+        })}
+      >
+        <TestResult
+          loadingState={loading}
+          titleStr={resultData.titleStr}
+          contentStrArr={resultData.contentStrArr}
+          likeCnt={resultData.likeCnt && resultData.likeCnt}
+          testId={testId}
+          imgUri={resultData.imgUri}
+          testResultId={resultData.testResultId}
+        />
+      </div>
       <div className={`${styles.bgWhite} ${styles.footerWrap}`}>
         <Footer />
       </div>
