@@ -6,7 +6,7 @@ import styles from './index.module.css';
 import NavigationBar from '../../components/NavigationBar';
 import Footer from '../../components/Footer';
 import TestResult from '../../components/TestResult';
-import { decodeToken, getHeaders } from '../../util/util';
+import { getHeaders } from '../../util/util';
 import { DOMAIN_BE_PROD, DOMAIN_BE_DEV } from '../../constants/constant';
 import { COUPANG_VISIT } from '../../constants/constant';
 import ResultLoading from '../../components/ResultLoading';
@@ -26,18 +26,15 @@ export default function Result() {
   const memberId = sessionStorage.getItem('mongBitmemeberId');
 
   useEffect(() => {
-    if (!decodeToken().state) {
-      sessionStorage.setItem('ngb', location.pathname);
-      return navigate('/need-login');
-    }
+    sessionStorage.setItem('ngb', location.pathname);
     checkCoupnagSiteVisit();
+
+    window.onpopstate = handlePopstate;
 
     if (!sessionStorage.getItem('mbScore'))
       return navigate(
         `/record/${testId}/${sessionStorage.getItem('mbResultId')}`
       );
-
-    window.onpopstate = handlePopstate;
 
     const headers = getHeaders();
 
