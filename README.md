@@ -1,5 +1,8 @@
 ## 몽빗(MongBit)
 
+### English Description
+- url : https://mikidocu.notion.site/MIKI-s-RESUME-44741c29620d491ab7e9273917388759?pvs=4
+
 ### MBTI 심리테스트 서비스
 - https://mongbit.vercel.app/
 
